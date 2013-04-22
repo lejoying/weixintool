@@ -1,0 +1,3 @@
+[submodule "node_modules/redis"]
+	path = node_modules/redis
+	url = https://github.com/mranney/node_redis.git
