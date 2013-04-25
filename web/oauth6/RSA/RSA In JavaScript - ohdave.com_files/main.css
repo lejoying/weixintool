@@ -1,0 +1,127 @@
+BODY {
+	font-family: calibri,tahoma,verdana,arial,sans-serif;
+	font-size: 12px;
+	background: #ffffff;
+}
+
+a {
+	color:rgb(17,119,68);text-decoration:none;
+}
+
+a:visited {
+	color:rgb(17,119,68);text-decoration:none;
+}
+
+a:hover {
+	color:rgb(17,119,68);text-decoration:underline;
+}
+
+/*a.title-link {
+	color:#666 !important;text-decoration:none
+}*/
+
+.linx {
+	/*padding-right:10px;*/
+}
+
+.maintitle {
+	font-size:32pt; /*font-weight:bold;*/
+}
+
+.titlehumor {
+	font-size:12;color:#aaaaaa;margin-left:20px;
+}
+
+.maintitle a {color:black; text-decoration:none;}
+.maintitle a:visited {color:black; text-decoration:none;}
+.maintitle a:hover {color:rgb(17,119,68); text-decoration:none;}
+
+/*
+.maintitleline {
+	border-bottom:solid 1px #888888;
+}
+*/
+
+.leftcolumn {
+	background-color:#ffffff;
+	padding-left:10px;
+	padding-right:20px;
+	border-top:solid 1px #888888;
+}
+
+.leftcolumnheading {
+	padding-top:10px;
+	font-size:18pt;
+	border-bottom:solid 1px #dfdfdf;
+}
+
+.leftcolumnitems {
+	padding-top:10px;
+}
+
+.leftcolumnitems a {color:black; text-decoration:none;}
+.leftcolumnitems a:visited {color:black; text-decoration:none;}
+.leftcolumnitems a:hover {color:rgb(17,119,68); text-decoration:none;}
+
+.leftcolumncell {
+	height:90px;
+	background-color:#ffffff;
+	border:1px solid #ffffff;
+	padding:8px;
+	cursor:pointer;
+}
+
+.leftcolumncellimage {
+	float:left;
+	border:0px;
+	margin-right:20px;
+}
+
+.leftcolumnitemtitle {
+	font-size:14pt;font-weight:bold;
+}
+
+.leftcolumnitemdescription {
+	color:black;font-size:11pt;font-weight:normal;
+}
+
+.sidebar {
+	color:#abcdef;
+	background:#784511;
+	border-top:solid 2px #e08224;
+	border-left:solid 2px #e08224;
+	border-right:solid 2px #e08224;
+	border-bottom:solid 2px #e08224;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.sidebar a {color:#34cdef; text-decoration:none;}
+.sidebar a:visited {color:#34cdef; text-decoration:none;}
+.sidebar a:hover {color:#34cdef; text-decoration:underline;}
+
+.sidebarheading {
+	padding-top:9px;
+	font-size:18pt;
+	border-bottom:solid 1px #888899;
+}
+
+.sidebaritems {
+	padding-top:10px;
+	font-size:10pt;
+}
+
+.sidebarlist {
+	list-style-type:circle;
+}
+
+.sidebartextarea {
+	color:#ffffff;
+	background-color:#784511;
+	border:solid 1px #e08224;
+}
+
+.lawyers {
+	border-top:solid 1px #888888;
+	font-size:8pt;
+}

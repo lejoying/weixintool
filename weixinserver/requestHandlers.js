@@ -41,4 +41,16 @@ requestHandlers.demo3 = function (request, response, pathObject, getParam) {
     }
 };
 
+
+var accountManage = require('./handlers/accountManage');
+requestHandlers.accountManage = function (request, response, pathObject, getParam) {
+    var operation = pathObject["operation"];
+    if (operation == "get") {
+        accountManage.get(response);
+    } else if (operation == "auth") {
+        accountManage.auth(response);
+    }
+};
+
+
 module.exports = requestHandlers;
