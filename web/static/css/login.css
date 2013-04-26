@@ -1,6 +1,6 @@
 @charset "utf-8";
 body{
-	background:url(/static/images/login/login_bg.gif) repeat-x;	
+	background:url(/static/images/login/login_bg.gif) #506f98 repeat-x;	
 }
 .head{
 	height:64px;
