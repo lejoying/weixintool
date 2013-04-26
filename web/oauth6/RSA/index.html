@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0026)http://www.ohdave.com/rsa/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="./RSA In JavaScript - ohdave.com_files/main.css">
+
+<meta name="Author" content="Dave Shapiro">
+<meta name="Keywords" content="RSA; JavaScript; Cryptography; Encryption; Public Key; Infinite Precision; Multiple Precision; Arbitrary Precision; Barrett; Dave Shapiro; David Shapiro; Number Theory">
+<title>RSA In JavaScript - ohdave.com</title>
+<script language="JavaScript" src="./RSA In JavaScript - ohdave.com_files/BigInt.js"></script>
+<script language="JavaScript" src="./RSA In JavaScript - ohdave.com_files/Barrett.js"></script>
+<script language="JavaScript" src="./RSA In JavaScript - ohdave.com_files/RSA.js"></script>
+<script language="JavaScript">var key;function createKey()
+{var f=document.frm;var index=f.selKeySize.selectedIndex;var keySize=Number(f.selKeySize.options[index].value);if(keySize==128){setMaxDigits(19);key=new RSAKeyPair("10001","202700adbd85e2d7182720c3a0ee19c1","30db31542ace0f7d37a629ee5eba28cb");}
+else if(keySize==256){setMaxDigits(38);key=new RSAKeyPair("10001","8064edb1f26944f6bec2b68789db7ffd08b074d0953b76feca71dc8265c60e9","2687f5ac6c70f9cab32fcbded7059502f4c7cc95fc3e09a560c68975ac4bf5e3");}
+else if(keySize==512){setMaxDigits(76);key=new RSAKeyPair("10001","59fed719f8959a468de367f77a33a7536d53b8e4d25ed49ccc89a94cd6899da90415623fb73386e9635034fb65ad5f248445a1c66703f760d64a8271ad342b1","8de7066f67be16fcacd05d319b6729cd85fe698c07cec504776146eb7a041d9e3cacbf0fcd86441981c0083eed1f8f1b18393f0b186e47ce1b7b4981417b491");}
+else if(keySize==1024){setMaxDigits(130);key=new RSAKeyPair("10001","12e8da920d4599458e84ec5ef1656161807f427d05eb79182b7418259d6f6c14364d1f5caf9130c8d9d9d6ea71d1bdbc87781a46a16bcb9e672814fed3b9c96ddffe0a1b0955ae68055c8f92fef518a04fc32a2ea8390e617cc5556a251f9ae9eee70a32e579cb3e9f298848a9b3aaf634f5930ffbf74473f7cb6c0cefee1751","130ebebd67b16a9ab2c53a437badbf8f01a80c750095a7fcfe95742c3d5ed1abb318babc5cb5d9350fee4da65ee074f65e1758117e6945f0fcfc8137528053ce9d1da8618890dee24e5e0bf8c87795bb1d09eddd544640824ee0dd0ea9fd908d27b0f8a1ae5c37f3647fbf2f5795500ad76c195b3387d0458a8f51b701472301");}
+else if(keySize==2048){setMaxDigits(260);key=new RSAKeyPair("10001","409c6fe2b6474762b5c07f4e55ef80d174814dc1fb0fb58e979691116fb3dc433f759ff8a88d1a0f0666862b0b3758c54b7355fa87ee827369381e1f97c5d74944e032c7186b51a956fb49d6deb3aee0b2c7e65fc53bfd46d217764850667ed0363de143f3f3d06d5a0018693ad3dacdf78a18d037ceeccb7508776f27b30852b8b505666a8dca5bfbb455d2f85918f8b5295061c97673c78802c5f5cf4581c7215dc32af8dfb6fc10e9ba51fb5a88abab94157ccecf615e104a91a45e9bee072fe7b388344c1bbad4a8f7d5daeccbadf778d59eff2a491a067bba5343c5a094c61b575fe367ecfcc01c3d208c2f8c05b9496a929b2b72e70160d07d07f248f1","9800012b1e533c2c28187424e1289fd4f7fe67487058f5ac7f27f18476c6c93db20b6d2c63d04ff310c1e7211cf8014adc006176529abc53fd1780274fc2629cf51d627c7465c3cbf4f110c3560e2128b97c4ea8a431f0b2a326fc31899790515ad45874ca75c68ee6695558736490ea895d598b8525bccab3156104d360b115ae25e99e9d899a2219136bad0336eeee0c6d725aa9c3b6b923c1ad95a9057b9deb7b563e05614acc800d9d8ec5de405d74feea722c5146feb80829508180ab5c80bf792b83f07c04c73ce0b3cf0d9f74aa92a4704819d103e58f5d4b8ca750148ba1cbab8eb55f92775b18da427c3a0b592809f3853274841a44b7129ec6a623");}}
+function bodyLoad()
+{createKey();key=new RSAKeyPair("5ABB","01146BD07F0B74C086DF00B37C602A0B","01D7777C38863AEC21BA2D91EE0FAF51");var f=document.frm;f.selRadix.selectedIndex=key.radix-2;}
+function cmdShowKeyClick()
+{var m=biToString(key.m,key.radix);var e=biToString(key.e,key.radix);var d=biToString(key.d,key.radix);document.frm.txtMessages.value="Key:\n"+"m = "+m+"\n"+"e = "+e+"\n"+"d = "+d;}
+function cmdEncryptClick()
+{with(document.frm){txtMessages.value="Encrypting. Please wait...";txtCiphertext.value="";txtVerification.value="";var t1=new Date().getTime();txtCiphertext.value=encryptedString(key,txtPlaintext.value);var t2=new Date().getTime();txtMessages.value="Done. Encryption took "+(t2-t1)+" milliseconds.";}}
+function cmdVerifyClick()
+{with(document.frm){txtMessages.value="Decrypting. Please wait...";txtVerification.value="";var t1=new Date().getTime();txtVerification.value=decryptedString(key,txtCiphertext.value);var t2=new Date().getTime();txtMessages.value="Done. Decryption took "+(t2-t1)+" milliseconds.";}}
+function changeCiphertextRadix(oldRadix,newRadix)
+{var f=document.frm;var oldBlocks=f.txtCiphertext.value.split(" ");var newBlocks="";for(var i=0;i<oldBlocks.length;++i){var oldBlock=oldBlocks[i];var bi;if(oldRadix==16){bi=biFromHex(oldBlock);}
+else{bi=biFromString(oldBlock,oldRadix);}
+var newBlock;if(newRadix==16){newBlock=biToHex(bi);}
+else{newBlock=biToString(bi,newRadix);}
+newBlocks+=newBlock+" ";}
+newBlocks=newBlocks.substring(0,newBlocks.length-1);f.txtCiphertext.value=newBlocks;}
+function selKeySizeChange()
+{var f=document.frm;f.txtCiphertext.value="";createKey();}
+function selRadixChange()
+{var f=document.frm;var index=f.selRadix.selectedIndex;var newRadix=Number(f.selRadix.options[index].value);if(f.txtCiphertext.value!=""){changeCiphertextRadix(key.radix,newRadix);}
+key.radix=newRadix;}</script>
+</head>
+<body onload="bodyLoad()">
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tbody><tr valign="top" width="100%">
+<td align="left">
+<span class="maintitle"><a href="http://www.ohdave.com/">ohdave.com</a></span>
+<span class="titlehumor">Equal parts Joe Diffie and Diffie-Hellman</span>
+</td>
+<td align="right" class="linx">
+<a href="http://www.ohdave.com/dashboard">dashboard</a>
+|
+<a href="http://www.ohdave.com/contact.php">contact</a>
+|
+<a href="http://www.ohdave.com/blog">blog</a>
+|
+<a target="_new" href="http://twitter.com/daveohdave">twitter</a>
+</td>
+</tr>
+</tbody></table>
+<!-- Main section. -->
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+<tbody><tr valign="top" width="100%">
+<!-- Left column. -->
+<td width="65%" class="leftcolumn">
+<div class="leftcolumnheading">
+RSA in JavaScript
+</div>
+<p>
+The example below uses my 100% JavaScript multiple-precision math
+library. The encryption exponent is small-ish, making for faster
+encryption. Presumably, decryption would be handled on the server,
+where things aren't as slow.
+</p>
+<p>
+In a nutshell, here are the JavaScript files you need:
+</p><ul class="sidebarlist">
+<li><a href="./RSA In JavaScript - ohdave.com_files/BigInt.js">Multiple-precision library</a></li>
+<li><a href="./RSA In JavaScript - ohdave.com_files/Barrett.js">Barrett modular reduction library</a></li>
+<li><a href="./RSA In JavaScript - ohdave.com_files/RSA.js">RSA library</a></li>
+</ul>
+<p></p>
+<p>
+Additionally, I wrote a Windows application that generates random keys
+for use with the JavaScript library. It even generates the JavaScript
+source code. Paste and go!
+</p><ul class="sidebarlist">
+<li><a href="http://www.ohdave.com/rsa/RSAKeyGenerator.zip">RSA Key Generator</a></li>
+<li><a href="http://www.ohdave.com/rsa/RSAKeyGeneratorSourceCode.zip">RSA Key Generator source code</a></li>
+</ul>
+<p></p>
+<p>
+<i>Note:</i> The RSA key generator application is written in
+Delphi 4, which is Object Pascal. This includes a re-implementation of
+the multiple-precision library and the Miller-Rabin test for
+primality. Keys are generated using Algorithm 8.1 from the
+<a target="_new" href="http://www.cacr.math.uwaterloo.ca/hac">Handbook of Applied Cryptography</a>. <i>However</i>, the actual
+random-number generation is not particularly robust. I just use the
+built-in functions in Delphi, seeded from the system clock. If you
+want to get fancy, you should write a better random-number generator.
+</p>
+</td>
+<!-- End left column. -->
+<!-- Sidebar. -->
+<td width="35%" class="sidebar">
+<div class="sidebarheading">Try it out</div>
+<!-- Sidebar items. -->
+<div class="sidebaritems">
+<form name="frm">
+Key size:
+<select name="selKeySize" onchange="selKeySizeChange()">
+<option value="128">128
+</option><option value="256">256
+</option><option value="512">512
+</option><option value="1024">1024
+</option><option value="2048">2048
+</option></select>
+bits
+&nbsp;
+&nbsp;
+Display radix:
+<select name="selRadix" onchange="selRadixChange()">
+<option value="2">2
+</option><option value="3">3
+</option><option value="4">4
+</option><option value="5">5
+</option><option value="6">6
+</option><option value="7">7
+</option><option value="8">8
+</option><option value="9">9
+</option><option value="10">10
+</option><option value="11">11
+</option><option value="12">12
+</option><option value="13">13
+</option><option value="14">14
+</option><option value="15">15
+</option><option value="16">16
+</option><option value="17">17
+</option><option value="18">18
+</option><option value="19">19
+</option><option value="20">20
+</option><option value="21">21
+</option><option value="22">22
+</option><option value="23">23
+</option><option value="24">24
+</option><option value="25">25
+</option><option value="26">26
+</option><option value="27">27
+</option><option value="28">28
+</option><option value="29">29
+</option><option value="30">30
+</option><option value="31">31
+</option><option value="32">32
+</option><option value="33">33
+</option><option value="34">34
+</option><option value="35">35
+</option><option value="36">36
+</option></select>
+&nbsp;
+&nbsp;
+<input type="button" value="Show Key" name="cmdShowKey" onclick="cmdShowKeyClick()">
+<div style="padding-top:10px">
+<div>Plaintext</div>
+<textarea rows="3" style="width:100%;" class="sidebartextarea" name="txtPlaintext">Type your plaintext here. Then click "Encrypt" to encrypt it.</textarea>
+<div align="right">
+<input type="button" value="Encrypt" name="cmdEncrypt" onclick="cmdEncryptClick()">
+</div>
+</div>
+<div style="padding-top:10px">
+<div>Ciphertext</div>
+<textarea rows="3" style="width:100%" class="sidebartextarea" name="txtCiphertext" readonly=""></textarea>
+<div align="right">
+<input type="button" value="Verify" name="cmdVerify" onclick="cmdVerifyClick()">
+</div>
+</div>
+<div style="padding-top:10px">
+<div>Verification</div>
+<textarea rows="3" style="width:100%" class="sidebartextarea" name="txtVerification" readonly=""></textarea>
+</div>
+<div style="padding-top:10px">
+<div>Messages</div>
+<textarea rows="3" style="width:100%" class="sidebartextarea" name="txtMessages" readonly=""></textarea>
+</div>
+</form>
+</div>
+<!-- End sidebar items. -->
+</td>
+<!-- End sidebar. -->
+</tr>
+</tbody></table>
+<div style="width:100%;padding-top:20px">
+<div class="lawyers">
+copyright 1998-2013 dave shapiro
+<br>
+<a href="mailto:dave@ohdave.com">dave@ohdave.com</a>
+</div>
+</div>
+
+
+</body></html>

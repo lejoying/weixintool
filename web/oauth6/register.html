@@ -1,0 +1,83 @@
+﻿<html>
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=utf8">
+    <title>微博发布工具(离线多账号)</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/openContent.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/open.css">
+
+
+</head>
+<body style="background: #ebedf0 repeat-x 0 -33px;">
+<div class="loginPanel innerPanel">
+    <div class="title">
+        <h3>注册</h3>
+
+        <p>注册新的开发者账号</p>
+
+        <div class="clr"></div>
+    </div>
+    <div class="login_operate" style="display:block" id="main_register_auth">
+        <div class="content form">
+            <div class="columnTip">
+                <div id="main_register_authTip" style="display:none;" class="tip errorTip">
+                    注册失败
+                </div>
+            </div>
+            <div class="column">
+                <label>账号</label>
+                <input class="text textMiddle inputQ" id="main_register_auth_account">
+            </div>
+            <div class="column">
+                <label>密码</label>
+                <input type="password" class="text textMiddle inputQ"
+                       id="main_register_auth_password1">
+            </div>
+            <div class="column">
+                <label>重复密码</label>
+                <input type="password" class="text textMiddle inputQ"
+                       id="main_register_auth_password2">
+            </div>
+            <div class="column">
+                <label>手机</label>
+                <input class="text textMiddle inputQ" id="main_register_auth_phone">
+            </div>
+            <div class="column">
+                <label>邮箱</label>
+                <input class="text textMiddle inputQ" id="main_register_auth_email">
+            </div>
+            <div class="column">
+                <label>邀请码</label>
+                <input class="text textMiddle inputQ" id="main_register_invite_code">
+            </div>
+        </div>
+        <div class="operator">
+            <a href="javascript:;" class="login_btn_wrapper">
+                <input id="auth_register" name="btlogin" type="submit" value="立即注册"
+                       class="login_btn">
+            </a>
+
+            <div style="display: none;" id="switch3" class="lineright"></div>
+            <a class="minorLink" target="_blank" href="mailto:wsds888@qq.com">意见反馈</a>
+            <a class="minorLink">|</a>
+            <a class="minorLink switch_login_register" target="_blank" href="javascript:;">直接登录</a>
+        </div>
+    </div>
+</div>
+<div class="clr"></div>
+
+<div class="footer">
+    <p class="copyright textGray">© 2012 - 2015 SLZD All Rights Reserved.</p>
+</div>
+
+
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script language="JavaScript" src="/static/js/module.js"></script>
+<script language="JavaScript" src="/static/js/BigInt.js"></script>
+<script language="JavaScript" src="/static/js/Barrett.js"></script>
+<script language="JavaScript" src="/static/js/RSA.js"></script>
+<script language="JavaScript" src="/static/js/web/register.js"></script>
+<div>
+    <object id="ClCache" click="sendMsg" host="" width="0" height="0"></object>
+</div>
+</body>
+</html>
