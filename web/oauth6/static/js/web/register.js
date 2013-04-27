@@ -58,8 +58,8 @@ $(document).ready(function () {
 
             $.ajax({
                 data:{
-                    "account":account,
-                    "password1":password1,
+                    "accountName":account,
+                    "password":hex_sha1("password1"),
                     "phone":phone,
                     "email":email,
                     "invite":invite
@@ -77,7 +77,7 @@ $(document).ready(function () {
                     }
                 },
                 type:'GET',
-                url:("http://www.auth6.com/api2/account/add")
+                url:("http://oauth6/api2/account/add")
             });
         }
     );
