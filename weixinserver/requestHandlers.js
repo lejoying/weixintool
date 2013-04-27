@@ -43,12 +43,12 @@ requestHandlers.demo3 = function (request, response, pathObject, getParam) {
 
 
 var accountManage = require('./handlers/accountManage');
-requestHandlers.accountManage = function (request, response, pathObject, getParam) {
+requestHandlers.accountManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
-    if (operation == "get") {
-        accountManage.get(response);
+    if (operation == "add") {
+        accountManage.add(data, response);
     } else if (operation == "auth") {
-        accountManage.auth(response);
+        accountManage.auth(data, response);
     }
 };
 

@@ -135,6 +135,48 @@ $(document).ready(function () {
             url: ("/api2/account/auth")
         });
     });
+
+    $("#test_auth").click(function () {
+
+        window.alert("test_auth");
+        $.ajax({
+            data: {"text": "abc",
+                "accountName": "abc",
+                "password": hex_sha1("abc123")
+            },
+            success: function (data) {
+                RSA.setMaxDigits(38);
+                app.server.PbKey = RSA.RSAKey(data.PbKey);
+                app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
+                app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+//                alert(JSON.stringify(data));
+            },
+            type: 'GET',
+            url: ("/api2/account/auth")
+        });
+    });
+
+    $("#account_add").click(function () {
+
+        window.alert("test_auth");
+        $.ajax({
+            data: {
+                "accountName": "abc",
+                "password": hex_sha1("abc123"),
+                "phone":"15232232888",
+                "email":"avasf@163.com"
+            },
+            success: function (data) {
+//                RSA.setMaxDigits(38);
+//                app.server.PbKey = RSA.RSAKey(data.PbKey);
+//                app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
+//                app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+//                alert(JSON.stringify(data));
+            },
+            type: 'GET',
+            url: ("/api2/account/add")
+        });
+    });
 });
 
 
