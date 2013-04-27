@@ -1,15 +1,15 @@
 @charset "utf-8";
 body{
-	background:url(/static/images/login/login_bg.gif) repeat-x;	
+	background:url(/static/images/login/login_bg.gif) #506f98 repeat-x;	
 }
 .head{
 	height:64px;
-	background:#445a7e;	
+	/*background:#445a7e;	
 	border-top:1px solid #eaf2f4;
 	border-bottom:3px solid #2b465e;
 	box-shadow:0 0 4px #444;
 	text-align:center;
-	color:#fff;
+	color:#fff;*/
 	
 }
 .head_content{
@@ -53,8 +53,29 @@ body{
 	padding-top:120px;
 	background:url(/static/images/login/loginform_bg.png) 0 4px no-repeat;	
 }
+.alpht_bg, .alpht_border {
+    border-radius:12px;
+    height: 380px;
+    position: absolute;
+    width: 530px;
+}
+.alpht_bg{
+	background: none repeat scroll 0 0 #FFFFFF;	
+	opacity: 0.1;
+	top: 65px;
+	left: -15px;
+}
+.alpht_border{
+	border: 2px solid #fff;
+	left: -17px;
+    top: 63px;
+	opacity:0.3;
+}
 .loginform_padding{
 	margin-left:80px;	
+	border-radius:8px;
+	position: relative;
+    z-index: 3;
 }
 .loginform_img{
 	height:68px;
