@@ -13,11 +13,19 @@ body{
 	
 }
 .head_content{
-	width:960px;
-	height:64px;
+	width:182px;
+	height:92px;
 	/*background:#fff;*/
+	position:absolute;
+	right:0;
+	top:20px;
+}
+.content{
+	width:960px;
+	margin:0 auto;
 	position:relative;
-	margin:0 auto;	
+	height:620px;
+	border:1px dashed #8499b5;
 }
 .logo{
 	width:425px;
@@ -45,13 +53,23 @@ body{
 .login a:hover{
 	color:#c6c6c6;	
 }
-.login_form{
-	width:500px;
+.body_content{
+	width:530px;
 	height:380px;
-	position:relative;
-	margin:0 auto;
-	padding-top:120px;
-	background:url(/static/images/login/loginform_bg.png) 0 4px no-repeat;	
+	position:absolute;
+	left:215px;
+	top:133px;
+}
+.body_content_bg{
+	width:500px;
+	height:500px;
+	position:absolute;
+	left:50%;
+	top:50%;
+	z-index:-1;
+	margin-left:-250px;
+	margin-top:-260px;
+	background: url("/static/images/login/loginform_bg.png") no-repeat scroll 0 4px transparent;	
 }
 .alpht_bg, .alpht_border {
     border-radius:12px;
@@ -62,20 +80,21 @@ body{
 .alpht_bg{
 	background: none repeat scroll 0 0 #FFFFFF;	
 	opacity: 0.1;
-	top: 65px;
-	left: -15px;
+	left:2px;
+	top:2px;
 }
 .alpht_border{
 	border: 2px solid #fff;
-	left: -17px;
-    top: 63px;
+	left:0px;
+    top:0px;
 	opacity:0.3;
 }
 .loginform_padding{
-	margin-left:80px;	
+	margin-left:95px;	
 	border-radius:8px;
 	position: relative;
     z-index: 3;
+	padding-top:56px;
 }
 .loginform_img{
 	height:68px;
@@ -191,20 +210,20 @@ body{
 .small_border{
 	opacity: 0.3;
 	right: 0px;
-	top: 20px;
+	top: 0px;
 	border: 2px solid #FFFFFF;
 }
 .small_bg{
 	opacity: 0.1;
 	right:2px;
-	top:22px;
+	top:2px;
 	background:#fff;
 }
 .login_small_frame{
 	width:180px;
 	height:90px; 
 	float:right;
-	margin:22px 2px 0 0;
+	margin:0px 2px 0 0;
 	position:relative;
 	z-index:3;	
 }
