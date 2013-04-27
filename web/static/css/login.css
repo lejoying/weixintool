@@ -182,3 +182,64 @@ body{
 	background-position: -20px -20px;
 	margin-right:5px;
 }
+.small_border, .small_bg{
+	position:absolute;
+	width:180px;
+	height:90px; 
+	border-radius:6px;
+}
+.small_border{
+	opacity: 0.3;
+	right: 0px;
+	top: 20px;
+	border: 2px solid #FFFFFF;
+}
+.small_bg{
+	opacity: 0.1;
+	right:2px;
+	top:22px;
+	background:#fff;
+}
+.login_small_frame{
+	width:180px;
+	height:90px; 
+	float:right;
+	margin:22px 2px 0 0;
+	position:relative;
+	z-index:3;	
+}
+.small_frame_left{
+	border-right: 1px solid #8ba0bc;
+    float: left;
+    height: 70px;
+    margin: 10px 0;
+    width: 25px;
+}
+.small_frame_right{
+	float:left;	
+	background:url(/static/images/logo_head.png) no-repeat;
+	padding-left:50px;
+	margin:12px 0 0 12px;
+	color:#fff;
+	font-size:16px;
+	font-family:"微软雅黑";
+}
+.user_login_msg{
+	margin:12px 0 0 12px;
+	float:left;
+	color:#fff;	
+}
+.point_icon, a.point_icon:hover{
+	width:20px;
+	height:20px;
+	margin-top:24px;
+	margin-left:2px;
+	display:block;
+	cursor:pointer;	
+}
+.point_icon{
+	background:url(/static/images/public/icon/smallicon.png) -80px -20px no-repeat;	
+}
+a.point_icon:hover{
+	background:url(/static/images/public/icon/smallicon.png) -100px -20px no-repeat;		
+}
