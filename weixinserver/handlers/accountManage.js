@@ -97,72 +97,62 @@ accountManage.add = function (data, response) {
 }
 
 var RSA = require('./../tools/RSA');
-accountManage.exist = function (data,response) {
+accountManage.exist = function (data, response) {
     response.asynchronous = 1;
     account =
     {
-        "accountName": data.accessKey,
-        "type": "account",
-        "password": data.password,
-        "phone": data.phone,
-        "phoneStatus": "verified",
-        "email": data.email,
-        "emailStatus": "verifying#366541",
-        "accessKey": ["f5d4f5d46f4d65f4d654f56d4f", "4f54d6f54d65f45d6f465d4f65"]
+        "accountName": data.accountName,
+        "email": data.email
     };
-    db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
-        if (node == null) {
-            db.getIndexedNode("account", "phone", account.phone, function (err, node) {
-                if (node == null) {
-                    db.getIndexedNode("account", "email", account.email, function (err, node) {
-                        if (node == null) {
-                            var node = db.createNode(account);
-                            node.save(function (err, node) {
-                                node.data.uid = node.id;
-                                node.index("account", "accountName", account.accountName);
-                                node.index("account", "phone", account.phone);
-                                node.index("account", "email", account.email);
-                                node.save(function (err, node) {
-                                    response.write(JSON.stringify({
-                                        "information": "/api2/account/add  success",
-                                        "node": node.data
-                                    }));
-                                    response.end();
-                                });
-                            });
-                        }
-                        else {
-                            response.write(JSON.stringify({
-                                "information": "/api2/account/add  failed",
-                                "reason": "email has existed."
-                            }));
-                            response.end();
-                        }
-                    });
-                } else {
+    checkAccountName();
+
+    function checkAccountName() {
+        if (account.accountName != null) {
+            db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
+                if (node != null) {
                     response.write(JSON.stringify({
-                        "information": "/api2/account/add  failed",
-                        "reason": "phone number has existed."
+                        "information": account.accountName + " exist.",
+                        "status": "failed"
                     }));
                     response.end();
+                    return;
+                } else {
+                    checkEmail();
                 }
-            });
-        }
-        else {
-            response.write(JSON.stringify({
-                "information": "/api2/account/add  failed",
-                "reason": "account name has existed."
-            }));
-            response.end();
 
+            });
+        } else {
+            checkEmail();
         }
-    });
-    response.write(JSON.stringify({
-        "uid": RSA.encryptedString(pvkey3, data.accountName),
-        "accessKey": RSA.encryptedString(pvkey3, data.accessKey),
-        "PbKey": pbkeyStr3
-    }));
-    response.end();
+    }
+
+    function checkEmail() {
+        if (account.email != null) {
+            db.getIndexedNode("account", "email", account.email, function (err, node) {
+                if (node != null) {
+                    response.write(JSON.stringify({
+                        "information": account.email + " exist.",
+                        "status": "failed"
+                    }));
+                    response.end();
+                    return;
+                } else {
+                    responsePass();
+                }
+
+            });
+        } else {
+            responsePass();
+        }
+    }
+
+    function responsePass() {
+        response.write(JSON.stringify({
+            "information": (account.accountName || account.email) + " does not exist.",
+            "status": "passed"
+        }));
+        response.end();
+    }
 
 }
 

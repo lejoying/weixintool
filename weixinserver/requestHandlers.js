@@ -47,7 +47,9 @@ requestHandlers.accountManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
         accountManage.add(data, response);
-    } else if (operation == "auth") {
+    }else if (operation == "exist") {
+        accountManage.exist(data, response);
+    }else if (operation == "auth") {
         accountManage.auth(data, response);
     }
 };
