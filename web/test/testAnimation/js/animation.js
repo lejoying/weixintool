@@ -46,6 +46,7 @@ function animateTransform(element, fromState, toState, time, callback) {
         if (progress >= time) {
             element.style.webkitTransform = parseState(toState);
             callback.onEnd();
+            console.log(parseState(toState));
             return;
         }
         var progressRate = progress / time;
@@ -63,10 +64,16 @@ function animateTransform(element, fromState, toState, time, callback) {
     requestAnimationFrame(transform);
 }
 
-function State() {
-    this.translate = {x: 0, y: 0};
-    this.rotate = {r: 0};
-    this.scale = {x: 1, y: 1};
+function State(state) {
+    if (state != null) {
+        this.translate = {x: state.translate.x, y: state.translate.y};
+        this.rotate = {r: state.rotate.r};
+        this.scale = {x: state.scale.x, y: state.scale.y};
+    } else {
+        this.translate = {x: 0, y: 0};
+        this.rotate = {r: 0};
+        this.scale = {x: 1, y: 1};
+    }
 }
 
 function parseState(state) {
