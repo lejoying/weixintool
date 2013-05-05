@@ -228,7 +228,7 @@ accountManage.auth = function (data,response) {
 
     function responsePass() {
         response.write(JSON.stringify({
-            "information": (account.accountName || account.email||account.phone) + " does not exist.",
+            "information": (account.accountName || account.email|| account.phone) + " does not exist.",
             "status": "passed"
         }));
         response.end();
