@@ -157,43 +157,82 @@ accountManage.exist = function (data, response) {
 }
 
 var RSA = require('./../tools/RSA');
-accountManage.auth = function (response) {
+accountManage.auth = function (data,response) {
     response.asynchronous = 1;
     account =
     {
-        "accountName": data.accessKey,
+        "accountName": data.accountName,
         "type": "account",
-        "password": data.password,
         "phone": data.phone,
-        "phoneStatus": "verified",
-        "email": data.email,
-        "emailStatus": "verifying#366541",
-        "accessKey": ["f5d4f5d46f4d65f4d654f56d4f", "4f54d6f54d65f45d6f465d4f65"]
+        "email": data.email
     };
+    checkAccountName();
+    function checkAccountName(){
+        if (account.accountName != null) {
+            db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
+                if (node != null) {
+                    response.write(JSON.stringify({
+                        "information": account.accountName + " exist.",
+                        "status": "failed"
+                    }));
+                    response.end();
+                    return;
+                } else {
+                    checkEmail();
+                }
 
-    RSA.setMaxDigits(38);
-    var pbkeyStr3 = RSA.RSAKeyStr(
-        "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841",
-        "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841",
-        "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pbkey3 = RSA.RSAKey(pbkeyStr3);
+            });
+        } else {
+            checkEmail();
+        }
+    }
+    function checkEmail() {
+        if (account.email != null) {
+            db.getIndexedNode("account", "email", account.email, function (err, node) {
+                if (node != null) {
+                    response.write(JSON.stringify({
+                        "information": account.email + " exist.",
+                        "status": "failed"
+                    }));
+                    response.end();
+                    return;
+                } else {
+                    checkPhone();
+                }
 
-    var pvkeyStr3 = RSA.RSAKeyStr(
-        "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1",
-        "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1",
-        "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pvkey3 = RSA.RSAKey(pvkeyStr3);
+            });
+        } else {
+            checkPhone();
+        }
+    }
+    function checkPhone() {
+        if (account.phone != null) {
+            db.getIndexedNode("account", "phone", account.phone, function (err, node) {
+                if (node != null) {
+                    response.write(JSON.stringify({
+                        "information": account.phone + " exist.",
+                        "status": "failed"
+                    }));
+                    response.end();
+                    return;
+                } else {
+                    responsePass();
+                }
 
-//    ciphertext = RSA.encryptedString(pvkey3, "abc");
-//    plaintext = RSA.decryptedString(pbkey3, ciphertext);
+            });
+        } else {
+            responsePass();
+        }
+    }
 
 
-    response.write(JSON.stringify({
-        "uid": RSA.encryptedString(pvkey3, data.accountName),
-        "accessKey": RSA.encryptedString(pvkey3, data.accessKey),
-        "PbKey": pbkeyStr3
-    }));
-    response.end();
+    function responsePass() {
+        response.write(JSON.stringify({
+            "information": (account.accountName || account.email||account.phone) + " does not exist.",
+            "status": "passed"
+        }));
+        response.end();
+    }
 
 }
 
