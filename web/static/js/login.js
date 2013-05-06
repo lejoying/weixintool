@@ -14,24 +14,12 @@ $(document).ready(function(){
         if(isEmail(name)){
              // alert("邮箱");
         }
-        else if(checkMobile(name)){
+        else if(isMobile(name)){
             //alert("手机");
         }
         else{
             //alert("用户名");
         }
-       /* if(isEmail(name)){
-            alert("正确");
-        }
-        else{
-            alert("错误");
-        }
-        if(checkMobile(name)){
-            alert("正确");
-        }
-        else{
-            alert("错误");
-        }  */
     });
     $("[name='password']").focus(function(){
         $("[name='password']").toggle();
@@ -51,27 +39,26 @@ $(document).ready(function(){
                $(".error_warning").toggle();
                $("#error_text").text("用户名或密码不能为空！");
          } else{
-             $.ajax({ type:"get",url:"/api2/account/auth?",data:{accountName:$("[name='username1']").val() , password:$("[name='password1']").val()},success:function(){
+             $.ajax({ type:"get",url:"/api2/account/auth?",data:{accountName:$("[name='username1']").val() , password:$("[name='password1']").val()},success:function(data){
                  //返回正确操作
+                 if(data[status]=="passed"){
+                      alert("登录成功");
+                 }
+                 else if(data[status]=="failed"){
+                     $(".error_warning").toggle();
+                     $("#error_text").text("用户名或密码错误！");
+                 }else{
+                     alert("登录异常");
+                 }
              }});
          }
      });
-    document.getElementById("dfd").value
-
-
 });
 function isEmail(str){
-
     var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-
     return reg.test(str);
-
 }
-function checkMobile(str){
-    var sMobile = str;
-    if(!(/^1[3|5|8][0-9]\d{4,8}$/.test(sMobile))){
-        return false;
-    }else{
-        return true;
-    }
+function isMobile(str){
+    var mobile = /^1[3|5|8][0-9]\d{4,8}$/;
+    return mobile.test(str);
 }
