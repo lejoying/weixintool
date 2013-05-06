@@ -47,11 +47,11 @@ $(document).ready(function(){
         }
     });
      $("#login").click(function(){
-         if(($("[name='username1']").val()=="") || ($("[name='password1']").val()=="")){
+         if(($("[name='username1']").val()=="") || ($("[name='password']").val()=="")){
                $(".error_warning").toggle();
                $("#error_text").text("用户名或密码不能为空！");
          } else{
-             $.ajax({ type:"post",url:"/api2/accont/outh?",data:{accent:$("[name='username1']").val() , password:$("[name='password1']").val()},success:function(){
+             $.ajax({ type:"get",url:"/api2/account/auth?",data:{accountName:$("[name='username1']").val() , password:$("[name='password1']").val()},success:function(){
                  //返回正确操作
              }});
          }
