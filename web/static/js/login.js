@@ -6,10 +6,32 @@ $(document).ready(function(){
         $("[name='username1']").attr("class","input_focus");
     });
     $("[name='username1']").blur(function(){
-        if($("[name='username1']").val()==""){
+        var name=  $("[name='username1']").val();
+        if(name==""){
             $("[name='username1']").toggle();
             $("[name='username']").toggle();
         }
+        if(isEmail(name)){
+              alert("邮箱");
+        }
+        else if(checkMobile(name)){
+            alert("手机");
+        }
+        else{
+            alert("用户名");
+        }
+       /* if(isEmail(name)){
+            alert("正确");
+        }
+        else{
+            alert("错误");
+        }
+        if(checkMobile(name)){
+            alert("正确");
+        }
+        else{
+            alert("错误");
+        }  */
     });
     $("[name='password']").click(function(){
         $("[name='password']").toggle();
@@ -34,4 +56,22 @@ $(document).ready(function(){
              }});
          }
      });
+    document.getElementById("dfd").value
+
+
 });
+function isEmail(str){
+
+    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+
+    return reg.test(str);
+
+}
+function checkMobile(str){
+    var sMobile = str;
+    if(!(/^1[3|5|8][0-9]\d{4,8}$/.test(sMobile))){
+        return false;
+    }else{
+        return true;
+    }
+}
