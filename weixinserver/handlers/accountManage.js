@@ -12,16 +12,16 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase('http://localhost:7474');
 var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
 
-accountManage.add = function (response) {
+accountManage.add = function (data,response) {
     response.asynchronous = 1;
     account =
     {
-        "accountName":"wwww2",
+        "accountName":data.accountName,
         "type":"account",
-        "password":"8768fd54fd687fd867f465d",
-        "phone":"15120080001",
+        "password":data.password,
+        "phone":data.phone,
         "phoneStatus":"verified",
-        "email":"w1001@163.com",
+        "email":data.email,
         "emailStatus":"verifying#366541",
         "accessKey":["f5d4f5d46f4d65f4d654f56d4f", "4f54d6f54d65f45d6f465d4f65"]
     };
@@ -81,12 +81,12 @@ accountManage.auth = function (response) {
     response.asynchronous = 1;
     account =
     {
-        "accountName":"wwww2",
+        "accountName":data.accountName,
         "type":"account",
-        "password":"8768fd54fd687fd867f465d",
-        "phone":"15120080001",
+        "password":data.password,
+        "phone":data.phone,
         "phoneStatus":"verified",
-        "email":"w1001@163.com",
+        "email":data.email,
         "emailStatus":"verifying#366541",
         "accessKey":["f5d4f5d46f4d65f4d654f56d4f", "4f54d6f54d65f45d6f465d4f65"]
     };
