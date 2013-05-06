@@ -27,12 +27,12 @@ $(document).ready(function () {
     //注册
     $("#auth_register").click(function () {
 
-            var account = $("#main_register_auth_account").val();
-            var password1 = $("#main_register_auth_password1").val();
-            var password2 = $("#main_register_auth_password2").val();
-            var phone = $("#main_register_auth_phone").val();
-            var email = $("#main_register_auth_email").val();
-            var invite = $("#main_register_invite_code").val();
+            var account = $("#accountName").val();
+            var password1 = $("#password1").val();
+            var password2 = $("#password2").val();
+            var phone = $("#phone").val();
+            var email = $("#email").val();
+            var invite = $("#invite_code").val();
             if (account.length < 3) {
                 $("#main_register_authTip").show();
                 $("#main_register_authTip").html("注册失败：" + "非法用户名。");
@@ -70,6 +70,7 @@ $(document).ready(function () {
                         app.server.PbKey = RSA.RSAKey(data.PbKey);
                         app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
                         app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+                        app.account.password = RSA.RSAKey(app.server.PbKey);
                     }
                     else {
                         $("#main_register_authTip").show();
@@ -77,7 +78,7 @@ $(document).ready(function () {
                     }
                 },
                 type:'GET',
-                url:("http://oauth6/api2/account/add")
+                url:("/api2/account/add")
             });
         }
     );

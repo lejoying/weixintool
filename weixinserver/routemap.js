@@ -14,6 +14,10 @@
  *  http://127.0.0.1:8061/api2/neo4j/get
  *  http://127.0.0.1:8061/api2/neo4j/reset?i=0
  *
+ * accountManage:
+ *  http://127.0.0.1:8062/api2/account/add?
+ *  http://127.0.0.1:8062/api2/account/auth?
+ *
  */
 var requestHandlers = require("./requestHandlers");
 

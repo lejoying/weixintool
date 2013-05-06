@@ -1,22 +1,27 @@
-﻿<html>
+<html>
 <head>
-    <meta http-equiv="content-type" content="text/html;charset=utf8">
-    <title>weixin</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf8"/>
+    <title>tset ID</title>
     <link rel="stylesheet" type="text/css" href="/static/css/openContent.css">
     <link rel="stylesheet" type="text/css" href="/static/css/open.css">
-
-
 </head>
-<body style="background: #ebedf0 repeat-x 0 -33px;">
+<body>
+tset ID
+
+<a id="test_auth" href="javascript:">test_auth</a>     <br>
+<a id="account_add" href="javascript:">account_add</a>     <br>
+<a id="account_exist" href="javascript:">account_exist</a>     <br>
+<a id="account_auth" href="javascript:">account_auth</a>     <br>
+
 <div class="loginPanel innerPanel">
     <div class="title">
         <h3>注册</h3>
 
-        <p>注册新的账号</p>
+        <p>新的账号</p>
 
         <div class="clr"></div>
     </div>
-    <div class="login_operate" style="display:block" id="main_register_auth">
+    <div class="login_operate" style="display:block">
         <div class="content form">
             <div class="columnTip">
                 <div id="main_register_authTip" style="display:none;" class="tip errorTip">
@@ -25,34 +30,35 @@
             </div>
             <div class="column">
                 <label>账号</label>
-                <input class="text textMiddle inputQ" id="main_register_auth_account">
+                <input class="text textMiddle inputQ" id="accountName">
             </div>
             <div class="column">
                 <label>密码</label>
                 <input type="password" class="text textMiddle inputQ"
-                       id="main_register_auth_password1">
+                       id="password1">
             </div>
             <div class="column">
                 <label>重复密码</label>
                 <input type="password" class="text textMiddle inputQ"
-                       id="main_register_auth_password2">
+                       id="password2">
             </div>
             <div class="column">
                 <label>手机</label>
-                <input class="text textMiddle inputQ" id="main_register_auth_phone">
+                <input class="text textMiddle inputQ" id="phone">
             </div>
             <div class="column">
                 <label>邮箱</label>
-                <input class="text textMiddle inputQ" id="main_register_auth_email">
+                <input class="text textMiddle inputQ" id="email">
             </div>
             <div class="column">
                 <label>邀请码</label>
-                <input class="text textMiddle inputQ" id="main_register_invite_code">
+                1               <input class="text textMiddle inputQ" id="invite_code">
             </div>
+
         </div>
         <div class="operator">
             <a href="javascript:;" class="login_btn_wrapper">
-                <input id="auth_register" name="btlogin" type="submit" value="立即注册"
+                <input id="auth_register" name="btlogin" type="submit" value="注册"
                        class="login_btn">
             </a>
 
@@ -63,14 +69,12 @@
         </div>
     </div>
 </div>
-<div class="clr"></div>
+
+
 
 <div class="footer">
     <p class="copyright textGray">© 2013 - 2015 SLZD All Rights Reserved.</p>
 </div>
-
-
-
 <script type="text/javascript" src="/oauth6/static/js/jquery.min.js"></script>
 <script language="JavaScript" src="/oauth6/static/js/module.js"></script>
 <script language="JavaScript" src="/oauth6/static/js/BigInt.js"></script>
@@ -79,8 +83,6 @@
 <script language="JavaScript" src="/oauth6/static/js/sha1.js"></script>
 <script language="JavaScript" src="/oauth6/static/js/base64.js"></script>
 <script language="JavaScript" src="/oauth6/static/js/test.js"></script>
-<div>
-    <object id="ClCache" click="sendMsg" host="" width="0" height="0"></object>
-</div>
+<script language="JavaScript" src="/oauth6/static/js/web/register.js"></script>
 </body>
 </html>
