@@ -45,7 +45,7 @@ requestHandlers.demo3 = function (request, response, pathObject, getParam) {
 var accountManage = require('./handlers/accountManage');
 requestHandlers.accountManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
-    if (operation == "publicAdd") {
+    if (operation == "add") {
         accountManage.add(data, response);
     }else if (operation == "exist") {
         accountManage.exist(data, response);
