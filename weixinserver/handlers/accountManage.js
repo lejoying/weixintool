@@ -2,7 +2,7 @@
  * Demo of reading and writing data with neo4j.
  * Date: 2013.04.15
  * Request:
- *  http://127.0.0.1:8062/api2/account/add?accountName=abc&password=6367c48dd193d56ea7b0baad25b19455e529f5ee&phone=15232232888&email=avasf%40163.com
+ *  http://127.0.0.1:8062/api2/account/publicAdd?accountName=abc&password=6367c48dd193d56ea7b0baad25b19455e529f5ee&phone=15232232888&email=avasf%40163.com
  * Response:
  *  "{}"
  *
@@ -19,7 +19,7 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase('http://localhost:7474');
 var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
 var RSA = require('./../tools/RSA');
-accountManage.add = function (data, response) {
+accountManage.publicAdd = function (data, response) {
     response.asynchronous = 1;
     account =
     {
@@ -59,7 +59,7 @@ accountManage.add = function (data, response) {
                                 node.index("account", "email", account.email);
                                 node.save(function (err, node) {
                                     response.write(JSON.stringify({
-                                        "information": "/api2/account/add  success",
+                                        "information": "/api2/account/publicAdd  success",
                                         "node": node.data
                                     }));
                                     response.end();

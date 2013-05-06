@@ -186,7 +186,7 @@ $(document).ready(function () {
             data: {
                 "accountName": "aaabbbccc",
                 "password": hex_sha1("123"),
-                "phone":"15232232888",
+                "phone":"18691171987",
                 "email":"avasf@163.com"
             },
             success: function (data) {
@@ -198,6 +198,26 @@ $(document).ready(function () {
             },
             type: 'GET',
             url: ("/api2/account/exist")
+        });
+    });
+
+    $("#account_auth").click(function () {
+
+        window.alert("account_auth");
+        $.ajax({
+            data: {
+                "accountName": "",
+                "email":"",
+                "phone":"18609878987"
+            },
+            success: function (data) {
+                RSA.setMaxDigits(38);
+                app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
+                app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+                alert(JSON.stringify(data));
+            },
+            type: 'GET',
+            url: ("/api2/account/auth")
         });
     });
 
