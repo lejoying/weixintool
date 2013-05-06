@@ -12,13 +12,13 @@ $(document).ready(function(){
             $("[name='username']").toggle();
         }
         if(isEmail(name)){
-              alert("邮箱");
+             // alert("邮箱");
         }
         else if(checkMobile(name)){
-            alert("手机");
+            //alert("手机");
         }
         else{
-            alert("用户名");
+            //alert("用户名");
         }
        /* if(isEmail(name)){
             alert("正确");
@@ -33,7 +33,7 @@ $(document).ready(function(){
             alert("错误");
         }  */
     });
-    $("[name='password']").click(function(){
+    $("[name='password']").focus(function(){
         $("[name='password']").toggle();
         $("[name='password1']").toggle();
         $("[name='password1']").focus();
@@ -47,7 +47,7 @@ $(document).ready(function(){
         }
     });
      $("#login").click(function(){
-         if(($("[name='username1']").val()=="") || ($("[name='password']").val()=="")){
+         if(($("[name='username1']").val()=="") || ($("[name='password1']").val()=="")){
                $(".error_warning").toggle();
                $("#error_text").text("用户名或密码不能为空！");
          } else{
