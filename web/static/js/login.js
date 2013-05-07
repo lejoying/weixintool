@@ -41,18 +41,22 @@ $(document).ready(function () {
                 $("#error_text").text("用户名或密码不能为空！");
             } else {
                 var pwd = $("[name='password1']").val();
-                $.ajax({ type: "get", url: "/api2/account/auth?", data: {accountName: $("[name='username1']").val(), password: hex_sha1("pwd")}, success: function (data) {
-                    //返回正确操作
-                    if (data[status] == "passed") {
-                        alert("登录成功");
-                    }
-                    else if (data[status] == "failed") {
-                        $(".error_warning").toggle();
-                        $("#error_text").text("用户名或密码错误！");
-                    } else {
-                        alert("登录异常");
-                    }
-                }});
+                $.ajax({
+                    type: "GET",
+                    url: "/api2/account/auth?",
+                    data: {accountName: $("[name='username1']").val(), password: hex_sha1(pwd)},
+                    success: function (data) {
+                        //返回正确操作
+                        if (data[status] == "passed") {
+                            alert("登录成功");
+                        }
+                        else if (data[status] == "failed") {
+                            $(".error_warning").toggle();
+                            $("#error_text").text("用户名或密码错误！");
+                        } else {
+                            alert("登录异常");
+                        }
+                    }});
             }
         });
     }

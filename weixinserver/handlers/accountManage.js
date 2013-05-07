@@ -202,13 +202,15 @@ accountManage.auth = function (data, response) {
                     response.end();
                 } else {
                     response.write(JSON.stringify({
-                        "information": account.password + " password is wrong."
+                        "information": account.password + " password is wrong.",
+                        "status": "failed"
                     }));
                     response.end();
                 }
             } else {
                 response.write(JSON.stringify({
                     "information": account.accountName + " does not exist."
+
                 }));
                 response.end();
             }
