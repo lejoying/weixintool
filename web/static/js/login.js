@@ -1,37 +1,82 @@
-$(document).ready(function(){
-    $("[name='username']").click(function(){
+$(document).ready(function () {
+    $("[name='username']").click(function () {
         $("[name='username']").toggle();
         $("[name='username1']").toggle();
         $("[name='username1']").focus();
-        $("[name='username1']").attr("class","input_focus");
+        $("[name='username1']").attr("class", "input_focus");
     });
-    $("[name='username1']").blur(function(){
-        if($("[name='username1']").val()==""){
+    $("[name='username1']").blur(function () {
+        var name = $("[name='username1']").val();
+        if (name == "") {
             $("[name='username1']").toggle();
             $("[name='username']").toggle();
+            $("#error_text").text("用户名不能为空！");
+            $(".error_warning").show();
         }
     });
-    $("[name='password']").click(function(){
+    $("[name='password']").focus(function () {
         $("[name='password']").toggle();
         $("[name='password1']").toggle();
         $("[name='password1']").focus();
-        $("[name='password1']").attr("type","password");
-        $("[name='password1']").attr("class","input_focus");
+        $("[name='password1']").attr("type", "password");
+        $("[name='password1']").attr("class", "input_focus");
     });
-    $("[name='password1']").blur(function(){
-        if($("[name='password1']").val()==""){
+    $("[name='password1']").blur(function () {
+        if ($("[name='password1']").val() == "") {
             $("[name='password1']").toggle();
             $("[name='password']").toggle();
+            $("#error_text").text("密码不能为空！");
+            $(".error_warning").show();
+        } else {
+            $(".error_warning").hide();
         }
     });
-     $("#login").click(function(){
-         if(($("[name='username1']").val()=="") || ($("[name='password1']").val()=="")){
-               $(".error_warning").toggle();
-               $("#error_text").text("用户名或密码不能为空！");
-         } else{
-             $.ajax({ type:"post",url:"/api2/accont/outh?",data:{accent:$("[name='username1']").val() , password:$("[name='password1']").val()},success:function(){
-                 //返回正确操作
-             }});
-         }
-     });
-});
+    $("#login").click(function () {
+
+        var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
+
+        var text = $("[name='username1']").val();
+        var passwordPlaint = $("[name='password1']").val();
+        var password = hex_sha1(passwordPlaint);
+
+        if ((text == "") || (password == "")) {
+            $(".error_warning").toggle();
+            $("#error_text").text("用户名或密码不能为空！");
+        } else {
+            var user = {
+                account: null,
+                phone: null,
+                email: null,
+                password: password
+            }
+            if (emailRegexp.test(text)) {
+                user.email = text;
+            }
+            else if (phoneRegexp.test(text)) {
+                user.phone = text;
+            }
+            else {
+                user.account = text;
+            }
+
+            $.ajax({
+                type: "get",
+                url: "/api2/account/auth?",
+                data: user,
+                success: function (data) {
+                    //返回正确操作
+                    if (data.status == "passed") {
+                        alert("登录成功");
+                    }
+                    else if (data.status == "failed") {
+                        $(".error_warning").toggle();
+                        $("#error_text").text("用户名或密码错误！");
+                    } else {
+                        alert("登录异常");
+                    }
+                }
+            });
+        }
+    });
+})

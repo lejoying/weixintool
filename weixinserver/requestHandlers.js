@@ -46,9 +46,11 @@ var accountManage = require('./handlers/accountManage');
 requestHandlers.accountManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
-        accountManage.add(data);
-    } else if (operation == "auth") {
-        accountManage.auth(data);
+        accountManage.add(data, response);
+    }else if (operation == "exist") {
+        accountManage.exist(data, response);
+    }else if (operation == "auth") {
+        accountManage.auth(data, response);
     }
 };
 
