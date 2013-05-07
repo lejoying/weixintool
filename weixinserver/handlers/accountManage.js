@@ -209,8 +209,8 @@ accountManage.auth = function (data, response) {
                 }
             } else {
                 response.write(JSON.stringify({
-                    "information": account.accountName + " does not exist."
-
+                    "information": account.accountName + " does not exist.",
+                    "status": "failed"
                 }));
                 response.end();
             }
