@@ -276,5 +276,4 @@ accountManage.auth = function (data, response) {
         });
     }
 }
-
 module.exports = accountManage;
