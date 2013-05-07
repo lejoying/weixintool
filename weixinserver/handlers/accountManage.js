@@ -157,83 +157,104 @@ accountManage.exist = function (data, response) {
 }
 
 var RSA = require('./../tools/RSA');
-accountManage.auth = function (data,response) {
+accountManage.auth = function (data, response) {
     response.asynchronous = 1;
     account =
     {
         "accountName": data.accountName,
+        "password": data.password,
         "type": "account",
         "phone": data.phone,
         "email": data.email
     };
-    checkAccountName();
-    function checkAccountName(){
-        if (account.accountName != null) {
-            db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
-                if (node != null) {
+    RSA.setMaxDigits(38);
+    var pbkeyStr3 = RSA.RSAKeyStr(
+        "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841",
+        "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841",
+        "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
+    var pbkey3 = RSA.RSAKey(pbkeyStr3);
+
+    var pvkeyStr3 = RSA.RSAKeyStr(
+        "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1",
+        "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1",
+        "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
+    var pvkey3 = RSA.RSAKey(pvkeyStr3);
+
+    if (account.accountName != null) {
+        checkAccountName();
+    } else if (account.phone != null) {
+        checkPhone();
+    } else if (account.email != null) {
+        checkEmail();
+    }
+
+
+    function checkAccountName() {
+        db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
+            if (node != null) {
+                var data = node.data;
+                if (account.password == node.data.password) {
+                    node.index("account", "accountName", account.accountName);
                     response.write(JSON.stringify({
-                        "information": account.accountName + " exist.",
-                        "status": "failed"
+                        "information": "user exist.",
+                        "status": "passed"
                     }));
                     response.end();
-                    return;
                 } else {
-                    checkEmail();
-                }
-
-            });
-        } else {
-            checkEmail();
-        }
-    }
-    function checkEmail() {
-        if (account.email != null) {
-            db.getIndexedNode("account", "email", account.email, function (err, node) {
-                if (node != null) {
                     response.write(JSON.stringify({
-                        "information": account.email + " exist.",
-                        "status": "failed"
+                        "information": account.password + "password is wrong."
                     }));
                     response.end();
-                    return;
-                } else {
-                    checkPhone();
                 }
+            } else {
+                response.write(JSON.stringify({
+                    "information": account.accountName + "does not exist."
+                }));
+                response.end();
+            }
 
-            });
-        } else {
-            checkPhone();
-        }
+        });
     }
+
     function checkPhone() {
-        if (account.phone != null) {
-            db.getIndexedNode("account", "phone", account.phone, function (err, node) {
-                if (node != null) {
-                    response.write(JSON.stringify({
-                        "information": account.phone + " exist.",
-                        "status": "failed"
-                    }));
-                    response.end();
-                    return;
-                } else {
-                    responsePass();
-                }
+        db.getIndexedNode("account", "phone", account.phone, function (err, node) {
+            if (node != null) {
+                response.write(JSON.stringify({
+                    "information": account.phone + " exist.",
+                    "status": "passed"
+                }));
+                response.end();
+                return;
+            } else {
+                response.write(JSON.stringify({
+                    "information": account.phone + " does not exist.",
+                    "status": "failed"
+                }));
+                response.end();
+            }
 
-            });
-        } else {
-            responsePass();
-        }
+        });
+
     }
 
-
-    function responsePass() {
-        response.write(JSON.stringify({
-            "information": (account.accountName || account.email|| account.phone) + " does not exist.",
-            "status": "passed"
-        }));
-        response.end();
+    function checkEmail() {
+        db.getIndexedNode("account", "email", account.email, function (err, node) {
+            if (node != null) {
+                response.write(JSON.stringify({
+                    "information": account.email + " exist.",
+                    "status": "passed"
+                }));
+                response.end();
+                return;
+            } else {
+                response.write(JSON.stringify({
+                    "information": account.email + " does not exist.",
+                    "status": "failed"
+                }));
+                response.end();
+            }
+        });
     }
-
 }
 
 module.exports = accountManage;
