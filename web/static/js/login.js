@@ -10,15 +10,8 @@ $(document).ready(function () {
         if (name == "") {
             $("[name='username1']").toggle();
             $("[name='username']").toggle();
-        }
-        if (isEmail(name)) {
-            // alert("邮箱");
-        }
-        else if (isMobile(name)) {
-            //alert("手机");
-        }
-        else {
-            //alert("用户名");
+            $("#error_text").text("用户名不能为空！");
+            $(".error_warning").show();
         }
     });
     $("[name='password']").focus(function () {
@@ -32,18 +25,45 @@ $(document).ready(function () {
         if ($("[name='password1']").val() == "") {
             $("[name='password1']").toggle();
             $("[name='password']").toggle();
+            $("#error_text").text("密码不能为空！");
+            $(".error_warning").show();
+        } else {
+            $(".error_warning").hide();
         }
     });
     $("#login").click(function () {
-        if (($("[name='username1']").val() == "") || ($("[name='password1']").val() == "")) {
+
+        var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
+
+        var text = $("[name='username1']").val();
+        var passwordPlaint = $("[name='password1']").val();
+        var password = hex_sha1(passwordPlaint);
+
+        if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
             $("#error_text").text("用户名或密码不能为空！");
         } else {
-			var pwd = $("[name='password1']").val();
+            var user = {
+                account: null,
+                phone: null,
+                email: null,
+                password: password
+            }
+            if (emailRegexp.test(text)) {
+                user.email = text;
+            }
+            else if (phoneRegexp.test(text)) {
+                user.phone = text;
+            }
+            else {
+                user.account = text;
+            }
+
             $.ajax({
                 type: "get",
                 url: "/api2/account/auth?",
-				data: {accountName: $("[name='username1']").val(), password: hex_sha1(pwd)},
+                data: user,
                 success: function (data) {
                     //返回正确操作
                     if (data.status == "passed") {
@@ -55,15 +75,8 @@ $(document).ready(function () {
                     } else {
                         alert("登录异常");
                     }
-                }});
+                }
+            });
         }
     });
-});
-function isEmail(str) {
-    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-    return reg.test(str);
-}
-function isMobile(str) {
-    var mobile = /^1[3|5|8][0-9]\d{4,8}$/;
-    return mobile.test(str);
-}
+})

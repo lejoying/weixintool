@@ -243,5 +243,7 @@ function calcDigest() {
 
 var sha1 = {};
 sha1.hex_sha1 = hex_sha1;
-
-module.exports = sha1;
+var module = {};
+if (module) {
+    module.exports = sha1;
+}
