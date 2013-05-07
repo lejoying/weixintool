@@ -162,7 +162,7 @@ $(document).ready(function () {
         $.ajax({
             data: {
                 "accountName": "abc",
-                "password": hex_sha1("abc123"),
+                "password": hex_sha1("password1"),
                 "phone":"15232232888",
                 "email":"avasf@163.com"
             },
