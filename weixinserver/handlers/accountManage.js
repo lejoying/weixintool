@@ -209,8 +209,8 @@ accountManage.auth = function (data, response) {
                 }
             } else {
                 response.write(JSON.stringify({
-                    "information": account.accountName + " does not exist."
-
+                    "information": account.accountName + " does not exist.",
+                    "status": "failed"
                 }));
                 response.end();
             }
@@ -221,12 +221,21 @@ accountManage.auth = function (data, response) {
     function checkPhone() {
         db.getIndexedNode("account", "phone", account.phone, function (err, node) {
             if (node != null) {
-                response.write(JSON.stringify({
-                    "information": account.phone + " exist.",
-                    "status": "passed"
-                }));
-                response.end();
-                return;
+                var data = node.data;
+                if (account.password == node.data.password) {
+                    node.index("account", "phone", account.phone);
+                    response.write(JSON.stringify({
+                        "information": "phone exist.",
+                        "status": "passed"
+                    }));
+                    response.end();
+                } else {
+                    response.write(JSON.stringify({
+                        "information": account.password + " password is wrong.",
+                        "status": "failed"
+                    }));
+                    response.end();
+                }
             } else {
                 response.write(JSON.stringify({
                     "information": account.phone + " does not exist.",
@@ -242,12 +251,21 @@ accountManage.auth = function (data, response) {
     function checkEmail() {
         db.getIndexedNode("account", "email", account.email, function (err, node) {
             if (node != null) {
-                response.write(JSON.stringify({
-                    "information": account.email + " exist.",
-                    "status": "passed"
-                }));
-                response.end();
-                return;
+                var data = node.data;
+                if (account.password == node.data.password) {
+                    node.index("account", "email", account.email);
+                    response.write(JSON.stringify({
+                        "information": "email exist.",
+                        "status": "passed"
+                    }));
+                    response.end();
+                } else {
+                    response.write(JSON.stringify({
+                        "information": account.password + " password is wrong.",
+                        "status": "failed"
+                    }));
+                    response.end();
+                }
             } else {
                 response.write(JSON.stringify({
                     "information": account.email + " does not exist.",
