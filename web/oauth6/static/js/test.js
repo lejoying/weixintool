@@ -221,6 +221,26 @@ $(document).ready(function () {
         });
     });
 
+    $("#account_auth").click(function () {
+
+        window.alert("account_auth");
+        $.ajax({
+            data: {
+                "accountName": "",
+                "email":"",
+                "phone":"18609878987"
+            },
+            success: function (data) {
+                RSA.setMaxDigits(38);
+                app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
+                app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+                alert(JSON.stringify(data));
+            },
+            type: 'GET',
+            url: ("/api2/weixinuer/add")
+        });
+    });
+
 
 });
 

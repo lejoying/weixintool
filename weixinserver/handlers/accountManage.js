@@ -59,7 +59,7 @@ accountManage.add = function (data, response) {
                                 node.index("account", "email", account.email);
                                 node.save(function (err, node) {
                                     response.write(JSON.stringify({
-                                        "information": "/api2/account/publicAdd  success",
+                                        "information": "注册成功！",
                                         "node": node.data
                                     }));
                                     response.end();
@@ -68,16 +68,16 @@ accountManage.add = function (data, response) {
                         }
                         else {
                             response.write(JSON.stringify({
-                                "information": "/api2/account/add  failed",
-                                "reason": "email has existed."
+                                "information": "注册失败！",
+                                "reason": "邮箱重复。"
                             }));
                             response.end();
                         }
                     });
                 } else {
                     response.write(JSON.stringify({
-                        "information": "/api2/account/add  failed",
-                        "reason": "phone number has existed."
+                        "information": "注册失败!",
+                        "reason": "电话已存在。"
                     }));
                     response.end();
                 }
@@ -85,8 +85,8 @@ accountManage.add = function (data, response) {
         }
         else {
             response.write(JSON.stringify({
-                "information": "/api2/account/add  failed",
-                "reason": "account name has existed."
+                "information": "注册失败!",
+                "reason": "用户名已存在。"
             }));
             response.end();
 
@@ -111,15 +111,14 @@ accountManage.exist = function (data, response) {
             db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
                 if (node != null) {
                     response.write(JSON.stringify({
-                        "information": account.accountName + " exist.",
-                        "status": "failed"
+                        "information": account.accountName + " 存在",
+                        "status": "失败"
                     }));
                     response.end();
                     return;
                 } else {
                     checkEmail();
                 }
-
             });
         } else {
             checkEmail();
@@ -131,8 +130,8 @@ accountManage.exist = function (data, response) {
             db.getIndexedNode("account", "email", account.email, function (err, node) {
                 if (node != null) {
                     response.write(JSON.stringify({
-                        "information": account.email + " exist.",
-                        "status": "failed"
+                        "information": account.email + " 存在",
+                        "status": "失败"
                     }));
                     response.end();
                     return;
@@ -148,8 +147,8 @@ accountManage.exist = function (data, response) {
 
     function responsePass() {
         response.write(JSON.stringify({
-            "information": (account.accountName || account.email) + " does not exist.",
-            "status": "passed"
+            "information": (account.accountName || account.email) + " 不存在",
+            "status": "通过验证"
         }));
         response.end();
     }
@@ -196,21 +195,21 @@ accountManage.auth = function (data, response) {
                 if (account.password == node.data.password) {
                     node.index("account", "accountName", account.accountName);
                     response.write(JSON.stringify({
-                        "information": "user exist.",
-                        "status": "passed"
+                        "information": "用户存在 ",
+                        "status": "通过验证"
                     }));
                     response.end();
                 } else {
                     response.write(JSON.stringify({
-                        "information": account.password + " password is wrong.",
-                        "status": "failed"
+                        "information": account.password + " 密码错误！",
+                        "status": "失败"
                     }));
                     response.end();
                 }
             } else {
                 response.write(JSON.stringify({
-                    "information": account.accountName + " does not exist.",
-                    "status": "failed"
+                    "information": account.accountName + " 用户不存在",
+                    "status": "失败"
                 }));
                 response.end();
             }
@@ -225,21 +224,21 @@ accountManage.auth = function (data, response) {
                 if (account.password == node.data.password) {
                     node.index("account", "phone", account.phone);
                     response.write(JSON.stringify({
-                        "information": "phone exist.",
-                        "status": "passed"
+                        "information": "电话存在",
+                        "status": "通过验证"
                     }));
                     response.end();
                 } else {
                     response.write(JSON.stringify({
-                        "information": account.password + " password is wrong.",
-                        "status": "failed"
+                        "information": account.password + " 密码错误！",
+                        "status": "失败"
                     }));
                     response.end();
                 }
             } else {
                 response.write(JSON.stringify({
-                    "information": account.phone + " does not exist.",
-                    "status": "failed"
+                    "information": account.phone + " 电话号码不存在",
+                    "status": "失败"
                 }));
                 response.end();
             }
@@ -255,25 +254,29 @@ accountManage.auth = function (data, response) {
                 if (account.password == node.data.password) {
                     node.index("account", "email", account.email);
                     response.write(JSON.stringify({
-                        "information": "email exist.",
-                        "status": "passed"
+                        "information": "邮箱存在",
+                        "status": "通过验证"
                     }));
                     response.end();
                 } else {
                     response.write(JSON.stringify({
-                        "information": account.password + " password is wrong.",
-                        "status": "failed"
+                        "information": account.password + " 密码错误！",
+                        "status": "失败"
                     }));
                     response.end();
                 }
             } else {
                 response.write(JSON.stringify({
-                    "information": account.email + " does not exist.",
-                    "status": "failed"
+                    "information": account.email + " 邮箱不存在",
+                    "status": "失败"
                 }));
                 response.end();
             }
         });
     }
 }
+
+
+
+
 module.exports = accountManage;

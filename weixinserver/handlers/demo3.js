@@ -12,6 +12,13 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase('http://localhost:7474');
 var nodeId = 60;//create a node in Neo4j monitoring and management tools, and put its node id here.
 
+demo3.update = function(data, response){
+    response.asynchronous = 1;
+
+
+}
+
+
 demo3.get = function (response) {
     response.asynchronous = 1;
 
