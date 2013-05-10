@@ -27,6 +27,6 @@ http.createServer(
             response.end();
         }
 
-    }).listen(80);
+    }).listen(8064);
 
-console.log("The RESTful api server is running.");
+console.log("The Bind server is running.");
