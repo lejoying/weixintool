@@ -193,7 +193,24 @@ body{
 	background: -moz-linear-gradient(19% 75% 90deg, #425d7d, #4c6a8f);
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c6a8f), to(#425d7d));
 }
-.login_submet a:hover{
+.reg_margin a{
+	font-size:18px;
+	text-decoration:none;
+	text-shadow:0px 2px 2px #333333;
+	font-family:"微软雅黑";
+	padding:15px 40px;
+	border-radius:3px;
+	color:#fff;
+	border-radius:5px;
+	text-shadow:0 0 4px #333;
+	border:1px solid #8692a3;	
+	background: -moz-linear-gradient(19% 75% 90deg, #425d7d, #4c6a8f);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c6a8f), to(#425d7d));
+}
+.reg_margin a:first-child{
+	margin-right:54px;		
+}
+.login_submet a:hover, .reg_margin a:hover{
 	color:#DAE0E7;
 	background: -moz-linear-gradient(19% 75% 90deg, #4c6a8f, #425d7d);
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#425d7d), to(#4c6a8f));
@@ -339,7 +356,7 @@ a.point_icon:hover{
 }
 .reg_alpht_bg, .reg_alpht_border {
     border-radius:12px;
-    height:650px;
+    height:630px;
     position: absolute;
     width:650px;
 }
@@ -360,13 +377,14 @@ a.point_icon:hover{
 	border-radius:8px;
 	position: relative;
     z-index: 3;
-	padding-top:45px;
+	padding-top:35px;
 	width:610px;
 }
 .reg_loginform_padding label{
 	color:#fff;
 	font-family:"微软雅黑";
-	font-size:18px;	
+	font-size:18px;
+	padding-right:8px;	
 }
 .label_2{
 	margin-left:36px;	
@@ -375,7 +393,8 @@ a.point_icon:hover{
 	margin-left:18px;	
 }
 .reg_margin{
-	margin-left:100px
+	margin-left:88px;
+	margin-top:45px;
 }
 .reg_img_margin{
 	margin-bottom:60px;	
