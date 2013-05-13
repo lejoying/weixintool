@@ -221,6 +221,30 @@ $(document).ready(function () {
         });
     });
 
+    $("#account_weixinAdd").click(function () {
+
+        window.alert("account_add");
+        $.ajax({
+            data: {
+                "uid": "asdfasdf",
+                "accesskey":"2013",
+                "weixinOpenID":"18609878987",
+                "weixinName":"gkgkgkgkgkgk",
+                "token":"fdadfad"
+            },
+            success: function (data) {
+                RSA.setMaxDigits(38);
+                app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
+                app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+                app.account.weixinOpenID = RSA.decryptedString(app.sever.PbKey, data.weixinOpenID);
+                app.account.weixinName = RSA.decryptedString(app.sever.PbKey, data.weixinName);
+                app.account.token = RSA.decryptedString(app.sever.PbKey, data.token);
+                alert(JSON.stringify(data));
+            },
+            type: 'GET',
+            url: ("/api2/weixinuer/add")
+        });
+    });
 
 });
 

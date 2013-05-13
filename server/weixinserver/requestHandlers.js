@@ -12,7 +12,8 @@ requestHandlers.demo1 = function (request, response, pathObject, getParam) {
     var operation = pathObject["operation"];
     if (operation == "get") {
         demo1.get(response);
-    } else if (operation == "reset") {
+    }
+    else if (operation == "reset") {
         var i = getParam["i"];
         demo1.reset(i, response);
     }
@@ -31,13 +32,10 @@ requestHandlers.demo1 = function (request, response, pathObject, getParam) {
 
 
 var demo3 = require('./handlers/demo3');
-requestHandlers.demo3 = function (request, response, pathObject, getParam) {
+requestHandlers.demo3 = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
-    if (operation == "get") {
-        demo3.get(response);
-    } else if (operation == "reset") {
-        var i = getParam["i"];
-        demo3.reset(i, response);
+    if (operation == "update") {
+        demo3.update(data, response);
     }
 };
 
@@ -46,13 +44,37 @@ var accountManage = require('./handlers/accountManage');
 requestHandlers.accountManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
-        accountManage.add(data, response);
-    }else if (operation == "exist") {
+        var invite = data.invite;
+        if (invite != "lejoying") {
+            response.write(JSON.stringify({
+                "提示信息": "注册账号失败!",
+                "reason": "邀请码不正确。"
+            }));
+            response.end();
+        }
+        else {
+            accountManage.add(data, response);
+        }
+    }
+    else if (operation == "exist") {
         accountManage.exist(data, response);
-    }else if (operation == "auth") {
+    }
+    else if (operation == "auth") {
         accountManage.auth(data, response);
     }
 };
+
+//var weixinManage = require('./weixinuer/weixinManage');
+//requestHandlers.weixinManage = function (request, response, pathObject, data) {
+//    var operation = pathObject["operation"];
+//    if (operation == "add") {
+//        weixinManage.add(data, response);
+//    }else if (operation == "delete") {
+//        weixinManage.delet(data, response);
+//    }else if (operation == "modify") {
+//        weixinManage.modify(data, response);
+//    }
+//};
 
 
 module.exports = requestHandlers;
