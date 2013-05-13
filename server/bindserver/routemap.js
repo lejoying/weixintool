@@ -12,7 +12,8 @@ var requestHandlers = require("./requestHandlers");
 
 var routemap = {
     "get": {
-        "/": requestHandlers.test
+        //        "/": requestHandlers.test
+        "/": requestHandlers.bind
     },
     "post": {
         "/": requestHandlers.bind
