@@ -8,18 +8,18 @@ api = {
      ***************************************/
     "account_add": {
         request: {
-            typical: {"accountname": "XXX", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX", "password": sha1("XXXXXX")}
+            typical: {"accountName": "XXX", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX", "password": sha1("XXXXXX"), "invite": "XXXXX"}
         },
         response: {
             success: {"提示信息": "注册账号成功。", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
-            failed: {"提示信息": "注册账号失败", "失败原因": ["账号名已存在。" | "邮箱已存在。" | "邀请码不正确。"]}
+            failed: {"提示信息": "注册账号失败", "失败原因": ["账号名已存在。" | "注册邮箱已存在。" | "邀请码不正确。"]}//#1
         },
         /***************************************
          *     URL：/api2/account/exist
          ***************************************/
         "account_exist": {
             request: {
-                typical: {"accountname": "XXX",  "email": "XXX@XXX.XXX"}
+                typical: {"accountname": "XXX", "email": "XXX@XXX.XXX"}
             },
             response: {
                 success: {"提示信息": "用户不存在。", "状态": "已通过"},
@@ -35,7 +35,7 @@ api = {
             },
             response: {
                 success: {"提示信息": "用户不存在。", "状态": "已通过"},
-                failed: {"提示信息": "用户存在", "失败原因": ["用户名名已存在。" | "电话已存在。"| "邮箱已存在。" ]}
+                failed: {"提示信息": "用户存在", "失败原因": ["用户名名已存在。" | "电话已存在。" | "邮箱已存在。" ]}
             }
         },
         /***************************************
