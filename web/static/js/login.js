@@ -8,11 +8,11 @@ $(document).ready(function () {
     $("[name='username1']").blur(function () {
         var name = $("[name='username1']").val();
         if (name == "") {
-            $("[name='username1']").toggle();
-            $("[name='username']").toggle();
-            $("#error_text").text("用户名不能为空！");
-            $(".error_warning").show();
-        }
+            usernameNone();
+        }else{
+			$("#username_right").show();
+			$(".error_warning_user").hide();
+		}
     });
     $("[name='password']").focus(function () {
         $("[name='password']").toggle();
@@ -23,12 +23,10 @@ $(document).ready(function () {
     });
     $("[name='password1']").blur(function () {
         if ($("[name='password1']").val() == "") {
-            $("[name='password1']").toggle();
-            $("[name='password']").toggle();
-            $("#error_text").text("密码不能为空！");
-            $(".error_warning").show();
+            passwordNone();
         } else {
-            $(".error_warning").hide();
+            $("#password_right").show();
+			$(".error_warning_password").hide();
         }
     });
     $("#login").click(function () {
@@ -42,7 +40,7 @@ $(document).ready(function () {
 
         if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
-            $("#error_text").text("用户名或密码不能为空！");
+            $("#username_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"用户名密码不能为空！");
         } else {
             var user = {
                 account: null,
@@ -80,3 +78,17 @@ $(document).ready(function () {
         }
     });
 })
+function usernameNone(){
+	$("[name='username1']").toggle();
+	$("[name='username']").toggle();
+	$("#username_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"用户名不能为空！");
+	$("#username_right").hide();
+	$(".error_warning_user").show();	
+}
+function passwordNone(){
+	$("[name='password1']").toggle();
+	$("[name='password']").toggle();
+	$("#password_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"密码不能为空！");
+	$("#password_right").hide();
+	$(".error_warning_password").show();	
+}
