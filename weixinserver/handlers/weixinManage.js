@@ -61,7 +61,10 @@ weixinManage.delet = function(data, response) {
     }
     var node = db.delete(uid, force=ture);
     node.data.uid = node.id;
-        node.index("account", "uid", account.uid)
+        node.index("account", "uid", account.uid);
+        node.index("account", "weixinOpenID", account.weixinOpenID);
+        node.index("account", "weixinName", account.weixinName);
+        node.index("account", "accesskey", account.accesskey);
             response.write(JSON.stringify({
                 "information": "delete  success",
                 "node": node.data

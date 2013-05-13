@@ -12,7 +12,7 @@ $(document).ready(function () {
             toState.scale.x = 0.33962264150943394;
             toState.scale.y = 0.23684210526315788;
             var fromState = new State();
-            animateTransform(box[0], fromState, toState, 400,
+            animateTransform(box[0], fromState, toState, 200,
                 {
                     onStart: function () {
                     },
@@ -21,8 +21,8 @@ $(document).ready(function () {
                         var toState1 = new State(toState);
                         toState1.translate.x = 385;
                         toState1.translate.y = -258;
-                        toState1.rotate.r = 1080;
-                        animateTransform(box[0], fromState1, toState1, 400);
+//                        toState1.rotate.r = 1080;
+                        animateTransform(box[0], fromState1, toState1, 150);
                     }
                 }
             );
