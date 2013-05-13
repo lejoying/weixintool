@@ -206,8 +206,8 @@ $(document).ready(function () {
         window.alert("account_auth");
         $.ajax({
             data: {
-                "accountName": "",
-                "email":"",
+                "accountName": "aaabbbccc",
+                "email":"gk@153.com",
                 "phone":"18609878987"
             },
             success: function (data) {
