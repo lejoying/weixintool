@@ -73,9 +73,9 @@ body{
 }
 .alpht_bg, .alpht_border {
     border-radius:12px;
-    height: 380px;
+    height: 460px;
     position: absolute;
-    width: 530px;
+    width: 545px;
 }
 .alpht_bg{
 	background: none repeat scroll 0 0 #FFFFFF;	
@@ -107,18 +107,35 @@ body{
 	font-family:"微软雅黑";
 }
 .username{
+	margin-top:28px;
 	margin-bottom:5px;	
+	position:relative;
 }
-.input_focus, .input_normal, .input_text{
+.password{
+	position:relative;	
+}
+.nameicon{
+	padding:12px;
+	position:absolute;
+	left:15px;
+	top:14px;
+	background:url(/static/images/public/icon/smallicon.png)  -160px -20px no-repeat;			
+}
+.passwordicon{
+	padding:12px;
+	position:absolute;
+	left:15px;
+	top:13px;
+	background:url(/static/images/public/icon/smallicon.png)  -185px -20px no-repeat;	
+}
+.input_focus, .input_normal, .input_text, .reg_input_focus, .reg_input_normal, .reg_input_text{
 	font-size:18px;
 	font-family:"微软雅黑";
 	line-height:50px;
-	padding-left:18px;
 	width:320px;
 	height:50px;
-	margin-bottom:10px;
+	margin-bottom:25px;
 	border:none;
-	background: none repeat scroll 0 0 #FFFFFF;
     border-radius:5px;
     box-shadow: 0 0 5px #808080 inset;
 	font-weight:normal
@@ -126,29 +143,48 @@ body{
 .input_normal{
 	border: 1px solid #808080;	
 	color:#b4babd;
+	padding-left:40px;
 }
 .input_focus{
 	border:	1px solid #333;
 	color:#333;
+	padding-left:40px;
 }
 .input_text{
 	border: 1px solid #808080;
 	color:#333;
+	padding-left:15px;
+}
+.reg_input_focus{
+	border:	1px solid #333;
+	color:#333;
+	padding-left:15px;
+} 
+.reg_input_normal{
+	border: 1px solid #808080;	
+	color:#b4babd;
+	padding-left:15px;
+} 
+.reg_input_text{
+	border: 1px solid #808080;
+	color:#333;
+	padding-left:15px;
 }
 .login_submet{
 	height:60px;
-	padding-top:20px;
+	padding-top:38px;
+	margin-left:25px;
 	float:left;	
 }
 .login_submet a:first-child{
-	margin-right:15px;	
+	margin-right:45px;	
 }
 .login_submet a{
 	font-size:18px;
 	text-decoration:none;
 	text-shadow:0px 2px 2px #333333;
 	font-family:"微软雅黑";
-	padding:11px 30px;
+	padding:15px 40px;
 	border-radius:3px;
 	color:#fff;
 	border-radius:5px;
@@ -184,18 +220,24 @@ body{
 	color:#fff;
 	font-size:12px;
 }
-.error_warning{
-	background: -moz-linear-gradient(19% 75% 90deg, #ffed5f, #fff182);
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fff182), to(#ffed5f));
-     border: 1px solid #C7C7C7;
-    border-radius: 5px 5px 5px 5px;
+.error_warning_user, .error_warning_password{
+	position:absolute;
     color: #E22525;
     font-size: 12px;
     height: 30px;
     line-height: 30px;
     margin-bottom: 3px;
     padding: 2px 10px;
-    width: 318px;	
+    width: 318px;
+	z-index:10;	
+}
+.error_warning_user{
+	left:360px;
+	top:-1px;	
+}
+.error_warning_password{
+	left:360px;
+	top:0px;		
 }
 .warning_icon{
 	background-position: -20px -20px;
@@ -261,4 +303,80 @@ body{
 }
 a.point_icon:hover{
 	background:url(/static/images/public/icon/smallicon.png) -100px -20px no-repeat;		
+}
+
+.tip_out, .tip_in{
+	height:50px;
+	background-repeat:no-repeat;
+	background-image:url(/static/images/login/tipframe.png);
+	display:inline-block;	
+}
+.tip_out{
+	padding-left:11px;	
+}
+.tip_in{
+	background-position:right -50px;	
+	line-height:50px;
+	color:#fff;
+	font-family:"微软雅黑";
+	font-size:18px;
+	padding-right:8px;
+}
+.error_icon{
+	background:url(/static/images/login/error.png) 3px 0 no-repeat;
+	padding:2px 20px;	
+}
+.right_icon{
+	background:url(/static/images/login/right.png) 10px 0 no-repeat;
+	padding:16px 30px;	
+}
+.reg_right_icon{
+	background:url(/static/images/login/right.png) 10px 0 no-repeat;
+	padding:16px 30px;	
+	position:absolute;
+	top:6px;
+	left:420px;
+}
+.reg_alpht_bg, .reg_alpht_border {
+    border-radius:12px;
+    height:650px;
+    position: absolute;
+    width:650px;
+}
+.reg_alpht_bg{
+	background: none repeat scroll 0 0 #FFFFFF;	
+	opacity: 0.1;
+	left:2px;
+	top:2px;
+}
+.reg_alpht_border{
+	border: 2px solid #fff;
+	left:0px;
+    top:0px;
+	opacity:0.3;
+}
+.reg_loginform_padding{
+	margin-left:65px;	
+	border-radius:8px;
+	position: relative;
+    z-index: 3;
+	padding-top:45px;
+	width:610px;
+}
+.reg_loginform_padding label{
+	color:#fff;
+	font-family:"微软雅黑";
+	font-size:18px;	
+}
+.label_2{
+	margin-left:36px;	
+}
+.label_3{
+	margin-left:18px;	
+}
+.reg_margin{
+	margin-left:100px
+}
+.reg_img_margin{
+	margin-bottom:60px;	
 }

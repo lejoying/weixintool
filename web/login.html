@@ -29,17 +29,21 @@
             <div class="loginform_img">
                 微信社交应用管理
             </div>
-            <div class="error_warning" style="display: none;">
-            	<span class="warning_icon"></span>
-                <span id="error_text">您输入的用户名或密码错误！</span>
-            </div>
             <div class="username">
                 <input name="username" class="input_normal" type="text"  value="用户名/手机/邮箱"/>
-                <input name="username1" style="display: none;" class="input_normal" type="text"  value=""/>
+                <input name="username1" style="display: none;" class="input_normal " type="text"  value=""/><span id="username_right" class="right_icon" style="display:none;"></span>
+                <b class="nameicon"></b>
+                <div class="error_warning_user" style="display: none;">
+                    <div class="tip_out"><p class="tip_in" id="username_error"><span class="error_icon"></span>用户名不能为空！</p></div>
+                </div>
             </div>
             <div class="password">
-                <input name="password" class="input_normal" type="text" value="密码"/>
-                <input name="password1" class="input_normal" style="display: none;" type="text" value=""/>
+                <input name="password" class="input_normal " type="text" value="密码"/>
+                <input name="password1" class="input_normal " style="display: none;" type="text" value=""/><span id="password_right" class="right_icon" style="display:none;"></span>
+                <b class="passwordicon"></b>
+                <div class="error_warning_password" style="display: none;">
+                    <div class="tip_out"><p class="tip_in" id="password_error"><span class="error_icon"></span>密码不能为空！</p></div>
+                </div>
             </div>
             <div class="password" style="display: none;">
                 <input name="" class="input_text input_focus" type="text" value="密码"/>
@@ -48,12 +52,6 @@
             <div class="login_submet">
                 <a href="register.html">注册</a>
                 <a href="#" id="login">登录</a>
-            </div>
-            <div class="rember_me">
-                <p>
-                    <input id="remberme" type="checkbox" value="" checked="checked"/><label for="remberme">记住我？</label>
-                </p>
-                <p><a href="#" title="点击找回密码">忘记密码？</a></p>
             </div>
             <div class="clearevery"></div>
         </div>
