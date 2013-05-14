@@ -113,7 +113,7 @@ $(document).ready(function () {
             type: "get",
             url: "/api2/account/add?",
             data: {
-                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password":  $("#password1").val()
+                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password":  $("#password1").val() , "invite":"lejoying"
             },
             success: function (data) {
                 //返回正确操作
