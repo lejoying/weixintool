@@ -1,0 +1,358 @@
+@charset "utf-8";
+body{
+	background:url(/static/images/login/login_bg.gif) #506f98 repeat-x;	
+}
+.head_slip{
+	height:7px;
+	background:#97a8be;	
+}
+.index_content{
+	width:1400px;
+	margin:0 auto;
+	position:relative;	
+}
+.head_banner{
+	height:140px;	
+}
+.index_body{
+	border:3px solid #6b82a1;
+	border-radius:10px;	
+	margin:0 auto;
+	height:760px;
+	position:absolute;
+	width:1400px;
+	left:0;
+	top:140px;
+}
+.function_model{
+	width:110px;
+	height:100px;
+	border:3px solid #6b82a1;
+	border-radius:5px;
+	position:absolute;
+	background:#5b7492;	
+}
+.login_user{
+	position:absolute;
+	width:180px;
+	height:100px;
+	border:3px solid #6b82a1;
+	border-radius:5px;	
+	color:#fff;
+}
+.body_left{
+	width:80%;
+	float:left;	
+}
+.body_right{
+	border-left: 3px solid #7589a4;
+    float: right;
+    height:100%;
+    width: 186px;
+}
+.out_frame{
+	float:left;
+	width:140px;
+	margin:16px 20px 0 20px;	
+}
+.content_element{
+	height:50px;
+	border:2px solid #6b82a1;
+	border-radius:8px;
+	background:#ced4dc;	
+	padding:5px;
+}
+.appicon{
+	width:50px;
+	height:50px;
+	overflow:hidden;	
+	float:left;
+}
+.appname{
+	float:left;
+	font-size:12px;
+	padding:3px;
+}
+.appconfig{
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	clear:both;
+	background:#dfe4ed;
+	border:2px solid #6b82a1;
+	border-radius:8px;
+}
+.appadd{
+	border-radius:8px;
+	border:3px dashed #fff;
+	width:80px;
+	height:80px;
+	text-align:center;
+	line-height:80px;
+	font-size:100px;
+	font-weight:bold;
+	color:#fff;
+}
+.apps_title{
+	font-size: 14px;
+    text-align: center;
+    text-shadow: 0 1px #2A3C52;
+	width:100%	
+}
+.personalized, .user_mange, .message_mange, .weixin_card{
+	width:56px;
+	height:56px;
+	margin:10px;
+	display:inline-block;
+	background-image:url(/static/images/moduleicon/appicon.png);	
+}
+.personalized{
+	background-position:0 0;	
+}
+.user_mange{
+	background-position:0 -350px;	
+}
+.message_mange{
+	background-position:0 -58px;	
+}
+.weixin_card{
+	background-position:0 -350px;
+	margin-top:20px;	
+}
+.user_name{
+	float:left;
+}
+.left_icon{
+	float:left;
+	width:110px;
+	text-align:center;
+	color:#fff;	
+	opacity:0.75;
+	cursor:pointer;
+}
+.left_icon:hover{
+	opacity:1;	
+	cursor:pointer;
+}
+.right_sub{
+	float:left;	
+	color:#fff;
+	height:110px;
+	line-height:110px;
+}
+.logo_apps{
+	height:24px;
+	background:url(/static/images/logo_app.png) no-repeat ;
+	display:block;
+	width:140px;
+	float:left;
+	border-left:2px solid #6c83a3;
+	padding:60px 0 0 8px;
+	margin:8px 0;
+}
+.app_list, .app_list:hover{
+	float:left;
+	width:16px;
+	height:18px;
+	margin-top:40px;
+	padding:0px 5px;
+	display:block;
+	background-image:url(/static/images/public/icon/smallicon.png);
+}
+.app_list{
+	background-position: -78px -20px;	
+}
+.app_list:hover{
+	background-position: -98px -20px;	
+}
+.weixin_user{
+	color: #FFFFFF;
+    margin: 20px;
+	padding:2px 0 0 25px;	
+	position:relative;
+}
+.user_face{
+	left:0px;
+	top:1px;
+	position:absolute;
+	display:inline-block;
+	width:22px;
+	height:22px;
+	background:url(/static/images/public/icon/smallicon.png) -128px -22px;	
+}
+.circle_out, .circle_in, .circel_ele, .circel_step{
+	text-align:center;
+	display: -moz-box;
+	display: -webkit-box;
+	display: box;    
+	-moz-box-orient: horizontal; 
+	-webkit-box-orient: horizontal;
+	box-orient: horizontal;     
+	-moz-box-pack: center;
+	-moz-box-align: center;     
+	-webkit-box-pack: center;
+	-webkit-box-align: center;     
+	box-pack: center;
+	box-align: center;
+}
+.circle_out{
+	width:120px;
+	height:120px;
+	-moz-border-radius:120px;   
+	-webkit-border-radius:120px;
+	border-radius:120px;
+	background:#e4e4e4;	
+	border:3px solid #fff;
+	margin:10px 0 20px 31px;
+	position:relative;
+	cursor:pointer;
+}
+.circle_in{
+	width:60px;
+	height:60px;
+	-moz-border-radius:30px;   
+	-webkit-border-radius:30px;
+	border-radius:30px;
+	background:#5e99cd;	
+	border:2px solid #8397a8;
+	margin:28px;
+	color:#fff;
+	font-family:"微软雅黑";
+	font-size:14px;
+}
+.circel_ele{
+	width:20px;
+	height:20px;
+	-moz-border-radius:10px;   
+	-webkit-border-radius:10px;
+	border-radius:10px;	
+	border:1px solid #8397a8;	
+	position:absolute;
+	overflow:hidden;
+}
+.circel_step{
+	width:80px;
+	height:80px;
+	-moz-border-radius:80px;   
+	-webkit-border-radius:80px;
+	border-radius:80px;	
+	background: -moz-linear-gradient(19% 75% 90deg, #3b5475, #4c617d);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c617d), to(#3b5475));
+	border:5px solid #fff;	
+	font-size:50px;
+	color:#fff;
+	font-family:"微软雅黑";
+	margin-left:60px;
+	box-shadow: 0 3px 5px #444 inset;
+	cursor:pointer;
+}
+.circel_step:hover{
+	opacity:0.75;	
+}
+.circel_ele_1{
+	left: 48px;
+    top: 4px;	
+}
+.circel_ele_2{
+	left: 73px;
+    top: 10px;	
+}
+.circel_ele_3{
+	left: 90px;
+    top: 30px;	
+}
+.circel_ele_4{
+	left: 94px;
+    top: 56px;	
+}
+.circel_ele_5{
+	left: 84px;
+    top: 81px;	
+}
+.circel_ele_6{
+	left: 84px;
+    top: 81px;	
+}
+.circel_ele_7{
+	left: 62px;
+    top: 93px;	
+}
+.circel_ele_8{
+	left: 37px;
+    top: 94px;	
+}
+.circel_ele_9{
+	left: 16px;
+    top: 80px;	
+}
+.circel_ele_10{
+	left: 5px;
+    top: 56px;	
+}
+.circel_ele_11{
+	left: 8px;
+    top: 30px;	
+}
+.circel_ele_12{
+	left: 24px;
+    top: 10px;	
+}
+.setp_out{
+	padding-left:280px;	
+}
+.circel_ele img{
+	width:20px;
+	height:20px;	
+}
+.step_img{
+	padding-left:90px;
+	padding-top:20px;	
+}
+.step_title{
+	font-size:30px;
+	font-family:"微软雅黑";
+	color:#fff;	
+	padding:45px 0 0 40px;
+}
+.step_line{
+	position:relative;
+	margin-left:125px;
+}
+.step_word{
+	color:#fff;
+	padding-left:160px;	
+	margin-top:10px;
+}
+.word_tip{
+	font-size:16px;
+	font-family:"微软雅黑";
+	font-weight:bold;	
+}
+.step_word a{
+	color:#132d64;	
+}
+.step_word a:hover{
+	color:#213e7a;	
+}
+.step_sharp{
+	display:inline-block;
+	padding:21px;
+	position:absolute;
+	left:240px;
+	top:-8px;
+	background:url(/static/images/weixin_step/sharp.png) no-repeat;	
+}
+.bottom_line{
+	background: none repeat scroll 0 0 #8599B2;
+    display: inline-block;
+    height: 5px;
+    width: 780px;	
+}
+.left_line{
+	background:url(/static/images/weixin_step/left_line.png) 2px 9px no-repeat;
+	padding:0 10px;
+}
+.right_line{
+	background:url(/static/images/weixin_step/right_line.png) 0px 9px no-repeat;
+	padding-right:174px;
+}
