@@ -89,6 +89,11 @@ body{
     top:0px;
 	opacity:0.3;
 }
+.login_form{
+	width:550px;
+	height:464px;
+	position:relative;	
+}
 .loginform_padding{
 	margin-left:95px;	
 	border-radius:8px;
