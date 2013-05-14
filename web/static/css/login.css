@@ -136,7 +136,6 @@ body{
 .input_focus, .input_normal, .input_text, .reg_input_focus, .reg_input_normal, .reg_input_text{
 	font-size:18px;
 	font-family:"微软雅黑";
-	line-height:50px;
 	width:320px;
 	height:50px;
 	margin-bottom:25px;
@@ -246,8 +245,6 @@ body{
 	position:absolute;
     color: #E22525;
     font-size: 12px;
-    height: 30px;
-    line-height: 30px;
     margin-bottom: 3px;
     padding: 2px 10px;
     width: 318px;
