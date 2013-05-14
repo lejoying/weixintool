@@ -45,7 +45,7 @@ accountManage.add = function (data, response) {
                 }
                 else {
                     response.write(JSON.stringify({
-                        "提示信息": "注册账号失败！",
+                        "提示信息": "注册账号失败",
                         "reason": "注册邮箱已存在。"
                     }));
                     response.end();
@@ -54,7 +54,7 @@ accountManage.add = function (data, response) {
         }
         else {
             response.write(JSON.stringify({
-                "提示信息": "注册账号失败!",
+                "提示信息": "注册账号失败",
                 "reason": "账号名已存在。"
             }));
             response.end();
@@ -70,7 +70,7 @@ accountManage.add = function (data, response) {
             node.index("account", "email", account.email);
             node.save(function (err, node) {
                 response.write(JSON.stringify({
-                    "提示信息": "注册账号成功！",//#1
+                    "提示信息": "注册账号成功",
                     "uid": node.data.uid,
                     "acccesskey": node.data.accessKey
                 }));
