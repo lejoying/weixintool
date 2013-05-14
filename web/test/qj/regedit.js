@@ -98,7 +98,6 @@ $(document).ready(function () {
             $("#phone_none").hide();
         }
     });
-
     $("#regedit").click(function () {
         if (!($("#username1").val())) {
             $("#username1").focus();
@@ -113,7 +112,7 @@ $(document).ready(function () {
             type: "get",
             url: "/api2/account/add?",
             data: {
-                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password":  $("#password1").val()
+                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password":  $("#password1").val() , "invite":"lejoying"
             },
             success: function (data) {
                 //返回正确操作
