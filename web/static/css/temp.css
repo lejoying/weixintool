@@ -1,0 +1,23 @@
+@charset "utf-8";
+/**
+ * Author：Chen Liguo
+ * QQ:150362521
+ * Phone:18210241415
+ */
+
+/*** Style Reset ***/
+.hide {
+    display: none;
+}
+
+.error_warning {
+    position: absolute;
+}
+
+.reg_margin a {
+    font-size: 21px;
+}
+
+.login_form {
+    position: absolute;
+}
