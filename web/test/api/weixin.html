@@ -7,10 +7,9 @@
 <title>微信社交应用管理登录</title>
 </head>
 <body>
-<a id="account_exist" href="javascript:">account_exist</a>     <br>
-<a id="account_auth" href="javascript:">account_auth</a>     <br>
-<a id="account_weixinAdd" href="javascript:">weixinAdd</a>     <br>
-<a id="account_weixinDelete" href="javascript:">account_weixinDelete</a>     <br>
+
+<a id="weixinAdd" href="javascript:">weixinAdd</a>     <br>
+<a id="weixinDelete" href="javascript:">account_weixinDelete</a>     <br>
 <div class="head">
 </div>
 <div class="content">
@@ -20,30 +19,26 @@
                 微信社交应用管理
             </div>
             <div class="username">
-                <label class="label_3">用户名</label>
-                <input  class="reg_input_normal text_accountname" type="text"  value="用户名"/>
+                <label class="label_3">weixinOpenID</label>
+                <input  class="reg_input_normal text_weixinOpenID" type="text"  value=34 />
 
             </div>
             <div class="password">
-                <label class="label_2">密码</label>
-                <input name="password" class="reg_input_focus text_password" type="text" value="密码"/>
+                <label class="label_3">weixinName</label>
+                <input name="password" class="reg_input_text text_weixinName" type="text" value=""/>
             </div>
             <div class="password">
-                <label class="label_3">手机号</label>
-                <input name="password" class="reg_input_text text_phone" type="text" value="手机号"/>
-            </div>
-            <div class="password">
-                <label class="label_3">邮箱</label>
-                <input name="password" class="reg_input_text text_email" type="text" value="邮箱"/>
+                <label class="label_3">token</label>
+                <input name="password" class="reg_input_text text_token" type="text" value=""/>
             </div>
             <div class="password">
                 <label>邀请码</label>
-                <input name="password" class="reg_input_normal text_invite" type="text" value="邀请码"/>
+                <input name="password" class="reg_input_normal text_invite" type="text" value=""/>
             </div>
             <div class="clearevery"></div>
             <div class="login_submet reg_margin">
                 <a href="register.html">直接登录</a>
-                <a href="#" id="login">注册</a>
+                <a href="#" id="Update">修改</a>
             </div>
             <div class="clearevery"></div>
         </div>
@@ -55,6 +50,6 @@
 
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/sha1.js"></script>
-<script type="text/javascript" src="./js/account_add.js"></script>
+<script type="text/javascript" src="./js/weixin.js"></script>
 </body>
 </html>
