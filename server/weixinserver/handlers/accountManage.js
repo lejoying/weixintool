@@ -45,7 +45,7 @@ accountManage.add = function (data, response) {
                 }
                 else {
                     response.write(JSON.stringify({
-                        "提示信息": "注册账号失败！",
+                        "提示信息": "注册账号失败",
                         "reason": "注册邮箱已存在。"
                     }));
                     response.end();
@@ -54,7 +54,7 @@ accountManage.add = function (data, response) {
         }
         else {
             response.write(JSON.stringify({
-                "提示信息": "注册账号失败!",
+                "提示信息": "注册账号失败",
                 "reason": "账号名已存在。"
             }));
             response.end();
@@ -70,7 +70,7 @@ accountManage.add = function (data, response) {
             node.index("account", "email", account.email);
             node.save(function (err, node) {
                 response.write(JSON.stringify({
-                    "提示信息": "注册账号成功！",//#1
+                    "提示信息": "注册账号成功",
                     "uid": node.data.uid,
                     "acccesskey": node.data.accessKey
                 }));
@@ -81,6 +81,9 @@ accountManage.add = function (data, response) {
 }
 
 var RSA = require('./../tools/RSA');
+/***************************************
+ *     URL：/api2/account/exist
+ ***************************************/
 accountManage.exist = function (data, response) {
     response.asynchronous = 1;
     account = {
@@ -94,8 +97,8 @@ accountManage.exist = function (data, response) {
             db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
                 if (node != null) {
                     response.write(JSON.stringify({
-                        "information": account.accountName + " 存在",
-                        "status": "失败"
+                        "提示信息":" 用户名存在",
+                        "status": "failed"
                     }));
                     response.end();
                     return;
@@ -115,8 +118,8 @@ accountManage.exist = function (data, response) {
             db.getIndexedNode("account", "email", account.email, function (err, node) {
                 if (node != null) {
                     response.write(JSON.stringify({
-                        "information": account.email + " 存在",
-                        "status": "失败"
+                        "提示信息": " 邮箱已存在",
+                        "status": "failed"
                     }));
                     response.end();
                     return;
@@ -124,7 +127,6 @@ accountManage.exist = function (data, response) {
                 else {
                     responsePass();
                 }
-
             });
         }
         else {
@@ -134,15 +136,17 @@ accountManage.exist = function (data, response) {
 
     function responsePass() {
         response.write(JSON.stringify({
-            "information": (account.accountName || account.email) + " 不存在",
-            "status": "通过验证"
+            "提示信息": (account.accountName || account.email) + " 不存在",
+            "status": "passed"
         }));
         response.end();
     }
-
 }
 
 var RSA = require('./../tools/RSA');
+/***************************************
+ *     URL：/api2/account/auth
+ ***************************************/
 accountManage.auth = function (data, response) {
     response.asynchronous = 1;
     account = {
@@ -177,23 +181,23 @@ accountManage.auth = function (data, response) {
                 if (account.password == node.data.password) {
                     node.index("account", "accountName", account.accountName);
                     response.write(JSON.stringify({
-                        "information": "用户存在 ",
+                        "提示信息": "账号不存在 ",
                         "status": "通过验证"
                     }));
                     response.end();
                 }
                 else {
                     response.write(JSON.stringify({
-                        "information": account.password + " 密码错误！",
-                        "status": "失败"
+                        "提示信息": account.password + " 密码不正确",
+                        "status": "账号登录失败"
                     }));
                     response.end();
                 }
             }
             else {
                 response.write(JSON.stringify({
-                    "information": account.accountName + " 用户不存在",
-                    "status": "失败"
+                    "提示信息": account.accountName + " 用户不存在",
+                    "status": "账号登录失败"
                 }));
                 response.end();
             }
@@ -208,23 +212,23 @@ accountManage.auth = function (data, response) {
                 if (account.password == node.data.password) {
                     node.index("account", "phone", account.phone);
                     response.write(JSON.stringify({
-                        "information": "电话存在",
+                        "提示信息": "电话存在",
                         "status": "通过验证"
                     }));
                     response.end();
                 }
                 else {
                     response.write(JSON.stringify({
-                        "information": account.password + " 密码错误！",
-                        "status": "失败"
+                        "提示信息": account.password + " 密码不正确",
+                        "status": "账号登录失败"
                     }));
                     response.end();
                 }
             }
             else {
                 response.write(JSON.stringify({
-                    "information": account.phone + " 电话号码不存在",
-                    "status": "失败"
+                    "提示信息": account.phone + " 电话号码不存在",
+                    "status": "账号登录失败"
                 }));
                 response.end();
             }
@@ -240,29 +244,34 @@ accountManage.auth = function (data, response) {
                 if (account.password == node.data.password) {
                     node.index("account", "email", account.email);
                     response.write(JSON.stringify({
-                        "information": "邮箱存在",
+                        "提示信息": "邮箱存在",
                         "status": "通过验证"
                     }));
                     response.end();
                 }
                 else {
                     response.write(JSON.stringify({
-                        "information": account.password + " 密码错误！",
-                        "status": "失败"
+                        "提示信息": account.password + " 密码不正确",
+                        "status": "账号登录失败"
                     }));
                     response.end();
                 }
             }
             else {
                 response.write(JSON.stringify({
-                    "information": account.email + " 邮箱不存在",
-                    "status": "失败"
+                    "提示信息": account.email + " 邮箱不存在",
+                    "status": "账号登录失败"
                 }));
                 response.end();
             }
         });
     }
 }
+
+/***************************************
+ *     URL：/api2/account/trash
+ ***************************************/
+
 
 
 module.exports = accountManage;

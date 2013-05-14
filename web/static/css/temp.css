@@ -17,3 +17,7 @@
 .reg_margin a {
     font-size: 21px;
 }
+
+.login_form {
+    position: absolute;
+}
