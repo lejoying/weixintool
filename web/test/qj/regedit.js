@@ -99,18 +99,35 @@ $(document).ready(function () {
         }
     });
 
-    $("#login").click(function () {
+    $("#regedit").click(function () {
         if (!($("#username1").val())) {
-            $("#username1").val().focus();
+            $("#username1").focus();
         } else if (!($("#password1").val())) {
-            $("#password1").val().focus();
+            $("#password1").focus();
         } else if (!($("#pwd1").val())) {
-            $("#pwd1").val().focus();
+            $("#pwd1").focus();
         } else if (!($("#phone1").val())) {
-            $("#phone1").val().focus();
-        } else {
-            alert("恭喜您：注册成功");
+            $("#phone1").focus();
         }
+        $.ajax({
+            type: "get",
+            url: "/api2/account/add?",
+            data: {
+                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password":  $("#password1").val() , "invite":"lejoying"
+            },
+            success: function (data) {
+                //返回正确操作
+                if (data["提示信息"] == "注册账号成功") {
+                    alert("注册成功");
+                }
+                else if (data["提示信息"] == "注册账号失败") {
+                    $(".error_warning").toggle();
+                    $("#error_text").text("用户名或密码错误！");
+                } else {
+                    alert("注册异常");
+                }
+            }
+        });
     });
 });
 

@@ -57,7 +57,7 @@ weixinManage.add = function (data, response) {
             node.index("weixin", "accesskey", weixin.accesskey);
             node.save(function (err, node) {
                 response.write(JSON.stringify({
-                    "提示信息": "添加微信绑定用户成功！",
+                    "提示信息": "添加微信绑定用户成功",
                     "node": node.data
                 }));
                 response.end();
@@ -88,7 +88,7 @@ weixinManage.delete = function(data, response) {
             response.end();
         }else {
             response.write(JSON.stringify({
-                "提示信息": "删除微信绑定用户失败！",
+                "提示信息": "删除微信绑定用户失败",
                 "reason": "微信用户不存在。"
             }));
             response.end();
@@ -122,7 +122,7 @@ weixinManage.modify = function(data, response) {
             response.end();
         }else {
             response.write(JSON.stringify({
-                "提示信息": "修改微信绑定用户失败！",
+                "提示信息": "修改微信绑定用户失败",
                 "reason": "微信用户不存在。"
             }));
             response.end();

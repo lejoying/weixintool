@@ -64,10 +64,10 @@ $(document).ready(function () {
                 data: user,
                 success: function (data) {
                     //返回正确操作
-                    if (data.status == "passed") {
+                    if (data["提示信息"] == "账号登录成功") {
                         alert("登录成功");
                     }
-                    else if (data.status == "failed") {
+                    else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
                     } else {
