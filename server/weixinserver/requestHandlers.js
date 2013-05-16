@@ -41,6 +41,8 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
         weixinManage.delete(data, response);
     }else if (operation == "modify") {
         weixinManage.modify(data, response);
+    }else if (operation == "getall") {
+        weixinManage.getall(data, response);
     }
 };
 
