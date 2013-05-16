@@ -23,11 +23,11 @@ $("#weixinAdd").click(function () {
     window.alert("weixinAdd");
     $.ajax({
         data: {
-            "uid": "asdfasdf",
+            "uid": "account",
             "accesskey":"2013",
-            "weixinOpenID":"1111114",
-            "weixinName":"gkgkgkgkgkgk",
-            "token":"fdadfad"
+            "weixinOpenID":"555578",
+            "weixinName":"chris",
+            "token":"gaike"
         },
         success: function (data) {
             alert(JSON.stringify(data));
@@ -47,7 +47,7 @@ $("#account_weixinUpdate").click(function () {
             "accesskey": data.accesskey,
             "weixinOpenID": data.weixinOpenID,
             "weixinName": data.weixinName,
-            "token": "fdfsafsa"
+            "token": data.token
         },
         success: function (data) {
             RSA.setMaxDigits(38);
@@ -69,7 +69,7 @@ $("#weixinDelete").click(function () {
     window.alert("weixinDelete");
     $.ajax({
         data: {
-            "weixinOpenID": "1111114"
+            "weixinOpenID": "555578"
         },
         success: function (data) {
             alert(JSON.stringify(data));
@@ -78,3 +78,27 @@ $("#weixinDelete").click(function () {
         url: ("/api2/weixinuer/delete")
     });
 });
+
+
+$(document).ready(function () {
+    $("#weixinGetall").click(function () {
+
+        var weixinOpenID = $(".text_weixinOpenID").val();
+        var weixinName = $(".text_weixinName").val();
+        var token = $(".text_token").val();
+        var invite = $(".text_invite").val();
+        var uid = $(".text_uid").val();
+        var phone = $(".text_phone").val();
+        var accountName = $(".text_accountName").val();
+
+        $.ajax({
+            type: "get",
+            url: "/api2/weixinuer/getall",
+//            data: {"weixinOpenID": weixinOpenID, "weixinName": weixinName, "token": token,"invite": invite},
+            data: {"weixinOpenID": weixinOpenID, "weixinName": weixinName, "token": token,"invite": invite,"uid": uid, "phone": phone, "accountName": accountName},
+            success: function (data) {
+                //返回正确操作
+            }
+        });
+    });
+})

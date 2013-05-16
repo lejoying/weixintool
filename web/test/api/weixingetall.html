@@ -1,16 +1,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link href="/static/css/public.css" type="text/css" rel="stylesheet"/>
-<link href="/static/css/login.css" type="text/css" rel="stylesheet" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>微信社交应用管理登录</title>
 </head>
 <body>
 
-<a id="weixinAdd" href="javascript:">weixinAdd</a>     <br>
-<a id="weixinDelete" href="javascript:">weixinDelete</a>     <br>
-<a id="weixinGetall" href="javascript:">weixinGetall</a>     <br>
 <div class="head">
 </div>
 <div class="content">
@@ -21,8 +16,7 @@
             </div>
             <div class="username">
                 <label class="label_3">weixinOpenID</label>
-                <input  class="reg_input_normal text_weixinOpenID" type="text"  value=34 />
-
+                <input  class="reg_input_normal text_weixinOpenID" type="text"  value="" />
             </div>
             <div class="password">
                 <label class="label_3">weixinName</label>
@@ -33,24 +27,26 @@
                 <input name="password" class="reg_input_text text_token" type="text" value=""/>
             </div>
             <div class="password">
-                <label>邀请码</label>
+                <label>invent</label>
                 <input name="password" class="reg_input_normal text_invite" type="text" value=""/>
             </div>
+            <label>uid</label>
+            <input name="text" class="text_uid" type="text" value=""/>
+            <label>phone</label>
+            <input name="text" class="text_phone" type="text" value=""/>
+            <label>accountName</label>
+            <input name="text" class="text_accountName" type="text" value=""/>
             <div class="clearevery"></div>
             <div class="login_submet reg_margin">
-                <a href="register.html">直接登录</a>
-                <a href="#" id="Update">修改</a>
+                <a href="#" id="weixinGetall">绑定</a>
             </div>
-            <div class="clearevery"></div>
+
         </div>
-        <div class="reg_alpht_bg"></div>
-        <div class="reg_alpht_border"></div>
     </div>
 </div>
 
 
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
-<script type="text/javascript" src="/static/js/sha1.js"></script>
 <script type="text/javascript" src="./js/weixin.js"></script>
 </body>
 </html>

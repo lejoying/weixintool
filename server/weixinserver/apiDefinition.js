@@ -83,7 +83,7 @@ api = {
             typical: {uid: "nnnn", accesskey: "XXXXXX"}
         },
         response: {
-            success: {"提示信息": "获取所有微信绑定用户成功", weixin: {
+            success: {"提示信息": "获取所有微信绑定用户成功", weixins: {
                 (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"},
                 (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"}
             }}
