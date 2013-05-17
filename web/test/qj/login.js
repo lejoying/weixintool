@@ -96,6 +96,7 @@ $(document).ready(function () {
     $("#weixinAdd").click(function () {
         var weixinName = $(".text_weixinName").val();
         localStorage.setItem("weixinName",weixinName);
+        localStorage.lastname="Smith";
         $.ajax({
             type: "get",
             url: "/api2/weixinuer/add",
