@@ -110,9 +110,12 @@ $(document).ready(function () {
         var index = $(this).attr("index");
         $(".word_tip[index!='" + index + "']").removeClass("current");
         $(".word_tip[index='" + index + "']").addClass("current");
+<<<<<<< HEAD
         $(".step_img_form[index!='" + index + "']").removeClass("current");
         $(".step_img_form[index='" + index + "']").addClass("current");
         $(".step_img[index!='" + index + "']").removeClass("current");
         $(".step_img[index='" + index + "']").addClass("current");
+=======
+>>>>>>> 8294fac9d5921521179b52c51228da56cf689060
     });
 })
