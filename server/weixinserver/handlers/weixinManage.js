@@ -104,7 +104,7 @@ weixinManage.delete = function (data, response) {
         } else {
             response.write(JSON.stringify({
                 "提示信息": "删除微信绑定用户失败",
-                "reason": "微信用户不存在。"
+                "reason": "微信用户不存在"
             }));
             response.end();
         }
@@ -143,7 +143,7 @@ weixinManage.modify = function (data, response) {
         } else {
             response.write(JSON.stringify({
                 "提示信息": "修改微信绑定用户失败",
-                "reason": "微信用户不存在。"
+                "reason": "微信用户不存在"
             }));
             response.end();
         }

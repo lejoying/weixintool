@@ -98,7 +98,6 @@ $(document).ready(function () {
             $("#phone_none").hide();
         }
     });
-
     $("#regedit").click(function () {
         if (!($("#username1").val())) {
             $("#username1").focus();
@@ -117,12 +116,13 @@ $(document).ready(function () {
             },
             success: function (data) {
                 //返回正确操作
+                alert(data["提示信息"]);
                 if (data["提示信息"] == "注册账号成功") {
                     alert("注册成功");
                 }
                 else if (data["提示信息"] == "注册账号失败") {
                     $(".error_warning").toggle();
-                    $("#error_text").text("用户名或密码错误！");
+                    $("#error_text").text("用户名或密码错误");
                 } else {
                     alert("注册异常");
                 }

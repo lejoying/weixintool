@@ -92,3 +92,16 @@ function passwordNone(){
 	$("#password_right").hide();
 	$(".error_warning_password").show();	
 }
+$(document).ready(function () {
+    $("#weixinAdd").click(function () {
+        var weixinName = $(".text_weixinName").val();
+        $.ajax({
+            type: "get",
+            url: "/api2/weixinuer/add",
+            data: {"weixinName": weixinName},
+            success: function (data) {
+                //返回正确操作
+            }
+        });
+    });
+})
