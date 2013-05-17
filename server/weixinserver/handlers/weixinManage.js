@@ -25,68 +25,83 @@ var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put
 var RSA = require('./../tools/RSA');
 weixinManage.add = function (data, response) {
     response.asynchronous = 1;
-    var weixin =
-    {
-        "uid": data.uid,
-        "type": "weixin",
-        "accesskey": data.accesskey,
-        "weixinOpenID": data.weixinOpenID,
-        "weixinName": data.weixinName,
-        "token": "fdfsafsa"
-    };
+    var uid = data.uid;
 
-    db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
-        if (node == null) {
-            weixinAdd();
-        }
-        else {
+    db.getNodeById(uid, function (err, accountNode) {
+        if (accountNode == null) {
             response.write(JSON.stringify({
                 "提示信息": "添加微信绑定用户失败",
-                "node": node.data
+                "失败原因": "账号不存在"
             }));
             response.end();
         }
+        else {
+            next(accountNode);
+        }
     });
-    function weixinAdd(){
-        var node = db.createNode(weixin);
-        node.save(function (err, node) {
-            node.data.uid = node.id;
-            node.index("weixin", "uid", weixin.uid);
-            node.index("weixin", "weixinOpenID", weixin.weixinOpenID);
-            node.index("weixin", "weixinName", weixin.weixinName);
-            node.index("weixin", "accesskey", weixin.accesskey);
-            node.save(function (err, node) {
+    function next(accountNode) {
+        var weixin =
+        {
+            "type": "weixin",
+            "weixinOpenID": data.weixinOpenID,
+            "weixinName": data.weixinName,
+            "token": data.token
+        };
+
+        db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
+            if (node == null) {
+                weixinAdd();
+            }
+            else {
                 response.write(JSON.stringify({
-                    "提示信息": "添加微信绑定用户成功",
+                    "提示信息": "添加微信绑定用户失败",
                     "node": node.data
                 }));
                 response.end();
-            });
+            }
         });
+        function weixinAdd() {
+            var weixinNode = db.createNode(weixin);
+            weixinNode.save(function (err, weixinNode) {
+                weixinNode.data.weixinid = weixinNode.id;
+                weixinNode.index("weixin", "weixinid", weixinNode.id);
+                weixinNode.index("weixin", "weixinOpenID", weixin.weixinOpenID);
+                weixinNode.save(function (err, weixinNode) {
+
+                    weixinNode.createRelationshipFrom(accountNode, "OWNED");
+                    response.write(JSON.stringify({
+                        "提示信息": "添加微信绑定用户成功",
+                        "node": weixinNode.data
+                    }));
+                    response.end();
+                });
+            });
+        }
     }
+
+
 }
 /***************************************
  *     URL：/api2/weixinuer/delete
  ***************************************/
-weixinManage.delete = function(data, response) {
+weixinManage.delete = function (data, response) {
     response.asynchronous = 1;
     var weixin =
     {
-        "uid": data.uid,
         "type": "weixin",
         "accesskey": data.accesskey,
         "weixinOpenID": data.weixinOpenID,
         "weixinName": data.weixinName
     }
-    db.getIndexedNode("weixin", "weixinOpenID",weixin.weixinOpenID, function (err, node){
-        if (node != null){
+    db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
+        if (node != null) {
             node.delete();
             response.write(JSON.stringify({
                 "information": "删除微信绑定用户成功",
                 "node": node.data
             }));
             response.end();
-        }else {
+        } else {
             response.write(JSON.stringify({
                 "提示信息": "删除微信绑定用户失败",
                 "reason": "微信用户不存在。"
@@ -98,29 +113,34 @@ weixinManage.delete = function(data, response) {
 /***************************************
  *     URL：/api2/weixinuer/modify
  ***************************************/
-weixinManage.modify = function(data, response) {
+weixinManage.modify = function (data, response) {
     response.asynchronous = 1;
     var weixin =
     {
-        "uid": data.uid,
         "type": "weixin",
         "accesskey": data.accesskey,
         "weixinOpenID": data.weixinOpenID,
         "weixinName": data.weixinName,
-        "token": "ChrisGai"
+        "token": data.token
     }
-    db.getIndexedNode("weixin", "weixinOpenID",weixin.weixinOpenID, function (err, node){
-        if (node != null){
-            node.index("weixin", "weixinOpenID",weixin.weixinOpenID);
-            node.index("weixin", "weixinName",weixin.weixinName);
-            node.index("weixin", "accesskey",weixin.accesskey);
-            node.index("weixin", "token",weixin.token);
-            response.write(JSON.stringify({
-                "information": "修改微信绑定用户成功",
-                "node": node.data
-            }));
-            response.end();
-        }else {
+    db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
+        if (node != null) {
+//            node.getRelationshipNodes("weixin", "weixinOpenID",weixin.weixinOpenID ,function(err, node){})
+            node.save(function (err, node) {
+                node.data.weixinName = weixin.weixinName;
+                node.data.token = weixin.token;
+                node.index("weixin", "weixinName", weixin.weixinName);
+                node.index("weixin", "token", weixin.token);
+                node.save(function (err, node) {
+                    response.write(JSON.stringify({
+                        "提示信息": "修改微信绑定用户成功",
+                        "node": node.data
+                    }));
+                    response.end();
+                });
+            });
+
+        } else {
             response.write(JSON.stringify({
                 "提示信息": "修改微信绑定用户失败",
                 "reason": "微信用户不存在。"
@@ -128,6 +148,44 @@ weixinManage.modify = function(data, response) {
             response.end();
         }
     });
+}
+
+/***************************************
+ *     URL：/api2/weixinuer/gatall
+ ***************************************/
+weixinManage.getall = function (data, response) {
+    response.asynchronous = 1;
+
+    var uid = data.uid;
+
+    db.getNodeById(uid, function (err, accountNode) {
+        if (accountNode == null) {
+            response.write(JSON.stringify({
+                "提示信息": "获取所有微信绑定用户失败",
+                "失败原因": "账号不存在"
+            }));
+            response.end();
+        }
+        else {
+            next(accountNode);
+        }
+    });
+    function next(accountNode) {
+
+        accountNode.getRelationshipNodes({type: 'OWNED', direction: 'out'}, function (err, weixinNodes) {
+            var weixins = {};
+            for (var index in weixinNodes) {
+                var weixinNode = weixinNodes[index];
+                weixins[weixinNode.data.weixinid] = weixinNode.data;
+            }
+
+            response.write(JSON.stringify({
+                "提示信息": "获取所有微信绑定用户成功",
+                "weixins": weixins
+            }));
+            response.end();
+        });
+    }
 }
 
 module.exports = weixinManage;
