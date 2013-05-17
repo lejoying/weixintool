@@ -95,10 +95,11 @@ function passwordNone(){
 $(document).ready(function () {
     $("#weixinAdd").click(function () {
         var weixinName = $(".text_weixinName").val();
+        localStorage.setItem("weixinName",weixinName);
         $.ajax({
             type: "get",
             url: "/api2/weixinuer/add",
-            data: {"weixinName": weixinName},
+            data: {"uid": "30","weixinName": weixinName},
             success: function (data) {
                 //返回正确操作
             }
