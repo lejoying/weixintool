@@ -272,6 +272,8 @@ body{
 	margin-left:60px;
 	box-shadow: 0 3px 5px #444 inset;
 	cursor:pointer;
+	display:inline-block;
+	line-height:80px;
 }
 .circel_step:hover{
 	opacity:0.75;	
