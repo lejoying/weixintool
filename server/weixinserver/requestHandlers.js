@@ -15,8 +15,8 @@ requestHandlers.accountManage = function (request, response, pathObject, data) {
         var invite = data.invite;
         if (invite != "lejoying") {
             response.write(JSON.stringify({
-                "提示信息": "注册账号失败!",
-                "reason": "邀请码不正确。"
+                "提示信息": "注册账号失败",
+                "reason": "邀请码不正确"
             }));
             response.end();
         }
