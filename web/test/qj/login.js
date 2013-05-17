@@ -83,14 +83,14 @@ function usernameNone(){
 	$("[name='username']").toggle();
 	$("#username_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"用户名不能为空！");
 	$("#username_right").hide();
-	$(".error_warning_user").show();	
+	$(".error_warning_user").show();
 }
 function passwordNone(){
 	$("[name='password1']").toggle();
 	$("[name='password']").toggle();
 	$("#password_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"密码不能为空！");
 	$("#password_right").hide();
-	$(".error_warning_password").show();	
+	$(".error_warning_password").show();
 }
 $(document).ready(function () {
     $("#weixinAdd").click(function () {
@@ -105,8 +105,14 @@ $(document).ready(function () {
         });
     });
 })
-$(document).ready(function(){
-    $("#step").mouseover(function(){
-
+$(document).ready(function () {
+    $(".circel_step").mouseover(function () {
+        var index = $(this).attr("index");
+        $(".word_tip[index!='" + index + "']").removeClass("current");
+        $(".word_tip[index='" + index + "']").addClass("current");
+        $(".step_img_form[index!='" + index + "']").removeClass("current");
+        $(".step_img_form[index='" + index + "']").addClass("current");
+        $(".step_img[index!='" + index + "']").removeClass("current");
+        $(".step_img[index='" + index + "']").addClass("current");
     });
 })
