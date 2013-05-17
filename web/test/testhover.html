@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <title>测试</title>
+
+
+    <style type="text/css">
+        .father {
+            border: 1px solid #111111;
+            height: 50px;
+        }
+
+        .father:hover {
+            background: #009900;
+        }
+
+            /*.father:hover .child {*/
+            /*display: block;*/
+            /*}*/
+
+        .hide {
+            display: none;
+        }
+
+        .current {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="father" index="1">1
+    <div class="child hide" index="1">(1)</div>
+</div>
+<div class="father" index="2">2
+    <div class="child hide" index="2">(2)</div>
+</div>
+
+<div class="father" index="3">3
+    <div class="child hide" index="3">(3)</div>
+</div>
+
+<div class="father" index="4">4
+    <div class="child hide" index="4">(4)</div>
+</div>
+
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".father").mouseover(function () {
+            var index = $(this).attr("index");
+            $(".child[index!='" + index + "']").removeClass("current");
+            $(".child[index='" + index + "']").addClass("current");
+        });
+    })
+
+
+</script>
+</body>
+</html>
