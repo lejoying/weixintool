@@ -343,6 +343,16 @@ body{
 	font-family:"微软雅黑";
 	color:#666;
 }
+.step_img_form{
+	margin-left:80px;	
+	width:740px;
+	height:443px;
+	margin-top:20px;
+	padding-right:310px;
+	text-align:right;
+	font-family:"微软雅黑";
+	color:#666;	
+}
 .step_img p a{
 	padding:3px 12px;
 	background:url(/static/images/weixin_step/copy.png) no-repeat;	
@@ -473,7 +483,7 @@ body{
 	opacity:0.9;
 }
 .bind_success img{
-	margin:100px 0 20px 122px;	
+	margin:100px 120px 20px 120px;	
 }
 .bing_end{
 	text-align:center;
