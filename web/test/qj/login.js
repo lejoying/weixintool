@@ -108,6 +108,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".circel_step").mouseover(function () {
         var index = $(this).attr("index");
+<<<<<<< HEAD
         var sharp = $(".step_sharp");
         if (index == 1) {
             sharp.attr("left", "400px");
@@ -123,6 +124,26 @@ $(document).ready(function () {
         }
         else if (index == 5) {
             sharp.attr("left", "1040px");
+=======
+        alert(index);
+        switch (index) {
+            case 1:
+                $(".step_sharp").attr("left", "400px");
+                break;
+            case 2:
+                alert(1);
+                $(".step_sharp").attr("left", "560px");
+                break;
+            case 3:
+                $(".step_sharp").attr("left", "720px");
+                break;
+            case 4:
+                $(".step_sharp").attr("left", "880px");
+                break;
+            case 5:
+                $(".step_sharp").attr("left", "1040px");
+                break;
+>>>>>>> 55e49e0ad8f247d34b63a611f0f8acb433145e4f
         }
         $(".word_tip[index!='" + index + "']").removeClass("current");
         $(".word_tip[index='" + index + "']").addClass("current");
