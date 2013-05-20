@@ -108,22 +108,24 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".circel_step").mouseover(function () {
         var index = $(this).attr("index");
-        var sharp = $(".step_sharp");
+        var sharp = document.getElementById("step_line");
         if (index == 1) {
-            sharp.attr("left", "400px");
+            sharp.style.left = "240px";
         }
         else if (index == 2) {
-            sharp.attr("left", "560px");
+            sharp.style.left = "400px";
         }
         else if (index == 3) {
-            sharp.attr("left", "720px");
+            sharp.style.left = "560px";
         }
         else if (index == 4) {
-            sharp.attr("left", "880px");
+            sharp.style.left = "720px";
         }
         else if (index == 5) {
-            sharp.attr("left", "1040px");
+            sharp.style.left = "880px";
         }
+        $(".step_img_form").addClass("hide");
+        $(".word_tip").addClass("hide");
         $(".word_tip[index!='" + index + "']").removeClass("current");
         $(".word_tip[index='" + index + "']").addClass("current");
         $(".step_img_form[index!='" + index + "']").removeClass("current");
