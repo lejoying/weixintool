@@ -30,14 +30,11 @@ $(document).ready(function () {
         }
     });
     $("#login").click(function () {
-
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
-
         var text = $("[name='username1']").val();
         var passwordPlaint = $("[name='password1']").val();
         var password = hex_sha1(passwordPlaint);
-
         if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
             $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
@@ -57,7 +54,6 @@ $(document).ready(function () {
             else {
                 user.account = text;
             }
-
             $.ajax({
                 type: "get",
                 url: "/api2/account/auth?",
@@ -108,22 +104,24 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".circel_step").mouseover(function () {
         var index = $(this).attr("index");
-        var sharp = $(".step_sharp");
+        var sharp = document.getElementById("step_line");
         if (index == 1) {
-            sharp.attr("left", "400px");
+            sharp.style.left = "240px";
         }
         else if (index == 2) {
-            sharp.attr("left", "560px");
+            sharp.style.left = "400px";
         }
         else if (index == 3) {
-            sharp.attr("left", "720px");
+            sharp.style.left = "560px";
         }
         else if (index == 4) {
-            sharp.attr("left", "880px");
+            sharp.style.left = "720px";
         }
         else if (index == 5) {
-            sharp.attr("left", "1040px");
+            sharp.style.left = "880px";
         }
+        $(".step_img_form").addClass("hide");
+        $(".word_tip").addClass("hide");
         $(".word_tip[index!='" + index + "']").removeClass("current");
         $(".word_tip[index='" + index + "']").addClass("current");
         $(".step_img_form[index!='" + index + "']").removeClass("current");
