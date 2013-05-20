@@ -9,10 +9,10 @@ $(document).ready(function () {
         var name = $("[name='username1']").val();
         if (name == "") {
             usernameNone();
-        }else{
-			$("#username_right").show();
-			$(".error_warning_user").hide();
-		}
+        } else {
+            $("#username_right").show();
+            $(".error_warning_user").hide();
+        }
     });
     $("[name='password']").focus(function () {
         $("[name='password']").toggle();
@@ -26,7 +26,7 @@ $(document).ready(function () {
             passwordNone();
         } else {
             $("#password_right").show();
-			$(".error_warning_password").hide();
+            $(".error_warning_password").hide();
         }
     });
     $("#login").click(function () {
@@ -40,7 +40,7 @@ $(document).ready(function () {
 
         if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
-            $("#username_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"用户名密码不能为空！");
+            $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
         } else {
             var user = {
                 account: null,
@@ -78,19 +78,19 @@ $(document).ready(function () {
         }
     });
 })
-function usernameNone(){
-	$("[name='username1']").toggle();
-	$("[name='username']").toggle();
-	$("#username_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"用户名不能为空！");
-	$("#username_right").hide();
-	$(".error_warning_user").show();
+function usernameNone() {
+    $("[name='username1']").toggle();
+    $("[name='username']").toggle();
+    $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名不能为空！");
+    $("#username_right").hide();
+    $(".error_warning_user").show();
 }
-function passwordNone(){
-	$("[name='password1']").toggle();
-	$("[name='password']").toggle();
-	$("#password_error").html("<"+"span class='error_icon'"+"></"+"span"+">"+"密码不能为空！");
-	$("#password_right").hide();
-	$(".error_warning_password").show();
+function passwordNone() {
+    $("[name='password1']").toggle();
+    $("[name='password']").toggle();
+    $("#password_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "密码不能为空！");
+    $("#password_right").hide();
+    $(".error_warning_password").show();
 }
 $(document).ready(function () {
     $("#weixinAdd").click(function () {
@@ -108,14 +108,27 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".circel_step").mouseover(function () {
         var index = $(this).attr("index");
+        var sharp = $(".step_sharp");
+        if (index == 1) {
+            sharp.attr("left", "400px");
+        }
+        else if (index == 2) {
+            sharp.attr("left", "560px");
+        }
+        else if (index == 3) {
+            sharp.attr("left", "720px");
+        }
+        else if (index == 4) {
+            sharp.attr("left", "880px");
+        }
+        else if (index == 5) {
+            sharp.attr("left", "1040px");
+        }
         $(".word_tip[index!='" + index + "']").removeClass("current");
         $(".word_tip[index='" + index + "']").addClass("current");
-<<<<<<< HEAD
         $(".step_img_form[index!='" + index + "']").removeClass("current");
         $(".step_img_form[index='" + index + "']").addClass("current");
         $(".step_img[index!='" + index + "']").removeClass("current");
         $(".step_img[index='" + index + "']").addClass("current");
-=======
->>>>>>> 8294fac9d5921521179b52c51228da56cf689060
     });
 })
