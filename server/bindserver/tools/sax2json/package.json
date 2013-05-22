@@ -1,0 +1,14 @@
+{ "name": "sax2json"
+, "description": "shameless copy of xml2json using sax instead of expat"
+, "version": "0.0.2"
+, "author": "ryan emery <seebees@gmail.com>"
+, "main": "./lib/index.js"
+, "scripts" : { "test" : "node ./tests/test.js" }
+, "dependencies": {
+    "sax": "0.3.x"
+  }
+, "repository": {
+    "type": "git"
+  , "url": "git://github.com/seebees/simple-cloudwatch.git"
+  }
+}

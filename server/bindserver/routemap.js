@@ -16,7 +16,7 @@ var routemap = {
         "/": requestHandlers.bind
     },
     "post": {
-        "/": requestHandlers.bind
+        "/": requestHandlers.message
     },
     "put": {
     },
