@@ -14,6 +14,7 @@ $(document).ready(function () {
             usernameNone();
         }else if(b <= 5 || b >= 30){
             usernameNone1();
+        }  else{
             $("#username_right").show();
             $(".error_warning_user").hide();
         }

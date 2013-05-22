@@ -22,6 +22,7 @@ $(document).ready(function () {
             $("#name1_none").show();
         } else {
             $("#username_error").html("");
+            $("#name_icon").show();
             $("#name1_none").show();
             $("#name1_none").hide();
         }
@@ -45,6 +46,7 @@ $(document).ready(function () {
             $("#password1_none").show();
         } else {
             $("#password_error").html("");
+            $("#word_icon").show();
             $("#password1_none").show();
             $("#password1_none").hide();
         }
@@ -72,6 +74,7 @@ $(document).ready(function () {
             $("#pwd_none").show();
         } else {
             $("#pwd_error").html("");
+            $("#pwd_icon").show();
             $("#pwd_none").show();
             $("#pwd_none").hide();
         }
@@ -94,6 +97,7 @@ $(document).ready(function () {
             $("#phone_none").show();
         } else {
             $("#phone_error").html("");
+            $("#phone_icon").show();
             $("#phone_none").show();
             $("#phone_none").hide();
         }
