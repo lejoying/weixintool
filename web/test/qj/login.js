@@ -12,9 +12,9 @@ $(document).ready(function () {
         var b = name.length;
         if (name == "") {
             usernameNone();
-        }else if(b <= 5 || b >= 30){
+        } else if (b <= 5 || b >= 30) {
             usernameNone1();
-        }  else{
+        } else {
             $("#username_right").show();
             $(".error_warning_user").hide();
         }
@@ -31,13 +31,14 @@ $(document).ready(function () {
         var y = x.length;
         if (x == "") {
             passwordNone();
-        }else if(y <= 5 || y >= 30){
+        } else if (y <= 5 || y >= 30) {
             passwordNone1();
-        }else {
+        } else {
             $("#password_right").show();
             $(".error_warning_password").hide();
         }
     });
+
     $("#login").click(function () {
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
@@ -86,42 +87,42 @@ $(document).ready(function () {
 function usernameNone() {
     $("[name='username1']").toggle();
     $("[name='username']").toggle();
-    $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名不能为空！");
+    $("#username1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名不能为空！");
     $("#username_right").hide();
     $(".error_warning_user").show();
 }
 function usernameNone1() {
     $("[name='username1']").toggle();
     $("[name='username']").toggle();
-    $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名长度必需大于6小于30！");
+    $("#username1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名长度必需大于6小于30！");
     $("#username_right").hide();
     $(".error_warning_user").show();
 }
 function usernameNone2() {
     $("[name='username1']").toggle();
     $("[name='username']").toggle();
-    $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "手机号码输入不正确！");
+    $("#username1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "手机号码输入不正确！");
     $("#username_right").hide();
     $(".error_warning_user").show();
 }
 function usernameNone3() {
     $("[name='username1']").toggle();
     $("[name='username']").toggle();
-    $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "邮箱输入不正确！");
+    $("#username1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "邮箱输入不正确！");
     $("#username_right").hide();
     $(".error_warning_user").show();
 }
 function passwordNone() {
     $("[name='password1']").toggle();
     $("[name='password']").toggle();
-    $("#password_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "密码不能为空！");
+    $("#password1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "密码不能为空！");
     $("#password_right").hide();
     $(".error_warning_password").show();
 }
 function passwordNone1() {
     $("[name='password1']").toggle();
     $("[name='password']").toggle();
-    $("#password_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "密码长度必需大于6小于30！");
+    $("#password1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "密码长度必需大于6小于30！");
     $("#password_right").hide();
     $(".error_warning_password").show();
 }
