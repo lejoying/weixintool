@@ -4,26 +4,17 @@
 <head>
     <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
-    <script type="text/javascript" src="/test/qj/login.js">
-        document.write("Last name: " + localStorage.lastname);
-    </script>
-    <script type="text/javascript" src="./js/message.js"></script>
+    <script type="text/javascript" src="/test/qj/login.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>绑定微信</title>
-=======
-<link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
-
-<script type="text/javascript" src="/test/qj/jQuery v2.0.0.js" ></script>
-
-<script type="text/javascript" src="/test/qj/login.js"></script>
-
-
-
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>绑定微信</title>
->>>>>>> 5876b46e03fd3cf8b8bb4505e0a5984125e2090b
+    <title>绑定微信第一步</title>
+    <style type="text/css">
+        .hide {
+            display: none;
+        }
+        .current {
+            display: block;
+        }
+    </style>
 </head>
 <body>
 <div class="head_slip"></div>
@@ -53,7 +44,6 @@
     <div class="function_model" style="left:450px;top:20px;width:210px;">
         <div class="left_icon" style="width:90px;">
             <a href="#" class="weixin_card"></a>
-
             <div class="user_name"></div>
         </div>
         <div class="right_sub">很破的一口钟</div>
@@ -65,18 +55,43 @@
             <div class="logo_apps">
                 <div>usert2已登录</div>
             </div>
-
         </div>
     </div>
     <div class="index_body">
         <div class="body_left">
             <div class="step_title">绑定微信帐号</div>
-            <div class="firststep">
-                <div><img src="/static/images/weixin_step/weixintop.png"/></div>
-                <div class="word_message">请在此输入您的公众平台帐号名称，名称在登录公众平</div>
-                <div class="word_message">台后的右上角。例（习敬萍）</div>
-                <div class="bind_operate"><input class="wiexin_name" name="" id="valsesFirst" type="text"/><a
-                        href="step_1.html" id="weixinName" class="bind_next">下一步</a></div>
+            <div class="setp_out" id="step">
+            	<div class="circel_step" index="1">1</div>
+                <div class="circel_step" index="2">2</div>
+                <div class="circel_step" index="3">3</div>
+                <div class="circel_step" index="4">4</div>
+                <div class="circel_step" index="5">5</div>
+            </div>
+            <div class="step_word" id="tip">
+                <div class="word_tip current" index="1">首先登录<a href="http://mp.weixin.qq.com">【微信公众平台】</a></div>
+                <div class="word_tip hide" index="2">关闭编辑模式</div>
+                <div class="word_tip hide" index="3">进入开发者模式，点击成为“开发者”</a></div>
+                <div class="word_tip hide" index="4">成为开发者，并开启开发者模式</div>
+                <div class="word_tip hide" index="5">绑定成功</div>
+            </div>
+            <div class="step_line">
+                <b class="step_sharp" id="step_line" style="left: 240px"></b>
+                <b class="left_line"></b><b class="bottom_line"></b><b class="right_line"></b>
+            </div>
+            <div class="step_img_form current" index="1"><img src="/static/images/weixin_step/step_1.png"/></div>
+            <div class="step_img_form hide" index="2"><img src="/static/images/weixin_step/step_2.png"/></div>
+            <div class="step_img_form hide" index="3"><img src="/static/images/weixin_step/step_3.png"/></div>
+            <div class="step_img hide" index="4">
+                <p><label>URL</label><input class="urllink" name="" type="text" value="http://42.96.138.221"/><a
+                        href="#" title="复制文本框中内容"></a></p>
+                <p><label>Token</label><input class="urllink" name="" type="text" value="tund0f4d3c"/><a href="#"></a>
+                </p>
+            </div>
+            <div class="step_img_form hide" index="5">
+                <div class="bind_success">
+                    <div><img src="/static/images/weixin_step/right.png"/></div>
+                    <div class="bing_end">绑定成功</div>
+                </div>
             </div>
         </div>
         <div class="body_right">
@@ -98,7 +113,7 @@
                 <div class="circel_ele circel_ele_11 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_12 "><img src="/static/images/face.jpg"/></div>
             </div>
-            <div class="circle_out_focus">
+            <div class="circle_out">
                 <div class="circle_in">
                     APP2
                 </div>
@@ -107,9 +122,8 @@
                 <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
-
             </div>
-            <div class="circle_out_move">
+            <div class="circle_out">
                 <div class="circle_in">
                     APP3
                 </div>
@@ -120,7 +134,6 @@
                 <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
-
             </div>
         </div>
     </div>
