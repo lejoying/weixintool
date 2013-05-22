@@ -90,3 +90,23 @@ api = {
         }
     }
 }
+
+/***************************************
+ * *    Class：message
+ ***************************************/
+
+api = {
+    /***************************************
+     * URL：/api2/message/[add|delete|modify]
+     ***************************************/
+    "message_[add|delete|modify]": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinOpenID: "nnnnn", weixinName: "XXXX", token: "XXXXXXX"}
+        },
+        response: {
+            success: {"提示信息": "[添加|修改|删除]微信消息成功", data: {"……": "......"}},
+            failed: {"提示信息": "[添加|修改|删除]微信消息失败", errorMessage: "......", data: {"……": "……"}}
+        }
+    }
+
+}
