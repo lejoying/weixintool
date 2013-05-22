@@ -24,9 +24,11 @@ var requestHandlers = require("./requestHandlers");
 var routemap = {
     "get":{
         "/api2/account/:operation":requestHandlers.accountManage,
-        "/api2/weixinuer/:operation":requestHandlers.weixinManage
+        "/api2/weixinuer/:operation":requestHandlers.weixinManage,
+        "/api2/message/:operation":requestHandlers.messageManage
     },
     "post":{
+        "/api2/message/:operation":requestHandlers.messageManage
     },
     "put":{
     },

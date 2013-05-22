@@ -46,5 +46,12 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     }
 };
 
+var messageManage = require('./handlers/messageManage');
+requestHandlers.messageManage = function (request, response, pathObject, data) {
+    var operation = pathObject["operation"];
+    if (operation == "add") {
+        messageManage.add(data, response);
+    }
+};
 
 module.exports = requestHandlers;
