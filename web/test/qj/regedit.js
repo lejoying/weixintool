@@ -39,11 +39,13 @@ $(document).ready(function () {
         var y = x.length;
         if (x == '') {
             $("#password_error").html("密码不能为空");
-            $("#password1_none").show();
+            document.getElementById("password1_none").style.display="inline-block";
+            //$("#password1_none").attr("display","inline-block");
         } else if (y <= 5 || y >= 30) {
             $("#password1").focus();
             $("#password_error").html("密码长度必需大于6小于30");
-            $("#password1_none").show();
+            document.getElementById("password1_none").style.display="inline-block";
+            //$("#password1_none").show();
         } else {
             $("#password_error").html("");
             $("#word_icon").show();
@@ -63,7 +65,8 @@ $(document).ready(function () {
         var b1 = a1.length;
         if (a1 == '') {
             $("#pwd_error").html("确认密码不能为空");
-            $("#pwd_none").show();
+            document.getElementById("pwd_none").style.display="inline-block";
+           // $("#pwd_none").show();
         } else if (b1 <= 5 || b1 >= 30) {
             $("#pwd1").focus();
             $("#pwd_error").html("长度必需大于6小于30");
