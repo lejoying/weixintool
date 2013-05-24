@@ -41,7 +41,7 @@ body{
 	color:#fff;
 }
 .body_left{
-	width:80%;
+	width:86.5%;
 	float:left;	
 }
 .body_right{
@@ -492,4 +492,111 @@ body{
 	font-family:"微软雅黑";
 	font-size:28px;
 	color:#808080;	
+}
+.mange_outform{
+	border-radius:10px 0 0 10px;
+	background:#dbe0e8;	
+	height:760px;
+	padding:0 42px;
+}
+.mange_title{
+	height:72px;
+	line-height:72px;
+	font-size:28px;
+	font-family:"微软雅黑";
+	border-bottom:1px solid #a6a6a6;	
+}
+.mange_opt{
+	float:right;	
+}
+.mange_opt a{
+	color:#5e5e5e;
+	font-size:16px;
+	padding:3px 12px;
+	background:#adbbcb;	
+}
+.mange_opt a:hover{
+	background:#a5b2c2;
+	color:#4e4e4e;
+}
+.msg_list{
+	padding:12px 0;
+	font-size:16px;
+	font-family:"微软雅黑";
+	border-bottom:1px dotted #808080;	
+}
+.msg_list_id{
+	color:#666666;		
+}
+
+.add_info, add_info:hover{
+	font-size:14px;
+	font-family:"微软雅黑";
+	display:inline-block;
+	vertical-align:middle;
+	height:17px;
+	line-height:13px;
+	margin-left:24px;
+	padding:3px 3px 3px 20px;
+	background:url(/static/images/weixin_step/add_info.png) 3px 4px no-repeat;	
+}
+.add_info{
+	color:#333333;
+	border:1px dashed #808080;	
+}
+.add_info:hover{
+	color:#3b5998;
+	border:1px dashed #3b5998;	
+}
+.key_style, .value_style{
+	border:1px solid #929395;	
+	border-radius:3px;
+	color:#444444;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	padding:0 5px;
+}
+.value_style{
+	height:26px;
+	width:120px;
+	margin-left:8px;
+}
+.key_style{
+	width:90px;
+	height:26px;
+	margin-left:20px;	
+}
+.add_opt_button, .add_opt_button:hover{
+	font-size:14px;
+	text-decoration:none;
+	text-shadow:0px 2px 2px #333333;
+	font-family:"微软雅黑";
+	padding:2px 14px 3px;
+	border-radius:3px;
+	color:#fff;
+	border-radius:5px;
+	text-shadow:0 0 4px #333;	
+}
+.add_opt_button{
+	border:1px solid #8692a3;	
+	background: -moz-linear-gradient(19% 75% 90deg, #425d7d, #4c6a8f);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c6a8f), to(#425d7d));		
+}
+.add_opt_button:hover{
+	border:1px solid #8692a3;	
+	background: -moz-linear-gradient(19% 75% 90deg, #4c6a8f, #425d7d);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#425d7d), to(#4c6a8f));	
+}
+.infomation_bg{
+	background:#c3c3c3;
+	color:#333333;
+	padding:5px 10px 6px;
+	font-size:15px;	
+}
+.infomation_bg img{
+	margin:-1px 3px 0;	
+	vertical-align: middle;
+}
+.m_left{
+	margin-left:20px;	
 }
