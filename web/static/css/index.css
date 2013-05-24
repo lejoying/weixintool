@@ -496,7 +496,7 @@ body{
 .mange_outform{
 	border-radius:10px 0 0 10px;
 	background:#dbe0e8;	
-	height:600px;
+	height:760px;
 	padding:0 42px;
 }
 .mange_title{
@@ -530,7 +530,6 @@ body{
 }
 
 .add_info, add_info:hover{
-	color:#333333;
 	font-size:14px;
 	font-family:"微软雅黑";
 	display:inline-block;
@@ -542,9 +541,11 @@ body{
 	background:url(/static/images/weixin_step/add_info.png) 3px 4px no-repeat;	
 }
 .add_info{
+	color:#333333;
 	border:1px dashed #808080;	
 }
 .add_info:hover{
+	color:#3b5998;
 	border:1px dashed #3b5998;	
 }
 .key_style, .value_style{
