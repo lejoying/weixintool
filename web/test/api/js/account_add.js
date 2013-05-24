@@ -7,14 +7,12 @@ $(document).ready(function () {
         var password = $(".text_password").val();
         var invite = $(".text_invite").val();
 
-
         $.ajax({
             type: "get",
             url: "/api2/account/add?",
             data: {"accountName": accountname, "phone": phone, "email": email, "password": password, "invite": invite},
             success: function (data) {
                 //返回正确操作
-
             }
         });
 
@@ -26,10 +24,10 @@ $("#account_exist").click(function () {
     window.alert("test_exist");
     $.ajax({
         data: {
-            "accountName": "aaabbbccc",
+            "accountName": "asdfasdf",
             "password": hex_sha1("123"),
-            "phone":"18691171987",
-            "email":"avasf@163.com"
+            "phone": "18691171987",
+            "email": "avasf@163.com"
         },
         success: function (data) {
             RSA.setMaxDigits(38);
@@ -44,19 +42,44 @@ $("#account_exist").click(function () {
 });
 
 
-$("#account_auth").click(function () {
+$("#accoundLogin").click(function () {
 
-    window.alert("account_auth");
+    window.alert("accoundLogin");
+
+
+    app.localSettings = {};
+
+    window.onbeforeunload = function () {
+        window.localStorage.localSettings = JSON.stringify(app.localSettings);
+    };
+
+    function saveLocalSettings() {
+        window.localStorage.localSettings = JSON.stringify(app.localSettings);
+    }
+
+    $(document).ready(function () {
+        if (window.localStorage.localSettings != null) {
+            app.localSettings = JSON.parse(window.localStorage.localSettings);
+        }
+    });
+
+    var accountName = $(".text_accountUid").val();
+    var phone = $(".text_phone").val();
+    var email = $(".text_email").val();
+    var password = $(".text_accountPwd").val();
+
     $.ajax({
         data: {
-            "accountName": "aaabbbccc",
-            "email":"asdga@sdf.com",
-            "phone":"18609878987"
+            "accountName": accountName,
+            "email": email,
+            "password": password,
+            "phone": phone
         },
         success: function (data) {
             RSA.setMaxDigits(38);
             app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
             app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
+            app.data.accountName = data.accountName;
             alert(JSON.stringify(data));
         },
         type: 'GET',
