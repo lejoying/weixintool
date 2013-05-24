@@ -113,7 +113,7 @@ body{
 	position:relative;
 	width:450px;
 }
-.phone, pwd{
+.phone, .pwd{
 	position:relative;	
 }
 .password{
