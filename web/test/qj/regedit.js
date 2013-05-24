@@ -74,7 +74,7 @@ $(document).ready(function () {
             $("#pwd_none").show();
         } else {
             $("#pwd_error").html("");
-            $("#pwd_icon").show();
+            $("#pwd1_icon").show();
             $("#pwd_none").show();
             $("#pwd_none").hide();
         }
@@ -97,7 +97,7 @@ $(document).ready(function () {
             $("#phone_none").show();
         } else {
             $("#phone_error").html("");
-            $("#phone_icon").show();
+            $("#phone1_icon").show();
             $("#phone_none").show();
             $("#phone_none").hide();
         }
