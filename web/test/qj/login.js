@@ -38,7 +38,6 @@ $(document).ready(function () {
             $(".error_warning_password").hide();
         }
     });
-
     $("#login").click(function () {
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
