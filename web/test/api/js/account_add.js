@@ -4,7 +4,9 @@ $(document).ready(function () {
         var accountname = $(".text_accountname").val();
         var phone = $(".text_phone").val();
         var email = $(".text_email").val();
-        var password = $(".text_password").val();
+
+        var passwordpp = $(".text_password").val();
+        var password = hex_sha1(passwordpp);
         var invite = $(".text_invite").val();
 
         $.ajax({
@@ -40,28 +42,40 @@ $("#account_exist").click(function () {
         url: ("/api2/account/exist")
     });
 });
-
-
+//var app = {};
+//
+//app.serverUrl = "http://127.0.0.1/test/api/step.html";
+//
+//
+//
+//app.localSettings = {};
+//window.alert("kdj");
+//window.onbeforeunload = function () {
+//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
+//};
+//
+//function saveLocalSettings() {
+//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
+//}
+//
+//$(document).ready(function () {
+//    if (window.localStorage.localSettings != null) {
+//        app.localSettings = JSON.parse(window.localStorage.localSettings);
+//    }
+//});
+//$(document).ready(function () {
+////        var area = $("body");
+////        app.accountName["body"]("None", area);
+//    app.accountname();
+//    accountname();
+//});
 $("#accoundLogin").click(function () {
 
     window.alert("accoundLogin");
 
+//    var phone = "18691171987";
+//    var password = "123456";
 
-    app.localSettings = {};
-
-    window.onbeforeunload = function () {
-        window.localStorage.localSettings = JSON.stringify(app.localSettings);
-    };
-
-    function saveLocalSettings() {
-        window.localStorage.localSettings = JSON.stringify(app.localSettings);
-    }
-
-    $(document).ready(function () {
-        if (window.localStorage.localSettings != null) {
-            app.localSettings = JSON.parse(window.localStorage.localSettings);
-        }
-    });
 
     var accountName = $(".text_accountUid").val();
     var phone = $(".text_phone").val();
@@ -70,16 +84,16 @@ $("#accoundLogin").click(function () {
 
     $.ajax({
         data: {
-            "accountName": accountName,
+            "accountName":accountName,
             "email": email,
-            "password": password,
+            "password": hex_sha1(password),
             "phone": phone
         },
         success: function (data) {
             RSA.setMaxDigits(38);
             app.account.uid = RSA.decryptedString(app.server.PbKey, data.uid);
             app.account.accessKey = RSA.decryptedString(app.server.PbKey, data.accessKey);
-            app.data.accountName = data.accountName;
+            app.localSettings.accountName = data.accountName;
             alert(JSON.stringify(data));
         },
         type: 'GET',

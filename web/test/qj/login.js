@@ -76,7 +76,7 @@ $(document).ready(function () {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
                     } else {
-                        alert("登录异常");
+//                        alert("登录异常");
                     }
                 }
             });
