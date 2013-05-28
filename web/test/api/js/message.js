@@ -23,29 +23,6 @@ $(document).ready(function () {
     });
 })
 
-app.localSettings = {};
 
-window.onbeforeunload = function () {
-    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-};
-
-function saveLocalSettings() {
-    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-}
-
-$(document).ready(function () {
-    var weixinName = $(".wiexin_name").val();
-    if (window.localStorage.localSettings != null) {
-        app.localSettings = JSON.parse(window.localStorage.localSettings);
-    }
-    $.ajax({
-        type: "get",
-        url: "/api2/weixinuer/add",
-        data: {"weixinName": weixinName},
-        success: function (data) {
-            //返回正确操作
-        }
-    });
-});
 
 

@@ -163,11 +163,11 @@ accountManage.auth = function (data, response) {
     var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
     var pvkey3 = RSA.RSAKey(pvkeyStr3);
 
-    if (account.accountName != null) {
-        checkAccountName();
-    }
-    else if (account.phone != null) {
+    if (account.phone != null) {
         checkPhone();
+    }
+    else if (account.accountName != null) {
+        checkAccountName();
     }
     else if (account.email != null) {
         checkEmail();
@@ -207,8 +207,11 @@ accountManage.auth = function (data, response) {
 
     function checkPhone() {
         db.getIndexedNode("account", "phone", account.phone, function (err, node) {
+            node.index("account", "phone", account.phone);
+            node.index("account", "password", account.password);
+
             if (node != null) {
-                var data = node.data;
+//                var data = node.data;
                 if (account.password == node.data.password) {
                     node.index("account", "phone", account.phone);
                     response.write(JSON.stringify({
