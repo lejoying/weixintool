@@ -20,6 +20,7 @@ accountManage.add = function (data, response) {
     var account = {
         "accountName": data.accountName,
         "type": "account",
+
         "password": data.password,
         "phone": data.phone,
         "email": data.email
@@ -161,6 +162,7 @@ accountManage.auth = function (data, response) {
     var pvkey3 = RSA.RSAKey(pvkeyStr3);
 
     if (account.phone != null) {
+
         checkPhone();
     }
     else if (account.accountName != null) {
@@ -204,8 +206,6 @@ accountManage.auth = function (data, response) {
 
     function checkPhone() {
         db.getIndexedNode("account", "phone", account.phone, function (err, node) {
-            node.index("account", "phone", account.phone);
-            node.index("account", "password", account.password);
 
             if (node != null) {
 //                var data = node.data;

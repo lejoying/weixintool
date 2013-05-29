@@ -44,29 +44,29 @@ $("#account_exist").click(function () {
 });
 
 
-var app = {};
-
-app.serverUrl = "http://127.0.0.1/test/api/step.html";
-
-app.localSettings = {};
-window.alert("kdj");
-window.onbeforeunload = function () {
-    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-};
-
-function saveLocalSettings() {
-    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-}
-
-$(document).ready(function () {
-    if (window.localStorage.localSettings != null) {
-        app.localSettings = JSON.parse(window.localStorage.localSettings);
-    }
-});
-$(document).ready(function () {
-    app.phone();
-    phone();
-});
+//var app = {};
+//
+//app.serverUrl = "http://127.0.0.1/test/api/step.html";
+//
+//app.localSettings = {};
+//window.alert("kdj");
+//window.onbeforeunload = function () {
+//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
+//};
+//
+//function saveLocalSettings() {
+//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
+//}
+//
+//$(document).ready(function () {
+//    if (window.localStorage.localSettings != null) {
+//        app.localSettings = JSON.parse(window.localStorage.localSettings);
+//    }
+//});
+//$(document).ready(function () {
+//    app.phone();
+//    phone();
+//});
 $("#accoundLogin").click(function () {
 
     window.alert("accoundLogin");

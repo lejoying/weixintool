@@ -4,7 +4,6 @@
  */
 
 var requestHandlers = {};
-
 var globaldata = root.globaldata;
 
 

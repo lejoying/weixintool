@@ -28,33 +28,7 @@ $(document).ready(function () {
             }
         });
     });
-    $("#login").click(function () {
-        var loginBox = $(".login_form[box='login']");
-        var toState = new State();
-        toState.scale.x = 0.33962264150943394;
-        toState.scale.y = 0.23684210526315788;
-        var fromState = new State();
-        animateTransform(loginBox[0], fromState, toState, 200, {
-            onStart: function () {
-            },
-            onEnd: function () {
-                var fromState1 = new State(toState);
-                var toState1 = new State(toState);
-                toState1.translate.x = 638;
-                toState1.translate.y = -332;
-                animateTransform(loginBox[0], fromState1, toState1, 150, {
-                    onStart: function () {
-                    },
-                    onEnd: function () {
-                        loginBox.addClass("hide");
-                        lastShownAccountBox = loginBox;
-                        var account_informationBox = $(".login_user[box='account_information']");
-                        account_informationBox.removeClass("hide");
-                    }
-                });
-            }
-        });
-    });
+
     $("#to_login").click(function () {
         var registerBox = $(".login_form[box='register']");
         var toState = new State();

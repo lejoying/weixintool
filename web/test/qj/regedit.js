@@ -117,9 +117,11 @@ $(document).ready(function () {
     });
 
     $("#register").click(function () {
+        var password1 = $("[name='password1']").val();
+        var password = hex_sha1(password1);
         if (!($("#username1").val())) {
             $("#username1").focus();
-        } else if (!($("#password1").val())) {
+        } else if (!(password)) {
             $("#password1").focus();
         } else if (!($("#pwd1").val())) {
             $("#pwd1").focus();
@@ -130,7 +132,7 @@ $(document).ready(function () {
             type: "get",
             url: "/api2/account/add?",
             data: {
-                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password": $("#password1").val(), "invite": "lejoying"
+                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password": password, "invite": "lejoying"
             },
             success: function (data) {
                 //返回正确操作

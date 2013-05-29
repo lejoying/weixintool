@@ -1,3 +1,20 @@
+
+var logindata = {};
+
+logindata.localSettings = {};
+
+window.onbeforeunload = function () {
+    window.localStorage.localSettings = JSON.stringify(logindata.localSettings);
+};
+
+
+$(document).ready(function () {
+    if (window.localStorage.localSettings != null) {
+        logindata.localSettings = JSON.parse(window.localStorage.localSettings);
+    }
+});
+
+
 $(document).ready(function () {
     $("[name='username']").click(function () {
         $("[name='username']").toggle();
@@ -39,6 +56,8 @@ $(document).ready(function () {
         }
     });
     $("#login").click(function () {
+        logindata.localSettings.username = $("[name='username1']").val();
+        window.localStorage.localSettings = $("[name='username1']").val();
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
         var text = $("[name='username1']").val();
@@ -69,8 +88,10 @@ $(document).ready(function () {
                 data: user,
                 success: function (data) {
                     //返回正确操作
-                    if (data["提示信息"] == "账号登录成功") {
+                    if (data["提示信息"] == "电话存在") {
                         alert("登录成功");
+                        location.href = "step.html";
+//                        alert("登录成功123");
                     }
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();

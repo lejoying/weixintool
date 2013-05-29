@@ -20,7 +20,6 @@
  *
  */
 var requestHandlers = require("./requestHandlers");
-
 var routemap = {
     "get":{
         "/api2/account/:operation":requestHandlers.accountManage,

@@ -15,6 +15,19 @@
             display: block;
         }
     </style>
+    <script type="text/javascript">
+        function loginuser(){
+            document.getElementById("user").innerText=logindata.localSettings.username+",已登录";
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loginuser();
+        });
+
+    </script>
+
 </head>
 <body>
 <div class="head_slip"></div>
@@ -53,7 +66,7 @@
             <a href="#" class="app_list"></a>
 
             <div class="logo_apps">
-                <div id="usert2">usert2已登录</div>
+                <div id="user"></div>
             </div>
         </div>
     </div>

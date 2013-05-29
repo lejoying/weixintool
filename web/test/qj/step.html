@@ -1,11 +1,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <head>
 <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
     <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
     <script type="text/javascript" src="/test/qj/login.js"></script>
-    <script type="text/javascript" src="./js/message.js"></script>
+    <script type="text/javascript">
+        function loginuser(){
+            document.getElementById("user").innerText=logindata.localSettings.username+",已登录";
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            loginuser();
+        });
+
+    </script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>绑定微信</title>
 </head>
@@ -45,7 +57,7 @@
         <div>
             <a href="#" class="app_list"></a>
             <div class="logo_apps">
-                <div>usert2已登录</div>
+                <div id="user"></div>
             </div>
         </div>
     </div>
