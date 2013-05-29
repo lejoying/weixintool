@@ -116,7 +116,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#regedit").click(function () {
+    $("#register").click(function () {
         if (!($("#username1").val())) {
             $("#username1").focus();
         } else if (!($("#password1").val())) {

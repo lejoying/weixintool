@@ -42,40 +42,34 @@ $("#account_exist").click(function () {
         url: ("/api2/account/exist")
     });
 });
-//var app = {};
-//
-//app.serverUrl = "http://127.0.0.1/test/api/step.html";
-//
-//
-//
-//app.localSettings = {};
-//window.alert("kdj");
-//window.onbeforeunload = function () {
-//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-//};
-//
-//function saveLocalSettings() {
-//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-//}
-//
-//$(document).ready(function () {
-//    if (window.localStorage.localSettings != null) {
-//        app.localSettings = JSON.parse(window.localStorage.localSettings);
-//    }
-//});
-//$(document).ready(function () {
-////        var area = $("body");
-////        app.accountName["body"]("None", area);
-//    app.accountname();
-//    accountname();
-//});
+
+
+var app = {};
+
+app.serverUrl = "http://127.0.0.1/test/api/step.html";
+
+app.localSettings = {};
+window.alert("kdj");
+window.onbeforeunload = function () {
+    window.localStorage.localSettings = JSON.stringify(app.localSettings);
+};
+
+function saveLocalSettings() {
+    window.localStorage.localSettings = JSON.stringify(app.localSettings);
+}
+
+$(document).ready(function () {
+    if (window.localStorage.localSettings != null) {
+        app.localSettings = JSON.parse(window.localStorage.localSettings);
+    }
+});
+$(document).ready(function () {
+    app.phone();
+    phone();
+});
 $("#accoundLogin").click(function () {
 
     window.alert("accoundLogin");
-
-//    var phone = "18691171987";
-//    var password = "123456";
-
 
     var accountName = $(".text_accountUid").val();
     var phone = $(".text_phone").val();
