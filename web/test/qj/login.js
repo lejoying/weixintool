@@ -1,5 +1,4 @@
-
-var logindata = {};
+ var logindata = {};
 
 logindata.localSettings = {};
 
@@ -63,6 +62,56 @@ $(document).ready(function () {
         var text = $("[name='username1']").val();
         var passwordPlaint = $("[name='password1']").val();
         var password = hex_sha1(passwordPlaint);
+//        var password = (passwordPlaint);
+        if ((text == "") || (password == "")) {
+            $(".error_warning").toggle();
+            $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
+        } else {
+            var user = {
+                account: null,
+                phone: null,
+                email: null,
+                password: password
+            }
+            if (emailRegexp.test(text)) {
+                user.email = text;
+            }
+            else if (phoneRegexp.test(text)) {
+                user.phone = text;
+            }
+            else {
+                user.account = text;
+            }
+            $.ajax({
+                type: "get",
+                url: "/api2/account/auth?",
+                data: user,
+                success: function (data) {
+                    //返回正确操作
+                    if (data["提示信息"] == "电话存在") {
+                        alert("登录成功");
+                        location.href = "step.html";
+//                        alert("登录成功123");
+                    }
+                    else if (data["提示信息"] == "账号登录失败") {
+                        $(".error_warning").toggle();
+                        $("#error_text").text("用户名或密码错误！");
+                    } else {
+//                        alert("登录异常");
+                    }
+                }
+            });
+        }
+    });
+    $("#login1").click(function () {
+        logindata.localSettings.username = $("[name='username2']").val();
+        window.localStorage.localSettings = $("[name='username2']").val();
+        var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
+        var text = $("[name='username1']").val();
+        var passwordPlaint = $("[name='password1']").val();
+        var password = passwordPlaint;
+//        var password = hex_sha1(passwordPlaint);
         if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
             $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");

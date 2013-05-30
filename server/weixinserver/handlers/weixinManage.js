@@ -70,7 +70,7 @@ weixinManage.add = function (data, response) {
 
                     weixinNode.createRelationshipFrom(accountNode, "OWNED");
                     response.write(JSON.stringify({
-                        "提示信息": "添加微信绑定用户成功",
+                        "提示信息": "添加信息成功",
                         "node": weixinNode.data
                     }));
                     response.end();

@@ -57,6 +57,41 @@ messageManage.add = function (data, response) {
 /***************************************
  *     URL：/api2/weixinuer/modify
  ***************************************/
+messageManage.modify = function (data, response) {
+    response.asynchronous = 1;
+    var weixin =
+    {
+        "type": "weixin",
+        "accesskey": data.accesskey,
+        "weixinOpenID": data.weixinOpenID,
+        "weixinName": data.weixinName,
+        "token": data.token
+    }
+    db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
+        if (node != null) {
+//            node.getRelationshipNodes("weixin", "weixinOpenID",weixin.weixinOpenID ,function(err, node){})
+            node.save(function (err, node) {
+                node.data.weixinName = weixin.weixinName;
+                node.data.token = weixin.token;
+                node.index("weixin", "weixinName", weixin.weixinName);
+                node.index("weixin", "token", weixin.token);
+                node.save(function (err, node) {
+                    response.write(JSON.stringify({
+                        "提示信息": "修改微信绑定用户成功",
+                        "node": node.data
+                    }));
+                    response.end();
+                });
+            });
 
+        } else {
+            response.write(JSON.stringify({
+                "提示信息": "修改微信绑定用户失败",
+                "reason": "微信用户不存在"
+            }));
+            response.end();
+        }
+    });
+}
 
 module.exports = messageManage;

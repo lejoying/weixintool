@@ -1,33 +1,33 @@
 $(document).ready(function () {
     var lastShownAccountBox = $(".login_form[box='register']");
-    $("#register").click(function () {
-        var registerBox = $(".login_form[box='register']");
-        var toState = new State();
-        toState.scale.x = 0.28483920367534454;
-        toState.scale.y = 0.1634920634920635;
-        var fromState = new State();
-        animateTransform(registerBox[0], fromState, toState, 200, {
-            onStart: function () {
-            },
-            onEnd: function () {
-                var fromState1 = new State(toState);
-                var toState1 = new State(toState);
-                toState1.translate.x = 600;
-                toState1.translate.y = -305;
-                animateTransform(registerBox[0], fromState1, toState1, 150, {
-                    onStart: function () {
-                    },
-                    onEnd: function () {
-                        registerBox.addClass("hide");
-                        lastShownAccountBox = registerBox;
-                        var account_informationBox = $(".login_user[box='account_information']");
-                        account_informationBox.removeClass("hide");
-
-                    }
-                });
-            }
-        });
-    });
+//    $("#register").click(function () {
+//        var registerBox = $(".login_form[box='register']");
+//        var toState = new State();
+//        toState.scale.x = 0.28483920367534454;
+//        toState.scale.y = 0.1634920634920635;
+//        var fromState = new State();
+//        animateTransform(registerBox[0], fromState, toState, 200, {
+//            onStart: function () {
+//            },
+//            onEnd: function () {
+//                var fromState1 = new State(toState);
+//                var toState1 = new State(toState);
+//                toState1.translate.x = 600;
+//                toState1.translate.y = -305;
+//                animateTransform(registerBox[0], fromState1, toState1, 150, {
+//                    onStart: function () {
+//                    },
+//                    onEnd: function () {
+//                        registerBox.addClass("hide");
+//                        lastShownAccountBox = registerBox;
+//                        var account_informationBox = $(".login_user[box='account_information']");
+//                        account_informationBox.removeClass("hide");
+//
+//                    }
+//                });
+//            }
+//        });
+//    });
 
     $("#to_login").click(function () {
         var registerBox = $(".login_form[box='register']");
