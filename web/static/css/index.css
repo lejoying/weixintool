@@ -23,6 +23,7 @@ body{
 	width:1400px;
 	left:0;
 	top:140px;
+	background:#5a728f;
 }
 .function_model{
 	width:110px;
@@ -43,35 +44,102 @@ body{
 .body_left{
 	width:86.5%;
 	float:left;	
+	height:760px;
+	background:#5c7492;
+	border-radius:10px;
+	border-right:1px solid #5c7492;
+	box-shadow:1px 1px 2px 0 #425A7A
+}
+.apphead_title{
+	font-size:20px;
+	font-family:"微软雅黑";
+	color:#fff;	
+	padding:20px;
+	margin-bottom:20px;
+	background:#4c678c;
+	border-radius:10px 10px 0 0;
+	border-bottom:1px solid #607b9c;
 }
 .body_right{
-	border-left: 3px solid #7589a4;
+	/*border-left: 3px solid #7589a4;*/
     float: right;
     height:100%;
     width: 186px;
 }
 .out_frame{
+	width:112px;	
+	position:absolute;
+}
+.app_opreation{
+	position:absolute;
+	border-radius:8px 8px 0 0;
+	padding:3px 0 5px;
+	top:0;
+	left:0;	
+	width:100%;
+	background:#000;
+	opacity:0.8;
+}
+.app_opreation a{
+	display:inline-block;
+	width:20px;
+	height:20px;
+	background-image:url(/static/images/public/icon/smallicon.png);	
+	opacity:0.85;
+}
+.app_config{
+	background-position:-220px -19px;
 	float:left;
-	width:140px;
-	margin:16px 20px 0 20px;	
+}
+.app_delete{
+	background-position:-200px -20px;
+	float:right;
+	margin-right:4px;
+}
+.content_element, .add_element{
+	height:126px;
+	overflow:hidden;
+	border:1px solid #a0acbd;
+	border-radius:8px;
+	padding:5px;
+	box-shadow: 2px 2px 3px #333333;
 }
 .content_element{
-	height:50px;
-	border:2px solid #6b82a1;
-	border-radius:8px;
 	background:#ced4dc;	
-	padding:5px;
+	cursor:pointer;
+} 
+.add_element:hover, .content_element:hover{
+	opacity:0.8;	
+}
+.add_element{
+	background:#8595ab;
+	cursor:pointer;
 }
 .appicon{
-	width:50px;
-	height:50px;
+	width:100px;
+	height:100px;
 	overflow:hidden;	
-	float:left;
+}
+.content_element > .appicon > img{
+	border-radius:2px;
+	box-shadow:0 0 0 1px #666;	
+}
+.appname, .addname{
+	font-size:14px;
+	padding:3px;
+	text-align:center;
+	font-family:"微软雅黑";
+	padding:7px 0;
 }
 .appname{
-	float:left;
-	font-size:12px;
-	padding:3px;
+	color:#333;
+}
+.addname{
+	color:#575757;
+}
+.add_border_line{
+	border-top:1px solid #748397;
+	border-bottom:1px solid #b8bec7;
 }
 .appconfig{
 	height:30px;
@@ -116,8 +184,11 @@ body{
 	background-position:0 -58px;	
 }
 .weixin_card{
-	background-position:0 -350px;
-	margin-top:20px;	
+	 background-position: 4px -285px;
+    border-right: 2px solid #6980A0;
+    margin-top: 18px;
+	margin-right:5px;
+    padding: 10px 10px 0;
 }
 .user_name{
 	float:left;
@@ -137,8 +208,9 @@ body{
 .right_sub{
 	float:left;	
 	color:#fff;
-	height:110px;
-	line-height:110px;
+	height:98px;
+	line-height:98px;
+	padding-left:8px;
 }
 .logo_apps{
 	height:24px;
