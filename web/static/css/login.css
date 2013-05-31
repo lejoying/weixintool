@@ -124,7 +124,7 @@ body {
 	background:url(/static/images/public/icon/smallicon.png) -160px -20px no-repeat;
 }
 .passwordicon {
-	padding:12px;
+	padding:12px 10px;
 	position:absolute;
 	left:15px;
 	top:13px;
@@ -154,7 +154,7 @@ body {
 .input_text {
 	border: 1px solid #808080;
 	color:#333;
-	padding-left:15px;
+	padding-left:40px;
 }
 .reg_input_focus {
 	border:	1px solid #333;

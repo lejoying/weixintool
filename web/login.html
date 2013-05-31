@@ -19,8 +19,7 @@
                 微信社交应用管理
             </div>
             <div class="username">
-                <input name="username" class="input_normal" type="text" value="用户名/手机/邮箱"/>
-                <input name="username1" class="input_normal hide" type="text" value=""/>
+                <input name="username1" class="input_normal" placeholder="用户名/手机/邮箱" type="text" value=""/>
                 <span id="username_right" class="right_icon hide"></span>
                 <b class="nameicon"></b>
                 <div class="error_warning_user hide" style="left:360px;top:0px;width: 490px;">
@@ -29,8 +28,7 @@
                 </div>
             </div>
             <div class="password">
-                <input name="password" class="input_normal " type="text" value="密码"/>
-                <input name="password1" class="input_normal hide" type="text" value=""/>
+                <input name="password1" class="input_normal"  placeholder="密码" type="password" value=""/>
                 <span id="password_right" class="right_icon hide"></span>
                 <b class="passwordicon"></b>
                 <div class="error_warning_password hide" style="left:360px;top:0px;width: 490px;">
@@ -59,10 +57,9 @@
             </div>
             <div class="username">
                 <label class="label_3">用户名</label>
-                <input id="username" class="reg_input_normal" type="text" value="用户名"/>
-                <input  name="username2" id="username1" class="reg_input_normal hide" type="text" value=""/><span
+                <input  name="username2" id="username1" class="reg_input_normal" type="text" value="" placeholder="用户名"/><span
                     class="reg_right_icon hide" id="name_icon"></span>
-                <div class="error_warning hide" id="name1_none" style="left:434px;top:0px;width: 490px;">
+                <div class="error_warning hide" id="name1_none" style="left:434px;top:0px;width: 490px;position: absolute;">
                     <div class="tip_out"><p class="tip_in"><span class="error_icon"></span>
                         <span id="username_error">用户名不能为空！</span>
                     </p></div>
@@ -70,10 +67,9 @@
             </div>
             <div class="password">
                 <label class="label_2">密码</label>
-                <input id="password" class="reg_input_normal " type="text" value="密码"/>
-                <input id="password1" class="reg_input_normal hide" type="text" value=""/><span
+                <input id="password1" class="reg_input_normal" type="password" value="" placeholder="密码"/><span
                     class="reg_right_icon hide" id="word_icon"></span>
-                <div class="error_warning_word hide" id="password1_none"  style="left:434px;top:0px;">
+                <div class="error_warning_word hide" id="password1_none"  style="left:434px;width: 400px;top:0px;position: absolute;">
                     <div class="tip_out"><p class="tip_in"><span class="error_icon"></span>
                         <span id="password_error">密码不能为空！</span>
                     </p></div>
@@ -81,8 +77,7 @@
             </div>
             <div class="pwd">
                 <label>重复密码</label>
-                <input id="pwd"  class="reg_input_normal " type="text" value="重复密码"/>
-                <input id="pwd1"  class="reg_input_normal hide" type="text"value=""/><span
+                <input id="pwd1"  class="reg_input_normal" type="password" placeholder="重复密码"/><span
                     class="reg_right_icon hide" id="pwd_icon"></span>
                 <div class="error_warning_pwd hide" id="pwd_none"  style="left:434px;top:0px;width: 300px;position: absolute;">
                     <div class="tip_out"><p class="tip_in"><span class="error_icon">
@@ -92,10 +87,9 @@
             </div>
             <div class="phone">
                 <label class="label_3">手机号</label>
-                <input id="phone"  class="reg_input_normal " type="text" value="手机号"/>
-                <input id="phone1"  class="reg_input_normal hide" type="text" value=""/><span
+                <input id="phone1"  class="reg_input_normal" type="text" placeholder="手机号"/><span
                     class="reg_right_icon hide" id="phone_icon"></span>
-                <div class="error_warning_user hide" id="phone_none"  style="left:424px;top:0px;width: 490px;">
+                <div class="error_warning_user hide" id="phone_none"  style="left:424px;top:0px;width: 490px;position: absolute;">
                     <div class="tip_out"><p class="tip_in"><span class="error_icon"></span>
                         <span id="phone_error">手机号码不能为空！</span>
                     </p></div>
