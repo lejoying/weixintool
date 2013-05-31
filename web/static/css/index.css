@@ -664,7 +664,7 @@ body{
 	border-bottom:1px dotted #808080;	
 }
 .msg_list_id{
-	color:#666666;		
+	color:#ddd;		
 }
 
 .add_info, add_info:hover{
@@ -679,12 +679,12 @@ body{
 	background:url(/static/images/weixin_step/add_info.png) 3px 4px no-repeat;	
 }
 .add_info{
-	color:#333333;
-	border:1px dashed #808080;	
+	color:#fff;
+	border:1px dashed #fff;	
 }
 .add_info:hover{
-	color:#3b5998;
-	border:1px dashed #3b5998;	
+	color:#ddd;
+	border:1px dashed #ddd;	
 }
 .key_style, .value_style{
 	border:1px solid #929395;	
