@@ -20,7 +20,6 @@ accountManage.add = function (data, response) {
     var account = {
         "accountName": data.accountName,
         "type": "account",
-
         "password": data.password,
         "phone": data.phone,
         "email": data.email
@@ -33,33 +32,42 @@ accountManage.add = function (data, response) {
     var pvkey3 = RSA.RSAKey(pvkeyStr3);
 
     db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
-        if (node == null) {
-            if (account.email == null) {
-                addAccountToNeo4j();
-            }
-            db.getIndexedNode("account", "email", account.email, function (err, node) {
-                if (node == null) {
-                    addAccountToNeo4j();
-                }
-                else {
-                    response.write(JSON.stringify({
-                        "提示信息": "注册账号失败",
-                        "reason": "注册邮箱已存在"
-                    }));
-                    response.end();
-                }
-            });
-        }
-        else {
+        if (account.accountName == "" || account.accountName == null) {
             response.write(JSON.stringify({
                 "提示信息": "注册账号失败",
-                "reason": "账号名已存在"
+                "reason": "账号名不能为空"
             }));
             response.end();
         }
+        else  {
+            if (node == null) {
+                if (account.email == null) {
+                    addAccountToNeo4j();
+                }
+                db.getIndexedNode("account", "email", account.email, function (err, node) {
+                    if (node == null) {
+                        addAccountToNeo4j();
+                    }
+                    else {
+                        response.write(JSON.stringify({
+                            "提示信息": "注册账号失败",
+                            "reason": "注册邮箱已存在"
+                        }));
+                        response.end();
+                    }
+                });
+            } else {
+                response.write(JSON.stringify({
+                    "提示信息": "注册账号失败",
+                    "reason": "账号名已存在"
+                }));
+                response.end();
+            }
+        }
+
     });
 
-    function addAccountToNeo4j(){
+    function addAccountToNeo4j() {
         var node = db.createNode(account);
         node.save(function (err, node) {
             node.data.uid = node.id;
@@ -95,7 +103,7 @@ accountManage.exist = function (data, response) {
             db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
                 if (node != null) {
                     response.write(JSON.stringify({
-                        "提示信息":" 用户名存在",
+                        "提示信息": " 用户名存在",
                         "status": "failed"
                     }));
                     response.end();
@@ -225,7 +233,13 @@ accountManage.auth = function (data, response) {
                     response.end();
                 }
             }
-            else {
+            else if (data.phone == "" || data.phone == null) {
+                response.write(JSON.stringify({
+                    "提示信息": account.phone + " 电话号码不为空",
+                    "status": "账号登录失败"
+                }));
+                response.end();
+            } else {
                 response.write(JSON.stringify({
                     "提示信息": account.phone + " 电话号码不存在",
                     "status": "账号登录失败"

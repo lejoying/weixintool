@@ -1,4 +1,19 @@
+var logindata = {};
+
+logindata.localSettings = {};
+
+window.onbeforeunload = function () {
+    window.localStorage.localSettings = JSON.stringify(logindata.localSettings);
+};
+
+
 $(document).ready(function () {
+    if (window.localStorage.localSettings != null) {
+        logindata.localSettings = JSON.parse(window.localStorage.localSettings);
+    }
+});
+$(document).ready(function () {
+//    $("#username1").focus();
     $("#username").click(function () {
         $("#username").toggle();
         $("#username1").toggle();
@@ -117,38 +132,41 @@ $(document).ready(function () {
     });
 
     $("#register").click(function () {
+        logindata.localSettings.username = $("[name='username2']").val();
+        window.localStorage.localSettings = $("[name='username2']").val();
         var password1 = $("[name='password1']").val();
         var password = hex_sha1(password1);
         if (!($("#username1").val())) {
             $("#username1").focus();
-        } else if (!(password)) {
+        } else if (!($("#password1").val())) {
             $("#password1").focus();
         } else if (!($("#pwd1").val())) {
             $("#pwd1").focus();
         } else if (!($("#phone1").val())) {
             $("#phone1").focus();
+        } else{
+            $.ajax({
+                type: "get",
+                url: "/api2/account/add?",
+                data: {
+                    "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password": password, "invite": "lejoying"
+                },
+                success: function (data) {
+                    //返回正确操作
+                    alert(data["提示信息"]);
+                    if (data["提示信息"] == "注册账号成功") {
+                        alert("注册成功");
+                        location.href = "step.html";
+                    }
+                    else if (data["提示信息"] == "注册账号失败") {
+                        $(".error_warning").toggle();
+                        $("#error_text").text("用户名或密码错误");
+                    } else {
+                        alert("注册异常");
+                    }
+                }
+            });
         }
-        $.ajax({
-            type: "get",
-            url: "/api2/account/add?",
-            data: {
-                "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password": password, "invite": "lejoying"
-            },
-            success: function (data) {
-                //返回正确操作
-                alert(data["提示信息"]);
-                if (data["提示信息"] == "注册账号成功") {
-                    alert("注册成功");
-                }
-                else if (data["提示信息"] == "注册账号失败") {
-                    $(".error_warning").toggle();
-                    $("#error_text").text("用户名或密码错误");
-                } else {
-                    alert("注册异常");
-                }
-            }
-        });
-
     });
 });
 
