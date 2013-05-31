@@ -88,7 +88,14 @@ body{
 	background:#5c7492;
 	border-radius:10px;
 	border-right:1px solid #5c7492;
-	box-shadow:1px 1px 2px 0 #425A7A
+	box-shadow:1px 1px 2px 0 #425A7A;
+	position:relative;
+}
+.body_left a{
+	opacity:0.6;	
+}
+.body_left a:hover{
+	opacity:1;	
 }
 .apphead_title{
 	font-size:20px;
@@ -461,7 +468,7 @@ body{
 	margin-top:20px;	
 	background:url(/static/images/weixin_step/step_4.png) 5px 6px  no-repeat;
 	width:740px;
-	height:443px;
+	height:250px;
 	padding-top:205px;
 	padding-right:310px;
 	text-align:right;
@@ -499,7 +506,13 @@ body{
 	font-size:30px;
 	font-family:"微软雅黑";
 	color:#fff;	
-	padding:45px 0 0 40px;
+	padding:30px 0 15px 40px;
+}
+.step_title b{
+	font-weight:normal;
+	color:#ff9000;	
+	font-size:22px;
+	padding:5px 10px;
 }
 .step_line{
 	position:relative;
@@ -803,4 +816,14 @@ body{
 	line-height:30px;	
 	margin-left:20px;	
 	vertical-align:bottom;
+}
+.arrow_left{
+	position:absolute;
+	left:20px;
+	top:400px;	
+}
+.arrow_right{
+	position:absolute;
+	right:20px;
+	top:400px;	
 }
