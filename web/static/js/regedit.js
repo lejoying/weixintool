@@ -141,7 +141,7 @@ $(document).ready(function () {
         } else{
             $.ajax({
                 type: "get",
-                url: "http://192.168.0.54/server/weixinserver/handlers/api2/account/add?",
+                url: "/api2/account/add?",
                 data: {
                     "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password": password, "invite": "lejoying"
                 },
