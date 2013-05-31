@@ -1,125 +1,174 @@
+var logindata = {};
+
+logindata.localSettings = {};
+
+window.onbeforeunload = function () {
+    window.localStorage.localSettings = JSON.stringify(logindata.localSettings);
+};
+
+
 $(document).ready(function () {
-    //缓存输入框元素，方便以后改名之类的，一改全改。
-    var UsernameEl = $("#main_register_auth_account"),
-        PasswordEl = $("#main_register_auth_password1"),
-        RepasswdEl = $("#main_register_auth_password2"),
-        AuthcodeEl = $("#main_register_invite_code"),
-        TipsEl = $("#main_register_authTip");
-    /**
-     用户名
-     */
-    UsernameEl.blur(function () {
+    if (window.localStorage.localSettings != null) {
+        logindata.localSettings = JSON.parse(window.localStorage.localSettings);
+    }
+});
+$(document).ready(function () {
+//    $("#username1").focus();
+    $("#username").click(function () {
+        $("#username").toggle();
+        $("#username1").toggle();
+        $("#username1").focus();
+        $("#username1").attr("class", "reg_input_focus");
+    });
+    $("#username1").blur(function () {
         var name = /^[^0-9].+$/;
-        var a = $.trim(UsernameEl.val());
+        var a = $.trim($("#username1").val());
         var b = a.length;
         if (a == "") {
-            TipsEl.html("用户名不能为空");
-            $("#colu").show();
+            $("#username_error").html("用户名不能为空");
+            $("#name1_none").show();
+            $("#name_icon").hide();
         } else if (!name.test(a)) {
-            $("#main_register_auth_account").focus();
-            TipsEl.html("用户名的首字母不能为数字");
-            $("#colu").show();
+            $("#username1").focus();
+            $("#username_error").html("用户名的首字母不能为数字");
+            $("#name1_none").show();
+            $("#name_icon").hide();
         } else if (b <= 3 || b >= 30) {
-            $("#main_register_auth_account").focus();
-            TipsEl.html("用户名长度必需大于3小于30");
-            $("#colu").show();
+            $("#username1").focus();
+            $("#username_error").html("用户名长度必需大于3小于30");
+            $("#name1_none").show();
+            $("#name_icon").hide();
         } else {
-            TipsEl.html("");
-            $("#colu").show();
-            $("#colu").hide();
+            $("#username_error").html("");
+            $("#name_icon").show();
+            $("#name1_none").show();
+            $("#name1_none").hide();
         }
-        $(this).removeClass("text").addClass("textfocus");
     });
-    UsernameEl.focus(function () {
-        $(this).removeClass("textfocus").addClass("text");
+    $("#password").focus(function () {
+        $("#password").toggle();
+        $("#password1").toggle();
+        $("#password1").focus();
+        $("#password1").attr("type", "password");
+        $("#password1").attr("class", "reg_input_focus");
     });
-    /**
-     *  密码
-     */
-    PasswordEl.blur(function () {
-        var x = PasswordEl.val();
+    $("#password1").blur(function () {
+        var x = $("#password1").val();
         var y = x.length;
         if (x == '') {
-            TipsEl.html("密码不能为空");
-            $("#colu").show();
+            $("#password_error").html("密码不能为空");
+            document.getElementById("password1_none").style.display="inline-block";
+            $("#password1_none").show();
+            $("#word_icon").hide();
         } else if (y <= 5 || y >= 30) {
-            $("#main_register_auth_password1").focus();
-            TipsEl.html("密码长度必需大于6小于30");
-            $("#colu").show();
+            $("#password1").focus();
+            $("#password_error").html("长度必需大于6小于30");
+            document.getElementById("password1_none").style.display="inline-block";
+            $("#password1_none").show();
+            $("#word_icon").hide();
         } else {
-            TipsEl.html("");
-            $("#colu").show();
-            $("#colu").hide();
+            $("#password_error").html("");
+            $("#word_icon").show();
+            $("#password1_none").show();
+            $("#password1_none").hide();
         }
-        $(this).removeClass('textfocus').addClass('text');
     });
-    PasswordEl.focus(function () {
-        $(this).removeClass('text').addClass('textfocus');
+    $("#pwd").focus(function () {
+        $("#pwd").toggle();
+        $("#pwd1").toggle();
+        $("#pwd1").focus();
+        $("#pwd1").attr("type", "password");
+        $("#pwd1").attr("class", "reg_input_focus");
     });
-    /**
-     * 确认密码
-     */
-    RepasswdEl.blur(function () {
-        var a1 = RepasswdEl.val();
+    $("#pwd1").blur(function () {
+        var a1 = $("#pwd1").val();
         var b1 = a1.length;
         if (a1 == '') {
-            TipsEl.html("确认密码不能为空");
-            $("#colu").show();
+            $("#pwd_error").html("确认密码不能为空");
+            document.getElementById("pwd_none").style.display="inline-block";
+            $("#pwd_none").show();
+            $("#pwd_icon").hide();
         } else if (b1 <= 5 || b1 >= 30) {
-            $("#main_register_auth_password2").focus();
-            TipsEl.html("长度必需大于6小于30");
-            $("#colu").show();
-        } else if (a1 != PasswordEl.val()) {
-            $("#main_register_auth_password2").focus();
-            TipsEl.html("输入的密码不一致!");
-            $("#colu").show();
+            $("#pwd1").focus();
+            $("#pwd_error").html("长度必需大于6小于30");
+            $("#pwd_none").show();
+            $("#pwd_icon").hide();
+        } else if (a1 != $("#password1").val()) {
+            $("#pwd1").focus();
+            $("#pwd_error").html("输入的密码不一致!");
+            $("#pwd_none").show();
+            $("#pwd_icon").hide();
         } else {
-            TipsEl.html("");
-            $("#colu").show();
-            $("#colu").hide();
+            $("#pwd_error").html("");
+            $("#pwd_icon").show();
+            $("#pwd_none").show();
+            $("#pwd_none").hide();
         }
-        $(this).removeClass('textfocus').addClass('text');
     });
-    RepasswdEl.focus(function () {
-        $(this).removeClass('text').addClass('textfocus');
+    $("#phone").focus(function () {
+        $("#phone").toggle();
+        $("#phone1").toggle();
+        $("#phone1").focus();
+        $("#phone1").attr("class", "reg_input_focus");
     });
-    /**
-     * 验证码
-     */
-    AuthcodeEl.blur(function () {
-        var a = AuthcodeEl.val();
+    $("#phone1").blur(function () {
+        var pai = /^1[3|5|8][0-9]\d{4,8}$/;
+        var a = $("#phone1").val();
         if (a == '') {
-            TipsEl.html("邀请码不能为空");
-            $("#colu").show();
-        } else if (a != "code") {
-            $("#main_register_invite_code").focus();
-            TipsEl.html("邀请码输入不正确");
-            $("#colu").show();
-        } else if (a == "code") {
-            TipsEl.html("");
-            $("#colu").show();
-            $("#colu").hide();
-        }
-        $(this).removeClass('textfocus').addClass('text');
-    });
-    AuthcodeEl.focus(function () {
-        $(this).removeClass('text').addClass('textfocus');
-    });
-    /**
-     * 提交按钮
-     */
-    $("#auth_register").click(function () {
-        if (!UsernameEl.val()) {
-            UsernameEl.focus();
-        } else if (!PasswordEl.val()) {
-            PasswordEl.focus();
-        } else if (!RepasswdEl.val()) {
-            RepasswdEl.focus();
-        } else if (!AuthcodeEl.val()) {
-            AuthcodeEl.focus();
+            $("#phone_error").html("手机号码不能为空");
+            $("#phone_none").show();
+            $("#phone_icon").hide();
+        } else if (!pai.test(a)) {
+            $("#phone1").focus();
+            $("#phone_error").html("手机号码输入不正确");
+            $("#phone_none").show();
+            $("#phone_icon").hide();
         } else {
-            alert("恭喜您：注册成功");
+            $("#phone_error").html("");
+            $("#phone_icon").show();
+            $("#phone_none").show();
+            $("#phone_none").hide();
         }
+    });
+
+    $("#register").click(function () {
+
+        var password1 = $("[name='password1']").val();
+        var password = hex_sha1(password1);
+
+        if (!($("#username1").val())) {
+            $("#username1").focus();
+        } else if (!($("#password1").val())) {
+            $("#password1").focus();
+        } else if (!($("#pwd1").val())) {
+            $("#pwd1").focus();
+        } else if (!($("#phone1").val())) {
+            $("#phone1").focus();
+        } else{
+            $.ajax({
+                type: "get",
+                url: "/api2/account/add?",
+                data: {
+                    "accountName": $("#username1").val(), "phone": $("#phone1").val(), "password": password, "invite": "lejoying"
+                },
+                success: function (data) {
+                    //返回正确操作
+                    alert(data["提示信息"]);
+                    if (data["提示信息"] == "注册账号成功") {
+                        alert("注册成功");
+                        location.href = "step.html";
+                    }
+                    else if (data["提示信息"] == "注册账号失败") {
+                        $(".error_warning").toggle();
+                        $("#error_text").text("用户名或密码错误");
+                    } else {
+                        alert("注册异常");
+                    }
+                }
+            });
+        }
+        logindata.localSettings.username = $("[name='username2']").val();
+        window.localStorage.localSettings = $("[name='username2']").val();
     });
 });
 

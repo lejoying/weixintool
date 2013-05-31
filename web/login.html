@@ -1,62 +1,135 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微信社交应用管理登录</title>
+    <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>微信社交应用管理</title>
 </head>
-<script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
-<script type="text/javascript" src="/static/js/sha1.js"></script>
 <body>
-<div class="head">
-</div>
-<!--<div class="head">
-	<div class="head_content">
-		<div class="logo"> 
-        	微信社交应用管理
-        </div>
-        <div class="login">
-        	还不是会员？|
-            <a href="register.html">注册</a>
-        </div>
-    </div>
-</div>-->
+<div class="head_slip"></div>
 <div class="index_content">
-	<div class="login_form">
-    	<div class="loginform_padding">
+    <!--**********************************-->
+    <!--微信社交应用管理-->
+    <!--登录框-->
+    <!--**********************************-->
+    <div class="login_form" style="left:424px;top:200px" box="login">
+        <div class="loginform_padding">
             <div class="loginform_img">
                 微信社交应用管理
             </div>
             <div class="username">
-                <input name="username" class="input_normal" type="text"  value="用户名/手机/邮箱"/>
-                <input name="username1" style="display: none;" class="input_normal " type="text"  value=""/><span id="username_right" class="right_icon" style="display:none;"></span>
+                <input name="username" class="input_normal" type="text" value="用户名/手机/邮箱"/>
+                <input name="username1" class="input_normal hide" type="text" value=""/>
+                <span id="username_right" class="right_icon hide"></span>
                 <b class="nameicon"></b>
+                <div class="error_warning_user hide" style="left:360px;top:0px;width: 490px;">
+                    <div class="tip_out"><p class="tip_in" id="username1_error">
+                        <span class="error_icon"></span>用户名不能为空！</p></div>
+                </div>
             </div>
             <div class="password">
                 <input name="password" class="input_normal " type="text" value="密码"/>
-                <input name="password1" class="input_normal " style="display: none;" type="text" value=""/><span id="password_right" class="right_icon" style="display:none;"></span>
+                <input name="password1" class="input_normal hide" type="text" value=""/>
+                <span id="password_right" class="right_icon hide"></span>
                 <b class="passwordicon"></b>
+                <div class="error_warning_password hide" style="left:360px;top:0px;width: 490px;">
+                    <div class="tip_out"><p class="tip_in" id="password1_error">
+                        <span class="error_icon"></span>密码不能为空！</p></div>
+                </div>
             </div>
             <div class="clearevery"></div>
             <div class="login_submet">
-                <a href="register.html">注册</a>
-                <a href="step_1.html" id="login">登录</a>
-            </div>
-            <div style="float:right;clear:both;">
-                <div class="switch demo3">
-                    <input type="checkbox"> 
-                    <label><i></i></label>
-                </div>
-            </div>
-            <div class="error_warning_user" style="display: none;">
-                <div class="tip_out"><p class="tip_in" id="username_error"><span class="error_icon"></span>用户名不能为空！</p></div>
+                <a href="javascript:" id="to_register">注册</a>
+                <a href="javascript:" id="login">登录</a>
             </div>
             <div class="clearevery"></div>
         </div>
         <div class="alpht_bg"></div>
         <div class="alpht_border"></div>
     </div>
+    <!--**********************************-->
+    <!--微信社交应用管理-->
+    <!--注册框-->
+    <!--**********************************-->
+    <div class="login_form hide" style="left:373px;top:100px" box="register">
+        <div class="reg_loginform_padding">
+            <div class="loginform_img reg_img_margin">
+                微信社交应用管理
+            </div>
+            <div class="username">
+                <label class="label_3">用户名</label>
+                <input id="username" class="reg_input_normal" type="text" value="用户名"/>
+                <input  name="username2" id="username1" class="reg_input_normal hide" type="text" value=""/><span
+                    class="reg_right_icon hide" id="name_icon"></span>
+                <div class="error_warning hide" id="name1_none" style="left:434px;top:0px;width: 490px;">
+                    <div class="tip_out"><p class="tip_in"><span class="error_icon"></span>
+                        <span id="username_error">用户名不能为空！</span>
+                    </p></div>
+                </div>
+            </div>
+            <div class="password">
+                <label class="label_2">密码</label>
+                <input id="password" class="reg_input_normal " type="text" value="密码"/>
+                <input id="password1" class="reg_input_normal hide" type="text" value=""/><span
+                    class="reg_right_icon hide" id="word_icon"></span>
+                <div class="error_warning_word hide" id="password1_none"  style="left:434px;top:0px;">
+                    <div class="tip_out"><p class="tip_in"><span class="error_icon"></span>
+                        <span id="password_error">密码不能为空！</span>
+                    </p></div>
+                </div>
+            </div>
+            <div class="pwd">
+                <label>重复密码</label>
+                <input id="pwd"  class="reg_input_normal " type="text" value="重复密码"/>
+                <input id="pwd1"  class="reg_input_normal hide" type="text"value=""/><span
+                    class="reg_right_icon hide" id="pwd_icon"></span>
+                <div class="error_warning_pwd hide" id="pwd_none"  style="left:434px;top:0px;width: 300px;position: absolute;">
+                    <div class="tip_out"><p class="tip_in"><span class="error_icon">
+                    </span><span id="pwd_error">重复密码不能为空！</span>
+                    </p></div>
+                </div>
+            </div>
+            <div class="phone">
+                <label class="label_3">手机号</label>
+                <input id="phone"  class="reg_input_normal " type="text" value="手机号"/>
+                <input id="phone1"  class="reg_input_normal hide" type="text" value=""/><span
+                    class="reg_right_icon hide" id="phone_icon"></span>
+                <div class="error_warning_user hide" id="phone_none"  style="left:424px;top:0px;width: 490px;">
+                    <div class="tip_out"><p class="tip_in"><span class="error_icon"></span>
+                        <span id="phone_error">手机号码不能为空！</span>
+                    </p></div>
+                </div>
+            </div>
+            <div class="clearevery"></div>
+            <div class="reg_margin">
+                <a href="javascript:" id="to_login">直接登录</a>
+                <a href="javascript:" id="register">注册</a>
+            </div>
+        </div>
+        <div class="clearevery"></div>
+        <div class="reg_alpht_bg"></div>
+        <div class="reg_alpht_border"></div>
+    </div>
+    <!--**********************************-->
+    <!--微信社交应用管理-->
+    <!--用户信息框-->
+    <!--**********************************-->
+    <div class="login_user hide" style="right:0;top:20px;" box="account_information">
+        <div>
+            <a href="#" class="app_list"></a>
+            <div class="logo_apps">
+                <a href="javascript:" id="login1">登录</a>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript" src="/oauth6/static/js/module.js"></script>
+<script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript" src="/static/js/regedit.js"></script>
+<script type="text/javascript" src="/oauth6/static/js/sha1.js"></script>
+<script type="text/javascript" src="/static/js/animation.js" ></script>
+<script type="text/javascript" src="/static/js/account.js" ></script>
 </body>
 </html>
