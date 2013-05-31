@@ -91,10 +91,10 @@ body{
 	box-shadow:1px 1px 2px 0 #425A7A;
 	position:relative;
 }
-.body_left a{
+.arrow_left, .arrow_right{
 	opacity:0.6;	
 }
-.body_left a:hover{
+.arrow_left:hover, .arrow_right:hover{
 	opacity:1;	
 }
 .apphead_title{
@@ -641,7 +641,7 @@ body{
 	line-height:72px;
 	font-size:28px;
 	font-family:"微软雅黑";
-	border-bottom:1px solid #a6a6a6;
+	border-bottom:1px solid #7890ae;
 	color:#fff;	
 }
 .mange_opt{
@@ -826,4 +826,19 @@ body{
 	position:absolute;
 	right:20px;
 	top:400px;	
+}
+.upload_file{
+	position:relative;	
+}
+.input_f{
+	position:absolute;	
+	cursor: pointer;
+    direction: rtl;
+    font-size: 40px;
+    height: 30px;
+    opacity: 0;
+    width: 90px;
+	left: 516px;
+    top: 83px;
+	cursor:pointer;
 }
