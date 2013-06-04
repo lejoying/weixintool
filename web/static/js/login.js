@@ -245,7 +245,7 @@ $(document).ready(function () {
             sharp1.style.left = "240px";
         }
         if (index1 != 5) {
-            index1 = parseInt(index1)+1;
+            index1 = parseInt(index1) + 1;
         } else {
             index1 = 1;
         }
@@ -282,7 +282,7 @@ $(document).ready(function () {
             sharp1.style.left = "720px";
         }
         if (index1 != 1) {
-            index1 = parseInt(index1)-1;
+            index1 = parseInt(index1) - 1;
         } else {
             index1 = 5;
         }
@@ -304,6 +304,7 @@ $(document).ready(function () {
     $(".app_list").click(function () {
         $(".login_opt_menu").toggle();
     });
+
 })
 /***********
  user_mange.html页面  用户管理
