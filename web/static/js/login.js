@@ -303,9 +303,30 @@ $(document).ready(function () {
     $(".login_opt_menu").hide();
     $(".app_list").click(function () {
         $(".login_opt_menu").toggle();
+        addEvent(document.body, "mousedown", clickIndexOther);
     });
-
 })
+function clickIndexOther(el) {
+    thisObj = el.target ? el.target : event.srcElement;
+    do {
+        if (thisObj.id == "popmenu"||thisObj.id =="app_list") {
+            return;
+        }
+        if (thisObj.tagName == "BODY") {
+            document.getElementById("popmenu").style.display = "none";
+            return;
+        }
+        thisObj = thisObj.parentNode;
+    } while (thisObj.parentNode);
+}
+function addEvent(obj, eventType, func) {
+    if (obj.attachEvent) {
+        obj.attachEvent("on" + eventType, func);
+    }
+    else {
+        obj.addEventListener(eventType, func, false)
+    }
+}
 /***********
  user_mange.html页面  用户管理
  ************/
