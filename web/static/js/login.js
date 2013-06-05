@@ -183,6 +183,16 @@ $(document).ready(function () {
         });
     });
 })
+$(document).ready(function(){
+    $("#weixinName").click(function(){
+        if(($("#valsesFirst").val()) != ""){
+            logindata.localSettings.userstep = $("#valsesFirst").val();
+            location.href = "step_1.html";
+        } else {
+            alert("绑定微信号不能为空！");
+        }
+    });
+})
 $(document).ready(function () {
     $(".circel_step").mouseover(function () {
         var index = $(this).attr("index");

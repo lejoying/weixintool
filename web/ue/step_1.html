@@ -19,15 +19,24 @@
         function loginuser(){
             document.getElementById("user").innerText=logindata.localSettings.username+",已登录";
         }
-
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
             loginuser();
         });
-
     </script>
-
+    <script type="text/javascript">
+        function step1_user(){
+            document.getElementById("step_1").innerText=logindata.localSettings.userstep;
+            document.getElementById("step_2").innerText=logindata.localSettings.userstep;
+            document.getElementById("step_3").innerText=logindata.localSettings.userstep;
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            step1_user();
+        });
+    </script>
 </head>
 <body>
 <div class="head_slip"></div>
@@ -59,11 +68,11 @@
             <a href="#" class="weixin_card"></a>
             <div class="user_name"></div>
         </div>
-        <div class="right_sub">很破的一口钟</div>
+        <div class="right_sub" id="step_1">很破的一口钟</div>
     </div>
     <div class="login_user" style="right:0;top:20px;">
         <div>
-            <a href="#" class="app_list"></a>
+            <a href="#" class="app_list" id="app_list"></a>
 
             <div class="logo_apps">
                 <div id="user"></div>
@@ -71,9 +80,9 @@
         </div>
     </div>
     <div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:block;">
-    	<p><b class="change_info"></b><a href="#">修改个人信息</a></p>
-        <p><b class="change_password"></b><a href="#" >修改密码</a></p> 
-        <p><b class="loginout"></b><a href="#" >注销</a></p>
+        <p><b class="change_info"></b><a href="#" id="div1">修改个人信息</a></p>
+        <p><b class="change_password"></b><a href="#" id="div2">修改密码</a></p>
+        <p><b class="loginout"></b><a href="#" id="div3">注销</a></p>
     </div>
     <div class="index_body">
         <div class="body_left">
@@ -115,9 +124,9 @@
             </div>
         </div>
         <div class="body_right">
-            <div class="weixin_user"><b class="user_face"></b><span>很破的一口钟</span></div>
+            <div class="weixin_user"><b class="user_face"></b><span id="step_2">很破的一口钟</span></div>
             <div class="circle_out">
-                <div class="circle_in"><p>习敬平</p>
+                <div class="circle_in"><p id="step_3">习近平</p>
                 </div>
                 <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
