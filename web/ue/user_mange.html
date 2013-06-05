@@ -5,7 +5,7 @@
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>新建应用</title>
+<title>用户管理</title>
 </head>
 <body>
 <div class="head_slip"></div>
@@ -51,30 +51,27 @@
     	<div class="body_left">
             <div class="mange_outform">
             	<div class="mange_title">
-                	<span>新建应用</span>
+                	<span>用户管理</span>
+                	<div class="mange_opt">
+                    	<a href="#">全选</a>
+                        <a href="#">删除</a>
+                    </div>
                 </div>
-                 <div class="type_name2 personal_tr first_in">
-                    <label class="type_style" for="">名称</label>
-                    <input class="personal_input" name="" type="text" />
-                 </div>
-                 <div class="type_name2 personal_tr upload_file">
-                    <label class="type_style" for="">图标</label>
-                    <img src="/static/images/public/face.png" /><a href="#" class="updoad_face buttonblue">上传图标</a>
-                    <input class="input_f" name="pic1" id="input_image" type="file" onChange="" multiple="true">
-                 </div>
-                 <div class="type_name4 personal_tr">
-                    <label class="type_style" for="">上传脚本</label>
-                    <input class="personal_input" name="" type="text" />
-                 </div>
-                 <div class="type_name4 personal_tr">
-                    <label class="type_style type_area" for="">应用说明</label>
-                    <textarea class="personal_input_area" name="" cols="" rows=""></textarea>
-                 </div>
-                 <div class="type_opreat">
-                 	<a href="#" class="buttonblue button_per">新建</a>
-                    <a href="#" class="buttonblue button_per">取消</a>
-                 </div>
-                 <div class="type_input"></div>
+                <div class="msg_list">
+                	<span class="msg_list_id">ID:1d2x0244</span>
+                    <a href="#" class="add_info" id="add_info_1">添加</a>
+                    <span class="display_none" style="display:inline-block;">
+                        <input name="" type="text" placeholder="key"  class="key_style"/>
+                        <input name="" type="text" placeholder="value" class="value_style"/>
+                        <span>
+                            <a href="#" class="add_opt_button" id="save">保存</a>
+                            <a href="#" class="add_opt_button" id="cancel">取消</a>
+                        </span>
+                    </span>
+                    <span class="infomation_bg m_left" id="phone">电话<img src="/static/images/weixin_step/line.png" />18210252224</span>
+                    <span class="infomation_bg" id="email">邮箱<img src="/static/images/weixin_step/line.png" />cheyk@gmail.com</span>
+                    <a href="#" class="add_info"id="add_info_2">添加</a>
+                </div>
             </div>
         </div>
         <div class="body_right">
