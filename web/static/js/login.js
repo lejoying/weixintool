@@ -1,19 +1,13 @@
 var logindata = {};
-
 logindata.localSettings = {};
-
 window.onbeforeunload = function () {
     window.localStorage.localSettings = JSON.stringify(logindata.localSettings);
 };
-
-
 $(document).ready(function () {
     if (window.localStorage.localSettings != null) {
         logindata.localSettings = JSON.parse(window.localStorage.localSettings);
     }
 });
-
-
 $(document).ready(function () {
     $("[name='username1']").click(function () {
         $("[name='username1']").focus();
@@ -88,13 +82,11 @@ $(document).ready(function () {
                     if (data["提示信息"] == "电话存在") {
                         alert("登录成功");
                         location.href = "step.html";
-//                        alert("登录成功123");
                     }
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
                     } else {
-//                        alert("登录异常");
                     }
                 }
             });
@@ -137,13 +129,11 @@ $(document).ready(function () {
                     if (data["提示信息"] == "电话存在") {
                         alert("登录成功");
                         location.href = "step.html";
-//                        alert("登录成功123");
                     }
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
                     } else {
-//                        alert("登录异常");
                     }
                 }
             });
@@ -191,6 +181,16 @@ $(document).ready(function () {
                 //返回正确操作
             }
         });
+    });
+})
+$(document).ready(function(){
+    $("#weixinName").click(function(){
+        if(($("#valsesFirst").val()) != ""){
+            logindata.localSettings.userstep = $("#valsesFirst").val();
+            location.href = "step_1.html";
+        } else {
+            alert("绑定微信号不能为空！");
+        }
     });
 })
 $(document).ready(function () {
@@ -245,7 +245,7 @@ $(document).ready(function () {
             sharp1.style.left = "240px";
         }
         if (index1 != 5) {
-            index1 = parseInt(index1)+1;
+            index1 = parseInt(index1) + 1;
         } else {
             index1 = 1;
         }
@@ -282,7 +282,7 @@ $(document).ready(function () {
             sharp1.style.left = "720px";
         }
         if (index1 != 1) {
-            index1 = parseInt(index1)-1;
+            index1 = parseInt(index1) - 1;
         } else {
             index1 = 5;
         }
@@ -303,8 +303,30 @@ $(document).ready(function () {
     $(".login_opt_menu").hide();
     $(".app_list").click(function () {
         $(".login_opt_menu").toggle();
+        addEvent(document.body, "mousedown", clickIndexOther);
     });
 })
+function clickIndexOther(el) {
+    thisObj = el.target ? el.target : event.srcElement;
+    do {
+        if (thisObj.id == "popmenu" || thisObj.id == "app_list") {
+            return;
+        }
+        if (thisObj.tagName == "BODY") {
+            document.getElementById("popmenu").style.display = "none";
+            return;
+        }
+        thisObj = thisObj.parentNode;
+    } while (thisObj.parentNode);
+}
+function addEvent(obj, eventType, func) {
+    if (obj.attachEvent) {
+        obj.attachEvent("on" + eventType, func);
+    }
+    else {
+        obj.addEventListener(eventType, func, false)
+    }
+}
 /***********
  user_mange.html页面  用户管理
  ************/
@@ -359,8 +381,5 @@ $(document).ready(function () {
             $("#phone").show();
             $("#add_info_2").show();
         }
-        /*$(".display_none").hide();
-         $("#phone").show()
-         $("#add_info_2").show();*/
     });
 })
