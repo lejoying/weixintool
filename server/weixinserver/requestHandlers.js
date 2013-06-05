@@ -50,6 +50,8 @@ requestHandlers.messageManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
         messageManage.add(data, response);
+    } else if (operation == "leave") {
+        messageManage.leave(data, response);
     }
 };
 
