@@ -91,3 +91,36 @@ api = {
     }
 }
 
+/***************************************
+ * *    Class：message
+ ***************************************/
+
+api = {
+    /***************************************
+     * URL：/api2/message/[add]
+     ***************************************/
+    "message_[add|delete|modify]": {
+        request: {
+            typical: {weixinOpenID: "nnnn", type: "message", phone: "nnnnn", email: "XXXX" }
+        },
+        response: {
+            success: {"提示信息": "[添加]微信用户信息成功", data: {"……": "......"}},
+            failed: {"提示信息": "[添加]微信用户信息失败", errorMessage: "......", data: {"……": "……"}}
+        }
+    },
+    /***************************************
+     * URL：/api2/message/
+     ***************************************/
+    "message_[fancyapi]": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX"}
+        },
+        response: {
+            success: {"提示信息": "获取所有微信绑定用户成功", weixins: {
+                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"},
+                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"}
+            }}
+        }
+    }
+}
+

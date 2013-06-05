@@ -24,7 +24,8 @@ var routemap = {
     "get":{
         "/api2/account/:operation":requestHandlers.accountManage,
         "/api2/weixinuer/:operation":requestHandlers.weixinManage,
-        "/api2/message/:operation":requestHandlers.messageManage
+        "/api2/message/:operation":requestHandlers.messageManage,
+        "/api2/apply/:operation":requestHandlers.applyManage
     },
     "post":{
         "/api2/message/:operation":requestHandlers.messageManage
