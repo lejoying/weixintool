@@ -1,19 +1,13 @@
 var logindata = {};
-
 logindata.localSettings = {};
-
 window.onbeforeunload = function () {
     window.localStorage.localSettings = JSON.stringify(logindata.localSettings);
 };
-
-
 $(document).ready(function () {
     if (window.localStorage.localSettings != null) {
         logindata.localSettings = JSON.parse(window.localStorage.localSettings);
     }
 });
-
-
 $(document).ready(function () {
     $("[name='username1']").click(function () {
         $("[name='username1']").focus();
@@ -88,13 +82,11 @@ $(document).ready(function () {
                     if (data["提示信息"] == "电话存在") {
                         alert("登录成功");
                         location.href = "step.html";
-//                        alert("登录成功123");
                     }
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
                     } else {
-//                        alert("登录异常");
                     }
                 }
             });
@@ -137,13 +129,11 @@ $(document).ready(function () {
                     if (data["提示信息"] == "电话存在") {
                         alert("登录成功");
                         location.href = "step.html";
-//                        alert("登录成功123");
                     }
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
                     } else {
-//                        alert("登录异常");
                     }
                 }
             });
@@ -309,7 +299,7 @@ $(document).ready(function () {
 function clickIndexOther(el) {
     thisObj = el.target ? el.target : event.srcElement;
     do {
-        if (thisObj.id == "popmenu"||thisObj.id =="app_list") {
+        if (thisObj.id == "popmenu" || thisObj.id == "app_list") {
             return;
         }
         if (thisObj.tagName == "BODY") {
@@ -381,8 +371,5 @@ $(document).ready(function () {
             $("#phone").show();
             $("#add_info_2").show();
         }
-        /*$(".display_none").hide();
-         $("#phone").show()
-         $("#add_info_2").show();*/
     });
 })
