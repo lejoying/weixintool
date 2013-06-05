@@ -53,4 +53,14 @@ requestHandlers.messageManage = function (request, response, pathObject, data) {
     }
 };
 
+var applyManage = require('./handlers/applyManage');
+requestHandlers.applyManage = function (request, response, pathObject, data) {
+    var operation = pathObject["operation"];
+    if (operation == "add") {
+        applyManage.add(data, response);
+    } else if (operation == "addtest") {
+        applyManage.addtest(data, response);
+    }
+};
+
 module.exports = requestHandlers;

@@ -78,9 +78,8 @@ weixinManage.add = function (data, response) {
             });
         }
     }
-
-
 }
+
 /***************************************
  *     URL：/api2/weixinuer/delete
  ***************************************/
