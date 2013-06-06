@@ -33,6 +33,19 @@ $(document).ready(function () {
             }
         });
     });
+    $("#leaveMessage").click(function () {
+
+        var weixinOpenID = $(".text_weixinOpenID").val();
+
+        $.ajax({
+            type: "get",
+            url: "/api2/message/leave?",
+            data: {"weixinOpenID": weixinOpenID },
+            success: function (data) {
+                //返回正确操作
+            }
+        });
+    });
 })
 
 
