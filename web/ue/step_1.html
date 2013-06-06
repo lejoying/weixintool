@@ -37,6 +37,18 @@
             step1_user();
         });
     </script>
+    <script type="text/javascript">
+        function step2_user(){
+            document.getElementById("step_1").innerText=logindata.localSettings.userstep1;
+            document.getElementById("step_2").innerText=logindata.localSettings.userstep1;
+            document.getElementById("step_4").innerText=logindata.localSettings.userstep1;
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            step2_user();
+        });
+    </script>
 </head>
 <body>
 <div class="head_slip"></div>
@@ -125,7 +137,7 @@
         </div>
         <div class="body_right">
             <div class="weixin_user"><b class="user_face"></b><span id="step_2">很破的一口钟</span></div>
-            <div class="circle_out">
+            <div class="circle_out" id="id1">
                 <div class="circle_in"><p id="step_3">习近平</p>
                 </div>
                 <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
@@ -141,8 +153,8 @@
                 <div class="circel_ele circel_ele_11 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_12 "><img src="/static/images/face.jpg"/></div>
             </div>
-            <div class="circle_out_focus">
-                <div class="circle_in"><p>微信公众帐号2</p>
+            <div class="circle_out_focus" id="id2">
+                <div class="circle_in"><p id="step_4">微信公众帐号2</p>
                 </div>
                 <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>

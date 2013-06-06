@@ -192,6 +192,26 @@ $(document).ready(function(){
             alert("绑定微信号不能为空！");
         }
     });
+    $("#weixinName").click(function(){
+        if(($("#valsesFirst").val()) != ""){
+            logindata.localSettings.userstep1 = $("#valsesFirst").val();
+            location.href = "step_1.html";
+        } else {
+            alert("绑定微信号不能为空！");
+        }
+    });
+    $("#id1").click(function(){
+        var node1 = document.getElementById("id1").innerHTML;
+        //var node2= document.getElementById("id2").innerHTML;
+        document.getElementById("id1").innerHTML = node1;
+        //document.getElementById("id2").innerHTML = node1;
+    });
+    $("#id2").click(function(){
+        var node1 = document.getElementById("id1").innerHTML;
+        var node2= document.getElementById("id2").innerHTML;
+        document.getElementById("id1").innerHTML = node2;
+        document.getElementById("id2").innerHTML = node1;
+    });
 })
 $(document).ready(function () {
     $(".circel_step").mouseover(function () {
