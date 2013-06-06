@@ -15,8 +15,65 @@ var db = new neo4j.GraphDatabase('http://localhost:7474');
 var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
 
 /***************************************
+ *     URL：/api2/message/adds
+ ***************************************/
+
+var RSA = require('./../tools/RSA');
+messageManage.adds = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinOpenID;
+
+    db.getNodeById(weixinid, function (err, accountNode) {
+        var message =
+        {
+            "weixinOpenID": data.weixinOpenID,
+            "newId": data.newId,
+            "phone": data.phone,
+            "type": "weixin",
+            "email": data.email
+        };
+
+        db.getIndexedNode("message", "weixinOpenID", message.weixinOpenID, function (err, node) {
+            if (node == null) {
+                weixinAdd();
+            }
+            else {
+                response.write(JSON.stringify({
+                    "提示信息": "添加信息失败",
+                    "node": node.data
+                }));
+                response.end();
+            }
+        });
+        function weixinAdd() {
+            var weixinNode = db.createNode(message);
+            weixinNode.save(function (err, weixinNode) {
+                weixinNode.data.weixinOpenID = weixinNode.id;
+                weixinNode.index("message", "weixinOpenID", weixinNode.id);
+                weixinNode.index("message", "newId", message.newId);
+                weixinNode.index("message", "phone", message.phone);
+                weixinNode.index("message", "email", message.email);
+                weixinNode.index("message", "type", "weixin");
+                weixinNode.save(function (err, weixinNode) {
+
+                    weixinNode.createRelationshipFrom(accountNode, "OWNEDMESSAGE");
+                    response.write(JSON.stringify({
+                        "提示信息": "添加信息成功",
+                        "node": weixinNode.data
+                    }));
+                    response.end();
+                });
+            });
+        }
+    });
+
+}
+
+
+/***************************************
  *     URL：/api2/message/add
  ***************************************/
+
 
 var RSA = require('./../tools/RSA');
 messageManage.add = function (data, response) {
@@ -41,10 +98,10 @@ messageManage.add = function (data, response) {
             "type": "message",
             "weixinName": data.weixinName
         };
-        createNewApp(message,accountNode);
+        createNewApp(message, accountNode);
 
 
-        function createNewApp(message,accountNode) {
+        function createNewApp(message, accountNode) {
             var newNode = db.createNode(message);
             newNode.save(function (err, newNode) {
                 newNode.data.uid = newNode.id;
@@ -54,40 +111,33 @@ messageManage.add = function (data, response) {
                         "提示信息": "注册账号成功"
                     }));
 //                    response.end();
-                    createre(newNode,accountNode);
+                    createre(newNode, accountNode);
                 });
             });
         }
 
-        function createre(newNode,accountNode) {
-//            adata = {
-//                "type": "OWNEDR",
-//                "kkkey" : "vvalue"
-//            }
-            var rel = db.createRelationship(accountNode,newNode,"ggg");
-//            newNode.createRelationshipFrom(accountNode, "juhgfd");
-//            rel.index("fff");
-//            rel.index("cbw", "cbw1", "cbw1");
-//            (newNode.createRelationshipFrom(accountNode, "juhgfd")).index("cbw", "cbw1", "cbw1");
-
-            db.getIndexedRelationships("fff",function(err, node){
-                if(node == null){
-                    response.write(JSON.stringify({
-                        "newNode":newNode.createRelationshipFrom(accountNode, "juhgfd"),
-                        "提示信息": "获得关系失败",
-                        "失败原因": "关系不存在"
-                    }));
-                    response.end();
-                }else{
-                    response.write(JSON.stringify({
-                        "提示信息": "找到关系",
-                        "node": node.data
-                    }));
-                    response.end();
+        function createre(newNode, accountNode) {
+            adata = {
+                "id":  155,
+                "appName": newNode.data.weixinName
+            }
+            newNode.createRelationshipFrom(accountNode, "appName", adata);
+            db.getRelationshipById(155, function (err, node) {
+                node.index("rel", "app", newNode.data.weixinName);
+//                if (node != null) {
+//                    node.del();
+//                    response.write(JSON.stringify({
+//                        "提示信息": "shanchu"
+//                    }));
+//                    response.end();
+//                }
+            });
+            db.getIndexedRelationship("rel","app",newNode.data.weixinName, function (err, node) {
+                if (node != null) {
+                    node.del();
                 }
             });
         }
-
     }
 }
 
@@ -104,14 +154,14 @@ messageManage.leave = function (data, response) {
 //        "type": "have",
 //        "kkey" : have.kkey
 //    };
-    db.getIndexedRelationship("OWNEDR","hav","uytgrfsadfrt",function(err, node){
-        if(node == null){
+    db.getIndexedRelationship("OWNEDR", "hav", "uytgrfsadfrt", function (err, node) {
+        if (node == null) {
             response.write(JSON.stringify({
                 "提示信息": "获得关系失败",
                 "失败原因": "关系不存在"
             }));
             response.end();
-        }else{
+        } else {
             response.write(JSON.stringify({
                 "提示信息": "找到关系",
                 "node": node.data

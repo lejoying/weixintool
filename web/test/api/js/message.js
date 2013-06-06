@@ -8,7 +8,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "get",
-            url: "/api2/message/add?",
+            url: "/api2/message/adds?",
             data: {"weixinOpenID": weixinOpenID ,"phone":phone ,"email":email,"newId":newId },
             success: function (data) {
                 //返回正确操作
