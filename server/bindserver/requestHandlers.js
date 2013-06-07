@@ -33,6 +33,16 @@ requestHandlers.message = function (request, response, pathObject, data) {
     }
 };
 
+var weixinuser = require('./handlers/weixinuser');
+requestHandlers.weixinuser = function (request, response, pathObject, data) {
+    if (data == null) {
+        response.write(JSON.stringify({a: 1, b: 2}));
+    }
+    else {
+        weixinuser.weixinuser(data, response);
+    }
+};
+
 
 requestHandlers.test = function (request, response, pathObject, data) {
     response.write(JSON.stringify({a: 1, b: 2}));

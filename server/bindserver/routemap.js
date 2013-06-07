@@ -16,7 +16,8 @@ var routemap = {
         "/": requestHandlers.bind
     },
     "post": {
-        "/": requestHandlers.message
+        "/": requestHandlers.message,
+        "/": requestHandlers.weixinuser
     },
     "put": {
     },

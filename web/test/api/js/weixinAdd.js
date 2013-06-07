@@ -13,4 +13,18 @@ $(document).ready(function () {
             }
         });
     });
+    $("#addrel").click(function () {
+
+        var weixinName = $(".text_weixinName").val();
+        var newAppName = $(".text_newAppName").val();
+
+        $.ajax({
+            type: "get",
+            url: "/api2/message/addrel",
+            data: {"weixinName": weixinName, "newAppName": newAppName },
+            success: function (data) {
+                //返回正确操作
+            }
+        });
+    });
 })
