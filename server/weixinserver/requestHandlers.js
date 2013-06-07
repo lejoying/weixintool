@@ -72,4 +72,12 @@ requestHandlers.applyManage = function (request, response, pathObject, data) {
     }
 };
 
+var showUserManage = require('./handlers/showUserManage');
+requestHandlers.showUserManage = function (request, response, pathObject, data) {
+    var operation = pathObject["operation"];
+    if (operation == "show") {
+        showUserManage.show(data, response);
+    }
+};
+
 module.exports = requestHandlers;

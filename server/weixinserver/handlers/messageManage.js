@@ -143,6 +143,16 @@ messageManage.addrel = function (data, response) {
         };
         db.getIndexedNode("appmessage", "newAppName", message.newAppName, function (err, accountNode) {
             newNode.createRelationshipFrom(accountNode,"REL");
+            accountNode.save(function (err, accountNode) {
+                accountNode.index("message", "weixinName", accountNode.weixinName);
+                accountNode.save(function (err, accountNode) {
+                    response.write(JSON.stringify({
+                        "提示信息": "注册账号成功",
+                        "weixinName": accountNode.data.weixinName
+                    }));
+                    response.end();
+                });
+            });
         });
     }
 }
