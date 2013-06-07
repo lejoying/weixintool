@@ -29,6 +29,9 @@ requestHandlers.accountManage = function (request, response, pathObject, data) {
     else if (operation == "auth") {
         accountManage.auth(data, response);
     }
+    else if (operation == "modify") {
+        accountManage.modify(data, response);
+    }
 };
 
 var weixinManage = require('./handlers/weixinManage');
@@ -36,11 +39,11 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
         weixinManage.add(data, response);
-    }else if (operation == "delete") {
+    } else if (operation == "delete") {
         weixinManage.delete(data, response);
-    }else if (operation == "modify") {
+    } else if (operation == "modify") {
         weixinManage.modify(data, response);
-    }else if (operation == "getall") {
+    } else if (operation == "getall") {
         weixinManage.getall(data, response);
     }
 };
@@ -52,6 +55,10 @@ requestHandlers.messageManage = function (request, response, pathObject, data) {
         messageManage.add(data, response);
     } else if (operation == "leave") {
         messageManage.leave(data, response);
+    } else if (operation == "adds") {
+        messageManage.adds(data, response);
+    } else if (operation == "addrel") {
+        messageManage.addrel(data, response);
     }
 };
 

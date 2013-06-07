@@ -8,7 +8,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "get",
-            url: "/api2/message/add?",
+            url: "/api2/message/adds?",
             data: {"weixinOpenID": weixinOpenID ,"phone":phone ,"email":email,"newId":newId },
             success: function (data) {
                 //返回正确操作
@@ -35,12 +35,12 @@ $(document).ready(function () {
     });
     $("#leaveMessage").click(function () {
 
-        var weixinOpenID = $(".text_weixinOpenID").val();
+        var newAppName = $(".text_newAppName").val();
 
         $.ajax({
             type: "get",
             url: "/api2/message/leave?",
-            data: {"weixinOpenID": weixinOpenID },
+            data: {"newAppName": newAppName },
             success: function (data) {
                 //返回正确操作
             }

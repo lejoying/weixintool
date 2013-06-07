@@ -1,18 +1,15 @@
 $(document).ready(function () {
-    $("#login").click(function () {
+    $("#regedit").click(function () {
 
         var accountname = $(".text_accountname").val();
         var phone = $(".text_phone").val();
-        var email = $(".text_email").val();
-
         var passwordpp = $(".text_password").val();
         var password = hex_sha1(passwordpp);
-        var invite = $(".text_invite").val();
 
         $.ajax({
             type: "get",
             url: "/api2/account/add?",
-            data: {"accountName": accountname, "phone": phone, "email": email, "password": password, "invite": invite},
+            data: {"accountName": accountname, "phone": phone,  "password": password, "invite": "lejoying"},
             success: function (data) {
                 //返回正确操作
             }
@@ -43,30 +40,6 @@ $("#account_exist").click(function () {
     });
 });
 
-
-//var app = {};
-//
-//app.serverUrl = "http://127.0.0.1/test/api/step.html";
-//
-//app.localSettings = {};
-//window.alert("kdj");
-//window.onbeforeunload = function () {
-//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-//};
-//
-//function saveLocalSettings() {
-//    window.localStorage.localSettings = JSON.stringify(app.localSettings);
-//}
-//
-//$(document).ready(function () {
-//    if (window.localStorage.localSettings != null) {
-//        app.localSettings = JSON.parse(window.localStorage.localSettings);
-//    }
-//});
-//$(document).ready(function () {
-//    app.phone();
-//    phone();
-//});
 $("#accoundLogin").click(function () {
 
     window.alert("accoundLogin");

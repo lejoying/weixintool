@@ -1,16 +1,16 @@
-
 $(document).ready(function () {
     $("#Update").click(function () {
 
         var weixinOpenID = $(".text_weixinOpenID").val();
         var weixinName = $(".text_weixinName").val();
-        var token = $(".text_token").val();
-        var invite = $(".text_invite").val();
+        var password = $(".text_password").val();
+        var phone = $(".text_phone").val();
+        var email = $(".text_email").val();
 
         $.ajax({
             type: "get",
             url: "/api2/weixinuer/modify",
-            data: {"weixinOpenID": weixinOpenID, "weixinName": weixinName, "token": token,"invite": invite},
+            data: {"weixinOpenID": weixinOpenID, "weixinName": weixinName, "password": password, "phone": phone, "email": email},
             success: function (data) {
                 //返回正确操作
             }

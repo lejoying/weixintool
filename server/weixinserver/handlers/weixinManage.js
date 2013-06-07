@@ -117,19 +117,32 @@ weixinManage.modify = function (data, response) {
     var weixin =
     {
         "type": "weixin",
-        "accesskey": data.accesskey,
         "weixinOpenID": data.weixinOpenID,
-        "weixinName": data.weixinName,
-        "token": data.token
+        "accountName": data.accountName,
+        "password": data.password,
+        "phone": data.phone,
+        "email": data.email
     }
-    db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
+
+    RSA.setMaxDigits(38);
+    var pbkeyStr3 = RSA.RSAKeyStr("5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
+    var pbkey3 = RSA.RSAKey(pbkeyStr3);
+
+    var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
+    var pvkey3 = RSA.RSAKey(pvkeyStr3);
+
+    db.getIndexedNode("message", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
         if (node != null) {
 //            node.getRelationshipNodes("weixin", "weixinOpenID",weixin.weixinOpenID ,function(err, node){})
             node.save(function (err, node) {
+                node.data.weixinOpenID = weixin.weixinOpenID;
                 node.data.weixinName = weixin.weixinName;
-                node.data.token = weixin.token;
+                node.data.phone = weixin.phone;
+                node.data.email = weixin.email;
+                node.index("weixin", "weixinOpenID", weixin.weixinOpenID);
                 node.index("weixin", "weixinName", weixin.weixinName);
-                node.index("weixin", "token", weixin.token);
+                node.index("weixin", "phone", weixin.phone);
+                node.index("weixin", "email", weixin.email);
                 node.save(function (err, node) {
                     response.write(JSON.stringify({
                         "提示信息": "修改微信绑定用户成功",

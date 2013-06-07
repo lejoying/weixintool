@@ -19,6 +19,7 @@ accountManage.add = function (data, response) {
     response.asynchronous = 1;
     var account = {
         "accountName": data.accountName,
+        "uid": data.uid,
         "type": "account",
         "password": data.password,
         "phone": data.phone,
@@ -39,7 +40,7 @@ accountManage.add = function (data, response) {
             }));
             response.end();
         }
-        else  {
+        else {
             if (node == null) {
                 if (account.email == null) {
                     addAccountToNeo4j();
@@ -74,11 +75,13 @@ accountManage.add = function (data, response) {
             node.index("account", "accountName", account.accountName);
             node.index("account", "phone", account.phone);
             node.index("account", "email", account.email);
+            node.index("account", "uid", account.uid);
             node.save(function (err, node) {
                 response.write(JSON.stringify({
                     "提示信息": "注册账号成功",
                     "uid": node.data.uid,
-                    "acccesskey": node.data.accessKey
+                    "phone": node.data.phone,
+                    "accountName": node.data.accountName
                 }));
                 response.end();
             });
@@ -169,11 +172,10 @@ accountManage.auth = function (data, response) {
     var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
     var pvkey3 = RSA.RSAKey(pvkeyStr3);
 
-    if (account.phone != null) {
-
+    if (account.phone != null && account.phone != "") {
         checkPhone();
     }
-    else if (account.accountName != null) {
+    else if (account.accountName != null && account.accountName != "") {
         checkAccountName();
     }
     else if (account.email != null) {
@@ -184,24 +186,28 @@ accountManage.auth = function (data, response) {
     function checkAccountName() {
         db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
             if (node != null) {
-                var data = node.data;
                 if (account.password == node.data.password) {
                     node.index("account", "accountName", account.accountName);
                     response.write(JSON.stringify({
-                        "提示信息": "账号不存在 ",
+                        "提示信息": account.accountName + "账号存在 ",
                         "status": "通过验证"
                     }));
                     response.end();
                 }
                 else {
                     response.write(JSON.stringify({
-                        "提示信息": account.password + " 密码不正确",
+                        "提示信息": " 密码不正确",
                         "status": "账号登录失败"
                     }));
                     response.end();
                 }
-            }
-            else {
+            } else if (data.accountName == null || data.accountName == "") {
+                response.write(JSON.stringify({
+                    "提示信息": account.accountName + "用户名不为空",
+                    "status": "账号登录失败"
+                }));
+                response.end();
+            } else {
                 response.write(JSON.stringify({
                     "提示信息": account.accountName + " 用户不存在",
                     "status": "账号登录失败"
@@ -216,7 +222,6 @@ accountManage.auth = function (data, response) {
         db.getIndexedNode("account", "phone", account.phone, function (err, node) {
 
             if (node != null) {
-//                var data = node.data;
                 if (account.password == node.data.password) {
                     node.index("account", "phone", account.phone);
                     response.write(JSON.stringify({
@@ -227,7 +232,7 @@ accountManage.auth = function (data, response) {
                 }
                 else {
                     response.write(JSON.stringify({
-                        "提示信息": account.password + " 密码不正确",
+                        "提示信息": " 密码不正确",
                         "status": "账号登录失败"
                     }));
                     response.end();
@@ -235,7 +240,7 @@ accountManage.auth = function (data, response) {
             }
             else if (data.phone == "" || data.phone == null) {
                 response.write(JSON.stringify({
-                    "提示信息": account.phone + " 电话号码不为空",
+                    "提示信息": account.phone + "电话号码不为空",
                     "status": "账号登录失败"
                 }));
                 response.end();
@@ -254,7 +259,6 @@ accountManage.auth = function (data, response) {
     function checkEmail() {
         db.getIndexedNode("account", "email", account.email, function (err, node) {
             if (node != null) {
-                var data = node.data;
                 if (account.password == node.data.password) {
                     node.index("account", "email", account.email);
                     response.write(JSON.stringify({
@@ -270,6 +274,12 @@ accountManage.auth = function (data, response) {
                     }));
                     response.end();
                 }
+            } else if (data.email == null) {
+                response.write(JSON.stringify({
+                    "提示信息": account.email + " 邮箱不为空",
+                    "status": "账号登录失败"
+                }));
+                response.end();
             }
             else {
                 response.write(JSON.stringify({
@@ -283,9 +293,57 @@ accountManage.auth = function (data, response) {
 }
 
 /***************************************
- *     URL：/api2/account/trash
+ *     URL：/api2/account/modify
  ***************************************/
+accountManage.modify = function (data, response) {
+    response.asynchronous = 1;
+    var weixin =
+    {
+        "accountName": data.accountName,
+        "uid": data.uid,
+        "type": "weixin",
+        "password": data.password,
+        "phone": data.phone,
+        "email": data.email
+    }
 
+    RSA.setMaxDigits(38);
+    var pbkeyStr3 = RSA.RSAKeyStr("5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
+    var pbkey3 = RSA.RSAKey(pbkeyStr3);
+
+    var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
+    var pvkey3 = RSA.RSAKey(pvkeyStr3);
+
+    db.getNodeById(weixin.uid, function (err, node) {
+        if (node != null) {
+//            node.getRelationshipNodes("weixin", "weixinOpenID",weixin.weixinOpenID ,function(err, node){})
+            node.save(function (err, node) {
+                node.data.accountName = weixin.accountName;
+                node.data.password = weixin.password;
+                node.data.phone = weixin.phone;
+                node.data.email = weixin.email;
+                node.index("account", "accountName", weixin.accountName);
+                node.index("account", "password", weixin.password);
+                node.index("account", "phone", weixin.phone);
+                node.index("account", "email", weixin.email);
+                node.save(function (err, node) {
+                    response.write(JSON.stringify({
+                        "提示信息": "修改会员信息成功",
+                        "node": node.data
+                    }));
+                    response.end();
+                });
+            });
+
+        } else {
+            response.write(JSON.stringify({
+                "提示信息": "修改会员信息失败",
+                "reason": "会员信息不存在"
+            }));
+            response.end();
+        }
+    });
+}
 
 
 module.exports = accountManage;

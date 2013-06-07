@@ -116,7 +116,7 @@ applyManage.addtest = function (data, response) {
             weixinNode.save(function (err, weixinNode) {
                 weixinNode.data.weixinOpenID = weixinNode.id;
                 weixinNode.index("message", "weixinOpenID", weixinNode.id);
-                weixinNode.index("message", "newAppName", message.newAppName);
+                weixinNode.index("appmessage", "newAppName", message.newAppName);
                 weixinNode.index("message", "appIcon", message.appIcon);
                 weixinNode.index("message", "updateScript", message.updateScript);
                 weixinNode.index("message", "appScpecification", message.appScpecification);
