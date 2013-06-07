@@ -6,20 +6,15 @@
     <script type="text/javascript" src="/static/js/login.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-
-
     <style>
-            /* Prevent the text contents of draggable elements from being selectable. */
         [draggable] {
             -moz-user-select: none;
             -khtml-user-select: none;
             -webkit-user-select: none;
             user-select: none;
-            /* Required to make elements draggable in old WebKit */
             -khtml-user-drag: element;
             -webkit-user-drag: element;
         }
-
         .out_frame {
             height: 150px;
             width: 150px;
@@ -36,10 +31,8 @@
             box-shadow: inset 0 0 3px #000;
             text-align: center;
             cursor: move;
-
             transition: -webkit-transform 0.1s ease-out 0s;
         }
-
         .out_frame header {
             color: #fff;
             text-shadow: #000 0 1px;
@@ -59,29 +52,23 @@
             -moz-border-radius-topright: 10px;
             border-top-right-radius: 10px;
         }
-
         .out_frame.over {
             border: 2px dashed #000;
             -webkit-transform: scale(1.5);
         }
-
         .out_frame:hover {
             border: 2px dashed #000;
             -webkit-transform: scale(1.1);
         }
-
         .out_frame.moving {
             opacity: 0.25;
             -webkit-transform: scale(0.6);
         }
     </style>
     <style>
-
         .circle_out {
-
             transition: -webkit-transform 0.2s ease-out 0s;
         }
-
         .circle_out.over {
             border: 2px dashed #000;
             -webkit-transform: scale(1.5);
@@ -132,10 +119,8 @@
             <div class="logo_apps">
                 <div>usert2已登录</div>
             </div>
-
         </div>
     </div>
-
     <div class="index_body">
         <div class="body_left">
             <div class="out_frame" draggable="true">
@@ -233,7 +218,6 @@
                 <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
-
             </div>
             <div class="circle_out" amount="7">
                 <div class="circle_in"></div>
@@ -244,20 +228,14 @@
                 <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
-
             </div>
-
-
             <div class="circle_out" amount="0">
                 <div class="circle_in"></div>
             </div>
         </div>
     </div>
 </div>
-
-
 <script type="text/javascript">
-
     String.format = function (src) {
         if (arguments.length == 0) return null;
         var args = Array.prototype.slice.call(arguments, 1);
@@ -265,47 +243,36 @@
             return args[i];
         });
     };
-
-
     var dragSrcEl = null;
-
     function handleDragStart(e) {
         // Target (this) element is the source node.
         this.style.opacity = '0.2';
 
         dragSrcEl = this;
-
         //        e.dataTransfer.effectAllowed = 'move';
         //        e.dataTransfer.setData('text/html', this.innerHTML);
         this.classList.add('moving');
     }
-
     function handleDragOver(e) {
         if (e.preventDefault) {
             e.preventDefault(); // Necessary. Allows us to drop.
         }
-
         //        e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-
         return false;
     }
-
     function handleDragEnter(e) {
         // this / e.target is the current hover target.
         this.classList.add('over');
     }
-
     function handleDragLeave(e) {
         this.classList.remove('over');  // this / e.target is previous target element.
     }
-
     function handleDrop(e) {
         // this/e.target is current target element.
         alert("drop");
         if (e.stopPropagation) {
             e.stopPropagation(); // Stops some browsers from redirecting.
         }
-
         // Don't do anything if dropping the same column we're dragging.
         if (dragSrcEl != this) {
             // Set the source column's HTML to the HTML of the column we dropped on.
@@ -313,10 +280,8 @@
             dragSrcEl.innerHTML = this.innerHTML;
             this.innerHTML = innerHTML;
         }
-
         return false;
     }
-
     function handleDragEnd(e) {
         // this/e.target is the source node.
         this.style.opacity = '0.9';
@@ -327,40 +292,28 @@
         $(".circle_out").removeClass("over");
         $(".circle_out").removeClass("moving");
     }
-
     var cols = document.querySelectorAll('.out_frame');
     [].forEach.call(cols, function (col) {
         col.setAttribute('draggable', 'true');
-
         //        col.addEventListener('drop', handleDrop, false);
         //        col.addEventListener('dragend', handleDragEnd, false);
     });
-
-
     $(".out_frame").bind("dragstart", handleDragStart);
     $(".out_frame").bind("dragenter", handleDragEnter);
     $(".out_frame").bind("dragover", handleDragOver);
     $(".out_frame").bind("dragleave", handleDragLeave);
     $(".out_frame").bind("drop", handleDrop);
     $(".out_frame").bind("dragend", handleDragEnd);
-
-
     /******************************
      处理circle_out
      *****************************/
-
     $(".circle_out").attr('draggable', 'true');
-
-
     $(".circle_out").click(function () {
         alert("click me");
     });
-
-
     $(".circle_out").bind("dragstart", function (e) {
         dragSrcEl = this;
     });
-
     $(".circle_out").bind("dragover", function (e) {
         if (e.preventDefault) {
             e.preventDefault(); // Necessary. Allows us to drop.
@@ -370,43 +323,30 @@
     $(".circle_out").bind("dragleave", function () {
         $(this).removeClass("over");
     });
-
-    //
     $(".circle_out").bind("drop", function () {
         append_circle($(this));
     });
-
     $(".circle_out").bind("dragend", function () {
         $(".circle_out").removeClass("over");
         $(".circle_out").removeClass("moving");
-
     });
     function append_circle(circle) {
         var amount = parseInt(circle.attr("amount"));
         var str1 = '<div class="circel_ele circel_ele_{0} "><img src="/static/images/face.jpg"/></div>';
-
         var str = String.format(str1, amount + 1);
         circle.append(str);
         circle.attr("amount", amount + 1);
     }
-
-
     /******************************
      处理circel_ele
      *****************************/
-
     $(".circel_ele").attr('draggable', 'true');
-
     $(".circel_ele").click(function () {
         alert("click me");
     });
-
-
     $(".circel_ele").bind("dragstart", function (e) {
         dragSrcEl = this;
     });
-
-
     $(".circel_ele").bind("dragover", function (e) {
         if (e.preventDefault) {
             e.preventDefault(); // Necessary. Allows us to drop.
@@ -416,24 +356,17 @@
     $(".circel_ele").bind("dragleave", function () {
         $(this).removeClass("over");
     });
-
-    //
     $(".circel_ele").bind("drop", function () {
         remove_circle($(this));
     });
-
     $(".circel_ele").bind("dragend", function () {
         $(".circel_ele").removeClass("over");
         $(".circel_ele").removeClass("moving");
-
     });
     function remove_circle(circle) {
         alert("remove_circle");
     }
-
-
 </script>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
-
 </body>
 </html>
