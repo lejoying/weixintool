@@ -118,90 +118,61 @@ messageManage.add = function (data, response) {
 
         function createre(newNode, accountNode) {
             adata = {
-                "id":  155,
                 "appName": newNode.data.weixinName
             }
-            newNode.createRelationshipFrom(accountNode, "appName", adata);
-            db.getRelationshipById(155, function (err, node) {
-                node.index("rel", "app", newNode.data.weixinName);
-//                if (node != null) {
-//                    node.del();
-//                    response.write(JSON.stringify({
-//                        "提示信息": "shanchu"
-//                    }));
-//                    response.end();
-//                }
-            });
-            db.getIndexedRelationship("rel","app",newNode.data.weixinName, function (err, node) {
-                if (node != null) {
-                    node.del();
-                }
-            });
+            newNode.createRelationshipFrom(accountNode, "REL", adata);
         }
     }
 }
 
 /***************************************
- *     URL：/api2/message/leavemessage
+ *     URL：/api2/message/addrel
+ ***************************************/
+messageManage.addrel = function (data, response) {
+    response.asynchronous = 1;
+    var message =
+    {
+        "weixinName": data.weixinName
+    };
+    db.getIndexedNode("message", "weixinName", message.weixinName, function (err, newNode) {
+        createre(newNode);
+    });
+    function createre(newNode){
+        var message = {
+            "newAppName": data.newAppName
+        };
+        db.getIndexedNode("appmessage", "newAppName", message.newAppName, function (err, accountNode) {
+            newNode.createRelationshipFrom(accountNode,"REL");
+        });
+    }
+}
+
+
+/***************************************
+ *     URL：/api2/message/delrel
  ***************************************/
 
 var RSA = require('./../tools/RSA');
 messageManage.leave = function (data, response) {
     response.asynchronous = 1;
-//
-//    var have =
-//    {
-//        "type": "have",
-//        "kkey" : have.kkey
-//    };
-    db.getIndexedRelationship("OWNEDR", "hav", "uytgrfsadfrt", function (err, node) {
-        if (node == null) {
-            response.write(JSON.stringify({
-                "提示信息": "获得关系失败",
-                "失败原因": "关系不存在"
-            }));
-            response.end();
-        } else {
-            response.write(JSON.stringify({
-                "提示信息": "找到关系",
-                "node": node.data
-            }));
-            response.end();
-        }
+    db.getIndexedNode("message", "weixinName", "etjgjtrf", function (err, newNode) {
+        newNode.getRelationships("REL", function (err, node) {
+            if (node == null) {
+                response.write(JSON.stringify({
+                    "提示信息": "获得关系失败",
+                    "失败原因": "关系不存在"
+                }));
+                response.end();
+            } else {
+                node[0].del();
+                response.write(JSON.stringify({
+                    "提示信息": "找到关系"
+                }));
+                response.end();
+            }
+        });
     });
 
-
-//    db.getNodeById(weixinid, function (err, accountNode) {
-//        if (accountNode == null) {
-//            response.write(JSON.stringify({
-//                "提示信息": "解除关系失败",
-//                "失败原因": "账号不存在"
-//            }));
-//            response.end();
-//        }
-//        else {
-//            var message =
-//            {
-//                "weixinOpenID": data.weixinOpenID
-//            };
-//            db.getIndexedRelationship("message", "weixinOpenID", message.weixinOpenID, function(err, node){
-//                if(node == null){
-//                    response.write(JSON.stringify({
-//                        "提示信息": "获得关系失败",
-//                        "失败原因": "关系不存在"
-//                    }));
-//                    response.end();
-//                }else{
-//                    response.write(JSON.stringify({
-//                        "提示信息": "找到关系",
-//                        "node": node.data
-//                    }));
-//                    response.end();
-//                }
-//            });
-//
-//        }
-//    });
 }
 
 module.exports = messageManage;

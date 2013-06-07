@@ -116,13 +116,13 @@ applyManage.addtest = function (data, response) {
             weixinNode.save(function (err, weixinNode) {
                 weixinNode.data.weixinOpenID = weixinNode.id;
                 weixinNode.index("message", "weixinOpenID", weixinNode.id);
-                weixinNode.index("message", "newAppName", message.newAppName);
+                weixinNode.index("appmessage", "newAppName", message.newAppName);
                 weixinNode.index("message", "appIcon", message.appIcon);
                 weixinNode.index("message", "updateScript", message.updateScript);
                 weixinNode.index("message", "appScpecification", message.appScpecification);
                 weixinNode.save(function (err, weixinNode) {
 
-                    weixinNode.createRelationshipFrom(accountNode, "OWNEDAPLAY");
+//                    weixinNode.createRelationshipFrom(accountNode, "OWNEDAPLAY");
                     response.write(JSON.stringify({
                         "提示信息": "添加应用成功",
                         "node": weixinNode.data
