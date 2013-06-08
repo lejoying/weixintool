@@ -356,18 +356,50 @@ $(document).ready(function () {
         $("#add_info_1").hide();
     });
     $("#save").click(function () {
-        $(".display_nones").show();
-        $(".display_none").hide();
-        $("#add_info_1").hide();
-        $("#save").hide();
-        $("#cancel").hide();
-        $("#cancels").hide();
+        var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
+        var phone = $("[name = 'phone']").val();
+        var email = $("[name = 'email']").val();
+        var address = $("[name = 'address']").val();
+        if ((phone == "") || (email == "") || (address == "")) {
+            if (phone == "") {
+                $("[name = 'phone']").focus();
+                alert("电话号码不能为空");
+            } else if (email == "") {
+                $("[name = 'email']").focus();
+                alert("邮箱不能为空");
+            } else if (address == "") {
+                $("[name = 'address']").focus();
+                alert("地址不能为空");
+            } else {
+                $(".display_nones").show();
+                $(".display_none").hide();
+                $("#add_info_1").hide();
+                $("#save").hide();
+                $("#cancel").hide();
+            }
+        } else {
+            var user = {
+                phone: null,
+                email: null,
+                address: null
+            }
+            if (emailRegexp.test(text)) {
+                user.email = text;
+            }
+            else if (phoneRegexp.test(text)) {
+                user.phone = text;
+            }
+            else {
+                user.address = text;
+            }
+        }
     });
-    $("#cancel").click(function(){
+    $("#cancel").click(function () {
         $(".display_none").hide();
         $("#add_info_1").show();
     });
-    $("#add_info_2").click(function(){
+    $("#add_info_2").click(function () {
         $(".display_nones").hide();
         $(".display_none").show();
         $("#save").show();
