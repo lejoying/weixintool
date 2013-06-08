@@ -5,7 +5,7 @@
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>用户管理</title>
+<title>新建应用</title>
 </head>
 <body>
 <div class="head_slip"></div>
@@ -27,7 +27,7 @@
     </div>
     <div class="function_model" style="left:300px;top:20px;">
     	<div class="left_icon">
-        	<div><a href="#" class="message_mange"></a></div>
+        	<div><a href="user_mange.html" class="message_mange"></a></div>
             <div class="apps_title">消息管理</div>
         </div>
         <div class="right_sub"></div>
@@ -51,28 +51,29 @@
     	<div class="body_left">
             <div class="mange_outform">
             	<div class="mange_title">
-                	<span>用户管理</span>
-                	<div class="mange_opt">
-                    	<a href="#this " onclick="checkAll(this,'selectbox')">全选</a>
-                        <a href="#">删除</a>
-                    </div>
+                	<span>修改密码</span>
                 </div>
-                <div class="msg_list">
-                	<input name="selectbox" type="checkbox" value="" />
-                	<span class="msg_list_id">ID:1d2x0244</span>
-                    <a href="#" class="add_info" id="add_info_1">添加</a>
-                    <span class="display_none" style="display:inline-block;">
-                        <input name="" type="text" placeholder="key"  class="key_style"/>
-                        <input name="" type="text" placeholder="value" class="value_style"/>
-                        <span>
-                            <a href="#" class="add_opt_button" id="save">保存</a>
-                            <a href="#" class="add_opt_button" id="cancel">取消</a>
-                        </span>
-                    </span>
-                    <span class="infomation_bg m_left" id="phone">电话<img src="/static/images/weixin_step/line.png" />18210252224</span>
-                    <span class="infomation_bg" id="email">邮箱<img src="/static/images/weixin_step/line.png" />cheyk@gmail.com</span>
-                    <a href="#" class="add_info"id="add_info_2">添加</a>
-                </div>
+                 <div class="type_name4 personal_tr first_in">
+                    <label class="type_style" for="old_password">原密码:</label>
+                    <input class="personal_input" id="old_password" type="password" />
+                    <div class="tip_out"  id="tip_show" style="display: none"><p id="old_password_error" class="tip_in" ><span class="error_icon"></span><b style="font-weight: normal;" id="tip_shows">请输入原密码！</b></p></div>
+                 </div>
+                 <div class="type_name4 personal_tr">
+                    <label class="type_style" for="new_password">新密码:</label>
+                    <input class="personal_input" id="new_password" type="password" />
+                     <div class="tip_out"  id="tip_hide" style="display: none"><p id="new_password_error" class="tip_in" ><span class="error_icon"></span><b style="font-weight: normal;" id="tip_hides">新密码不能为空！</b></p></div>
+                 </div>
+                 <div class="type_name_pwd personal_tr">
+                    <label class="type_style" for="repeat_password">重复密码:</label>
+                    <input class="personal_input" id="repeat_password" type="password" />
+                     <div class="tip_out"  id="tip_none" style="display: none"><p id="repeat_password_error" class="tip_in" ><span class="error_icon"></span><b style="font-weight: normal;" id="tip_nones">重复密码不能为空！</b></p></div>
+                 </div>
+
+                 <div class="type_opreat" style="padding:20px 0 0 420px">
+                 	<a href="#" class="buttonblue button_per">修改</a>
+                    <a href="#" class="buttonblue button_per">取消</a>
+                 </div>
+                 <div class="type_input"></div>
             </div>
         </div>
         <div class="body_right">

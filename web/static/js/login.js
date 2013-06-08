@@ -357,6 +357,7 @@ $(document).ready(function () {
     });
     $("#save").click(function () {
 <<<<<<< HEAD
+<<<<<<< HEAD
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
         var phone = $("[name = 'phone']").val();
@@ -403,6 +404,32 @@ $(document).ready(function () {
     $("#add_info_2").click(function () {
         $(".display_nones").hide();
 =======
+        var phone = $("[name = 'phone']").val();
+        var email = $("[name = 'email']").val();
+        var address = $("[name = 'address']").val();
+        if (phone == "") {
+            alert("手机号码不能为空！");
+            $("[name = 'phone']").focus();
+            return false;
+        } else if (phone.length != 11) {
+            alert("手机号码不正确！");
+            $("[name = 'phone']").focus();
+            return false;
+        } else if (!phone.match(/^1[3|4|5|8][0-9]\d{4,8}$/)) {
+            alert("手机号码格式不正确！请重新输入！");
+            $("[name = 'phone']").focus();
+            return false;
+        }
+        if (email == "") {
+            alert("邮箱不能为空！");
+            $("[name = 'email']").focus();
+            return false;
+        } else if (!email.match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)) {
+            alert("邮箱格式不正确！请重新输入！");
+            $("[name = 'email']").focus();
+            return false;
+>>>>>>> 099ee3a50505b0a18b83c861154d4b3b9da6ae2b
+=======
         if (($(".key_style").val()) != "") {
             $(".display_none").hide();
             $("#phone").show();
@@ -418,7 +445,18 @@ $(document).ready(function () {
             $("#add_info_2").show();
         } else {
             alert("key and value 不能为空！");
+>>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
         }
+        if (address == "") {
+            alert("地址不能为空！");
+            return false;
+        }
+        $.ajax({
+
+        })
+        $(".display_none").hide();
+        $(".display_nones").show();
+
     });
     $("#add_info_2").click(function () {
         $("#phone").hide();
@@ -462,6 +500,78 @@ function checkAll(e, itemName) {
 })
 
 var selectall = true;
+<<<<<<< HEAD
+function checkAll(e, itemName) {
+    var checkbox = document.getElementsByName(itemName);
+    for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].checked = selectall;
+    }
+    selectall = !selectall;
+}
+/*********************************
+ change_info.html   修改密码
+ **********************************/
+$(document).ready(function () {
+    $("#old_password").click(function(){
+        $("#old_password").focus()
+    });
+    $("#old_password").blur(function () {
+        var x = $("#old_password").val();
+        var y = x.length;
+        if (x == "") {
+            $("#tip_shows").text("密码不能为空");
+            $("#tip_show").show();
+            $("#old_password").focus();
+        } else if (y <= 5 || y >= 30){
+            $("#tip_shows").html("长度必需大于6小于30");
+            $("#tip_show").show();
+            $("#old_password").focus();
+        } else {
+            $("#tip_show").hide();
+        }
+    });
+    $("#new_password").click(function(){
+        $("#new_password").focus();
+    });
+    $("#new_password").blur(function(){
+        var a1 = $("#new_password").val();
+        var b1 = a1.length;
+        if(a1 == ""){
+            $("#tip_hides").html("确认密码不能为空");
+            $("#tip_hide").show();
+            $("#new_password").focus();
+        }else if (b1 <= 5 || b1 >= 30) {
+            $("#tip_hides").html("长度必需大于6小于30");
+            $("#tip_hide").show();
+            $("#new_password").focus();
+        }else {
+            $("#tip_hide").hide();
+        }
+    });
+    $("#repeat_password").click(function(){
+        $("#repeat_password").focus();
+    });
+    $("#repeat_password").blur(function(){
+        var x1 = $("#repeat_password").val();
+        var y1 = x1.length;
+        if(x1 == ""){
+            $("#tip_nones").html("确认密码不能为空");
+            $("#tip_none").show();
+            $("#repeat_password").focus();
+        }else if (y1 <= 5 || y1 >= 30) {
+            $("#tip_nones").html("确认密码长度必需大于6小于30");
+            $("#tip_none").show();
+            $("#repeat_password").focus();
+        }else if (x1 != $("#new_password").val()) {
+            $("#repeat_password").focus();
+            $("#tip_nones").html("输入的密码不一致!");
+            $("#tip_none").show();
+        }else {
+            $("#tip_none").hide();
+        }
+    });
+})
+=======
 function checkAll(e, itemName){
 	var checkbox = document.getElementsByName(itemName);
 	for (var i=0; i<checkbox.length; i++){
