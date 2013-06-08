@@ -356,6 +356,7 @@ $(document).ready(function () {
         $("#add_info_1").hide();
     });
     $("#save").click(function () {
+<<<<<<< HEAD
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
         var phone = $("[name = 'phone']").val();
@@ -401,10 +402,33 @@ $(document).ready(function () {
     });
     $("#add_info_2").click(function () {
         $(".display_nones").hide();
+=======
+        if (($(".key_style").val()) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
+        } else if (($(".value_style").val()) != "") {
+            $(".display_none").hide();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else if ((($(".key_style").val()) || ($(".value_style").val())) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else {
+            alert("key and value 不能为空！");
+        }
+    });
+    $("#add_info_2").click(function () {
+        $("#phone").hide();
+        $("#add_info_2").hide();
+>>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
         $(".display_none").show();
         $("#save").show();
         $("#cancel").show();
     });
+<<<<<<< HEAD
 })
 var selectall = true;
 function checkAll(e, itemName) {
@@ -414,3 +438,35 @@ function checkAll(e, itemName) {
     }
     selectall = !selectall;
 }
+=======
+    $("#cancel").click(function () {
+        if ((($("#phone").val() || ($("#email").val()))) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else if (($("#phone").val()) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
+        } else if (($("#email").val()) != "") {
+            $(".display_none").hide();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
+        }
+    });
+})
+
+var selectall = true;
+function checkAll(e, itemName){
+	var checkbox = document.getElementsByName(itemName);
+	for (var i=0; i<checkbox.length; i++){
+		checkbox[i].checked = selectall;	
+	}
+	selectall = !selectall;
+}
+>>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f

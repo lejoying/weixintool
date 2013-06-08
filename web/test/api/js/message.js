@@ -46,20 +46,6 @@ $(document).ready(function () {
             }
         });
     });
-
-    $("#showuser").click(function () {
-
-        var showUser = $(".text_showUser").val();
-
-        $.ajax({
-            type: "get",
-            url: "/api2/showUser/show?",
-            data: {"showUser": showUser },
-            success: function (data) {
-                //返回正确操作
-            }
-        });
-    });
 })
 
 

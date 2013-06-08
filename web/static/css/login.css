@@ -507,7 +507,7 @@ a.point_icon:hover {
 	font-size:14px;
 	position: absolute;
 	top:65%;
-	margin-top: -12px;
+	margin-top: -11px;
 	right: -60%;
 }
  .switch.demo3 input:checked ~ label {
