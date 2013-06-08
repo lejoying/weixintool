@@ -540,7 +540,7 @@ body{
 	padding:21px;
 	position:absolute;
 	left:240px;
-	top:-8px;
+	top:-7px;
 	background:url(/static/images/weixin_step/sharp.png) no-repeat;	
 }
 .bottom_line{
@@ -782,9 +782,6 @@ body{
 }
 .type_name4{
 	padding-left:318px;	
-}
-.type_name_pwd{
-	padding-left:302px;	
 }
 .type_area{
 	vertical-align:top;	
