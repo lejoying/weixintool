@@ -57,6 +57,8 @@ requestHandlers.messageManage = function (request, response, pathObject, data) {
         messageManage.leave(data, response);
     } else if (operation == "adds") {
         messageManage.adds(data, response);
+    } else if (operation == "addrel") {
+        messageManage.addrel(data, response);
     }
 };
 

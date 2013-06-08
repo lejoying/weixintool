@@ -35,12 +35,12 @@ $(document).ready(function () {
     });
     $("#leaveMessage").click(function () {
 
-        var weixinOpenID = $(".text_weixinOpenID").val();
+        var newAppName = $(".text_newAppName").val();
 
         $.ajax({
             type: "get",
             url: "/api2/message/leave?",
-            data: {"weixinOpenID": weixinOpenID },
+            data: {"newAppName": newAppName },
             success: function (data) {
                 //返回正确操作
             }
