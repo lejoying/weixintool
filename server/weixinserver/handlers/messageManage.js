@@ -15,7 +15,7 @@ var db = new neo4j.GraphDatabase('http://localhost:7474');
 var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
 
 /***************************************
- *     URL：/api2/message/adds
+ *     URL：/api2/message/adds  目前没用到
  ***************************************/
 
 var RSA = require('./../tools/RSA');
@@ -155,7 +155,7 @@ messageManage.addrel = function (data, response) {
 var RSA = require('./../tools/RSA');
 messageManage.leave = function (data, response) {
     response.asynchronous = 1;
-    db.getIndexedNode("message", "weixinName", "etjgjtrf", function (err, newNode) {
+    db.getIndexedNode("message", "weixinName", data.newAppName, function (err, newNode) {
         newNode.getRelationships("REL", function (err, node) {
             if (node == null) {
                 response.write(JSON.stringify({
