@@ -403,3 +403,12 @@ $(document).ready(function () {
         }
     });
 })
+
+var selectall = true;
+function checkAll(e, itemName){
+	var checkbox = document.getElementsByName(itemName);
+	for (var i=0; i<checkbox.length; i++){
+		checkbox[i].checked = selectall;	
+	}
+	selectall = !selectall;
+}
