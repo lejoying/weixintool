@@ -356,44 +356,41 @@ $(document).ready(function () {
         $("#add_info_1").hide();
     });
     $("#save").click(function () {
-        var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
-        var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
         var phone = $("[name = 'phone']").val();
         var email = $("[name = 'email']").val();
         var address = $("[name = 'address']").val();
-        if ((phone == "") || (email == "") || (address == "")) {
-            if (phone == "") {
-                $("[name = 'phone']").focus();
-                alert("电话号码不能为空");
-            } else if (email == "") {
-                $("[name = 'email']").focus();
-                alert("邮箱不能为空");
-            } else if (address == "") {
-                $("[name = 'address']").focus();
-                alert("地址不能为空");
-            } else {
-                $(".display_nones").show();
-                $(".display_none").hide();
-                $("#add_info_1").hide();
-                $("#save").hide();
-                $("#cancel").hide();
-            }
-        } else {
-            var user = {
-                phone: null,
-                email: null,
-                address: null
-            }
-            if (emailRegexp.test(text)) {
-                user.email = text;
-            }
-            else if (phoneRegexp.test(text)) {
-                user.phone = text;
-            }
-            else {
-                user.address = text;
-            }
+        if (phone == "") {
+            alert("手机号码不能为空！");
+            $("[name = 'phone']").focus();
+            return false;
+        } else if (phone.length != 11) {
+            alert("手机号码不正确！");
+            $("[name = 'phone']").focus();
+            return false;
+        } else if (!phone.match(/^1[3|4|5|8][0-9]\d{4,8}$/)) {
+            alert("手机号码格式不正确！请重新输入！");
+            $("[name = 'phone']").focus();
+            return false;
         }
+        if (email == "") {
+            alert("邮箱不能为空！");
+            $("[name = 'email']").focus();
+            return false;
+        } else if (!email.match(/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/)) {
+            alert("邮箱格式不正确！请重新输入！");
+            $("[name = 'email']").focus();
+            return false;
+        }
+        if(address == ""){
+            alert("地址不能为空！");
+            return false;
+        }
+        $.ajax({
+
+        })
+        $(".display_none").hide();
+        $(".display_nones").show();
+
     });
     $("#cancel").click(function () {
         $(".display_none").hide();
