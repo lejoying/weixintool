@@ -183,32 +183,32 @@ $(document).ready(function () {
         });
     });
 })
-$(document).ready(function(){
-    $("#weixinName").click(function(){
-        if(($("#valsesFirst").val()) != ""){
+$(document).ready(function () {
+    $("#weixinName").click(function () {
+        if (($("#valsesFirst").val()) != "") {
             logindata.localSettings.userstep = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {
             alert("绑定微信号不能为空！");
         }
     });
-    $("#weixinName").click(function(){
-        if(($("#valsesFirst").val()) != ""){
+    $("#weixinName").click(function () {
+        if (($("#valsesFirst").val()) != "") {
             logindata.localSettings.userstep1 = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {
             alert("绑定微信号不能为空！");
         }
     });
-    $("#id1").click(function(){
+    $("#id1").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
         //var node2= document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node1;
         //document.getElementById("id2").innerHTML = node1;
     });
-    $("#id2").click(function(){
+    $("#id2").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
-        var node2= document.getElementById("id2").innerHTML;
+        var node2 = document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node2;
         document.getElementById("id2").innerHTML = node1;
     });
@@ -351,55 +351,66 @@ function addEvent(obj, eventType, func) {
  user_mange.html页面  用户管理
  ************/
 $(document).ready(function () {
-    $(".display_none").hide();
-    $("#phone").hide();
-    $("#email").hide();
-    $("#add_info_2").hide();
     $("#add_info_1").click(function () {
         $(".display_none").show();
         $("#add_info_1").hide();
     });
     $("#save").click(function () {
-        if (($(".key_style").val()) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        } else if (($(".value_style").val()) != "") {
-            $(".display_none").hide();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else if ((($(".key_style").val()) || ($(".value_style").val())) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#email").show();
-            $("#add_info_2").show();
+        var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+        var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
+        var phone = $("[name = 'phone']").val();
+        var email = $("[name = 'email']").val();
+        var address = $("[name = 'address']").val();
+        if ((phone == "") || (email == "") || (address == "")) {
+            if (phone == "") {
+                $("[name = 'phone']").focus();
+                alert("电话号码不能为空");
+            } else if (email == "") {
+                $("[name = 'email']").focus();
+                alert("邮箱不能为空");
+            } else if (address == "") {
+                $("[name = 'address']").focus();
+                alert("地址不能为空");
+            } else {
+                $(".display_nones").show();
+                $(".display_none").hide();
+                $("#add_info_1").hide();
+                $("#save").hide();
+                $("#cancel").hide();
+            }
         } else {
-            alert("key and value 不能为空！");
+            var user = {
+                phone: null,
+                email: null,
+                address: null
+            }
+            if (emailRegexp.test(text)) {
+                user.email = text;
+            }
+            else if (phoneRegexp.test(text)) {
+                user.phone = text;
+            }
+            else {
+                user.address = text;
+            }
         }
-    });
-    $("#add_info_2").click(function () {
-        $("#phone").hide();
-        $("#add_info_2").hide();
-        $(".display_none").show();
     });
     $("#cancel").click(function () {
-        if ((($("#phone").val() || ($("#email").val()))) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else if (($("#phone").val()) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        } else if (($("#email").val()) != "") {
-            $(".display_none").hide();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        }
+        $(".display_none").hide();
+        $("#add_info_1").show();
+    });
+    $("#add_info_2").click(function () {
+        $(".display_nones").hide();
+        $(".display_none").show();
+        $("#save").show();
+        $("#cancel").show();
     });
 })
+var selectall = true;
+function checkAll(e, itemName) {
+    var checkbox = document.getElementsByName(itemName);
+    for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].checked = selectall;
+    }
+    selectall = !selectall;
+}
