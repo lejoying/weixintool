@@ -33,7 +33,7 @@ function route(routemap, url, request, response) {
                 if (request.method == "GET") {
                     handlemethod[pathvalue](request, response, pathObject, getParam);
                 } else if (request.method == "POST") {
-                    handlemethod[pathvalue](request, response, pathObject, postData);
+                    handlemethod[pathvalue](request, response, pathObject, postData, getParam);
                 }
             })
             break;

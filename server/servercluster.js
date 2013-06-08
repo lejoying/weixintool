@@ -12,3 +12,5 @@ var server0 = require('./weixinserver/main.js');//8062
 
 
 var server1 = require('./bindserver/main.js');//8064
+
+var server3 = require('./pushserver/main.js');//8065
