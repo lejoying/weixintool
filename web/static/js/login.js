@@ -381,7 +381,7 @@ $(document).ready(function () {
             $("[name = 'email']").focus();
             return false;
         }
-        if(address == ""){
+        if (address == "") {
             alert("地址不能为空！");
             return false;
         }
@@ -411,3 +411,66 @@ function checkAll(e, itemName) {
     }
     selectall = !selectall;
 }
+/*********************************
+ change_info.html   修改密码
+ **********************************/
+$(document).ready(function () {
+    $("#old_password").click(function(){
+        $("#old_password").focus()
+    });
+    $("#old_password").blur(function () {
+        var x = $("#old_password").val();
+        var y = x.length;
+        if (x == "") {
+            $("#tip_shows").text("密码不能为空");
+            $("#tip_show").show();
+            $("#old_password").focus();
+        } else if (y <= 5 || y >= 30){
+            $("#tip_shows").html("长度必需大于6小于30");
+            $("#tip_show").show();
+            $("#old_password").focus();
+        } else {
+            $("#tip_show").hide();
+        }
+    });
+    $("#new_password").click(function(){
+        $("#new_password").focus();
+    });
+    $("#new_password").blur(function(){
+        var a1 = $("#new_password").val();
+        var b1 = a1.length;
+        if(a1 == ""){
+            $("#tip_hides").html("确认密码不能为空");
+            $("#tip_hide").show();
+            $("#new_password").focus();
+        }else if (b1 <= 5 || b1 >= 30) {
+            $("#tip_hides").html("长度必需大于6小于30");
+            $("#tip_hide").show();
+            $("#new_password").focus();
+        }else {
+            $("#tip_hide").hide();
+        }
+    });
+    $("#repeat_password").click(function(){
+        $("#repeat_password").focus();
+    });
+    $("#repeat_password").blur(function(){
+        var x1 = $("#repeat_password").val();
+        var y1 = x1.length;
+        if(x1 == ""){
+            $("#tip_nones").html("确认密码不能为空");
+            $("#tip_none").show();
+            $("#repeat_password").focus();
+        }else if (y1 <= 5 || y1 >= 30) {
+            $("#tip_nones").html("确认密码长度必需大于6小于30");
+            $("#tip_none").show();
+            $("#repeat_password").focus();
+        }else if (x1 != $("#new_password").val()) {
+            $("#repeat_password").focus();
+            $("#tip_nones").html("输入的密码不一致!");
+            $("#tip_none").show();
+        }else {
+            $("#tip_none").hide();
+        }
+    });
+})
