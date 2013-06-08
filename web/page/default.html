@@ -4,6 +4,7 @@
 <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript" src="/pages/test.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 </head>
@@ -57,25 +58,30 @@
     	<div class="body_left">
         	<div class="apphead_title">添加应用</div>
             <div class="out_frame" style="left:40px;top:100px;">
-                <div class="content_element">
+                <div class="content_element" itemid="app_opreation1">
                     <div class="appicon">
                         <img src="/static/images/face.jpg" />
                     </div>
                      <div class="appname">微信订餐管理</div>
                 </div>
+                <div class="app_opreation" id="app_opreation1" style="display:none;">
+                	<a href="#" class="app_config" title="配置"></a>
+                    <a href="#" class="app_delete" title="删除"></a>
+                </div>
              </div>
              <div class="out_frame" style="left:190px;top:100px;">
-                <div class="content_element">
+                <div class="content_element" itemid="app_opreation2">
                     <div class="appicon">
                         <img src="/static/images/face.jpg" />
                     </div>
                      <div class="appname">微信打折促销</div>
                 </div>
-                <div class="app_opreation">
+                <div class="app_opreation" id="app_opreation2" style="display:none;">
                 	<a href="#" class="app_config" title="配置"></a>
                     <a href="#" class="app_delete" title="删除"></a>
                 </div>
              </div>
+           
              
              <div class="out_frame" style="left:340px;top:100px;">
                 <div class="add_element">
@@ -125,6 +131,11 @@
             </div>
         </div>
     </div>
+</div>
+
+<div style="background:#fff2f2;border:1px solid #ff8080;color:#555;position:absolute;padding:10px;left:400px;top:200px;">
+	<p><b>实现效果:</b></p>
+    <p>实现效果:</p>
 </div>
 </body>
 </html>
