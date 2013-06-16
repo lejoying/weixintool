@@ -358,6 +358,7 @@ $(document).ready(function () {
     $("#save").click(function () {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
         var phone = $("[name = 'phone']").val();
@@ -404,6 +405,8 @@ $(document).ready(function () {
     $("#add_info_2").click(function () {
         $(".display_nones").hide();
 =======
+=======
+>>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
         var phone = $("[name = 'phone']").val();
         var email = $("[name = 'email']").val();
         var address = $("[name = 'address']").val();
@@ -428,6 +431,7 @@ $(document).ready(function () {
             alert("邮箱格式不正确！请重新输入！");
             $("[name = 'email']").focus();
             return false;
+<<<<<<< HEAD
 >>>>>>> 099ee3a50505b0a18b83c861154d4b3b9da6ae2b
 =======
         if (($(".key_style").val()) != "") {
@@ -446,6 +450,8 @@ $(document).ready(function () {
         } else {
             alert("key and value 不能为空！");
 >>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
+=======
+>>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
         }
         if (address == "") {
             alert("地址不能为空！");
@@ -458,7 +464,12 @@ $(document).ready(function () {
         $(".display_nones").show();
 
     });
+    $("#cancel").click(function () {
+        $(".display_none").hide();
+        $("#add_info_1").show();
+    });
     $("#add_info_2").click(function () {
+<<<<<<< HEAD
         $("#phone").hide();
         $("#add_info_2").hide();
 >>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
@@ -496,11 +507,15 @@ function checkAll(e, itemName) {
             $("#phone").show();
             $("#add_info_2").show();
         }
+=======
+        $(".display_nones").hide();
+        $(".display_none").show();
+        $("#save").show();
+        $("#cancel").show();
+>>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
     });
 })
-
 var selectall = true;
-<<<<<<< HEAD
 function checkAll(e, itemName) {
     var checkbox = document.getElementsByName(itemName);
     for (var i = 0; i < checkbox.length; i++) {
@@ -571,12 +586,3 @@ $(document).ready(function () {
         }
     });
 })
-=======
-function checkAll(e, itemName){
-	var checkbox = document.getElementsByName(itemName);
-	for (var i=0; i<checkbox.length; i++){
-		checkbox[i].checked = selectall;	
-	}
-	selectall = !selectall;
-}
->>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
