@@ -316,7 +316,6 @@ accountManage.modify = function (data, response) {
 
     db.getNodeById(weixin.uid, function (err, node) {
         if (node != null) {
-//            node.getRelationshipNodes("weixin", "weixinOpenID",weixin.weixinOpenID ,function(err, node){})
             node.save(function (err, node) {
                 node.data.accountName = weixin.accountName;
                 node.data.password = weixin.password;

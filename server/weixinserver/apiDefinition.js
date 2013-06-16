@@ -23,8 +23,6 @@ api = {
             },
             response: {
 
-                success: {"提示信息": ["用户名不存在" | "邮箱不已存在"], "status": "passed"},
-
                 success: {"提示信息": ["用户名存在" | "邮箱已存在"], "status": "passed"},
 
                 failed: {"提示信息": ["用户名已存在" | "邮箱已存在"], "失败原因": ["用户名已存在" | "邮箱已存在" ], "status": "failed"}
@@ -35,7 +33,7 @@ api = {
          ***************************************/
         "account_auth": {
             request: {
-                typical: {"accountname": "XXX", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
+                typical: {"accountname": "XXX","password":"******", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
             },
             response: {
                 success: {"提示信息": "账号登录成功", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
@@ -114,7 +112,25 @@ api = {
     "message_[addrel]": {
         request: {
             typical: {weixinName: "nnnn"}
+        },
+        response: {
+            success: {"提示信息": "账号绑定成功", "weixinName": weixinName  },
+            failed: {"提示信息": "账号绑定失败", "失败原因": "账号号名不存在"}
+        }
+    },
+    /***************************************
+     * URL：/api2/message/delrel
+     ***************************************/
+    "message_[addrel]": {
+        request: {
+            typical: {weixinName: "nnnn"}
+        },
+        response: {
+            success: {"提示信息": "删除账号成功", "weixinName": weixinName  },
+            failed: {"提示信息": "删除账号失败", "失败原因": "账号名不存在"}
         }
     }
 }
+
+
 

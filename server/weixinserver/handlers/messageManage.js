@@ -159,14 +159,14 @@ messageManage.leave = function (data, response) {
         newNode.getRelationships("REL", function (err, node) {
             if (node == null) {
                 response.write(JSON.stringify({
-                    "提示信息": "获得关系失败",
-                    "失败原因": "关系不存在"
+                    "提示信息": "删除账号失败",
+                    "失败原因": "账号名不存在"
                 }));
                 response.end();
             } else {
                 node[0].del();
                 response.write(JSON.stringify({
-                    "提示信息": "找到关系"
+                    "提示信息": "删除账号成功"
                 }));
                 response.end();
             }
