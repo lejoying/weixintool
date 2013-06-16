@@ -183,32 +183,32 @@ $(document).ready(function () {
         });
     });
 })
-$(document).ready(function () {
-    $("#weixinName").click(function () {
-        if (($("#valsesFirst").val()) != "") {
+$(document).ready(function(){
+    $("#weixinName").click(function(){
+        if(($("#valsesFirst").val()) != ""){
             logindata.localSettings.userstep = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {
             alert("绑定微信号不能为空！");
         }
     });
-    $("#weixinName").click(function () {
-        if (($("#valsesFirst").val()) != "") {
+    $("#weixinName").click(function(){
+        if(($("#valsesFirst").val()) != ""){
             logindata.localSettings.userstep1 = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {
             alert("绑定微信号不能为空！");
         }
     });
-    $("#id1").click(function () {
+    $("#id1").click(function(){
         var node1 = document.getElementById("id1").innerHTML;
         //var node2= document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node1;
         //document.getElementById("id2").innerHTML = node1;
     });
-    $("#id2").click(function () {
+    $("#id2").click(function(){
         var node1 = document.getElementById("id1").innerHTML;
-        var node2 = document.getElementById("id2").innerHTML;
+        var node2= document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node2;
         document.getElementById("id2").innerHTML = node1;
     });
@@ -351,11 +351,16 @@ function addEvent(obj, eventType, func) {
  user_mange.html页面  用户管理
  ************/
 $(document).ready(function () {
+    $(".display_none").hide();
+    $("#phone").hide();
+    $("#email").hide();
+    $("#add_info_2").hide();
     $("#add_info_1").click(function () {
         $(".display_none").show();
         $("#add_info_1").hide();
     });
     $("#save").click(function () {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -434,6 +439,8 @@ $(document).ready(function () {
 <<<<<<< HEAD
 >>>>>>> 099ee3a50505b0a18b83c861154d4b3b9da6ae2b
 =======
+=======
+>>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
         if (($(".key_style").val()) != "") {
             $(".display_none").hide();
             $("#phone").show();
@@ -449,6 +456,7 @@ $(document).ready(function () {
             $("#add_info_2").show();
         } else {
             alert("key and value 不能为空！");
+<<<<<<< HEAD
 >>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
 =======
 >>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
@@ -456,19 +464,12 @@ $(document).ready(function () {
         if (address == "") {
             alert("地址不能为空！");
             return false;
+=======
+>>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
         }
-        $.ajax({
-
-        })
-        $(".display_none").hide();
-        $(".display_nones").show();
-
-    });
-    $("#cancel").click(function () {
-        $(".display_none").hide();
-        $("#add_info_1").show();
     });
     $("#add_info_2").click(function () {
+<<<<<<< HEAD
 <<<<<<< HEAD
         $("#phone").hide();
         $("#add_info_2").hide();
@@ -513,56 +514,33 @@ function checkAll(e, itemName) {
         $("#save").show();
         $("#cancel").show();
 >>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
+=======
+        $("#phone").hide();
+        $("#add_info_2").hide();
+        $(".display_none").show();
+>>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
     });
-})
-var selectall = true;
-function checkAll(e, itemName) {
-    var checkbox = document.getElementsByName(itemName);
-    for (var i = 0; i < checkbox.length; i++) {
-        checkbox[i].checked = selectall;
-    }
-    selectall = !selectall;
-}
-/*********************************
- change_info.html   修改密码
- **********************************/
-$(document).ready(function () {
-    $("#old_password").click(function(){
-        $("#old_password").focus()
-    });
-    $("#old_password").blur(function () {
-        var x = $("#old_password").val();
-        var y = x.length;
-        if (x == "") {
-            $("#tip_shows").text("密码不能为空");
-            $("#tip_show").show();
-            $("#old_password").focus();
-        } else if (y <= 5 || y >= 30){
-            $("#tip_shows").html("长度必需大于6小于30");
-            $("#tip_show").show();
-            $("#old_password").focus();
+    $("#cancel").click(function () {
+        if ((($("#phone").val() || ($("#email").val()))) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else if (($("#phone").val()) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
+        } else if (($("#email").val()) != "") {
+            $(".display_none").hide();
+            $("#email").show();
+            $("#add_info_2").show();
         } else {
-            $("#tip_show").hide();
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
         }
     });
-    $("#new_password").click(function(){
-        $("#new_password").focus();
-    });
-    $("#new_password").blur(function(){
-        var a1 = $("#new_password").val();
-        var b1 = a1.length;
-        if(a1 == ""){
-            $("#tip_hides").html("确认密码不能为空");
-            $("#tip_hide").show();
-            $("#new_password").focus();
-        }else if (b1 <= 5 || b1 >= 30) {
-            $("#tip_hides").html("长度必需大于6小于30");
-            $("#tip_hide").show();
-            $("#new_password").focus();
-        }else {
-            $("#tip_hide").hide();
-        }
-    });
+<<<<<<< HEAD
     $("#repeat_password").click(function(){
         $("#repeat_password").focus();
     });
@@ -586,3 +564,15 @@ $(document).ready(function () {
         }
     });
 })
+=======
+})
+
+var selectall = true;
+function checkAll(e, itemName){
+	var checkbox = document.getElementsByName(itemName);
+	for (var i=0; i<checkbox.length; i++){
+		checkbox[i].checked = selectall;	
+	}
+	selectall = !selectall;
+}
+>>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
