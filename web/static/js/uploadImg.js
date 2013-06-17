@@ -1,3 +1,18 @@
+$(document).ready(function(){
+    $("[name='new_name']").click(function(){
+        $("[name='new_name']").focus();
+    });
+    $("[name='new_name']").blur(function(){
+        var name = $("[name='new_name']").val();
+        if(name == ""){
+            $(".tip_out").show();
+            $("[name='new_name']").focus();
+        }else{
+            $(".tip_out").hide();
+        }
+    });
+})
+
 function uploadPic(next) {
     if (app.uploadStatus == "uploading") {
         var file = $("#input_image")[0].files[0];
@@ -6,21 +21,21 @@ function uploadPic(next) {
         reader.onload = function (e) {
             var urlData = this.result;
 
-//            $.ajax({
-//                data: {filename: "1.png", image: urlData, weibo_user: app.localSettings.ownedWeibo.currentWeibo},
-//                type: 'POST',
-//                url: ("http://" + app.serverUrl + "/upload2/"),
-//                success: function (data) {
-//                    var filename = data.filename;
-//                    var pidRegExp = /^\D*\d{13}$/;
-//                    if (pidRegExp.test(filename) && data["提示信息"] == "图片上传成功") {
-//                        next(filename);
-//                    }
-//                    else {
-//                        alert(JSON.stringify(data));
-//                    }
-//                }
-//            });
+            /*$.ajax({
+                data: {filename: "1.png", image: urlData, weibo_user: app.localSettings.ownedWeibo.currentWeibo},
+                type: 'POST',
+                url: ("http://" + app.serverUrl + "/upload2/"),
+                success: function (data) {
+                    var filename = data.filename;
+                    var pidRegExp = /^\D*\d{13}$/;
+                    if (pidRegExp.test(filename) && data["提示信息"] == "图片上传成功") {
+                        next(filename);
+                    }
+                    else {
+                        alert(JSON.stringify(data));
+                    }
+                }
+            });*/
         };
 
         app.uploadStatus = "none";
@@ -42,7 +57,7 @@ function addPost(time, text, pic, next) {
 }
 
 registerUploadImageEvent();
-eventPool.main_offline_post.registerUploadImageEvent = registerUploadImageEvent;
+uploadImg.main_offline_post.registerUploadImageEvent = registerUploadImageEvent;
 
 function registerUploadImageEvent() {
     $('#addPicButton').click(function () {
@@ -50,16 +65,16 @@ function registerUploadImageEvent() {
         $("#input_image").val("");
         $("#input_image").trigger("click");
     });
-
+    $(document).ready(function(){
     $("#input_image").change(function () {
         var myFiles = this.files;
-        //        alert("input_image change");
+              // alert("input_image change");
         for (var i = 0, f; f = myFiles[i]; i++) {
             var imageReader = new FileReader();
             imageReader.onload = (function (aFile) {
                 return function (e) {
                     var span = document.createElement('span');
-                    span.innerHTML = ['<span id="pointupicon" class="uppoint" style="">▲</span><a class="images_a"  href="javascript:" ><img class="images" src="', e.target.result, '" title="', aFile.name, '"/></a>'].join('');
+                    span.innerHTML = ['<img class="images" src="', e.target.result, '" title="', aFile.name, '"/>'].join('');
                     //                    document.getElementById('thumbs').insertBefore(span, null);
                     $("#thumbs").empty();
                     $("#thumbs").append(span);
@@ -92,5 +107,6 @@ function registerUploadImageEvent() {
 
             break;
         }
+    });
     });
 }

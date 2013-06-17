@@ -841,7 +841,8 @@ body{
 }
 .personal_tr img{
 	vertical-align:bottom;
-	margin-left:5px;	
+	margin-left:5px;
+    height:80px;
 }
 .type_style{
 	color:#fff;
