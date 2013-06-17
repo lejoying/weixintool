@@ -42,3 +42,43 @@ $(document).ready(function () {
 $(document).ready(function () {
     $("#bindingToken").val(logindata.localSettings.bindingToken);
 });
+
+
+var data = {};
+
+$(document).ready(function () {
+    var now = new Date();
+    data.uid = "16";
+    data.sessionID = data.uid + now.getTime();
+    getEvent();
+});
+
+
+function getEvent() {
+    if (data.uid == null || data.sessionID == null) {
+        return;
+    }
+    $.ajax({
+        type: "GET",
+        url: "api2/session/event",
+        timeout: 30000,
+        data: {uid: data.uid, sessionID: data.sessionID},
+        success: function (event, textStatus) {
+            eventLoop(event)
+            getEvent();
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            if (textStatus == "timeout") {
+                getEvent();
+            }
+        }
+    });
+}
+
+function eventLoop(event) {
+    if (event.eventID == "bind_server") {
+        alert("bind_server");
+    }
+}

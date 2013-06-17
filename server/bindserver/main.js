@@ -20,7 +20,7 @@ http.createServer(
         route(routemap, request.url, request, response);
 
         i++;
-        console.log("The times of the server has been accessed is i = " + i);
+        console.log("The Bind server has been accessed " + i);
         if (response.asynchronous == null) {
             response.end();
         }

@@ -3,10 +3,9 @@ var bind = {};
 var serverSetting = root.globaldata.serverSetting;
 
 var neo4j = require('neo4j');
-
 var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
-var sha1 = require('./../tools/sha1');
+
 
 var push = require('../lib/push');
 
@@ -78,7 +77,7 @@ bind.message = function (data, response) {
 
 }
 
-
+var sha1 = require('./../tools/sha1');
 function checkSignature(token, timestamp, nonce, signature) {
 
     var strings = [timestamp , nonce , token];

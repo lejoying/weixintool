@@ -4,6 +4,7 @@
  * Run "$ sudo node main.js" to start the server.
  */
 
+root.globaldata = {};
 
 var http = require("http");
 var route = require("./lib/route");
@@ -21,11 +22,11 @@ http.createServer(
         route(routemap, request.url, request, response);
 
         i++;
-        console.log("The RESTful api server has been accessed " + i);
+        console.log("The push server has been accessed " + i);
         if (response.asynchronous == null) {
             response.end();
         }
 
-    }).listen(8062);
+    }).listen(8065);
 
-console.log("The RESTful api server is running.");
+console.log("The push server is running.");

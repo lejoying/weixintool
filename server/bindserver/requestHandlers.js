@@ -19,16 +19,14 @@ requestHandlers.bind = function (request, response, pathObject, data) {
 };
 
 
-
-
 var message = require('./handlers/message');
 
-requestHandlers.message = function (request, response, pathObject, data) {
+requestHandlers.message = function (request, response, pathObject, data, getParam) {
     if (data == null) {
         response.write(JSON.stringify({a: 1, b: 2}));
     }
     else {
-        message.message(data, response);
+        message.message(data, getParam, response);
     }
 };
 
