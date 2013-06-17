@@ -27,14 +27,9 @@ $(document).ready(function () {
             $("#username_error").html("用户名不能为空");
             $("#name1_none").show();
             $("#name_icon").hide();
-        } else if (name.test(a)) {
+        }  else if (b <= 5 || b >= 9) {
             $("#username1").focus();
-            $("#username_error").html("用户名的首字母不能为数字");
-            $("#name1_none").show();
-            $("#name_icon").hide();
-        } else if (b <= 3 || b >= 30) {
-            $("#username1").focus();
-            $("#username_error").html("用户名长度必需大于3小于30");
+            $("#username_error").html("用户名长度必需大于6小于10");
             $("#name1_none").show();
             $("#name_icon").hide();
         } else {
@@ -81,8 +76,8 @@ $(document).ready(function () {
         if (a1 == '') {
             $("#pwd_error").html("确认密码不能为空");
             document.getElementById("pwd_none").style.display="inline-block";
-            $("#pwd_none").show();
-            $("#pwd_icon").hide();
+            //$("#pwd_none").show();
+            //$("#pwd_icon").hide();
         } else if (b1 <= 5 || b1 >= 30) {
             $("#pwd1").focus();
             $("#pwd_error").html("长度必需大于6小于30");

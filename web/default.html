@@ -6,98 +6,15 @@
     <script type="text/javascript" src="/static/js/login.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>无标题文档</title>
-
-
-    <style>
-            /* Prevent the text contents of draggable elements from being selectable. */
-        [draggable] {
-            -moz-user-select: none;
-            -khtml-user-select: none;
-            -webkit-user-select: none;
-            user-select: none;
-            /* Required to make elements draggable in old WebKit */
-            -khtml-user-drag: element;
-            -webkit-user-drag: element;
-        }
-/*
-        .out_frame {
-            height: 150px;
-            width: 150px;
-            float: left;
-            border: 2px solid #666666;
-            background-color: #ccc;
-            margin-right: 5px;
-            -webkit-border-radius: 10px;
-            -ms-border-radius: 10px;
-            -moz-border-radius: 10px;
-            border-radius: 10px;
-            -webkit-box-shadow: inset 0 0 3px #000;
-            -ms-box-shadow: inset 0 0 3px #000;
-            box-shadow: inset 0 0 3px #000;
-            text-align: center;
-            cursor: move;
-
-            transition: -webkit-transform 0.1s ease-out 0s;
-        }
-
-        .out_frame header {
-            color: #fff;
-            text-shadow: #000 0 1px;
-            box-shadow: 5px;
-            padding: 5px;
-            background: -moz-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
-            background: -webkit-gradient(linear, left top, right top, color-stop(0, rgb(0, 0, 0)), color-stop(0.50, rgb(79, 79, 79)), color-stop(1, rgb(21, 21, 21)));
-            background: -webkit-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
-            background: -ms-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
-            border-bottom: 1px solid #ddd;
-            -webkit-border-top-left-radius: 10px;
-            -moz-border-radius-topleft: 10px;
-            -ms-border-radius-topleft: 10px;
-            border-top-left-radius: 10px;
-            -webkit-border-top-right-radius: 10px;
-            -ms-border-top-right-radius: 10px;
-            -moz-border-radius-topright: 10px;
-            border-top-right-radius: 10px;
-        }
-
-        .out_frame.over {
-            border: 2px dashed #000;
-            -webkit-transform: scale(1.5);
-        }
-
-        .out_frame:hover {
-            border: 2px dashed #000;
-            -webkit-transform: scale(1.1);
-        }
-
-        .out_frame.moving {
-            opacity: 0.25;
-            -webkit-transform: scale(0.6);
-        }
-        */
-    </style>
-    <style>
-
-       /* .circle_out {
-
-            transition: -webkit-transform 0.2s ease-out 0s;
-        }
-
-        .circle_out.over {
-            border: 2px dashed #000;
-            -webkit-transform: scale(1.5);
-        }
-        */
-    </style>
 </head>
 <body>
 <div class="head_slip"></div>
-<div class="index_content">
+<div class="index_content"  draggable="false" >
     <!--<div class="head_banner"></div>-->
     <div class="function_model" style="left:0;top:20px;">
         <div class="left_icon">
             <div>
-                <a href="#" class="personalized"></a>
+                <a href="javascript:;" class="personalized"></a>
             </div>
             <div class="apps_title">个性化应用</div>
         </div>
@@ -106,7 +23,7 @@
     <div class="function_model" style="left:150px;top:20px;">
         <div class="left_icon">
             <div>
-                <a href="#" class="user_mange"></a>
+                <a href="javascript:;" class="user_mange"></a>
             </div>
             <div class="apps_title">用户管理</div>
         </div>
@@ -115,22 +32,22 @@
     <div class="function_model" style="left:300px;top:20px;">
         <div class="left_icon">
             <div>
-                <a href="#" class="message_mange"></a>
+                <a href="javascript:;" class="message_mange"></a>
             </div>
             <div class="apps_title">消息管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
-    <div class="function_model" style="left:450px;top:20px;width:210px;">
+    <div class="function_model" draggable="false" style="left:450px;top:20px;width:210px;">
         <div class="left_icon" style="width:90px;">
-            <a href="#" class="weixin_card"></a>
+            <a href="javascript:;" class="weixin_card"></a>
             <div class="user_name"></div>
         </div>
         <div class="right_sub">很破的一口钟</div>
     </div>
     <div class="login_user" style="right:0;top:20px;">
         <div>
-            <a href="#" class="app_list"></a>
+            <a href="javascript:;" class="app_list"></a>
             <div class="logo_apps">
                 <div>usert2已登录</div>
             </div>
@@ -141,19 +58,19 @@
     <div class="index_body">
         <div class="body_left">
             <div class="apphead_title">添加应用</div>
-            <div class="out_frame" draggable="true" style="left:40px;top:100px;">
+            <div class="out_frame" draggable="true" style="left:40px;top:100px;" itemid="app_opreation1">
                 <div class="content_element">
                     <div class="appicon">
                         <img src="/static/images/face.jpg"/>
                     </div>
                     <div class="appname">微信订餐管理</div>
                 </div>
-                <div class="app_opreation" id="app_opreation1" style="display:block;">
-                    <a href="#" class="app_config" title="配置"></a>
-                    <a href="#" class="app_delete" title="删除"></a>
+                <div class="app_opreation" id="app_opreation1" style="display:none;">
+                    <a href="javascript:;" class="app_config" title="配置"></a>
+                    <a href="javascript:;" class="app_delete" title="删除"></a>
                 </div>
             </div>
-            <div class="out_frame" style="left:190px;top:100px;">
+            <div class="out_frame" style="left:190px;top:100px;" itemid="app_opreation2">
                 <div class="content_element">
                     <div class="appicon">
                         <img src="/static/images/face.jpg"/>
@@ -161,8 +78,8 @@
                     <div class="appname">微信打折促销</div>
                 </div>
                 <div class="app_opreation" id="app_opreation2" style="display:none;">
-                    <a href="#" class="app_config" title="配置"></a>
-                    <a href="#" class="app_delete" title="删除"></a>
+                    <a href="javascript:;" class="app_config" title="配置"></a>
+                    <a href="javascript:;" class="app_delete" title="删除"></a>
                 </div>
             </div>
 
@@ -178,9 +95,11 @@
         </div>
         <div class="body_right">
             <div class="weixin_user">很破的一口钟</div>
-            <div class="circle_out" amount="12">
+            <div class="circle_out" amount="1">
                 <div class="circle_in"></div>
-                <div class="circel_ele circel_ele_1 circel_ele_turning"><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_1" title="微信订餐管理"><img src="/static/images/face.jpg"/></div>
+                <!--
+                <div class="circel_ele circel_ele_2 circel_ele_turning" title="微信打折促销"><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
@@ -192,7 +111,9 @@
                 <div class="circel_ele circel_ele_10 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_11 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_12 "><img src="/static/images/face.jpg"/></div>
+                -->
             </div>
+            <!--
             <div class="circle_out" amount="6">
                 <div class="circle_in"></div>
                 <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
@@ -218,11 +139,12 @@
             <div class="circle_out" amount="0">
                 <div class="circle_in"></div>
             </div>
+            -->
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="/static/js/drag.js"></script>
-
+<script type="text/javascript" src="/static/js/drag_out.js"></script>
+<script type="text/javascript" src="/static/js/drag_in.js"></script>
+<script type="text/javascript" src="/static/js/test.js"></script>
 </body>
 </html>
