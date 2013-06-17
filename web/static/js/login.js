@@ -21,7 +21,7 @@ $(document).ready(function () {
         $("[name='username1']").attr("class", "input_text");
         if (name == "") {
             usernameNone();
-        } else if (b <= 5 || b >= 30) {
+        } else if (b <= 3 || b >= 30) {
             usernameNone1();
         } else {
             $("#username_right").show();
@@ -59,9 +59,6 @@ $(document).ready(function () {
             $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
         } else {
             var user = {
-                account: null,
-                phone: null,
-                email: null,
                 password: password
             }
             if (emailRegexp.test(text)) {
@@ -71,7 +68,7 @@ $(document).ready(function () {
                 user.phone = text;
             }
             else {
-                user.account = text;
+                user.accountName = text;
             }
             $.ajax({
                 type: "get",
@@ -106,9 +103,6 @@ $(document).ready(function () {
             $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
         } else {
             var user = {
-                account: null,
-                phone: null,
-                email: null,
                 password: password
             }
             if (emailRegexp.test(text)) {
@@ -183,32 +177,32 @@ $(document).ready(function () {
         });
     });
 })
-$(document).ready(function(){
-    $("#weixinName").click(function(){
-        if(($("#valsesFirst").val()) != ""){
+$(document).ready(function () {
+    $("#weixinName").click(function () {
+        if (($("#valsesFirst").val()) != "") {
             logindata.localSettings.userstep = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {
             alert("绑定微信号不能为空！");
         }
     });
-    $("#weixinName").click(function(){
-        if(($("#valsesFirst").val()) != ""){
+    $("#weixinName").click(function () {
+        if (($("#valsesFirst").val()) != "") {
             logindata.localSettings.userstep1 = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {
             alert("绑定微信号不能为空！");
         }
     });
-    $("#id1").click(function(){
+    $("#id1").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
         //var node2= document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node1;
         //document.getElementById("id2").innerHTML = node1;
     });
-    $("#id2").click(function(){
+    $("#id2").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
-        var node2= document.getElementById("id2").innerHTML;
+        var node2 = document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node2;
         document.getElementById("id2").innerHTML = node1;
     });
@@ -360,10 +354,6 @@ $(document).ready(function () {
         $("#add_info_1").hide();
     });
     $("#save").click(function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
         var phoneRegexp = /^1[3|5|8][0-9]\d{4,8}$/;
         var phone = $("[name = 'phone']").val();
@@ -409,9 +399,6 @@ $(document).ready(function () {
     });
     $("#add_info_2").click(function () {
         $(".display_nones").hide();
-=======
-=======
->>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
         var phone = $("[name = 'phone']").val();
         var email = $("[name = 'email']").val();
         var address = $("[name = 'address']").val();
@@ -436,50 +423,116 @@ $(document).ready(function () {
             alert("邮箱格式不正确！请重新输入！");
             $("[name = 'email']").focus();
             return false;
-<<<<<<< HEAD
->>>>>>> 099ee3a50505b0a18b83c861154d4b3b9da6ae2b
-=======
-=======
->>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
-        if (($(".key_style").val()) != "") {
+            if (($(".key_style").val()) != "") {
+                $(".display_none").hide();
+                $("#phone").show();
+                $("#add_info_2").show();
+            } else if (($(".value_style").val()) != "") {
+                $(".display_none").hide();
+                $("#email").show();
+                $("#add_info_2").show();
+            } else if ((($(".key_style").val()) || ($(".value_style").val())) != "") {
+                $(".display_none").hide();
+                $("#phone").show();
+                $("#email").show();
+                $("#add_info_2").show();
+            } else {
+                alert("key and value 不能为空！");
+            }
+            if (address == "") {
+                alert("地址不能为空！");
+                return false;
+            }
+        }
+        $("#add_info_2").click(function () {
+            $("#phone").hide();
+            $("#add_info_2").hide();
+            $(".display_none").show();
+            $("#save").show();
+            $("#cancel").show();
+        });
+    })
+    var selectall = true;
+
+    function checkAll(e, itemName) {
+        var checkbox = document.getElementsByName(itemName);
+        for (var i = 0; i < checkbox.length; i++) {
+            checkbox[i].checked = selectall;
+        }
+        selectall = !selectall;
+    }
+
+    $("#cancel").click(function () {
+        if ((($("#phone").val() || ($("#email").val()))) != "") {
             $(".display_none").hide();
             $("#phone").show();
-            $("#add_info_2").show();
-        } else if (($(".value_style").val()) != "") {
-            $(".display_none").hide();
             $("#email").show();
             $("#add_info_2").show();
-        } else if ((($(".key_style").val()) || ($(".value_style").val())) != "") {
+        } else if (($("#phone").val()) != "") {
             $(".display_none").hide();
             $("#phone").show();
+            $("#add_info_2").show();
+        } else if (($("#email").val()) != "") {
+            $(".display_none").hide();
             $("#email").show();
             $("#add_info_2").show();
         } else {
-            alert("key and value 不能为空！");
-<<<<<<< HEAD
->>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
-=======
->>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
         }
-        if (address == "") {
-            alert("地址不能为空！");
-            return false;
-=======
->>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
-        }
-    });
-    $("#add_info_2").click(function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $("#phone").hide();
-        $("#add_info_2").hide();
->>>>>>> 9224c7de27944b4f343c39cd0e173b242efd4a5f
+        $(".display_nones").hide();
         $(".display_none").show();
         $("#save").show();
         $("#cancel").show();
+        $("#phone").hide();
+        $("#add_info_2").hide();
+        $(".display_none").show();
     });
-<<<<<<< HEAD
+    $("#cancel").click(function () {
+        if ((($("#phone").val() || ($("#email").val()))) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else if (($("#phone").val()) != "") {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
+        } else if (($("#email").val()) != "") {
+            $(".display_none").hide();
+            $("#email").show();
+            $("#add_info_2").show();
+        } else {
+            $(".display_none").hide();
+            $("#phone").show();
+            $("#add_info_2").show();
+        }
+    });
+    $("#repeat_password").click(function () {
+        $("#repeat_password").focus();
+    });
+    $("#repeat_password").blur(function () {
+        var x1 = $("#repeat_password").val();
+        var y1 = x1.length;
+        if (x1 == "") {
+            $("#tip_nones").html("确认密码不能为空");
+            $("#tip_none").show();
+            $("#repeat_password").focus();
+        } else if (y1 <= 5 || y1 >= 30) {
+            $("#tip_nones").html("确认密码长度必需大于6小于30");
+            $("#tip_none").show();
+            $("#repeat_password").focus();
+        } else if (x1 != $("#new_password").val()) {
+            $("#repeat_password").focus();
+            $("#tip_nones").html("输入的密码不一致!");
+            $("#tip_none").show();
+        } else {
+            $("#tip_none").hide();
+        }
+    });
 })
+
 var selectall = true;
 function checkAll(e, itemName) {
     var checkbox = document.getElementsByName(itemName);
@@ -488,91 +541,3 @@ function checkAll(e, itemName) {
     }
     selectall = !selectall;
 }
-=======
-    $("#cancel").click(function () {
-        if ((($("#phone").val() || ($("#email").val()))) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else if (($("#phone").val()) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        } else if (($("#email").val()) != "") {
-            $(".display_none").hide();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        }
-=======
-        $(".display_nones").hide();
-        $(".display_none").show();
-        $("#save").show();
-        $("#cancel").show();
->>>>>>> 2b355d46d4480db9a4bba241bed63708806fa6ca
-=======
-        $("#phone").hide();
-        $("#add_info_2").hide();
-        $(".display_none").show();
->>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c
-    });
-    $("#cancel").click(function () {
-        if ((($("#phone").val() || ($("#email").val()))) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else if (($("#phone").val()) != "") {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        } else if (($("#email").val()) != "") {
-            $(".display_none").hide();
-            $("#email").show();
-            $("#add_info_2").show();
-        } else {
-            $(".display_none").hide();
-            $("#phone").show();
-            $("#add_info_2").show();
-        }
-    });
-<<<<<<< HEAD
-    $("#repeat_password").click(function(){
-        $("#repeat_password").focus();
-    });
-    $("#repeat_password").blur(function(){
-        var x1 = $("#repeat_password").val();
-        var y1 = x1.length;
-        if(x1 == ""){
-            $("#tip_nones").html("确认密码不能为空");
-            $("#tip_none").show();
-            $("#repeat_password").focus();
-        }else if (y1 <= 5 || y1 >= 30) {
-            $("#tip_nones").html("确认密码长度必需大于6小于30");
-            $("#tip_none").show();
-            $("#repeat_password").focus();
-        }else if (x1 != $("#new_password").val()) {
-            $("#repeat_password").focus();
-            $("#tip_nones").html("输入的密码不一致!");
-            $("#tip_none").show();
-        }else {
-            $("#tip_none").hide();
-        }
-    });
-})
-=======
-})
-
-var selectall = true;
-function checkAll(e, itemName){
-	var checkbox = document.getElementsByName(itemName);
-	for (var i=0; i<checkbox.length; i++){
-		checkbox[i].checked = selectall;	
-	}
-	selectall = !selectall;
-}
->>>>>>> 0d169dbe8aee7a1527bdd028df40950416f4693c

@@ -4,7 +4,6 @@
  * Run "$ sudo node main.js" to start the server.
  */
 
-root.globaldata = {};
 
 var http = require("http");
 var route = require("./lib/route");
