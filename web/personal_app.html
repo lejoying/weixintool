@@ -4,6 +4,7 @@
 <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
+    <script type="text/javascript" src="/static/js/uploadImg.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>新建应用</title>
 </head>
@@ -13,35 +14,35 @@
 	<!--<div class="head_banner"></div>-->
     <div class="function_model" style="left:0;top:20px;">
     	<div class="left_icon">
-        	<div><a href="#" class="personalized"></a></div>
+        	<div><a href="javascript:;" class="personalized"></a></div>
             <div class="apps_title">个性化应用</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="function_model" style="left:150px;top:20px;">
     	<div class="left_icon">
-        	<div><a href="#" class="user_mange"></a></div>
+        	<div><a href="javascript:;" class="user_mange"></a></div>
             <div class="apps_title">用户管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="function_model" style="left:300px;top:20px;">
     	<div class="left_icon">
-        	<div><a href="#" class="message_mange"></a></div>
+        	<div><a href="javascript:;" class="message_mange"></a></div>
             <div class="apps_title">消息管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="function_model" style="left:450px;top:20px;width:210px;">
     	<div class="left_icon" style="width:90px;">
-        	<a href="#" class="weixin_card"></a>
+        	<a href="javascript:;" class="weixin_card"></a>
             <div class="user_name"></div>
         </div>
         <div class="right_sub">很破的一口钟</div>
     </div>
     <div class="login_user" style="right:0;top:20px;">
     	<div>
-            <a href="#" class="app_list"></a>
+            <a href="javascript:;" class="app_list"></a>
             <div class="logo_apps">
             	<div>usert2已登录</div>
             </div>  
@@ -55,12 +56,12 @@
                 </div>
                  <div class="type_name2 personal_tr first_in">
                     <label class="type_style" for="">名称</label>
-                    <input class="personal_input" name="" type="text" />
-                    <div class="tip_out"><p id="username1_error" class="tip_in"><span class="error_icon"></span>应用名称不能为空！</p></div>
+                    <input class="personal_input" name="new_name" type="text" />
+                    <div class="tip_out"  style="display: none"><p id="username1_error" class="tip_in"><span class="error_icon"></span>应用名称不能为空！</p></div>
                  </div>
                  <div class="type_name2 personal_tr upload_file">
                     <label class="type_style" for="">图标</label>
-                    <span><img src="/static/images/public/face.png" /></span>
+                    <span id="thumbs"><img  id="pointupicon" src="/static/images/public/face.png" /></span>
                      <a href="javascript:;" class="updoad_face buttonblue">上传图标</a>
                      <input class="input_f" name="pic1" id="input_image" type="file" onChange="" multiple="true">
                  </div>
@@ -73,8 +74,8 @@
                     <textarea class="personal_input_area" name="" cols="" rows=""></textarea>
                  </div>
                  <div class="type_opreat">
-                 	<a href="#" class="buttonblue button_per">新建</a>
-                    <a href="#" class="buttonblue button_per">取消</a>
+                 	<a href="javascript:;" class="buttonblue button_per">新建</a>
+                    <a href="javascript:;" class="buttonblue button_per">取消</a>
                  </div>
                  <div class="type_input"></div>
             </div>
