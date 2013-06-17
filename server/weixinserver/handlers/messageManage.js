@@ -9,16 +9,15 @@
 
 var messageManage = {};
 
+var serverSetting = root.globaldata.serverSetting;
+
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
-
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 /***************************************
  *     URL：/api2/message/adds  目前没用到
  ***************************************/
 
-var RSA = require('./../tools/RSA');
 messageManage.adds = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinOpenID;
@@ -159,14 +158,14 @@ messageManage.leave = function (data, response) {
         newNode.getRelationships("REL", function (err, node) {
             if (node == null) {
                 response.write(JSON.stringify({
-                    "提示信息": "获得关系失败",
-                    "失败原因": "关系不存在"
+                    "提示信息": "删除账号失败",
+                    "失败原因": "账号名不存在"
                 }));
                 response.end();
             } else {
                 node[0].del();
                 response.write(JSON.stringify({
-                    "提示信息": "找到关系"
+                    "提示信息": "删除账号成功"
                 }));
                 response.end();
             }

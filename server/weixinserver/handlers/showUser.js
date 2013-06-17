@@ -14,15 +14,16 @@
 
 var showUser = {};
 
+var serverSetting = root.globaldata.serverSetting;
+
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 /***************************************
  *     URL：/api2/showUser/show
  ***************************************/
-var RSA = require('./../tools/RSA');
+
 showUser.show = function (data, response) {
     response.asynchronous = 1;
     db.getIndexedNode("account", "accountName", "kekegcycom", function (err, newNode) {
@@ -43,6 +44,50 @@ showUser.show = function (data, response) {
                 }
             });
         });
+    });
+}
+/***************************************
+ *     URL：/api2/showUser/adduser
+ ***************************************/
+showUser.adduser = function (data, response) {
+    response.asynchronous = 1;
+    var account = {
+        "uid": data.uid,
+        "type": "account",
+        "token": data.token
+    };
+
+    db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
+        if (account.accountName == "" || account.accountName == null) {
+            response.write(JSON.stringify({
+                "提示信息": "添加用户失败",
+                "reason": "用户不能为空"
+            }));
+            response.end();
+        }
+        else {
+            if (node == null) {
+                var node = db.createNode(account);
+                node.save(function (err, node) {
+                    node.data.uid = node.id;
+                    node.index("account", "uid", account.uid);
+                    node.save(function (err, node) {
+                        response.write(JSON.stringify({
+                            "提示信息": "添加用户成功",
+                            "uid": node.data.uid
+                        }));
+                        response.end();
+                    });
+                });
+            } else {
+                response.write(JSON.stringify({
+                    "提示信息": "添加用户失败",
+                    "reason": "用户已存在"
+                }));
+                response.end();
+            }
+        }
+
     });
 }
 

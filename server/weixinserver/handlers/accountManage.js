@@ -4,13 +4,11 @@
  */
 
 var accountManage = {};
+var serverSetting = root.globaldata.serverSetting;
 
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
-var RSA = require('./../tools/RSA');
-
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 /***************************************
  *     URL：/api2/account/add
@@ -18,78 +16,72 @@ var RSA = require('./../tools/RSA');
 accountManage.add = function (data, response) {
     response.asynchronous = 1;
     var account = {
-        "accountName": data.accountName,
-        "uid": data.uid,
-        "type": "account",
-        "password": data.password,
-        "phone": data.phone,
-        "email": data.email
+        accountName: data.accountName,
+        phone: data.phone,
+        email: data.email,
+        password: data.password
     };
-    RSA.setMaxDigits(38);
-    var pbkeyStr3 = RSA.RSAKeyStr("5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pbkey3 = RSA.RSAKey(pbkeyStr3);
 
-    var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pvkey3 = RSA.RSAKey(pvkeyStr3);
+    checkAccountNodeExist();
 
-    db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
-        if (account.accountName == "" || account.accountName == null) {
-            response.write(JSON.stringify({
-                "提示信息": "注册账号失败",
-                "reason": "账号名不能为空"
-            }));
-            response.end();
-        }
-        else {
-            if (node == null) {
-                if (account.email == null) {
-                    addAccountToNeo4j();
-                }
-                db.getIndexedNode("account", "email", account.email, function (err, node) {
-                    if (node == null) {
-                        addAccountToNeo4j();
-                    }
-                    else {
-                        response.write(JSON.stringify({
-                            "提示信息": "注册账号失败",
-                            "reason": "注册邮箱已存在"
-                        }));
-                        response.end();
-                    }
-                });
+    function checkAccountNodeExist() {
+        var query = [
+            'MATCH account:Account',
+            'WHERE account.accountName! ={accountName} OR account.phone! ={phone}',
+            'RETURN  account'
+        ].join('\n');
+
+        var params = {
+            accountName: account.accountName,
+            phone: account.phone,
+            email: account.email
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            } else if (results.length == 0) {
+                createAccountNode();
             } else {
                 response.write(JSON.stringify({
                     "提示信息": "注册账号失败",
-                    "reason": "账号名已存在"
+                    "reason": "账号信息已存在"
+                }));
+                response.end();
+
+            }
+        });
+    }
+
+    function createAccountNode() {
+        var query = [
+            'CREATE account:Account{account}',
+            'SET account.id=ID(account)',
+            'RETURN  account'
+        ].join('\n');
+
+        var params = {
+            account: account
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            } else {
+                var accountNode = results.pop().account;
+                response.write(JSON.stringify({
+                    "提示信息": "注册账号成功",
+                    "uid": accountNode.id,
+                    "acccesskey": "123",
+                    "PbKey": "123"
                 }));
                 response.end();
             }
-        }
 
-    });
-
-    function addAccountToNeo4j() {
-        var node = db.createNode(account);
-        node.save(function (err, node) {
-            node.data.uid = node.id;
-            node.index("account", "accountName", account.accountName);
-            node.index("account", "phone", account.phone);
-            node.index("account", "email", account.email);
-            node.index("account", "uid", account.uid);
-            node.save(function (err, node) {
-                response.write(JSON.stringify({
-                    "提示信息": "注册账号成功",
-                    "uid": node.data.uid,
-                    "phone": node.data.phone,
-                    "accountName": node.data.accountName
-                }));
-                response.end();
-            });
         });
     }
 }
 
-var RSA = require('./../tools/RSA');
 /***************************************
  *     URL：/api2/account/exist
  ***************************************/
@@ -99,60 +91,8 @@ accountManage.exist = function (data, response) {
         "accountName": data.accountName,
         "email": data.email
     };
-    checkAccountName();
-
-    function checkAccountName() {
-        if (account.accountName != null) {
-            db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
-                if (node != null) {
-                    response.write(JSON.stringify({
-                        "提示信息": " 用户名存在",
-                        "status": "failed"
-                    }));
-                    response.end();
-                    return;
-                }
-                else {
-                    checkEmail();
-                }
-            });
-        }
-        else {
-            checkEmail();
-        }
-    }
-
-    function checkEmail() {
-        if (account.email != null) {
-            db.getIndexedNode("account", "email", account.email, function (err, node) {
-                if (node != null) {
-                    response.write(JSON.stringify({
-                        "提示信息": " 邮箱已存在",
-                        "status": "failed"
-                    }));
-                    response.end();
-                    return;
-                }
-                else {
-                    responsePass();
-                }
-            });
-        }
-        else {
-            responsePass();
-        }
-    }
-
-    function responsePass() {
-        response.write(JSON.stringify({
-            "提示信息": (account.accountName || account.email) + " 不存在",
-            "status": "passed"
-        }));
-        response.end();
-    }
 }
 
-var RSA = require('./../tools/RSA');
 /***************************************
  *     URL：/api2/account/auth
  ***************************************/
@@ -160,133 +100,73 @@ accountManage.auth = function (data, response) {
     response.asynchronous = 1;
     account = {
         "accountName": data.accountName,
-        "password": data.password,
-        "type": "account",
         "phone": data.phone,
-        "email": data.email
+        "email": data.email,
+        "password": data.password
     };
-    RSA.setMaxDigits(38);
-    var pbkeyStr3 = RSA.RSAKeyStr("5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pbkey3 = RSA.RSAKey(pbkeyStr3);
 
-    var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pvkey3 = RSA.RSAKey(pvkeyStr3);
-
-    if (account.phone != null && account.phone != "") {
-        checkPhone();
+    var type = "账号名";
+    var name = account.accountName;
+    if (account.accountName != null) {
+        type = "账号名";
+        name = account.accountName;
+        account.phone = "unexist phone";
+        account.email = "unexist email";
     }
-    else if (account.accountName != null && account.accountName != "") {
-        checkAccountName();
+    else if (account.phone != null) {
+        type = "手机";
+        name = account.phone;
+        account.accountName = "unexist accountName";
+        account.email = "unexist email";
     }
     else if (account.email != null) {
-        checkEmail();
+        type = "邮箱";
+        name = account.email;
+        account.accountName = "unexist accountName";
+        account.phone = "unexist phone";
     }
 
+    checkAccountNode();
 
-    function checkAccountName() {
-        db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
-            if (node != null) {
-                if (account.password == node.data.password) {
-                    node.index("account", "accountName", account.accountName);
-                    response.write(JSON.stringify({
-                        "提示信息": account.accountName + "账号存在 ",
-                        "status": "通过验证"
-                    }));
-                    response.end();
-                }
-                else {
-                    response.write(JSON.stringify({
-                        "提示信息": " 密码不正确",
-                        "status": "账号登录失败"
-                    }));
-                    response.end();
-                }
-            } else if (data.accountName == null || data.accountName == "") {
+    function checkAccountNode() {
+        var query = [
+            'MATCH account:Account',
+            'WHERE account.accountName! ={accountName} OR account.phone! ={phone} OR account.email! ={email}',
+            'RETURN  account'
+        ].join('\n');
+
+        var params = {
+            accountName: account.accountName,
+            phone: account.phone,
+            email: account.email
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            } else if (results.length == 0) {
                 response.write(JSON.stringify({
-                    "提示信息": account.accountName + "用户名不为空",
-                    "status": "账号登录失败"
+                    "提示信息": "账号登录失败",
+                    "失败原因": name + type + " 邮箱不存在"
                 }));
                 response.end();
             } else {
-                response.write(JSON.stringify({
-                    "提示信息": account.accountName + " 用户不存在",
-                    "status": "账号登录失败"
-                }));
-                response.end();
-            }
-
-        });
-    }
-
-    function checkPhone() {
-        db.getIndexedNode("account", "phone", account.phone, function (err, node) {
-
-            if (node != null) {
-                if (account.password == node.data.password) {
-                    node.index("account", "phone", account.phone);
+                var accountNode = results.pop().account;
+                if (accountNode.data.password == account.password) {
                     response.write(JSON.stringify({
-                        "提示信息": "电话存在",
-                        "status": "通过验证"
+                        "提示信息": "账号登录成功",
+                        "uid": accountNode.id,
+                        "acccesskey": "123",
+                        "PbKey": "123"
+                    }));
+                    response.end();
+                } else {
+                    response.write(JSON.stringify({
+                        "提示信息": "账号登录失败",
+                        "失败原因": "密码不正确"
                     }));
                     response.end();
                 }
-                else {
-                    response.write(JSON.stringify({
-                        "提示信息": " 密码不正确",
-                        "status": "账号登录失败"
-                    }));
-                    response.end();
-                }
-            }
-            else if (data.phone == "" || data.phone == null) {
-                response.write(JSON.stringify({
-                    "提示信息": account.phone + "电话号码不为空",
-                    "status": "账号登录失败"
-                }));
-                response.end();
-            } else {
-                response.write(JSON.stringify({
-                    "提示信息": account.phone + " 电话号码不存在",
-                    "status": "账号登录失败"
-                }));
-                response.end();
-            }
-
-        });
-
-    }
-
-    function checkEmail() {
-        db.getIndexedNode("account", "email", account.email, function (err, node) {
-            if (node != null) {
-                if (account.password == node.data.password) {
-                    node.index("account", "email", account.email);
-                    response.write(JSON.stringify({
-                        "提示信息": "邮箱存在",
-                        "status": "通过验证"
-                    }));
-                    response.end();
-                }
-                else {
-                    response.write(JSON.stringify({
-                        "提示信息": account.password + " 密码不正确",
-                        "status": "账号登录失败"
-                    }));
-                    response.end();
-                }
-            } else if (data.email == null) {
-                response.write(JSON.stringify({
-                    "提示信息": account.email + " 邮箱不为空",
-                    "status": "账号登录失败"
-                }));
-                response.end();
-            }
-            else {
-                response.write(JSON.stringify({
-                    "提示信息": account.email + " 邮箱不存在",
-                    "status": "账号登录失败"
-                }));
-                response.end();
             }
         });
     }
@@ -307,42 +187,6 @@ accountManage.modify = function (data, response) {
         "email": data.email
     }
 
-    RSA.setMaxDigits(38);
-    var pbkeyStr3 = RSA.RSAKeyStr("5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pbkey3 = RSA.RSAKey(pbkeyStr3);
-
-    var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pvkey3 = RSA.RSAKey(pvkeyStr3);
-
-    db.getNodeById(weixin.uid, function (err, node) {
-        if (node != null) {
-//            node.getRelationshipNodes("weixin", "weixinOpenID",weixin.weixinOpenID ,function(err, node){})
-            node.save(function (err, node) {
-                node.data.accountName = weixin.accountName;
-                node.data.password = weixin.password;
-                node.data.phone = weixin.phone;
-                node.data.email = weixin.email;
-                node.index("account", "accountName", weixin.accountName);
-                node.index("account", "password", weixin.password);
-                node.index("account", "phone", weixin.phone);
-                node.index("account", "email", weixin.email);
-                node.save(function (err, node) {
-                    response.write(JSON.stringify({
-                        "提示信息": "修改会员信息成功",
-                        "node": node.data
-                    }));
-                    response.end();
-                });
-            });
-
-        } else {
-            response.write(JSON.stringify({
-                "提示信息": "修改会员信息失败",
-                "reason": "会员信息不存在"
-            }));
-            response.end();
-        }
-    });
 }
 
 

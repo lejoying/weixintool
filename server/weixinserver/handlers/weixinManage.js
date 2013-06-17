@@ -14,15 +14,15 @@
 
 var weixinManage = {};
 
+var serverSetting = root.globaldata.serverSetting;
+
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 /***************************************
  *     URL：/api2/weixinuer/add
  ***************************************/
-var RSA = require('./../tools/RSA');
 weixinManage.add = function (data, response) {
     response.asynchronous = 1;
     var uid = data.uid;
@@ -40,12 +40,17 @@ weixinManage.add = function (data, response) {
         }
     });
     function next(accountNode) {
+        var timestamp = new Date().getTime();
+        var token = Math.random();
+        var subtoken = timestamp * token;
+        var pushToken = subtoken.toString().substring(1,11);
         var weixin =
         {
             "type": "weixin",
             "weixinOpenID": data.weixinOpenID,
             "weixinName": data.weixinName,
-            "token": data.token
+            "token": pushToken
+
         };
 
         db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
@@ -90,7 +95,8 @@ weixinManage.delete = function (data, response) {
         "type": "weixin",
         "accesskey": data.accesskey,
         "weixinOpenID": data.weixinOpenID,
-        "weixinName": data.weixinName
+        "weixinName": data.weixinName,
+        "token": data.token
     }
     db.getIndexedNode("weixin", "weixinOpenID", weixin.weixinOpenID, function (err, node) {
         if (node != null) {
@@ -121,7 +127,8 @@ weixinManage.modify = function (data, response) {
         "accountName": data.accountName,
         "password": data.password,
         "phone": data.phone,
-        "email": data.email
+        "email": data.email,
+        "token": data.token
     }
 
     RSA.setMaxDigits(38);
