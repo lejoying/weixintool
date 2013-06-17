@@ -14,8 +14,7 @@ requestHandlers.bind = function (request, response, pathObject, data) {
         response.write(JSON.stringify({a: 1, b: 2}));
     }
     else {
-        var echostr = data["echostr"];
-        bind.message(echostr, response);
+        bind.message(data, response);
     }
 };
 

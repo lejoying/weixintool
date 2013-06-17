@@ -61,6 +61,18 @@ api = {
  ***************************************/
 
 api = {
+
+    /***************************************
+     * URL：/api2/weixin/bindingtoken
+     ***************************************/
+    "weixin_bindingtoken": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinName: "XXXX"}
+        },
+        response: {
+            success: {"提示信息": "微信公众账号正在绑定",  token: "XXXXXXX"}
+        }
+    },
     /***************************************
      * URL：/api2/weixinuer/[add|delete|modify]
      ***************************************/
