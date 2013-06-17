@@ -20,6 +20,62 @@ var neo4j = require('neo4j');
 
 var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
+
+/***************************************
+ *     URL：/api2/weixin/bindingtoken
+ ***************************************/
+weixinManage.bindingtoken = function (data, response) {
+    response.asynchronous = 1;
+    var weixin =
+    {
+        weixinOpenID: "",
+        weixinName: data.weixinName,
+        token: "",
+        status:"binding"
+    };
+
+    var account = {
+        "uid": data.uid
+    };
+
+    var timestamp = new Date().getTime();
+    var random = Math.random();
+    var token = (timestamp * random).toString().substring(1, 11);
+    weixin.token = token;
+
+
+    createWeixinNode();
+
+    function createWeixinNode() {
+        var query = [
+            'START account=node({uid})' ,
+            'CREATE (weixin:Weixin{weixin})',
+            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin',
+            'RETURN  weixin, account, r'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(account.uid),
+            weixin: weixin
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            } else {
+                var accountNode = results.pop().account;
+                response.write(JSON.stringify({
+                    "提示信息": "微信公众账号正在绑定",
+                    "token": weixin.token
+                }));
+                response.end();
+            }
+
+        });
+    }
+
+
+}
 /***************************************
  *     URL：/api2/weixinuer/add
  ***************************************/
@@ -43,7 +99,7 @@ weixinManage.add = function (data, response) {
         var timestamp = new Date().getTime();
         var token = Math.random();
         var subtoken = timestamp * token;
-        var pushToken = subtoken.toString().substring(1,11);
+        var pushToken = subtoken.toString().substring(1, 11);
         var weixin =
         {
             "type": "weixin",

@@ -56,7 +56,7 @@ accountManage.add = function (data, response) {
     function createAccountNode() {
         var query = [
             'CREATE account:Account{account}',
-            'SET account.id=ID(account)',
+            'SET account.uid=ID(account)',
             'RETURN  account'
         ].join('\n');
 
@@ -98,7 +98,7 @@ accountManage.exist = function (data, response) {
  ***************************************/
 accountManage.auth = function (data, response) {
     response.asynchronous = 1;
-    account = {
+    var account = {
         "accountName": data.accountName,
         "phone": data.phone,
         "email": data.email,

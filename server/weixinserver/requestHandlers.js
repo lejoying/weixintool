@@ -37,7 +37,9 @@ requestHandlers.accountManage = function (request, response, pathObject, data) {
 var weixinManage = require('./handlers/weixinManage');
 requestHandlers.weixinManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
-    if (operation == "add") {
+    if (operation == "bindingtoken") {
+        weixinManage.bindingtoken(data, response);
+    } else if (operation == "add") {
         weixinManage.add(data, response);
     } else if (operation == "delete") {
         weixinManage.delete(data, response);

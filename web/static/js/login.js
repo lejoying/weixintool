@@ -68,7 +68,7 @@ $(document).ready(function () {
                 user.phone = text;
             }
             else {
-                user.accountName = text;
+                user.account = text;
             }
             $.ajax({
                 type: "get",
@@ -178,22 +178,7 @@ $(document).ready(function () {
     });
 })
 $(document).ready(function () {
-    $("#weixinName").click(function () {
-        if (($("#valsesFirst").val()) != "") {
-            logindata.localSettings.userstep = $("#valsesFirst").val();
-            location.href = "step_1.html";
-        } else {
-            alert("绑定微信号不能为空！");
-        }
-    });
-    $("#weixinName").click(function () {
-        if (($("#valsesFirst").val()) != "") {
-            logindata.localSettings.userstep1 = $("#valsesFirst").val();
-            location.href = "step_1.html";
-        } else {
-            alert("绑定微信号不能为空！");
-        }
-    });
+
     $("#id1").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
         //var node2= document.getElementById("id2").innerHTML;
