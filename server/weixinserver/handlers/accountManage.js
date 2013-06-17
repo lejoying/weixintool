@@ -4,13 +4,11 @@
  */
 
 var accountManage = {};
+var serverSetting = root.globaldata.serverSetting;
 
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
-var RSA = require('./../tools/RSA');
-
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 /***************************************
  *     URL：/api2/account/add
@@ -25,12 +23,6 @@ accountManage.add = function (data, response) {
         "phone": data.phone,
         "email": data.email
     };
-    RSA.setMaxDigits(38);
-    var pbkeyStr3 = RSA.RSAKeyStr("5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "5db114f97e3b71e1316464bd4ba54b25a8f015ccb4bdf7796eb4767f9828841", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pbkey3 = RSA.RSAKey(pbkeyStr3);
-
-    var pvkeyStr3 = RSA.RSAKeyStr("10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "10f540525e6d89c801e5aae681a0a8fa33c437d6c92013b5d4f67fffeac404c1", "3e4ee7b8455ad00c3014e82057cbbe0bd7365f1fa858750830f01ca7e456b659");
-    var pvkey3 = RSA.RSAKey(pvkeyStr3);
 
     db.getIndexedNode("account", "accountName", account.accountName, function (err, node) {
         if (account.accountName == "" || account.accountName == null) {

@@ -9,17 +9,16 @@
 
 var applyManage = {};
 
+var serverSetting = root.globaldata.serverSetting;
+
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
-
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 /***************************************
  *     URL：/api2/apply/add
  ***************************************/
 
-var RSA = require('./../tools/RSA');
 applyManage.add = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinOpenID;

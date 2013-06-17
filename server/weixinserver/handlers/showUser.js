@@ -14,15 +14,16 @@
 
 var showUser = {};
 
+var serverSetting = root.globaldata.serverSetting;
+
 var neo4j = require('neo4j');
 
-var db = new neo4j.GraphDatabase('http://localhost:7474');
-var nodeId = 2;//create a node in Neo4j monitoring and management tools, and put its node id here.
+var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 /***************************************
  *     URL：/api2/showUser/show
  ***************************************/
-var RSA = require('./../tools/RSA');
+
 showUser.show = function (data, response) {
     response.asynchronous = 1;
     db.getIndexedNode("account", "accountName", "kekegcycom", function (err, newNode) {
