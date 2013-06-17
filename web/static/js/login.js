@@ -21,7 +21,7 @@ $(document).ready(function () {
         $("[name='username1']").attr("class", "input_text");
         if (name == "") {
             usernameNone();
-        } else if (b <= 3 || b >= 30) {
+        } else if (b <= 5 || b >= 30) {
             usernameNone1();
         } else {
             $("#username_right").show();
@@ -140,7 +140,7 @@ function usernameNone() {
     $(".error_warning_user").show();
 }
 function usernameNone1() {
-    $("#username1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名长度必需大于6小于30！");
+    $("#username1_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名长度必需大于6小于10！");
     $("#username_right").hide();
     $(".error_warning_user").show();
 }
