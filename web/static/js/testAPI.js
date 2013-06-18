@@ -136,6 +136,7 @@ function getTemplate(template) {
     nTemplate.localData = $(templateDiv).attr("localData");
     templatePool [template] = {template: nTemplate, templateDiv: templateDiv}
     return templatePool [template];
+    return {template: nTemplate, templateDiv: templateDiv};
 }
 
 
