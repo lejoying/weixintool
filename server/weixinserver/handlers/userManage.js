@@ -63,4 +63,51 @@ userManage.getall = function (data, response) {
     }
 }
 
+
+/***************************************
+ *     URL：/api2/user/modify
+ ***************************************/
+userManage.modify = function (data, response) {
+    response.asynchronous = 1;
+    var userid = data.userid;
+    var userStr = data.user;
+    var user = JSON.parse(userStr);
+
+    modifyUserNode();
+
+    function modifyUserNode() {
+        var query = [
+            'MATCH user:User' ,
+            'WHERE user.id! ={userid}',
+            'RETURN  user'
+        ].join('\n');
+
+        var params = {
+            userid: userid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改关注用户信息失败",
+                    "失败原因 ": "用户信息不存在"
+                }));
+                response.end();
+            } else {
+                var userNode = results.pop().user;
+                userNode.data = user;
+                userNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改关注用户信息成功",
+                    "user": user
+                }));
+                response.end();
+            }
+        });
+    }
+}
+
 module.exports = userManage;

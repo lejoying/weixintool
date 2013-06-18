@@ -133,3 +133,26 @@ function getTemplate(template) {
     nTemplate.localData = $(templateDiv).attr("localData");
     return {template: nTemplate, templateDiv: templateDiv};
 }
+
+
+function modifyUser() {
+    $.ajax({
+        type: "POST",
+        url: "/api2/user/modify",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            userid: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
+            user: JSON.stringify({
+                id:"oeFW0jtlqpAbSigW2yLvCEwPmQq8",
+                "姓名":"说的萨",
+                "地址":"发货的合法身份哈师傅沙发上飞"  ,
+                "邮箱":"sf@fsdk.com",
+                "手机":"18566664444"
+            })
+        },
+        success: function (serverData) {
+            console.log(serverData);
+        }
+    });
+}

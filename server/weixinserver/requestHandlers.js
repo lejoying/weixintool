@@ -57,7 +57,7 @@ requestHandlers.userManage = function (request, response, pathObject, data) {
     if (operation == "getall") {
         userManage.getall(data, response);
     } else if (operation == "modify") {
-        userManage.add(data, response);
+        userManage.modify(data, response);
     }
 };
 

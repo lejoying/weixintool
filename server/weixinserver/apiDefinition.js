@@ -122,29 +122,15 @@ api = {
         }
     },
     /***************************************
-     * URL：/api2/weixinuer/[add|delete|modify]
+     * URL：/api2/user/modify
      ***************************************/
-    "weixinuer_[add|delete|modify]": {
+    "user_modify": {
         request: {
-            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinOpenID: "nnnnn", weixinName: "XXXX", token: "XXXXXXX"}
+            typical: {uid: "nnnn", accesskey: "XXXXXX", userid: "XXXX", user: JSON({})}
         },
         response: {
-            success: {"提示信息": "[添加|修改|删除]微信绑定用户成功", data: {"……": "......"}},
-            failed: {"提示信息": "[添加|修改|删除]微信绑定用户失败", errorMessage: "......", data: {"……": "……"}}
-        }
-    },
-    /***************************************
-     * URL：/api2/weixinuer/getall
-     ***************************************/
-    "weixinuer_[getall]": {
-        request: {
-            typical: {uid: "nnnn", accesskey: "XXXXXX"}
-        },
-        response: {
-            success: {"提示信息": "获取所有微信绑定用户成功", weixins: {
-                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"},
-                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"}
-            }}
+            success: {"提示信息": "修改关注用户信息成功", user: {}},
+            failed: {"提示信息": "修改关注用户信息失败", "失败原因": "用户信息不存在"}
         }
     }
 }
