@@ -60,7 +60,7 @@ function getEvent() {
     }
     $.ajax({
         type: "GET",
-        url: "api2/session/event",
+        url: "/api2/session/event",
         timeout: 30000,
         data: {uid: data.uid, sessionID: data.sessionID},
         success: function (event, textStatus) {
@@ -89,7 +89,7 @@ $(document).ready(function () {
     data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
     data.end = 50;
-    getUsers();
+//    getUsers();
 
 });
 function getUsers() {
@@ -113,8 +113,11 @@ function getUsers() {
     });
 }
 
-
+var templatePool = {};
 function getTemplate(template) {
+    if (templatePool[template] != null) {
+        return  templatePool [template];
+    }
     var tenjin = nTenjin;
     var templateDiv = $(".template[template='" + template + "']")
 
@@ -131,5 +134,121 @@ function getTemplate(template) {
     nTemplate.eventPool = $(templateDiv).attr("eventPool");
     nTemplate.serverData = $(templateDiv).attr("serverData");
     nTemplate.localData = $(templateDiv).attr("localData");
-    return {template: nTemplate, templateDiv: templateDiv};
+    templatePool [template] = {template: nTemplate, templateDiv: templateDiv}
+    return templatePool [template];
+}
+
+
+function modifyUser() {
+    $.ajax({
+        type: "POST",
+        url: "/api2/user/modify",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            userid: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
+            user: JSON.stringify({
+                id: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
+                "姓名": "说的萨",
+                "地址": "发货的合法身份哈师傅沙发上飞",
+                "邮箱": "sf@fsdk.com",
+                "邮箱1": "sf@fs2dk.com",
+                "邮箱2": "sf@f1dk.com",
+                "邮箱3": "sf@fs3dk.com",
+                "手机": "18566664444"
+            })
+        },
+        success: function (serverData) {
+            console.log(serverData);
+        }
+    });
+}
+
+
+$(document).ready(function () {
+
+    $("#app_add").click(function () {
+        var name = $("#app_name").val();
+        var description = $("#app_description").val();
+        if (name != "") {
+            addApp(name, description);
+        } else {
+            alert("应用名称不能为空！");
+        }
+    });
+
+    function addApp(name, description) {
+        $.ajax({
+            type: "POST",
+            url: "/api2/app/add?",
+            data: {
+                uid: data.uid,
+                accesskey: data.accesskey,
+                script: "fasfsafsafsaf.js",
+                app: JSON.stringify({
+                    name: name,
+                    description: description,
+                    icon: "http:///baiud.com/fsf.jpg",
+                    type: "public"
+                })
+            },
+            success: function (data) {
+                console.log(data);
+            }
+        });
+    }
+});
+
+
+$(document).ready(function () {
+    getApps();
+});
+function getApps() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/app/getall",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            weixinopenid: data.weixinopenid,
+            filter: "ALL"
+        },
+        success: function (serverData) {
+            console.log(serverData);
+            data.apps = serverData.apps;
+            var nTemplate = getTemplate("app_list");
+            var innerHtml = nTemplate.template.render();
+            nTemplate.templateDiv.html(innerHtml);
+            nTemplate.templateDiv.removeClass("hide");
+            registerAppListEvent();
+        }
+    });
+}
+
+function registerAppListEvent() {
+
+    $(".app_delete").click(function () {
+        var appid = $(this).attr("appid");
+        console.log(appid);
+        deleteApp(appid);
+    });
+}
+
+function deleteApp(appid) {
+    $.ajax({
+        type: "GET",
+        url: "/api2/app/delete",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            appid: appid
+        },
+        success: function (serverData) {
+            console.log(serverData);
+            if (serverData["提示信息"] == "删除应用成功") {
+                $(".out_frame[appid=" + appid + "]").addClass("hide");
+                getApps();
+            }
+        }
+    });
 }

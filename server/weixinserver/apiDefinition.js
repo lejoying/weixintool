@@ -1,6 +1,6 @@
-﻿/***************************************
+﻿/*************************************** ***************************************
  * *    Class：account
- ***************************************/
+ *************************************** ***************************************/
 
 api = {
     /***************************************
@@ -56,10 +56,10 @@ api = {
 }
 
 
-/***************************************
+/*************************************** ***************************************
  * *    Class：weixin
- ***************************************/
-
+ *************************************** ***************************************/
+    //todo need design
 api = {
 
     /***************************************
@@ -74,19 +74,7 @@ api = {
         }
     },
     /***************************************
-     * URL：/api2/weixinuer/[add|delete|modify]
-     ***************************************/
-    "weixinuer_[add|delete|modify]": {
-        request: {
-            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinOpenID: "nnnnn", weixinName: "XXXX", token: "XXXXXXX"}
-        },
-        response: {
-            success: {"提示信息": "[添加|修改|删除]微信绑定用户成功", data: {"……": "......"}},
-            failed: {"提示信息": "[添加|修改|删除]微信绑定用户失败", errorMessage: "......", data: {"……": "……"}}
-        }
-    },
-    /***************************************
-     * URL：/api2/weixinuer/getall
+     * URL：/api2/weixin/getall
      ***************************************/
     "weixinuer_[getall]": {
         request: {
@@ -100,9 +88,9 @@ api = {
         }
     }
 }
-/***************************************
+/*************************************** ***************************************
  * *    Class：user
- ***************************************/
+ *************************************** ***************************************/
 
 api = {
 
@@ -122,75 +110,74 @@ api = {
         }
     },
     /***************************************
-     * URL：/api2/weixinuer/[add|delete|modify]
+     * URL：/api2/user/modify
      ***************************************/
-    "weixinuer_[add|delete|modify]": {
+    "user_modify": {
         request: {
-            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinOpenID: "nnnnn", weixinName: "XXXX", token: "XXXXXXX"}
+            typical: {uid: "nnnn", accesskey: "XXXXXX", userid: "XXXX", user: JSON({})}
         },
         response: {
-            success: {"提示信息": "[添加|修改|删除]微信绑定用户成功", data: {"……": "......"}},
-            failed: {"提示信息": "[添加|修改|删除]微信绑定用户失败", errorMessage: "......", data: {"……": "……"}}
-        }
-    },
-    /***************************************
-     * URL：/api2/weixinuer/getall
-     ***************************************/
-    "weixinuer_[getall]": {
-        request: {
-            typical: {uid: "nnnn", accesskey: "XXXXXX"}
-        },
-        response: {
-            success: {"提示信息": "获取所有微信绑定用户成功", weixins: {
-                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"},
-                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"}
-            }}
+            success: {"提示信息": "修改关注用户信息成功", user: {}},
+            failed: {"提示信息": "修改关注用户信息失败", "失败原因": "用户信息不存在"}
         }
     }
 }
 
-/***************************************
- * *    Class：message
- ***************************************/
+/*************************************** ***************************************
+ * *    Class：app
+ *************************************** ***************************************/
 
 api = {
     /***************************************
-     * URL：/api2/message/[add]
+     * URL：/api2/app/getall
      ***************************************/
-    "message_[add|delete|modify]": {
+    "app_getall": {
         request: {
-            typical: {weixinOpenID: "nnnn", type: "message", phone: "nnnnn", email: "XXXX" }
+            typical: {uid: "nnnn", accesskey: "XXXXXX", filter: ["ALL" | "OWN" | "BIND"], _weixinOpenID: "nnnnn" }
         },
         response: {
-            success: {"提示信息": "[添加]微信用户信息成功", data: {"……": "......"}},
-            failed: {"提示信息": "[添加]微信用户信息失败", errorMessage: "......", data: {"……": "……"}}
+            success: {"提示信息": "获得应用列表成功", apps: [
+                {id: "..", "……": "......"},
+                "..."
+            ]},
+            failed: {"提示信息": "获得应用列表失败", "失败原因": "指定微信公众账号|账号不存在"}
         }
     },
     /***************************************
-     * URL：/api2/message/addrel
+     * URL：/api2/app/add
      ***************************************/
-    "message_[addrel]": {
+    "app_add": {
         request: {
-            typical: {weixinName: "nnnn"}
+            typical: {uid: "nnnn", accesskey: "XXXXXX", app: JSON({}), script: content("XXX.js")}
         },
         response: {
-            success: {"提示信息": "账号绑定成功", "weixinName": weixinName  },
-            failed: {"提示信息": "账号绑定失败", "失败原因": "账号号名不存在"}
+            success: {"提示信息": "新建应用成功", _app: {}},
+            failed: {"提示信息": "新建应用失败", "失败原因": "脚本形式不正确"}
         }
     },
     /***************************************
-     * URL：/api2/message/delrel
+     * URL：/api2/app/modify
      ***************************************/
-    "message_[addrel]": {
+    "app_modify": {
         request: {
-            typical: {weixinName: "nnnn"}
+            typical: {uid: "nnnn", accesskey: "XXXXXX", appid: "nnn", app: JSON({}), script: content("XXX.js")}
         },
         response: {
-            success: {"提示信息": "删除账号成功", "weixinName": weixinName  },
-            failed: {"提示信息": "删除账号失败", "失败原因": "账号名不存在"}
+            success: {"提示信息": "修改应用成功", _app: {}},
+            failed: {"提示信息": "修改应用失败", "失败原因": "脚本形式不正确"}
+        }
+    },
+    /***************************************
+     * URL：/api2/app/delete
+     ***************************************/
+    "app_delete": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", appid: "nnn"}
+        },
+        response: {
+            success: {"提示信息": "删除应用成功"},
+            failed: {"提示信息": "删除应用失败", "失败原因": "应用不存在"}
         }
     }
 }
-
-
 

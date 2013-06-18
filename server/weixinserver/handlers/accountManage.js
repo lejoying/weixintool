@@ -85,6 +85,7 @@ accountManage.add = function (data, response) {
 /***************************************
  *     URL：/api2/account/exist
  ***************************************/
+// todo complete this API as form of "checkAccountNodeExist()"
 accountManage.exist = function (data, response) {
     response.asynchronous = 1;
     account = {
@@ -175,6 +176,7 @@ accountManage.auth = function (data, response) {
 /***************************************
  *     URL：/api2/account/modify
  ***************************************/
+// todo complete this API as form of "/api2/user/modify"  , first of all design its definition
 accountManage.modify = function (data, response) {
     response.asynchronous = 1;
     var weixin =
@@ -187,6 +189,12 @@ accountManage.modify = function (data, response) {
         "email": data.email
     }
 
+}
+
+/***************************************
+ *     URL：/api2/account/trash
+ ***************************************/
+accountManage.trash = function (data, response) {
 }
 
 

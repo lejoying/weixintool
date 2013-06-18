@@ -1,15 +1,6 @@
 /**
  * Demo of reading and writing data with neo4j.
  * Date: 2013.04.15
- * Request:
- *  http://127.0.0.1:8062/api2/weixinuer/weixinMessage/add
- * Response:
- *  "{}"
- *
- * Request:
- *  http://127.0.0.1:8062/api2/account/auth?i=0
- * Response:
- *  "{}"
  */
 
 var weixinManage = {};
