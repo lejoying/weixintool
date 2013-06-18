@@ -33,7 +33,7 @@ api = {
          ***************************************/
         "account_auth": {
             request: {
-                typical: {"accountname": "XXX","password":"******", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
+                typical: {"accountname": "XXX", "password": "******", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
             },
             response: {
                 success: {"提示信息": "账号登录成功", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
@@ -70,7 +70,55 @@ api = {
             typical: {uid: "nnnn", accesskey: "XXXXXX", weixinName: "XXXX"}
         },
         response: {
-            success: {"提示信息": "微信公众账号正在绑定",  token: "XXXXXXX"}
+            success: {"提示信息": "微信公众账号正在绑定", token: "XXXXXXX"}
+        }
+    },
+    /***************************************
+     * URL：/api2/weixinuer/[add|delete|modify]
+     ***************************************/
+    "weixinuer_[add|delete|modify]": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinOpenID: "nnnnn", weixinName: "XXXX", token: "XXXXXXX"}
+        },
+        response: {
+            success: {"提示信息": "[添加|修改|删除]微信绑定用户成功", data: {"……": "......"}},
+            failed: {"提示信息": "[添加|修改|删除]微信绑定用户失败", errorMessage: "......", data: {"……": "……"}}
+        }
+    },
+    /***************************************
+     * URL：/api2/weixinuer/getall
+     ***************************************/
+    "weixinuer_[getall]": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX"}
+        },
+        response: {
+            success: {"提示信息": "获取所有微信绑定用户成功", weixins: {
+                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"},
+                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"}
+            }}
+        }
+    }
+}
+/***************************************
+ * *    Class：user
+ ***************************************/
+
+api = {
+
+    /***************************************
+     * URL：/api2/user/getall
+     ***************************************/
+    "user_getall": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinopenid: "nnnnn", start: n, end: n}
+        },
+        response: {
+            success: {"提示信息": "获得所有关注用户成功", users: [
+                {id: "..", "……": "......"},
+                "..."
+            ]},
+            failed: {"提示信息": "获得所有关注用户失败", "失败原因": "微信公众账号不存在"}
         }
     },
     /***************************************

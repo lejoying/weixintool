@@ -50,6 +50,17 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     }
 };
 
+
+var userManage = require('./handlers/userManage');
+requestHandlers.userManage = function (request, response, pathObject, data) {
+    var operation = pathObject["operation"];
+    if (operation == "getall") {
+        userManage.getall(data, response);
+    } else if (operation == "modify") {
+        userManage.add(data, response);
+    }
+};
+
 var messageManage = require('./handlers/messageManage');
 requestHandlers.messageManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];

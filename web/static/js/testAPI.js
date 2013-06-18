@@ -82,3 +82,54 @@ function eventLoop(event) {
         alert("bind_server");
     }
 }
+
+$(document).ready(function () {
+    data.uid = "16";
+    data.accesskey = "123";
+    data.weixinopenid = "gh_c6cd8a443586";
+    data.start = 0;
+    data.end = 50;
+    getUsers();
+
+});
+function getUsers() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/user/getall",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            weixinopenid: data.weixinopenid,
+            start: data.start,
+            end: data.end
+        },
+        success: function (serverData) {
+            console.log(serverData);
+            data.users = serverData.users;
+            var nTemplate = getTemplate("user_list");
+            nTemplate.templateDiv.html(nTemplate.template.render());
+            nTemplate.templateDiv.removeClass("hide");
+        }
+    });
+}
+
+
+function getTemplate(template) {
+    var tenjin = nTenjin;
+    var templateDiv = $(".template[template='" + template + "']")
+
+    if (templateDiv.size() != 1) {
+        return null;
+    }
+    var string = templateDiv.html();
+    string = string.replace(/\<\!\-\-\?/g, "<?");
+    string = string.replace(/\?\-\-\>/g, "?>");
+    string = string.replace(/比较符号大于/g, ">");
+    string = string.replace(/比较符号兄小于/g, "<");
+    var nTemplate = new tenjin.Template();
+    nTemplate.convert(string);
+    nTemplate.eventPool = $(templateDiv).attr("eventPool");
+    nTemplate.serverData = $(templateDiv).attr("serverData");
+    nTemplate.localData = $(templateDiv).attr("localData");
+    return {template: nTemplate, templateDiv: templateDiv};
+}
