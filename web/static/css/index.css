@@ -449,7 +449,19 @@ body{
 	cursor:pointer;
     transition: -webkit-transform 0.2s ease-out 0s;
 }
-
+.circle_out:hover{
+	width:120px;
+	height:120px;
+	-moz-border-radius:120px;   
+	-webkit-border-radius:120px;
+	border-radius:120px;
+	background:#fff;	
+	border:3px solid #3e7e07;
+	margin:10px 0 20px 31px;
+	position:relative;
+	cursor:pointer;
+	box-shadow:0px 0px 5px 3px #3e7e07;	
+}
 .circle_out.over {
     width:120px;
     height:120px;

@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -18,13 +18,13 @@
     </div>
     <div class="pop_subitem js_subitem" id="js_subitem" style="display:none;">
 		<div class="pop_subitem_in">
-            <div><a href="#">应用商店</a></div>
-            <div><a href="#">我的应用</a></div>
+            <div><a id="a_appstore" href="#">应用商店</a></div>
+            <div><a id="a_myapp" href="default.html">我的应用</a></div>
 		</div>
     </div>
     <div class="function_model js_usermanger" style="left:150px;top:20px;">
     	<div class="left_icon">
-        	<div><a href="javascript:;" class="user_mange"></a></div>
+        	<div><a href="user_mange.html" class="user_mange"></a></div>
             <div class="apps_title">用户管理</div>
         </div>
         <div class="right_sub"></div>
@@ -41,15 +41,20 @@
         	<a href="javascript:;" class="weixin_card"></a>
             <div class="user_name"></div>
         </div>
-        <div class="right_sub">很破的一口钟</div>
+        <div class="right_sub">习敬萍</div>
     </div>
     <div class="login_user" style="right:0;top:20px;">
     	<div>
-            <a href="javascript:;" class="app_list"></a>
+            <a href="javascript:;" class="app_list" id="app_list"></a>
             <div class="logo_apps">
-            	<div>usert2已登录</div>
+            	<div id="user">usert2已登录</div>
             </div>  
         </div>
+    </div>
+    <div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:block;">
+        <p><b class="change_info"></b><a href="javascript:;" id="div1">修改个人信息</a></p>
+        <p><b class="change_password"></b><a href="javascript:;" id="div2">修改密码</a></p>
+        <p><b class="loginout"></b><a href="javascript:;" id="div3">注销</a></p>
     </div>
 	<div class="index_body">
     	<div class="body_left">
@@ -85,10 +90,10 @@
             </div>
         </div>
         <div class="body_right">
-        	<div class="weixin_user"><b class="user_face"></b><span>很破的一口钟</span></div>
+        	<div class="weixin_user"><b class="user_face"></b><span>习敬萍</span></div>
             <div class="circle_out">
             	<div class="circle_in">
-                	APP1
+                	<p>习敬萍</p>
                 </div>
                 <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg" /></div>
 				<div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg" /></div>
@@ -103,27 +108,8 @@
                 <div class="circel_ele circel_ele_11 "><img src="/static/images/face.jpg" /></div>
                 <div class="circel_ele circel_ele_12 "><img src="/static/images/face.jpg" /></div>
             </div>
-             <div class="circle_out">
-            	<div class="circle_in">
-                	APP2
-                </div>
-                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg" /></div>
-				<div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg" /></div>
-            </div>
-             <div class="circle_out">
-            	<div class="circle_in">
-                	APP3
-                </div>
-                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg" /></div>
-				<div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg" /></div>
-                <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg" /></div>
+            <div class="circle_out">
+             	<p><a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a></p>
             </div>
         </div>
     </div>
@@ -131,6 +117,6 @@
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
 <script type="text/javascript" src="/static/js/uploadImg.js"></script>
-<script type="text/javascript" src="/static/js/test.js"></script>
+<script type="text/javascript" src="/static/js/ue_effect.js"></script>
 </body>
 </html>
