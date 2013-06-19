@@ -185,7 +185,7 @@ $(document).ready(function () {
 })
 $(document).ready(function(){
     $("#weixinName").click(function(){
-        if(($("#valsesFirst").val()) != "" && $("#valsesFirst").val() != "请输入公众平台帐号名称"){
+        if(($("#valsesFirst").val()) != "" &&  $("#valsesFirst").val() != "请输入公众平台帐号名称"){
             logindata.localSettings.userstep = $("#valsesFirst").val();
             location.href = "step_1.html";
         } else {

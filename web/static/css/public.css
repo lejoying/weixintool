@@ -109,3 +109,12 @@ input[type="checkbox"] {
 	background-repeat:no-repeat;
 	padding: 4px 10px;
 }
+.hide{
+	display:none;	
+}
+.show{
+	display:block;	
+}
+.show_inline{
+	display:inline-block;	
+}

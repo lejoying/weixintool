@@ -15,6 +15,21 @@ $(document).ready(function(){
             }
         }  
     });
+	$(".js_personality").click(function(){
+		if($(".js_subitem").css("display")=="none"){
+			$(".js_usermanger").animate({left:'250px'});
+			$(".js_message").animate({left:'400px'});
+			$(".js_weixin_user").animate({left:'550px'});
+		}else{
+			$(".js_usermanger").animate({left:'150px'});
+			$(".js_message").animate({left:'300px'});
+			$(".js_weixin_user").animate({left:'450px'});
+		}
+		$(".js_subitem").animate({
+			width:'toggle'
+		});
+		addEvent(document.body,"mousedown",clickother);
+	});
 });
 /**
 * 用于检查一个对象是否包含在另外一个对象中
@@ -67,4 +82,27 @@ function getEvent(event) {
             }
     }
     return ev;
+}
+//添加点击空白处关闭弹出框事件
+function addEvent(obj,eventType,func){
+	if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
+	else{obj.addEventListener(eventType,func,false)}
+}
+function clickother(el){
+	thisObj = el.target?el.target:event.srcElement;
+	if(thisObj.id == "js_subitem"||thisObj.id=="js_personality"){
+		return;
+	} 
+	do{		
+		if(thisObj.tagName == "BODY"){			
+			if(document.getElementById("js_subitem")){
+				document.getElementById("js_subitem").style.display = "none";
+				$(".js_usermanger").animate({left:'150px'});
+				$(".js_message").animate({left:'300px'});
+				$(".js_weixin_user").animate({left:'450px'});
+			}
+			return;
+		};
+		thisObj = thisObj.parentNode;
+	}while(thisObj.parentNode);
 }
