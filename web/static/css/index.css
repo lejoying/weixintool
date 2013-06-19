@@ -688,7 +688,7 @@ body{
 	padding:21px;
 	position:absolute;
 	left:240px;
-	top:-7px;
+	top:-8px;
 	background:url(/static/images/weixin_step/sharp.png) no-repeat;	
 }
 .bottom_line{
@@ -892,11 +892,13 @@ body{
 .personal_tr{
 	padding:15px 0;
 	border-bottom:1px solid #637a97;	
+	position:relative;
 }
 .personal_tr img{
 	vertical-align:bottom;
 	margin-left:5px;
     height:80px;
+	width:80px;
 }
 .type_style{
 	color:#fff;
@@ -984,7 +986,7 @@ body{
 .upload_file{
 	position:relative;	
 }
-.input_f{
+.input_f, .input_js{
 	position:absolute;	
 	cursor: pointer;
     direction: rtl;
@@ -992,7 +994,13 @@ body{
     height: 30px;
     opacity: 0;
     width: 90px;
-    left: 497px;
-    top: 62px;
 	cursor:pointer;
+}
+.input_f{
+	left:504px;
+    top: 63px;
+}
+.input_js{
+	left:504px;
+    top: 63px;
 }

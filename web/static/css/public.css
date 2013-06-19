@@ -112,7 +112,7 @@ input[type="checkbox"] {
 .hide{
 	display:none;	
 }
-.show{
+.show, .current{
 	display:block;	
 }
 .show_inline{

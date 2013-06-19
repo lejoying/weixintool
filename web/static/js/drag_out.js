@@ -1,17 +1,8 @@
-//$(".circel_ele").bind("dragover", handleDragOver);
-//$(".circel_ele").bind("dragend", handleDragEnd);
-
 /******************************
 处理circel_ele
 *****************************/
-
-//$(".circel_ele").attr('draggable', 'true');
-
 $(".circel_ele").bind("drag", function (e) {
-//    if (e.preventDefault) {
-//        e.preventDefault();
-//    }
-            $(this).remove();
+    $(this).remove();
 
     var circle= $(".circle_out");
     var amount1 = parseInt(circle.attr("amount"));
@@ -47,11 +38,7 @@ $(".circel_ele").bind("drag", function (e) {
                 img1.setAttribute("src","/static/images/face.jpg");
                 $(button1).append(img1);
                 circle.append(button1);
-
             }
         });
     }
 });
-//$(".circel_ele").bind("dragend", function () {
-//    $(".circel_ele").removeClass("moving");
-//});
