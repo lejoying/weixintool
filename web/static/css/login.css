@@ -10,6 +10,17 @@ body {
 	text-align:center;
 	color:#fff;*/
 }
+.error_warning {
+    position: absolute;
+}
+
+.reg_margin a {
+    font-size: 21px;
+}
+
+.login_form {
+    position: absolute;
+}
 .head_content {
 	width:182px;
 	height:92px;

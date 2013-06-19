@@ -27,9 +27,9 @@ $(document).ready(function () {
             $("#username_error").html("用户名不能为空");
             $("#name1_none").show();
             $("#name_icon").hide();
-        }  else if (b <= 5 || b >= 9) {
+        }  else if (b <= 5 || b >= 29) {
             $("#username1").focus();
-            $("#username_error").html("用户名长度必需大于6小于10");
+            $("#username_error").html("用户名长度必需大于6小于30");
             $("#name1_none").show();
             $("#name_icon").hide();
         } else {

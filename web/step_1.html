@@ -4,40 +4,6 @@
     <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>绑定微信第一步</title>
-    <script type="text/javascript">
-        function loginuser(){
-            document.getElementById("user").innerText=logindata.localSettings.username+",已登录";
-        }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            loginuser();
-        });
-    </script>
-    <script type="text/javascript">
-        function step1_user(){
-            document.getElementById("step_1").innerText=logindata.localSettings.userstep;
-            document.getElementById("step_2").innerText=logindata.localSettings.userstep;
-            document.getElementById("step_3").innerText=logindata.localSettings.userstep;
-        }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            step1_user();
-        });
-    </script>
-    <!--<script type="text/javascript">-->
-        <!--function step2_user(){-->
-            <!--document.getElementById("step_1").innerText=logindata.localSettings.userstep1;-->
-            <!--document.getElementById("step_2").innerText=logindata.localSettings.userstep1;-->
-            <!--document.getElementById("step_3").innerText=logindata.localSettings.userstep1;-->
-        <!--}-->
-    <!--</script>-->
-    <!--<script type="text/javascript">-->
-        <!--$(document).ready(function () {-->
-            <!--step2_user();-->
-        <!--});-->
-    <!--</script>-->
 </head>
 <body>
 <div class="head_slip"></div>
@@ -170,5 +136,27 @@
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/ue_effect.js"></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
+<script type="text/javascript">
+    function loginuser(){
+        document.getElementById("user").innerText=logindata.localSettings.username+",已登录";
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        loginuser();
+    });
+</script>
+<script type="text/javascript">
+    function step1_user(){
+        document.getElementById("step_1").innerText=logindata.localSettings.userstep;
+        document.getElementById("step_2").innerText=logindata.localSettings.userstep;
+        document.getElementById("step_3").innerText=logindata.localSettings.userstep;
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        step1_user();
+    });
+</script>
 </body>
 </html>
