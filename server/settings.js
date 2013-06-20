@@ -3,6 +3,7 @@ root.globaldata = {};
 var serverSetting = {};
 globaldata.serverSetting = serverSetting;
 serverSetting.environment = "local";//local or server
+serverSetting.debug = true;
 
 if (serverSetting.environment == "local") {
     serverSetting.appkey = "2445517113";//魔方石的诱惑

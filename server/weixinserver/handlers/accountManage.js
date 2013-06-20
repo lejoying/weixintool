@@ -86,8 +86,7 @@ accountManage.add = function (data, response) {
 /***************************************
  *     URL：/api2/account/exist
  ***************************************/
-// TODO complete this API as form of "checkAccountNodeExist()"
-accountManage.add = function (data, response) {
+accountManage.exist = function (data, response) {
     response.asynchronous = 1;
     var account = {
         accountname: data.accountname,

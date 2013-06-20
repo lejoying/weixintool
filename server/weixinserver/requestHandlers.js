@@ -39,13 +39,14 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "bindingtoken") {
         weixinManage.bindingtoken(data, response);
-    } else if (operation == "add") {
-        weixinManage.add(data, response);
-    } else if (operation == "delete") {
-        weixinManage.delete(data, response);
-    } else if (operation == "modify") {
-        weixinManage.modify(data, response);
-    } else if (operation == "getall") {
+    }
+    else if (operation == "bindapp") {
+        weixinManage.bindapp(data, response);
+    }
+    else if (operation == "unbindapp") {
+        weixinManage.unbindapp(data, response);
+    }
+    else if (operation == "getall") {
         weixinManage.getall(data, response);
     }
 };
@@ -56,7 +57,8 @@ requestHandlers.userManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "getall") {
         userManage.getall(data, response);
-    } else if (operation == "modify") {
+    }
+    else if (operation == "modify") {
         userManage.modify(data, response);
     }
 };
@@ -66,7 +68,8 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     var operation = pathObject["operation"];
     if (operation == "add") {
         applicationManage.add(data, response);
-    } else if (operation == "modify") {
+    }
+    else if (operation == "modify") {
         applicationManage.modify(data, response);
     }
     else if (operation == "getall") {

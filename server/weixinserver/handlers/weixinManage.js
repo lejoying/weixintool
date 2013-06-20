@@ -65,6 +65,102 @@ weixinManage.bindingtoken = function (data, response) {
 
 }
 
+
+/***************************************
+ *     URL：/api2/weixin/bindapp
+ ***************************************/
+weixinManage.bindapp = function (data, response) {
+    response.asynchronous = 1;
+
+    var weixin = {
+        weixinOpenID: data.weixinopenid
+    };
+
+    var appid = data.appid;
+
+    bindAppNodeWihtWeixinNode();
+
+    function bindAppNodeWihtWeixinNode() {
+        var query = [
+            'MATCH app:App, weixin:Weixin' ,
+            'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.appid! =' + appid,
+            'CREATE UNIQUE app-[:BIND]->weixin',
+            'RETURN weixin, app'
+        ].join('\n');
+
+        var params = {
+            //            appid: parseInt(appid)
+            weixinOpenID: weixin.weixinOpenID
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            }
+            else if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "微信公众账号添加应用失败",
+                    "失败原因": "数据不正常"
+                }));
+                response.end();
+            }
+            else {
+                response.write(JSON.stringify({
+                    "提示信息": "微信公众账号移除应用成功"
+                }));
+                response.end();
+            }
+
+        });
+    }
+}
+
+/***************************************
+ *     URL：/api2/weixin/unbindapp
+ ***************************************/
+weixinManage.unbindapp = function (data, response) {
+    response.asynchronous = 1;
+
+    var weixin = {
+        weixinOpenID: data.weixinopenid
+    };
+
+    var appid = data.appid;
+
+    unbindAppNodeWihtWeixinNode();
+
+    function unbindAppNodeWihtWeixinNode() {
+        var query = [
+            'MATCH app:App-[r:BIND]->weixin:Weixin' ,
+            'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.appid! =' + appid,
+            'DELETE r'
+        ].join('\n');
+
+        var params = {
+            //            appid: parseInt(appid)
+            weixinOpenID: weixin.weixinOpenID
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                response.write(JSON.stringify({
+                    "提示信息": "微信公众账号添加应用失败",
+                    "失败原因": "数据不正常"
+                }));
+                response.end();
+            }
+            else {
+                response.write(JSON.stringify({
+                    "提示信息": "微信公众账号移除应用成功"
+                }));
+                response.end();
+            }
+
+        });
+    }
+}
+
 /***************************************
  *     URL：/api2/weixin/gatall
  ***************************************/
@@ -79,8 +175,10 @@ weixinManage.getall = function (data, response) {
 
     function getallWeixinNode() {
         var query = [
-            'START account=node({uid})' , 'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]->app:App',
-            ' WHERE weixin.status! ={status1}OR weixin.status! ={status2}', 'RETURN weixin, app'
+            'START account=node({uid})' ,
+            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+            'RETURN weixin, app'
         ].join('\n');
 
         var params = {
