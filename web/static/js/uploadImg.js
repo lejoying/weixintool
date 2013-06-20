@@ -6,7 +6,7 @@ $(document).ready(function(){
         var name = $("[name='new_name']").val();
         if(name == ""){
             $(".tip_out").show();
-            $("[name='new_name']").focus();
+            name.focus();
         }else{
             $(".tip_out").hide();
         }

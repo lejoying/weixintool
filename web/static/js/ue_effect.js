@@ -30,6 +30,9 @@ $(document).ready(function(){
 		});
 		addEvent(document.body,"mousedown",clickother);
 	});
+	$(".add_element").click(function(){
+		window.location.href="personal_app.html";
+	});
 });
 /**
 * 用于检查一个对象是否包含在另外一个对象中
@@ -90,7 +93,7 @@ function addEvent(obj,eventType,func){
 }
 function clickother(el){
 	thisObj = el.target?el.target:event.srcElement;
-	if(thisObj.id == "js_subitem"||thisObj.id=="js_personality"){
+	if(thisObj.id == "js_subitem"||thisObj.id=="js_personality"||thisObj.id=="a_appstore"||thisObj.id=="a_myapp"){
 		return;
 	} 
 	do{		

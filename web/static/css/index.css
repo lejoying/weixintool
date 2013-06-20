@@ -34,6 +34,39 @@ body{
 	position:absolute;
 	background:#5b7492;	
 }
+.pop_subitem{
+	height:100px;
+	border:3px solid #6b82a1;
+	border-radius:5px;
+	position:absolute;
+	background:#5b7492;	
+	
+	left:110px;
+	top:20px;
+	z-index:3;
+	border-left:none;
+	width:100px;	
+	overflow:hidden;
+}
+.pop_subitem_in{
+	border-left: 2px solid #6B82A1;
+    height: 64px;
+    margin: 10px;
+    padding-left: 15px;
+    padding-top: 14px;;	
+}
+.pop_subitem_in div a{
+	color:#fff;	
+	line-height:26px;
+	font-size: 14px;
+    text-align: center;
+    text-shadow: 0 1px #2A3C52;
+    width: 100%;
+	opacity:0.75;
+}
+.pop_subitem_in div a:hover{
+	opacity:1;	
+}
 .login_user{
 	position:absolute;
 	width:180px;
@@ -109,10 +142,13 @@ body{
 	border-bottom:1px solid #607b9c;
 }
 .body_right{
-	/*border-left: 3px solid #7589a4;*/
+	border-left: 3px solid #7589a4;
     float: right;
     height:100%;
-    width: 186px;
+    width: 179px;
+	margin-left:5px;
+	border-radius:10px;
+	background:#657c9c;
 }
 .out_frame, .out_frame_add{
 	width:112px;	
@@ -357,14 +393,19 @@ body{
 }
 .weixin_user{
 	color: #FFFFFF;
-    margin: 20px;
-	padding:2px 0 0 25px;	
+	height:63px;
+	line-height:63px;
+	text-align:center;
+	border-bottom:1px solid #607b9c;
+	border-radius:10px 10px 0 0;	
 	position:relative;
+	background:#4c678c;
+	margin-bottom:10px;
 }
 .user_face{
-	left:0px;
-	top:1px;
-	position:absolute;
+	left:-3px;
+	top:5px;
+	position:relative;
 	display:inline-block;
 	width:22px;
 	height:22px;
@@ -408,7 +449,19 @@ body{
 	cursor:pointer;
     transition: -webkit-transform 0.2s ease-out 0s;
 }
-
+.circle_out:hover{
+	width:120px;
+	height:120px;
+	-moz-border-radius:120px;   
+	-webkit-border-radius:120px;
+	border-radius:120px;
+	background:#fff;	
+	border:3px solid #3e7e07;
+	margin:10px 0 20px 31px;
+	position:relative;
+	cursor:pointer;
+	box-shadow:0px 0px 5px 3px #3e7e07;	
+}
 .circle_out.over {
     width:120px;
     height:120px;
@@ -635,7 +688,7 @@ body{
 	padding:21px;
 	position:absolute;
 	left:240px;
-	top:-7px;
+	top:-8px;
 	background:url(/static/images/weixin_step/sharp.png) no-repeat;	
 }
 .bottom_line{
@@ -712,8 +765,9 @@ body{
 	background: -moz-linear-gradient(19% 75% 90deg, #ececec, #fafafa);
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fafafa), to(#ececec));
 	border:1px solid #666;
-	border-radius:5px;	
+	border-radius:10px;	
 	margin-left:314px;
+	box-shadow:2px 2px 8px 0 #333; 
 	opacity:0.9;
 }
 .bind_success img{
@@ -838,11 +892,13 @@ body{
 .personal_tr{
 	padding:15px 0;
 	border-bottom:1px solid #637a97;	
+	position:relative;
 }
 .personal_tr img{
 	vertical-align:bottom;
 	margin-left:5px;
     height:80px;
+	width:80px;
 }
 .type_style{
 	color:#fff;
@@ -930,7 +986,7 @@ body{
 .upload_file{
 	position:relative;	
 }
-.input_f{
+.input_f, .input_js{
 	position:absolute;	
 	cursor: pointer;
     direction: rtl;
@@ -938,7 +994,13 @@ body{
     height: 30px;
     opacity: 0;
     width: 90px;
-    left: 497px;
-    top: 62px;
 	cursor:pointer;
+}
+.input_f{
+	left:504px;
+    top: 63px;
+}
+.input_js{
+	left:504px;
+    top: 63px;
 }

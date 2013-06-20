@@ -123,3 +123,12 @@ input[type="checkbox"] {
 .hide {
     display: none;
 }
+.hide{
+	display:none;	
+}
+.show, .current{
+	display:block;	
+}
+.show_inline{
+	display:inline-block;	
+}
