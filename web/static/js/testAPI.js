@@ -160,7 +160,7 @@ function modifyUser() {
                 "邮箱1": "sf@fs2dk.com",
                 "邮箱2": "sf@f1dk.com",
                 "邮箱3": "sf@fs3dk.com",
-                "手机": "18566664444"
+                "手机": "18566664444",
                 "名称": "说的萨",
                 "图标": "发货的合法身份哈师傅沙发上飞",
                 "上传脚本": "kdkdldf.js",
@@ -260,7 +260,8 @@ function deleteApp(appid) {
             }
         }
     });
-unction modifyApp() {
+}
+function modifyApp() {
     $.ajax({
         type: "POST",
         url: "/api2/app/modify",
@@ -277,4 +278,5 @@ unction modifyApp() {
         success: function (serverData) {
             console.log(serverData);
         }
-    });}
+    });
+}
