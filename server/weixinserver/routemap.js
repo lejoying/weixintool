@@ -1,38 +1,27 @@
 /**
  * Date: 2013.04.15
  * The url route mapping of the restful API web request.
- *
- * demo1:
- *  http://127.0.0.1:8061/api2/access/get
- *  http://127.0.0.1:8061/api2/access/reset?i=0
- *
- * demo2:
- *  http://127.0.0.1:8061/api2/redis/get
- *  http://127.0.0.1:8061/api2/redis/reset?i=0
- *
- *  demo3
- *  http://127.0.0.1:8061/api2/neo4j/get
- *  http://127.0.0.1:8061/api2/neo4j/reset?i=0
- *
- * accountManage:
- *  http://127.0.0.1:8062/api2/account/add?
- *  http://127.0.0.1:8062/api2/account/auth?
- *
  */
 var requestHandlers = require("./requestHandlers");
 var routemap = {
-    "get":{
-        "/api2/account/:operation":requestHandlers.accountManage,
-        "/api2/weixin/:operation":requestHandlers.weixinManage,
-        "/api2/message/:operation":requestHandlers.messageManage,
-        "/api2/apply/:operation":requestHandlers.applyManage
+    "get": {
+        "/api2/account/:operation": requestHandlers.accountManage,
+        "/api2/weixin/:operation": requestHandlers.weixinManage,
+        "/api2/user/:operation": requestHandlers.userManage,
+        "/api2/message/:operation": requestHandlers.messageManage,
+
+        "/api2/app/:operation": requestHandlers.applicationManage
     },
-    "post":{
-        "/api2/message/:operation":requestHandlers.messageManage
+    "post": {
+        "/api2/message/:operation": requestHandlers.messageManage,
+        "/api2/user/:operation": requestHandlers.userManage,
+        "/api2/app/:operation": requestHandlers.applicationManage
+        "/api2/apply/:operation": requestHandlers.applyManage
     },
-    "put":{
+
+    "put": {
     },
-    "del":{
+    "del": {
     }
 };
 

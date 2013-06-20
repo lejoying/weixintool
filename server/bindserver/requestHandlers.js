@@ -11,7 +11,7 @@ var bind = require('./handlers/bind');
 
 requestHandlers.bind = function (request, response, pathObject, data) {
     if (data == null) {
-        response.write(JSON.stringify({a: 1, b: 2}));
+        response.write(JSON.stringify({"提示信息": "bind server 运行正常", b: 2}));
     }
     else {
         bind.message(data, response);

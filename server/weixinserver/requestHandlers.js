@@ -50,27 +50,30 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     }
 };
 
-var messageManage = require('./handlers/messageManage');
-requestHandlers.messageManage = function (request, response, pathObject, data) {
+
+var userManage = require('./handlers/userManage');
+requestHandlers.userManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
-    if (operation == "add") {
-        messageManage.add(data, response);
-    } else if (operation == "leave") {
-        messageManage.leave(data, response);
-    } else if (operation == "adds") {
-        messageManage.adds(data, response);
-    } else if (operation == "addrel") {
-        messageManage.addrel(data, response);
+    if (operation == "getall") {
+        userManage.getall(data, response);
+    } else if (operation == "modify") {
+        userManage.modify(data, response);
     }
 };
 
-var applyManage = require('./handlers/applyManage');
-requestHandlers.applyManage = function (request, response, pathObject, data) {
+var applicationManage = require('./handlers/applicationManage');
+requestHandlers.applicationManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
-        applyManage.add(data, response);
-    } else if (operation == "addtest") {
-        applyManage.addtest(data, response);
+        applicationManage.add(data, response);
+    } else if (operation == "modify") {
+        applicationManage.modify(data, response);
+    }
+    else if (operation == "getall") {
+        applicationManage.getall(data, response);
+    }
+    else if (operation == "delete") {
+        applicationManage.delete(data, response);
     }
 };
 

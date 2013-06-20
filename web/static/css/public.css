@@ -4,7 +4,7 @@
  * QQ:150362521
  * Phone:18210241415
  */
- 
+
 /*** Style Reset ***/
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -15,99 +15,113 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
-	margin: 0;
-	padding: 0;
-	outline: 0;
-	font-size: 100%;
-	vertical-align: baseline;
-	background: transparent;
-	border:0;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    border: 0;
 }
 
 body {
-	line-height: 1.125;
+    line-height: 1.125;
 }
 
 ol, ul {
-	list-style:none
+    list-style: none
 }
-a{
-	text-decoration:none;	
+
+a {
+    text-decoration: none;
 }
+
 button, a {
-	outline:none
+    outline: none
 }
+
 fieldset, img, a img {
-	border:0
+    border: 0
 }
+
 input, textarea {
-	padding: 0;
-	margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 /* remember to define focus styles! */
 
 :focus {
-	outline: 0;
+    outline: 0;
 }
 
 /* remember to highlight inserts somehow! */
 
 ins {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 del {
-	text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 /* tables still need 'cellspacing="0"' in the markup */
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
+
 caption, th, td {
-	text-align:left;
-	font-weight:normal
+    text-align: left;
+    font-weight: normal
 }
+
 table, td, th {
-	vertical-align:middle
+    vertical-align: middle
 }
 
 /*** public style lib ***/
-.clearevery{ 
-	clear: both;
-	height:0;
-	clear:both;
-	overflow:hidden;
+.clearevery {
+    clear: both;
+    height: 0;
+    clear: both;
+    overflow: hidden;
 }
+
 .clearfix {
-	*zoom:1;
+    *zoom: 1;
 }
+
 .clearfix:after, .clearfix:before {
-	display:block;
-	content:"clear";
-	height:0;
-	clear:both;
-	overflow:hidden;
-	visibility:hidden;
+    display: block;
+    content: "clear";
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
 }
-input[type="checkbox"] { 
+
+input[type="checkbox"] {
     cursor: pointer;
     height: 13px;
-	width: 13px;
+    width: 13px;
     margin: 0;
     padding: 0;
     vertical-align: middle;
-	border:none;
-	outline:none;
-	font-size:12px;
+    border: none;
+    outline: none;
+    font-size: 12px;
 }
-.warning_icon{
-	background-image:url(/static/images/public/icon/smallicon.png);	
-	background-repeat:no-repeat;
-	padding: 4px 10px;
+
+.warning_icon {
+    background-image: url(/static/images/public/icon/smallicon.png);
+    background-repeat: no-repeat;
+    padding: 4px 10px;
+}
+
+.hide {
+    display: none;
 }
 .hide{
 	display:none;	
