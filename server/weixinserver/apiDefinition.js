@@ -23,9 +23,7 @@ api = {
             typical: {"accountname": "XXX", "email": "XXX@XXX.XXX"}
         },
         response: {
-
             success: {"提示信息": ["用户名存在" | "邮箱已存在"], "status": "passed"},
-
             failed: {"提示信息": ["验证失败"], "失败原因": ["用户名不存在" | "邮箱不存在" ], "status": "failed"}
         }
     },
@@ -102,6 +100,30 @@ api = {
             }
             },
             failed: {"提示信息": "获取所有绑定微信公众账号失败", "失败原因": "没有已绑定微信公众账号"}
+        }
+    },
+    /***************************************
+     * URL：/api2/weixin/bindapp
+     ***************************************/
+    "weixin_bindapp": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinopenid: "nnnnn", appid: "nnn" }
+        },
+        response: {
+            success: {"提示信息": "微信公众账号添加应用成功"},
+            failed: {"提示信息": "微信公众账号添加应用失败", "失败原因": "数据不正常"}
+        }
+    },
+    /***************************************
+     * URL：/api2/weixin/unbindapp
+     ***************************************/
+    "weixin_unbindapp": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", weixinopenid: "nnnnn", appid: "nnn" }
+        },
+        response: {
+            success: {"提示信息": "微信公众账号移除应用成功"},
+            failed: {"提示信息": "微信公众账号添加应用失败", "失败原因": "数据不正常"}
         }
     }
 }

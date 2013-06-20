@@ -105,7 +105,6 @@ $(document).ready(function () {
             $("#weixinName").val("请输入公众平台帐号名称");
         }
     });
-
 });
 
 $(document).ready(function () {
