@@ -129,6 +129,20 @@ applicationManage.modify = function (data, response) {
     var app = JSON.parse(appStr);
     var script = data.script;
 
+
+    if (checkScript() == false) {
+        response.write(JSON.stringify({
+            "提示信息": "修改应用失败",
+            "失败原因": "脚本形式不正确"
+        }));
+        response.end();
+        return;
+    }
+
+    function checkScript() {  //todo check the healthy of the script
+        return true;
+    }
+
     modifyAppNode();
 
     function modifyAppNode() {
@@ -165,21 +179,6 @@ applicationManage.modify = function (data, response) {
             }
         });
     }
-    if (checkScript() == false) {
-        response.write(JSON.stringify({
-            "提示信息": "修改应用失败",
-            "失败原因": "脚本形式不正确"
-        }));
-        response.end();
-        return;
-    }
-
-    function checkScript() {  //todo check the healthy of the script
-        return true;
-    }
-
-    app.script = script;
-
 }
 
 /***************************************

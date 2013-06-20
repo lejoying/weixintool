@@ -154,6 +154,13 @@ function modifyUser() {
             userid: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
             user: JSON.stringify({
                 id: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
+                "姓名": "说的萨",
+                "地址": "发货的合法身份哈师傅沙发上飞",
+                "邮箱": "sf@fsdk.com",
+                "邮箱1": "sf@fs2dk.com",
+                "邮箱2": "sf@f1dk.com",
+                "邮箱3": "sf@fs3dk.com",
+                "手机": "18566664444"
                 "名称": "说的萨",
                 "图标": "发货的合法身份哈师傅沙发上飞",
                 "上传脚本": "kdkdldf.js",
@@ -253,11 +260,7 @@ function deleteApp(appid) {
             }
         }
     });
-}
-
-
-
-function modifyApp() {
+unction modifyApp() {
     $.ajax({
         type: "POST",
         url: "/api2/app/modify",
@@ -274,5 +277,4 @@ function modifyApp() {
         success: function (serverData) {
             console.log(serverData);
         }
-    });
-}
+    });}

@@ -188,8 +188,7 @@ accountManage.modify = function (data, response) {
 
     function modifyAccountNode() {
         var query = [
-            'MATCH account:Account' ,
-            'WHERE account.uid! ={uid}',
+            'START account=node({uid})',
             'RETURN  account'
         ].join('\n');
 
