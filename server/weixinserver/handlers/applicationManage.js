@@ -124,6 +124,62 @@ applicationManage.delete = function (data, response) {
 applicationManage.modify = function (data, response) {
     response.asynchronous = 1;
 
+    var appid = data.appid;
+    var appStr = data.app;
+    var app = JSON.parse(appStr);
+    var script = data.script;
+
+    modifyAppNode();
+
+    function modifyAppNode() {
+        var query = [
+            'MATCH app:App',
+            'WHERE app.appid! =' + appid,
+            'RETURN  app'
+        ].join('\n');
+
+        var params = {
+//            appid: parseInt(appid)
+            appid: 36
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改应用失败",
+                    "失败原因 ": "脚本形式不正确"
+                }));
+                response.end();
+            } else {
+                var appNode = results.pop().app;
+                appNode.data = app;
+                appNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改应用成功",
+                    "app": app
+                }));
+                response.end();
+            }
+        });
+    }
+    if (checkScript() == false) {
+        response.write(JSON.stringify({
+            "提示信息": "修改应用失败",
+            "失败原因": "脚本形式不正确"
+        }));
+        response.end();
+        return;
+    }
+
+    function checkScript() {  //todo check the healthy of the script
+        return true;
+    }
+
+    app.script = script;
+
 }
 
 /***************************************

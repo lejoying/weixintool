@@ -13,44 +13,56 @@ api = {
         response: {
             success: {"提示信息": "注册账号成功", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
             failed: {"提示信息": "注册账号失败", "失败原因": ["账号名已存在" | "注册邮箱已存在" | "邀请码不正确"]}
+        }
+    },
+    /***************************************
+     *     URL：/api2/account/exist
+     ***************************************/
+    "account_exist": {
+        request: {
+            typical: {"accountname": "XXX", "email": "XXX@XXX.XXX"}
         },
-        /***************************************
-         *     URL：/api2/account/exist
-         ***************************************/
-        "account_exist": {
-            request: {
-                typical: {"accountname": "XXX", "email": "XXX@XXX.XXX"}
-            },
-            response: {
+        response: {
 
-                success: {"提示信息": ["用户名存在" | "邮箱已存在"], "status": "passed"},
+            success: {"提示信息": ["用户名存在" | "邮箱已存在"], "status": "passed"},
 
-                failed: {"提示信息": ["用户名已存在" | "邮箱已存在"], "失败原因": ["用户名已存在" | "邮箱已存在" ], "status": "failed"}
-            }
+            failed: {"提示信息": ["用户名已存在" | "邮箱已存在"], "失败原因": ["用户名已存在" | "邮箱已存在" ], "status": "failed"}
+        }
+    },
+    /***************************************
+     *     URL：/api2/account/auth
+     ***************************************/
+    "account_auth": {
+        request: {
+            typical: {"accountname": "XXX", "password": "******", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
         },
-        /***************************************
-         *     URL：/api2/account/auth
-         ***************************************/
-        "account_auth": {
-            request: {
-                typical: {"accountname": "XXX", "password": "******", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
-            },
-            response: {
-                success: {"提示信息": "账号登录成功", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
-                failed: {"提示信息": "账号登录失败", "失败原因": ["[账号|邮箱|手机]号名不存在" | "密码不正确"]}
-            }
+        response: {
+            success: {"提示信息": "账号登录成功", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
+            failed: {"提示信息": "账号登录失败", "失败原因": ["[账号|邮箱|手机]号名不存在" | "密码不正确"]}
+        }
+    },
+    /***************************************
+     *     URL：/api2/account/trash
+     *     Functionality : Delete accesskey that generated when account auth.
+     ***************************************/
+    "account_trash": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX"}
         },
-        /***************************************
-         *     URL：/api2/account/trash
-         *     Functionality : Delete accesskey that generated when account auth.
-         ***************************************/
-        "account_trash": {
-            request: {
-                typical: {uid: "nnnn", accesskey: "XXXXXX"}
-            },
-            response: {
-                success: {"提示信息": "账号注销成功"}
-            }
+        response: {
+            success: {"提示信息": "账号注销成功"}
+        }
+    },
+    /***************************************
+     * URL：/api2/account/modify
+     ***************************************/
+    "account_modify": {
+        request: {
+            typical: {uid: "nnnn", accesskey: "XXXXXX", account: JSON({})}
+        },
+        response: {
+            success: {"提示信息": "修改账号信息成功", account: {}},
+            failed: {"提示信息": "修改账号信息失败", "失败原因": "账号不存在"}
         }
     }
 }

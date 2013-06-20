@@ -4,6 +4,7 @@
  */
 
 var accountManage = {};
+
 var serverSetting = root.globaldata.serverSetting;
 
 var neo4j = require('neo4j');
@@ -85,7 +86,7 @@ accountManage.add = function (data, response) {
 /***************************************
  *     URL：/api2/account/exist
  ***************************************/
-// todo complete this API as form of "checkAccountNodeExist()"
+// TODO complete this API as form of "checkAccountNodeExist()"
 accountManage.exist = function (data, response) {
     response.asynchronous = 1;
     account = {
@@ -179,14 +180,44 @@ accountManage.auth = function (data, response) {
 // todo complete this API as form of "/api2/user/modify"  , first of all design its definition
 accountManage.modify = function (data, response) {
     response.asynchronous = 1;
-    var weixin =
-    {
-        "accountName": data.accountName,
-        "uid": data.uid,
-        "type": "weixin",
-        "password": data.password,
-        "phone": data.phone,
-        "email": data.email
+    var uid = data.uid;
+    var accountStr = data.account;
+    var account = JSON.parse(accountStr);
+
+    modifyAccountNode();
+
+    function modifyAccountNode() {
+        var query = [
+            'MATCH account:Account' ,
+            'WHERE account.uid! ={uid}',
+            'RETURN  account'
+        ].join('\n');
+
+        var params = {
+            uid: uid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改账号信息失败",
+                    "失败原因 ": "账号不存在"
+                }));
+                response.end();
+            } else {
+                var accountNode = results.pop().account;
+                accountNode.data = account;
+                accountNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改账号信息成功",
+                    "account": account
+                }));
+                response.end();
+            }
+        });
     }
 
 }

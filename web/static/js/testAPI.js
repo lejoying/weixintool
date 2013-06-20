@@ -48,6 +48,7 @@ var data = {};
 
 $(document).ready(function () {
     var now = new Date();
+    data.appid = "36";
     data.uid = "16";
     data.sessionID = data.uid + now.getTime();
     getEvent();
@@ -84,12 +85,15 @@ function eventLoop(event) {
 }
 
 $(document).ready(function () {
+    data.appid = "36";
     data.uid = "16";
     data.accesskey = "123";
     data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
     data.end = 50;
 //    getUsers();
+//    modifyUser();
+
 
 });
 function getUsers() {
@@ -150,13 +154,10 @@ function modifyUser() {
             userid: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
             user: JSON.stringify({
                 id: "oeFW0jtlqpAbSigW2yLvCEwPmQq8",
-                "姓名": "说的萨",
-                "地址": "发货的合法身份哈师傅沙发上飞",
-                "邮箱": "sf@fsdk.com",
-                "邮箱1": "sf@fs2dk.com",
-                "邮箱2": "sf@f1dk.com",
-                "邮箱3": "sf@fs3dk.com",
-                "手机": "18566664444"
+                "名称": "说的萨",
+                "图标": "发货的合法身份哈师傅沙发上飞",
+                "上传脚本": "kdkdldf.js",
+                "应用说明": "飞到天上去"
             })
         },
         success: function (serverData) {
@@ -250,6 +251,28 @@ function deleteApp(appid) {
                 $(".out_frame[appid=" + appid + "]").addClass("hide");
                 getApps();
             }
+        }
+    });
+}
+
+
+
+function modifyApp() {
+    $.ajax({
+        type: "POST",
+        url: "/api2/app/modify",
+        app: {
+            appid: data.appid,
+            accesskey: data.accesskey,
+            app: JSON.stringify({
+                "名称": "说的萨",
+                "图标": "发货的合法身份哈师傅沙发上飞",
+                "上传脚本": "kdkdldf.js",
+                "应用说明": "飞到天上去"
+            })
+        },
+        success: function (serverData) {
+            console.log(serverData);
         }
     });
 }
