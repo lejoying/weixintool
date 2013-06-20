@@ -13,7 +13,7 @@ $(document).ready(function(){
             if(checkHover(fatitem,subitem)){
                 $("#"+itemid).slideUp(150);
             }
-        }  
+        }
     });
 	$(".js_personality").click(function(){
 		if($(".js_subitem").css("display")=="none"){

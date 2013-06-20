@@ -8,37 +8,47 @@
 <body>
 <div class="head_slip"></div>
 <div class="index_content">
-	<!--<div class="head_banner"></div>-->
-    <div class="function_model js_personality"  style="left:0;top:20px;">
-    	<div class="left_icon">
-        	<div><a href="javascript:;" class="personalized" id="js_personality"></a></div>
+    <!--<div class="head_banner"></div>-->
+    <div class="function_model js_personality" style="left:0;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="personalized" id="js_personality"></a>
+            </div>
             <div class="apps_title">个性化应用</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="pop_subitem js_subitem" id="js_subitem" style="display:none;">
-		<div class="pop_subitem_in">
-            <div><a id="a_appstore" href="#">应用商店</a></div>
-            <div><a id="a_myapp" href="default.html">我的应用</a></div>
-		</div>
+        <div class="pop_subitem_in">
+            <div>
+                <a id="a_appstore" href="#">应用商店</a>
+            </div>
+            <div>
+                <a id="a_myapp" href="default.html">我的应用</a>
+            </div>
+        </div>
     </div>
     <div class="function_model js_usermanger" style="left:150px;top:20px;">
         <div class="left_icon">
-        	<div><a href="user_mange.html" class="user_mange"></a></div>
+            <div>
+                <a href="user_mange.html" class="user_mange"></a>
+            </div>
             <div class="apps_title">用户管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="function_model js_message" style="left:300px;top:20px;">
-    	<div class="left_icon">
-        	<div><a href="javascript:;" class="message_mange"></a></div>
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="message_mange"></a>
+            </div>
             <div class="apps_title">消息管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="function_model js_weixin_user" style="left:450px;top:20px;width:210px;">
-    	<div class="left_icon" style="width:90px;">
-        	<a href="javascript:;" class="weixin_card"></a>
+        <div class="left_icon" style="width:90px;">
+            <a href="javascript:;" class="weixin_card"></a>
             <div class="user_name"></div>
         </div>
         <div class="right_sub" id="step_1">习敬萍</div>
@@ -53,24 +63,37 @@
         </div>
     </div>
     <div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:block;">
-    	<p><b class="change_info"></b><a href="javascript:;">修改个人信息</a></p>
-        <p><b class="change_password"></b><a href="javascript:;" >修改密码</a></p>
-        <p><b class="loginout"></b><a href="javascript:;" >注销</a></p>
+        <p><b class="change_info"></b>
+
+            <a href="javascript:;">修改个人信息</a>
+        </p>
+        <p><b class="change_password"></b>
+
+            <a href="javascript:;">修改密码</a>
+        </p>
+        <p><b class="loginout"></b>
+
+            <a href="javascript:;">注销</a>
+        </p>
     </div>
     <div class="index_body">
         <div class="body_left">
-        	<a class="arrow_left" title="上一步" href="javascript:;"><img src="/static/images/weixin_step/arrow-left.png" /></a>
-            <a class="arrow_right" title="下一步" href="javascript:;"><img src="/static/images/weixin_step/arrow-right.png" /></a>
+            <a class="arrow_left" title="上一步" href="javascript:;"><img src="/static/images/weixin_step/arrow-left.png"/>
+            </a>
+            <a class="arrow_right" title="下一步" href="javascript:;">
+                <img src="/static/images/weixin_step/arrow-right.png"/></a>
             <div class="step_title">绑定微信帐号<b>(以下操作需要在微信公众平台进行操作)</b></div>
             <div class="setp_out" id="step">
-            	<div class="circel_step" index="1">1</div>
+                <div class="circel_step" index="1">1</div>
                 <div class="circel_step" index="2">2</div>
                 <div class="circel_step" index="3">3</div>
                 <div class="circel_step" index="4">4</div>
                 <div class="circel_step" index="5">5</div>
             </div>
             <div class="step_word" id="tip">
-                <div class="word_tip current" index="1">首先登录<a href="http://mp.weixin.qq.com">【微信公众平台】</a></div>
+                <div class="word_tip current" index="1">首先登录
+                    <a href="http://mp.weixin.qq.com">【微信公众平台】</a>
+                </div>
                 <div class="word_tip hide" index="2">关闭编辑模式</div>
                 <div class="word_tip hide" index="3">进入开发者模式，点击成为“开发者”</a></div>
                 <div class="word_tip hide" index="4">成为开发者，并开启开发者模式</div>
@@ -84,30 +107,30 @@
             <div class="step_img_form hide" index="2"><img src="/static/images/weixin_step/step_2.png"/></div>
             <div class="step_img_form hide" index="3"><img src="/static/images/weixin_step/step_3.png"/></div>
             <div class="step_img hide" index="4">
-                <p><label>URL</label><input class="urllink" name="" type="text" value="http://42.96.138.221"/><a
-                        href="javascript:;" title="复制文本框中内容"></a></p>
-                <p><label>Token</label><input class="urllink" name="" type="text" value="tund0f4d3c"/><a href="javascript:;"></a>
+                <p><label>URL</label><input class="urllink" name="" type="text" value="http://bindwx.lejoying.com/"/>
+
+                    <a href="javascript:;" title="复制文本框中内容"></a>
+                </p>
+                <p><label>Token</label><input id="bindingToken" class="urllink" name="" type="text" value="tund0f4d3c"/>
+
+                    <a href="javascript:;"></a>
+                </p>
                 </p>
             </div>
             <div class="step_img_form hide" index="5">
                 <div class="bind_success">
-                	<div class="state">
-                    	<img src="/static/images/weixin_step/load.gif" />
+                    <div class="state">
+                        <img src="/static/images/weixin_step/load.gif"/>
                         <!--<img src="/static/images/weixin_step/right.png" />-->
                     </div>
                     <div class="bing_end">正在绑定</div>
-                   <!-- <div class="bing_end">绑定成功</div>-->
+                    <!-- <div class="bing_end">绑定成功</div>-->
                 </div>
             </div>
         </div>
         <div class="body_right">
             <div class="weixin_user"><b class="user_face"></b><span id="step_2">习敬萍</span></div>
-            <div class="circle_out" id="id1">
-                <div class="circle_in"><p id="step_3">习敬萍</p>
-                </div>
-                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
-            </div>
-   
+
             <div class="circle_out_focus" id="id2">
                 <div class="circle_in"><p id="step_4">微信公众帐号2</p>
                 </div>
@@ -127,18 +150,39 @@
                 <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
                 <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
             </div>
-             <div class="circle_out">
-             	<p><a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a></p>
+            <!--/*************************************** ***************************************-->
+            <!--* template weixin_list-->
+            <!--*************************************** ***************************************/-->
+            <div class="hide js_weixin_list template" template="weixin_list">
+               <?js for (var index in data.weixins) { ?><?js var weixin=data.weixins[index]; ?><?js if(weixin==null) { ?><?js continue; ?><?js } ?>
+                <div class="circle_out" id="id1">
+                    <div class="circle_in"><p id="step_31">#{weixin.weixinName.substr(0,8)}</p>
+                    </div>
+                    <?js for (var index in weixin.apps) { ?><?js var app=weixin.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
+                    <div class="circel_ele circel_ele_#{parseInt(index)+1} "><img src="#{app.icon}"/></div>
+                    <?js } ?>
+                </div>
+                <?js } ?>
+            </div>
+            <!--/*************************************** ***************************************-->
+            <!--* template weixin_list-->
+            <!--*************************************** ***************************************/-->
+
+
+            <div class="circle_out">
+                <p>
+                    <a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a>
+                </p>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/ue_effect.js"></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
 <script type="text/javascript">
-    function loginuser(){
-        document.getElementById("user").innerText=logindata.localSettings.username+",已登录";
+    function loginuser() {
+        document.getElementById("user").innerText = logindata.localSettings.username + ",已登录";
     }
 </script>
 <script type="text/javascript">
@@ -147,10 +191,9 @@
     });
 </script>
 <script type="text/javascript">
-    function step1_user(){
-        document.getElementById("step_1").innerText=logindata.localSettings.userstep;
-        document.getElementById("step_2").innerText=logindata.localSettings.userstep;
-        document.getElementById("step_3").innerText=logindata.localSettings.userstep;
+    function step1_user() {
+        document.getElementById("step_1").innerText = logindata.localSettings.userstep;
+        document.getElementById("step_2").innerText = logindata.localSettings.userstep;
     }
 </script>
 <script type="text/javascript">
@@ -158,5 +201,7 @@
         step1_user();
     });
 </script>
+<script type="text/javascript" src="/static/js/ue_api.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 </body>
 </html>

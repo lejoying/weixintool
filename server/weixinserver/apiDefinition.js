@@ -93,10 +93,15 @@ api = {
             typical: {uid: "nnnn", accesskey: "XXXXXX"}
         },
         response: {
-            success: {"提示信息": "获取所有微信绑定用户成功", weixins: {
-                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"},
-                (weixinID): {weixinID: "88888", weixinName: "全球时尚", token: "f7d8f798d7f"}
-            }}
+            success: {"提示信息": "获取所有绑定微信公众账号成功", weixins: {
+                (weixinopenid): {weixinopenid: "nnnnn", weixinName: "习近平", token: "f7d8f798d7f", apps: [
+                    {id: "..", "……": "......"},
+                    "..."
+                ]},
+                ("..."): "..."
+            }
+            },
+            failed: {"提示信息": "获取所有绑定微信公众账号失败", "失败原因": "没有已绑定微信公众账号"}
         }
     }
 }
@@ -153,8 +158,6 @@ api = {
                 "..."
             ]},
             failed: {"提示信息": "获得应用列表失败", "失败原因": "指定微信公众账号|账号不存在"}
-
-
         }
     },
     /***************************************

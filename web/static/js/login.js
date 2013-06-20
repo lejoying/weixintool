@@ -21,9 +21,11 @@ $(document).ready(function () {
         $("[name='username1']").attr("class", "input_text");
         if (name == "") {
             usernameNone();
-        } else if (b <= 5 || b >= 29) {
+        }
+        else if (b <= 5 || b >= 29) {
             usernameNone1();
-        } else {
+        }
+        else {
             $("#username_right").show();
             $(".error_warning_user").hide();
         }
@@ -38,9 +40,11 @@ $(document).ready(function () {
         $("[name='password1']").attr("class", "input_text");
         if (x == "") {
             passwordNone();
-        } else if (y <= 5 || y >= 30) {
+        }
+        else if (y <= 5 || y >= 30) {
             passwordNone1();
-        } else {
+        }
+        else {
             $("#password_right").show();
             $(".error_warning_password").hide();
         }
@@ -53,11 +57,12 @@ $(document).ready(function () {
         var text = $("[name='username1']").val();
         var passwordPlaint = $("[name='password1']").val();
         var password = hex_sha1(passwordPlaint);
-//        var password = (passwordPlaint);
+        //        var password = (passwordPlaint);
         if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
             $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
-        } else {
+        }
+        else {
             var user = {
                 account: null,
                 phone: null,
@@ -86,7 +91,8 @@ $(document).ready(function () {
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
-                    } else {
+                    }
+                    else {
                     }
                 }
             });
@@ -100,11 +106,12 @@ $(document).ready(function () {
         var text = $("[name='username1']").val();
         var passwordPlaint = $("[name='password1']").val();
         var password = passwordPlaint;
-//        var password = hex_sha1(passwordPlaint);
+        //        var password = hex_sha1(passwordPlaint);
         if ((text == "") || (password == "")) {
             $(".error_warning").toggle();
             $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "用户名密码不能为空！");
-        } else {
+        }
+        else {
             var user = {
                 account: null,
                 phone: null,
@@ -133,7 +140,8 @@ $(document).ready(function () {
                     else if (data["提示信息"] == "账号登录失败") {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
-                    } else {
+                    }
+                    else {
                     }
                 }
             });
@@ -170,37 +178,30 @@ function passwordNone1() {
     $("#password_right").hide();
     $(".error_warning_password").show();
 }
+//$(document).ready(function () {
+//    $("#weixinAdd").click(function () {
+//        var weixinName = $(".text_weixinName").val();
+//        $.ajax({
+//            type: "get",
+//            url: "/api2/weixinuer/add",
+//            data: {"weixinName": weixinName},
+//            success: function (data) {
+//                //返回正确操作
+//            }
+//        });
+//    });
+//})
 $(document).ready(function () {
-    $("#weixinAdd").click(function () {
-        var weixinName = $(".text_weixinName").val();
-        $.ajax({
-            type: "get",
-            url: "/api2/weixinuer/add",
-            data: {"weixinName": weixinName},
-            success: function (data) {
-                //返回正确操作
-            }
-        });
-    });
-})
-$(document).ready(function(){
-    $("#weixinName").click(function(){
-        if(($("#valsesFirst").val()) != "" &&  $("#valsesFirst").val() != "请输入公众平台帐号名称"){
-            logindata.localSettings.userstep = $("#valsesFirst").val();
-            location.href = "step_1.html";
-        } else {
-            document.getElementById("valsesFirst").value="请输入公众平台帐号名称";
-        }
-    });
-    $("#id1").click(function(){
+
+    $("#id1").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
         //var node2= document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node1;
         //document.getElementById("id2").innerHTML = node1;
     });
-    $("#id2").click(function(){
+    $("#id2").click(function () {
         var node1 = document.getElementById("id1").innerHTML;
-        var node2= document.getElementById("id2").innerHTML;
+        var node2 = document.getElementById("id2").innerHTML;
         document.getElementById("id1").innerHTML = node2;
         document.getElementById("id2").innerHTML = node1;
     });
@@ -258,7 +259,8 @@ $(document).ready(function () {
         }
         if (index1 != 5) {
             index1 = parseInt(index1) + 1;
-        } else {
+        }
+        else {
             index1 = 1;
         }
         $(".step_img_form").addClass("hide");
@@ -295,7 +297,8 @@ $(document).ready(function () {
         }
         if (index1 != 1) {
             index1 = parseInt(index1) - 1;
-        } else {
+        }
+        else {
             index1 = 5;
         }
         $(".step_img_form").addClass("hide");
@@ -315,8 +318,8 @@ $(document).ready(function () {
     $(".login_opt_menu").hide();
     $(".app_list").click(function () {
         $(".login_opt_menu").animate({
-			height:'toggle'
-		});
+            height: 'toggle'
+        });
         addEvent(document.body, "mousedown", clickIndexOther);
     });
 })
@@ -358,16 +361,19 @@ $(document).ready(function () {
             $(".display_none").hide();
             $("#phone").show();
             $("#add_info_2").show();
-        } else if (($(".value_style").val()) != "") {
+        }
+        else if (($(".value_style").val()) != "") {
             $(".display_none").hide();
             $("#email").show();
             $("#add_info_2").show();
-        } else if ((($(".key_style").val()) || ($(".value_style").val())) != "") {
+        }
+        else if ((($(".key_style").val()) || ($(".value_style").val())) != "") {
             $(".display_none").hide();
             $("#phone").show();
             $("#email").show();
             $("#add_info_2").show();
-        } else {
+        }
+        else {
             alert("key and value 不能为空！");
         }
     });
@@ -382,15 +388,18 @@ $(document).ready(function () {
             $("#phone").show();
             $("#email").show();
             $("#add_info_2").show();
-        } else if (($("#phone").val()) != "") {
+        }
+        else if (($("#phone").val()) != "") {
             $(".display_none").hide();
             $("#phone").show();
             $("#add_info_2").show();
-        } else if (($("#email").val()) != "") {
+        }
+        else if (($("#email").val()) != "") {
             $(".display_none").hide();
             $("#email").show();
             $("#add_info_2").show();
-        } else {
+        }
+        else {
             $(".display_none").hide();
             $("#phone").show();
             $("#add_info_2").show();
@@ -399,10 +408,10 @@ $(document).ready(function () {
 })
 
 var selectall = true;
-function checkAll(e, itemName){
-	var checkbox = document.getElementsByName(itemName);
-	for (var i=0; i<checkbox.length; i++){
-		checkbox[i].checked = selectall;	
-	}
-	selectall = !selectall;
+function checkAll(e, itemName) {
+    var checkbox = document.getElementsByName(itemName);
+    for (var i = 0; i < checkbox.length; i++) {
+        checkbox[i].checked = selectall;
+    }
+    selectall = !selectall;
 }

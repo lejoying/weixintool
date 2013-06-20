@@ -60,7 +60,8 @@
     <div class="index_body">
         <div class="body_left">
             <div class="apphead_title">添加应用</div>
-            <div class="app_list template hide" template="app_list">
+            <div class="hide js_app_list template" template="app_list">
+
                 <?js var left=40; ?>
                 <?js for (var index in data.apps) { ?><?js var app=data.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
                 <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" itemid="app_opreation1" appid="#{app.appid}">

@@ -16,7 +16,8 @@ $(document).ready(function () {
 
             bindingtoken(weixinName);
 
-        } else {
+        }
+        else {
             alert("绑定微信号不能为空！");
         }
     });
@@ -91,8 +92,8 @@ $(document).ready(function () {
     data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
     data.end = 50;
-//    getUsers();
-//    modifyUser();
+    //    getUsers();
+    //    modifyUser();
 
 
 });
@@ -160,7 +161,7 @@ function modifyUser() {
                 "邮箱1": "sf@fs2dk.com",
                 "邮箱2": "sf@f1dk.com",
                 "邮箱3": "sf@fs3dk.com",
-                "手机": "18566664444"
+                "手机": "18566664444",
                 "名称": "说的萨",
                 "图标": "发货的合法身份哈师傅沙发上飞",
                 "上传脚本": "kdkdldf.js",
@@ -181,7 +182,8 @@ $(document).ready(function () {
         var description = $("#app_description").val();
         if (name != "") {
             addApp(name, description);
-        } else {
+        }
+        else {
             alert("应用名称不能为空！");
         }
     });
@@ -260,7 +262,8 @@ function deleteApp(appid) {
             }
         }
     });
-unction modifyApp() {
+}
+function modifyApp() {
     $.ajax({
         type: "POST",
         url: "/api2/app/modify",
@@ -277,4 +280,5 @@ unction modifyApp() {
         success: function (serverData) {
             console.log(serverData);
         }
-    });}
+    });
+}
