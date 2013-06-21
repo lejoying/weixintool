@@ -54,7 +54,7 @@ $(document).ready(function () {
     data.uid = "91";
     data.accesskey = "123";
     data.sessionID = data.uid + now.getTime();
-    getEvent();
+//    getEvent();
 });
 
 
@@ -235,4 +235,42 @@ $(document).ready(function () {
         var script = urlData.substr(37);
         return script;
     }
+
 });
+
+/*************************************** ***************************************
+ *    bind app    unbind app
+ *************************************** ***************************************/
+
+$(document).ready(function () {
+    bindapp();
+//    unbindapp();
+});
+function bindapp() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/weixin/bindapp?",
+        data: {
+            "appid": 107,
+            "weixinopenid": "gh_c6cd8a443586"
+        },
+        success: function (data) {
+            alert(JSON.stringify(data));
+        }
+    });
+}
+
+
+//function unbindapp() {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api2/weixin/unbindapp?",
+//        data: {
+//            "appid": 36,
+//            "weixinopenid": "gh_c6cd8a443586"
+//        },
+//        success: function (data) {
+//            alert(JSON.stringify(data));
+//        }
+//    });
+//}
