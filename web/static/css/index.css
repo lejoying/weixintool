@@ -909,10 +909,14 @@ body{
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#425d7d), to(#4c6a8f));	
 }
 .infomation_bg{
-	background:#d4d4d4;
-	color:#333333;
-	padding:5px 10px 6px;
-	font-size:15px;	
+    background: none repeat scroll 0 0 #D4D4D4;
+    color: #333333;
+    display: inline-block;
+    font-size: 15px;
+    height: 20px;
+    line-height: 20px;
+    padding: 5px 10px 6px;
+    width: 240px;
 }
 .infomation_bg:hover{
 	background:#e4e4e4;
