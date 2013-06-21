@@ -147,6 +147,7 @@ function getWeixins() {
                 function handleDragStart(e) {
                     this.style.opacity = '0.2';
                     dragSrcEl = this;
+                    var appid = $(this).attr("appid");
                     this.classList.add('moving');
                 }
                 function handleDragOver(e) {
@@ -191,7 +192,9 @@ function getWeixins() {
 
                 $(".circle_out").bind("drop", function (arg) {
                     if ($(dragSrcEl).hasClass("out_frame")) {
-                        append_circle($(this));
+//                        alert($(dragSrcEl).attr("appid"));
+                        var appid = $(dragSrcEl).attr("appid");
+                        append_circle($(this), appid);
                     }
                 });
 
@@ -200,7 +203,7 @@ function getWeixins() {
                     $(".circle_out").removeClass("moving");
 
                 });
-                function append_circle(circle) {
+                function append_circle(circle, appid) {
                     var amount = parseInt(circle.attr("amount"));
                     var button=document.createElement("div");
                     button.setAttribute("class","circel_ele circel_ele_"+(++amount));
@@ -215,7 +218,7 @@ function getWeixins() {
                     $.ajax({
                         type: "GET",
                         url: "/api2/weixin/bindapp",
-                        data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: $(this).attr("appid")},
+                        data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: appid},
                         success: function (event, data) {
                             if (data["提示信息"] == "微信公众账号添加应用成功") {
                             }
