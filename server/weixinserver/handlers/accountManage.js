@@ -19,7 +19,7 @@ accountManage.add = function (data, response) {
     var account = {
         accountName: data.accountName,
         phone: data.phone,
-        email: data.email,
+//        email: data.email,
         password: data.password
     };
 
@@ -34,8 +34,8 @@ accountManage.add = function (data, response) {
 
         var params = {
             accountName: account.accountName,
-            phone: account.phone,
-            email: account.email
+            phone: account.phone
+//            email: account.email
         };
 
         db.query(query, params, function (error, results) {
@@ -227,7 +227,6 @@ accountManage.auth = function (data, response) {
 /***************************************
  *     URL：/api2/account/modify
  ***************************************/
-// todo complete this API as form of "/api2/user/modify"  , first of all design its definition
 accountManage.modify = function (data, response) {
     response.asynchronous = 1;
     var uid = data.uid;
