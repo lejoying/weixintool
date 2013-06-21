@@ -230,11 +230,14 @@ function getWeixins() {
                     $(button).append(img);
                     circle.append(button);
                     circle.attr("amount", amount);
+//                    var i = $(circle);
+//                    alert(i.attr("weixinOpenID"));
+//                    alert(appid);
 
                     $.ajax({
                         type: "GET",
                         url: "/api2/weixin/bindapp",
-                        data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: appid},
+                        data: {uid: "91", accesskey: "123", weixinopenid: $(circle).attr("weixinOpenID"), appid: appid},
                         success: function (event, data) {
                             if (data["提示信息"] == "微信公众账号添加应用成功") {
                             }
@@ -244,24 +247,30 @@ function getWeixins() {
                         }
                     });
 
-                    digui($(button));
+                    digui($(circle),appid,$(button));
 
                 }
-                function digui(qq){
+                function digui(circle,appid,qq){
+                    alert($(circle).attr("weixinOpenID"));
+                    alert(appid);
                     qq.bind("drag", function (e) {
                         qq.remove();
-                        $.ajax({
-                            type: "GET",
-                            url: "/api2/weixin/unbindapp",
-                            data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: $(this).attr("appid")},
-                            success: function (event, data) {
-                                if (data["提示信息"] == "微信公众账号移除应用成功") {
-                                }
-                                else{
+                        if($(this).attr("appid")!=99){
+                            $.ajax({
+                                type: "GET",
+                                url: "/api2/weixin/unbindapp",
+                                data: {uid: "91", accesskey: "123", weixinopenid: $(circle).attr("weixinOpenID"), appid: $(this).attr("appid")},
+                                success: function (event, data) {
+                                    if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                    }
+                                    else{
 
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+
+
                         var circle= $($(".circle_out")[0]);
                         var amount1 = parseInt(circle.attr("amount"));
                         circle.attr("amount", amount1 - 1);
@@ -283,46 +292,55 @@ function getWeixins() {
                     });
                 }
 
-                for(var acc=0;acc<$(".circel_ele").length;acc++){
-                    var temp = $($(".circel_ele")[acc]);
-                    temp.bind("drag", function (e) {
-                        $(this).remove();
-                        $.ajax({
-                            type: "GET",
-                            url: "/api2/weixin/unbindapp",
-                            data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: $(this).attr("appid")},
-                            success: function (event, data) {
-                                if (data["提示信息"] == "微信公众账号移除应用成功") {
-                                }
-                                else{
-
-                                }
+                for(var acc=0;acc<$(".circle_out").length;acc++){
+                    for(var acc2=0;acc2<$($(".circle_out")[acc]).attr("amount");acc2++){
+                        var temp = $($(".circle_out")[acc])[0].children[acc2+1];
+                        var weixinOpenID0 = $($(".circle_out")[acc]).attr("weixinOpenID");
+                        var appid0 = $(temp).attr("appid");
+//                        alert($($(".circle_out")[acc]).attr("weixinOpenID"));
+//                        alert($(temp).attr("appid"));
+                        $(temp).bind("drag", function (e) {
+//                            alert(appid0);
+                            $(this).remove();
+                            if(appid0!=99){
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/api2/weixin/unbindapp",
+                                    data: {uid: "91", accesskey: "123", weixinopenid: weixinOpenID0, appid: appid0},
+                                    success: function (event, data) {
+                                        if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                            //                                        alert(appid0);
+                                        }
+                                        else{
+                                            //                                        alert(appid0);
+                                        }
+                                    }
+                                });
                             }
-                        });
 
-                        var circle= $(".circle_out");
-                        var amount1 = parseInt(circle.attr("amount"));
-                        circle.attr("amount", amount1 - 1);
-                        //先删除所有ele
-                        var all = $(".circel_ele");
-                        all.remove();
-                        //重新排列
-                        for(var i=1; i<amount1; i++){
-                            var button1=document.createElement("div");
-                            button1.setAttribute("class","circel_ele circel_ele_"+(i));
-                            button1.setAttribute("title","微信订餐");
-                            button1.setAttribute('draggable', 'true');
-                            var img1 = document.createElement("img");
-                            img1.setAttribute("src","/static/images/face.jpg");
-                            $(button1).append(img1);
-                            circle.append(button1);
-                            digui($(button1));
-                        }
-                    });
+//                            var circle= $($(".circle_out")[acc])[0];
+//                            var amount1 = parseInt(circle.attr("amount"));
+//                            circle.attr("amount", amount1 - 1);
+//                            //先删除所有ele
+//                            var all = $(".circel_ele");
+//                            all.remove();
+//                            //重新排列
+//                            for(var i=1; i<amount1; i++){
+//                                var button1=document.createElement("div");
+//                                button1.setAttribute("class","circel_ele circel_ele_"+(i));
+//                                button1.setAttribute("title","微信订餐");
+//                                button1.setAttribute('draggable', 'true');
+//                                var img1 = document.createElement("img");
+//                                img1.setAttribute("src","/static/images/face.jpg");
+//                                $(button1).append(img1);
+//                                circle.append(button1);
+//                                digui($(button1));
+//                            }
+                        });
+                    }
+
                 }
             }
-
-
 //            registerWeixinListEvent();
         }
     });
@@ -409,29 +427,29 @@ $(document).ready(function () {
         var script = urlData.substr(37);
         return script;
     }
-});}
+});
 
 /*************************************** ***************************************
  *    bind app    unbind app
  *************************************** ***************************************/
 
-$(document).ready(function () {
-    bindapp();
-//    unbindapp();
-});
-function bindapp() {
-    $.ajax({
-        type: "GET",
-        url: "/api2/weixin/bindapp?",
-        data: {
-            "appid": 36,
-            "weixinopenid": "gh_c6cd8a443586"
-        },
-        success: function (data) {
-            alert(JSON.stringify(data));
-        }
-    });
-}
+//$(document).ready(function () {
+//    bindapp();
+////    unbindapp();
+//});
+//function bindapp() {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api2/weixin/bindapp?",
+//        data: {
+//            "appid": 77,
+//            "weixinopenid": "gh_7a898e6d9109"
+//        },
+//        success: function (data) {
+////            alert(JSON.stringify(data));
+//        }
+//    });
+//}
 
 
 //function unbindapp() {
