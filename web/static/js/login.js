@@ -87,10 +87,10 @@ $(document).ready(function () {
                     if (data["提示信息"] == "账号登录成功") {
                         location.href = "step.html";
                     }
-//                    else if (data["提示信息"] == "账号登录失败") {
-//                        $(".error_warning").toggle();
-//                        $("#error_text").text("用户名或密码错误！");
-//                    }
+                    else if (data["提示信息"] == "账号登录失败") {
+                        $(".error_warning").toggle();
+                        $("#error_text").text("用户名或密码错误！");
+                    }
                     else {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");

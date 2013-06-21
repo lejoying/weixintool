@@ -132,6 +132,8 @@ function getWeixins() {
             var nTemplate = getTemplate("weixin_list");
             var innerHtml = nTemplate.template.render();
             nTemplate.templateDiv.html(innerHtml);
+            nTemplate.templateDiv.removeClass("hide");
+
 
             {
                 String.format = function (src) {
@@ -209,11 +211,38 @@ function getWeixins() {
                     $(button).append(img);
                     circle.append(button);
                     circle.attr("amount", amount);
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/api2/weixin/bindapp",
+                        data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: $(this).attr("appid")},
+                        success: function (event, data) {
+                            if (data["提示信息"] == "微信公众账号添加应用成功") {
+                            }
+                            else{
+
+                            }
+                        }
+                    });
+
                     digui($(button));
+
                 }
                 function digui(qq){
                     qq.bind("drag", function (e) {
                         qq.remove();
+                        $.ajax({
+                            type: "GET",
+                            url: "/api2/weixin/unbindapp",
+                            data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: $(this).attr("appid")},
+                            success: function (event, data) {
+                                if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                }
+                                else{
+
+                                }
+                            }
+                        });
                         var circle= $($(".circle_out")[0]);
                         var amount1 = parseInt(circle.attr("amount"));
                         circle.attr("amount", amount1 - 1);
@@ -234,8 +263,47 @@ function getWeixins() {
                         }
                     });
                 }
+
+                for(var acc=0;acc<$(".circel_ele").length;acc++){
+                    var temp = $($(".circel_ele")[acc]);
+                    temp.bind("drag", function (e) {
+                        $(this).remove();
+                        $.ajax({
+                            type: "GET",
+                            url: "/api2/weixin/unbindapp",
+                            data: {uid: "16", accesskey: "123", weixinopenid: $($(".circle_out")[0]).attr("weixinOpenID"), appid: $(this).attr("appid")},
+                            success: function (event, data) {
+                                if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                }
+                                else{
+
+                                }
+                            }
+                        });
+
+                        var circle= $(".circle_out");
+                        var amount1 = parseInt(circle.attr("amount"));
+                        circle.attr("amount", amount1 - 1);
+                        //先删除所有ele
+                        var all = $(".circel_ele");
+                        all.remove();
+                        //重新排列
+                        for(var i=1; i<amount1; i++){
+                            var button1=document.createElement("div");
+                            button1.setAttribute("class","circel_ele circel_ele_"+(i));
+                            button1.setAttribute("title","微信订餐");
+                            button1.setAttribute('draggable', 'true');
+                            var img1 = document.createElement("img");
+                            img1.setAttribute("src","/static/images/face.jpg");
+                            $(button1).append(img1);
+                            circle.append(button1);
+                            digui($(button1));
+                        }
+                    });
+                }
             }
-            nTemplate.templateDiv.removeClass("hide");
+
+
 //            registerWeixinListEvent();
         }
     });
