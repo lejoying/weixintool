@@ -235,7 +235,7 @@ $(document).ready(function () {
         var script = urlData.substr(37);
         return script;
     }
-});}
+});
 
 /*************************************** ***************************************
  *    bind app    unbind app
