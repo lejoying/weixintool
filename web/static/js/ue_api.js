@@ -54,7 +54,7 @@ $(document).ready(function () {
     data.uid = "91";
     data.accesskey = "123";
     data.sessionID = data.uid + now.getTime();
-//    getEvent();
+    getEvent();
 });
 
 
@@ -242,7 +242,7 @@ $(document).ready(function () {
  *************************************** ***************************************/
 
 $(document).ready(function () {
-    bindapp();
+//    bindapp();
 //    unbindapp();
 });
 function bindapp() {
