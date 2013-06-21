@@ -411,7 +411,7 @@ body{
 	height:22px;
 	background:url(/static/images/public/icon/smallicon.png) -128px -22px;	
 }
-.circle_out, .circle_in, .circel_ele, .circel_step{
+.circle_out, .circle_in, .circel_ele, .circel_step,.circle_out_new{
 	text-align:center;
 	display: -moz-box;
 	display: -webkit-box;
@@ -435,7 +435,7 @@ body{
     -khtml-user-drag: element;
     -webkit-user-drag: element;
 }
-.circle_out{
+.circle_out,.circle_out_new{
 	width:120px;
 	height:120px;
 	-moz-border-radius:120px;   
