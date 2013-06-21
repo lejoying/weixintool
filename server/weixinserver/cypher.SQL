@@ -54,6 +54,10 @@ CREATE UNIQUE app-[r:BIND]->weixin
 RETURN weixin, app, r
 
 
+MATCH weixin:Weixin-[r]-other
+RETURN weixin, r
+
+
 /***************************************
  *     user
  ***************************************/

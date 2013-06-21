@@ -13,7 +13,6 @@ push.notify = function (uid, sessionID, event) {
         url: "http://127.0.0.1:8065/api2/session/notify",
         success: function (dataStr) {
             var data = JSON.parse(dataStr);
-            console.log("needReload set as: ", data.nextPostTime, data["提示信息"]);
             if (data["提示信息"] == "定时发布器尚未正常运行") {
                 startPublishing();
             }
