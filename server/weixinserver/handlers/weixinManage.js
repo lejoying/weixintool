@@ -178,8 +178,8 @@ weixinManage.getall = function (data, response) {
     function getallWeixinNode() {
         var query = [
             'START account=node({uid})' ,
-            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]->app:App',
-            ' WHERE weixin.status! ={status1}OR weixin.status! ={status2}',
+            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
             'RETURN weixin, app'
         ].join('\n');
 

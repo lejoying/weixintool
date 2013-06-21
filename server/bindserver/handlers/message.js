@@ -6,6 +6,15 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 var parser = require('./../tools/sax2json');
+var base64 = require('./../tools/base64');
+var replyTemplate = require('./../tools/replyTemplate');
+
+var vm = require('vm');
+
+var scriptPool = {};
+
+var debug = serverSetting.debug;
+
 message.message = function (data, getParam, response) {
     response.asynchronous = 1;
 
@@ -70,36 +79,42 @@ message.message = function (data, getParam, response) {
 
         function resolveReply() {
             reply = {
+                ToUserName: "",
+                FromUserName: "",
+                CreateTime: now.getTime(),
                 type: "text",
                 text: {
-                    content: "【公众账号管理工具】\n"
+                    content: ""
                 },
                 music: {
-                    MusicUrl: "http://baidu.com/lala.map4",
-                    HQMusicUrl: "http://baidu.com/lala.map5"
+                    Title: "我的音乐",
+                    Description: "我的音乐很好听",
+                    MusicUrl: "http://124.202.164.17/download/24482991/31451002/1/mp3/107/128/1320945678443_384/LS9MDWtPO6z7yvJnA9bg==.mp3",
+                    HQMusicUrl: "http://124.202.164.17/download/24482991/31451002/1/mp3/107/128/1320945678443_384/LS9MDWtPO6z7yvJnA9bg==.mp3"
                 },
                 news: {
                     ArticleCount: 2,
                     Articles: [
                         {
                             Title: "拥护共产党的领导",
-                            description: "践行中国梦",
-                            picUrl: "http://baidu.com",
-                            url: "http://baidu.com"
+                            Description: "践行中国梦",
+                            PicUrl: "http://www.baidu.com/img/bdlogo.gif",
+                            Url: "http://www.baidu.com/img/bdlogo.gif"
                         },
                         {
                             Title: "拥护共产党的路线",
-                            description: "实现中国梦",
-                            picUrl: "http://baidu.com",
-                            url: "http://baidu.com"
+                            Description: "实现中国梦",
+                            PicUrl: "http://www.baidu.com/img/bdlogo.gif",
+                            Url: "http://www.baidu.com/img/bdlogo.gif"
                         }
                     ]
-                }
+                },
+                log: "【公众账号管理工具】\n"
             };
         }
 
         /*************************************** ***************************************
-         *    resolve weixin
+         *    resolve weixin and its bind apps
          *************************************** ***************************************/
         var weixin =
         {
@@ -109,15 +124,17 @@ message.message = function (data, getParam, response) {
             status: ""
         };
 
+        var bindApps = [];
+
         function startResolve() {
-            resolveWeixin(weixin);
+            resolveWeixinANDBindApps(weixin);
         }
 
-        function resolveWeixin(weixin) {
+        function resolveWeixinANDBindApps(weixin) {
             var query = [
-                'MATCH weixin:Weixin' ,      //get the app bind with the weixin at the same time.
+                'MATCH app:App-[r:BIND]->weixin:Weixin' ,
                 'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-                'RETURN  weixin'
+                'RETURN  weixin, app, r'  //resolve weixin data in r
             ].join('\n');
 
             var params = {
@@ -129,12 +146,25 @@ message.message = function (data, getParam, response) {
                     console.error(error);
                 }
                 if (results.length == 0) {
-                    reply.text.content += "【调试信息】绑定weixinOpenID/::)\n"
+                    reply.log += "【调试信息】绑定weixinOpenID/::)\n"
                     checkToken(next);
                 } else {
-                    var weixinNode = results.pop().weixin;
-                    reply.text.content += "【调试信息】weixinOpenID已存在对应关系/::)\n"
-                    reply.text.content += "【调试信息】公共账号名称" + weixinNode.data.weixinName + "/::)\n"
+                    var weixinNode = results[0].weixin;
+                    reply.log += "【调试信息】weixinOpenID已存在对应关系/::)\n"
+                    weixin.weixinName = weixinNode.data.weixinName;
+                    reply.log += "【调试信息】公共账号名称" + weixinNode.data.weixinName + "/::)\n"
+
+                    for (var index in results) {
+                        var appNode = results[index].app;
+                        var bindApp = {
+                            script: appNode.data.script,
+                            name: appNode.data.name,
+                            appid: appNode.data.appid
+                        }
+                        bindApps.push(bindApp);
+                        reply.log += "【调试信息】绑定应用：" + appNode.data.appid + "/::)\n"
+                    }
+
                     next();
                 }
                 function next() {
@@ -175,15 +205,15 @@ message.message = function (data, getParam, response) {
                         }
                     }
                     if (bindingToken == null) {
-                        reply.text.content += "【调试信息】没有微信token对应于该weixinOpenID/::)\n"
+                        reply.log += "【调试信息】没有微信token对应于该weixinOpenID/::)\n"
 
                     } else {
-
                         var bindingWeixin = weixins[bindingToken];
                         bindingWeixin.weixinNode.data.weixinOpenID = weixin.weixinOpenID;
                         bindingWeixin.weixinNode.data.status = "bind_message";
+                        weixin.weixinName = bindingWeixin.weixinNode.data.weixinName;
                         bindingWeixin.weixinNode.save();
-                        reply.text.content += "【调试信息】微信token对应weixinOpenID/::)\n"
+                        reply.log += "【调试信息】新建微信token与weixinOpenID的对应关系/::)\n"
                     }
                     next();
                 }
@@ -214,12 +244,12 @@ message.message = function (data, getParam, response) {
                     console.error(error);
                 }
                 if (results.length == 0) {
-                    reply.text.content += "【调试信息】新增关注用户/::)" + user.id + "\n"
+                    reply.log += "【调试信息】新增关注用户/::)" + user.id + "\n"
                     checkUser(user, weixin, next);
                 } else {
                     var userNode = results.pop().user;
-                    reply.text.content += "【调试信息】用户已存在对应关系/::)\n"
-                    reply.text.content += "【调试信息】用户id:" + userNode.data.id + "/::)\n"
+                    reply.log += "【调试信息】用户已存在对应关系/::)\n"
+                    reply.log += "【调试信息】用户id:" + userNode.data.id + "/::)\n"
                     next(userNode);
                 }
                 function next(userNode) {
@@ -227,8 +257,8 @@ message.message = function (data, getParam, response) {
                     for (var index in userDate) {
                         user[index] = userDate[index];
                     }
-                    reply.text.content += "【调试信息】用户信息：/::)" + JSON.stringify(user) + "\n";
-                    api.sendReply();
+                    reply.log += "【调试信息】用户信息：/::)" + JSON.stringify(user) + "\n";
+                    sandbox();
                 }
             });
         }
@@ -249,7 +279,7 @@ message.message = function (data, getParam, response) {
                     console.error(error);
                 }
                 if (results.length == 0) {
-                    reply.text.content += "【调试信息】用户不存在，新建用户/::)" + user.id + "\n";
+                    reply.log += "【调试信息】用户不存在，新建用户/::)" + user.id + "\n";
                     var query = [
                         'MATCH weixin:Weixin' ,
                         'WHERE weixin.weixinOpenID! ={weixinOpenID}',
@@ -260,8 +290,8 @@ message.message = function (data, getParam, response) {
                     addNewUser(query, user, weixin, next);
                 } else {
                     var userNode = results.pop().user;
-                    reply.text.content += "【调试信息】用户已存在，新建关注关系/::)\n";
-                    reply.text.content += "【调试信息】用户id:" + userNode.data.id + "/::)\n"
+                    reply.log += "【调试信息】用户已存在，新建关注关系/::)\n";
+                    reply.log += "【调试信息】用户id:" + userNode.data.id + "/::)\n"
                     var query = [
                         'MATCH weixin:Weixin, user:User' ,
                         'WHERE weixin.weixinOpenID! ={weixinOpenID} AND user.id={userID}',
@@ -292,27 +322,67 @@ message.message = function (data, getParam, response) {
         }
 
         /*************************************** ***************************************
+         *    sandbox
+         *************************************** ***************************************/
+        function sandbox() {
+            try {
+                test(api, message, reply, weixin, user, bindApps);
+            } catch (error) {
+                console.log(error)
+            }
+//            api.sendReply();
+        }
+
+        function test(api, message, reply, weixin, user, bindApps) {
+            var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
+            for (var index in bindApps) {
+                var bindApp = bindApps[index];
+                var script = scriptPool[bindApp.appid];
+                if (script == null) {
+                    reply.log += "【调试信息】新建应用脚本" + bindApp.appid + "/::)\n";
+                    var script_code = base64.decode(bindApp.script);
+                    var script = vm.createScript(script_code);
+                    scriptPool[bindApp.appid] = script;
+                }
+                sandbox.bindApp = bindApp;
+                reply.log += "【调试信息】调用应用脚本" + bindApp.appid + "/::)\n";
+                script.runInNewContext(sandbox, {}, "loop", 1000);
+                break;
+            }
+        }
+
+        /*************************************** ***************************************
          *    api
          *        api.saveData();
          *        api.sendReply();
          *************************************** ***************************************/
         var api = {};
 
+        var replySent = false;
         api.sendReply = function () {
-            var replyData = {
-                xml: {
-                    ToUserName: {'$cdata': user.id},
-                    FromUserName: {'$cdata': weixin.weixinOpenID},
-                    CreateTime: {'$t': now.getTime().toString().substr(0, 10)},
-                    MsgType: {'$cdata': reply.type},
-                    Content: {'$cdata': "@@@@"},
-                    FuncFlag: {'$t': "0"}
-                }
-            };
-            var replyXML = parser.toXml(replyData);
-            replyXML = replyXML.replace("@@@@", reply.text.content);
+            if (replySent == true) {
+                return false;
+            }
+
+            reply.type = "news";
+            if (debug == true) {
+                reply.text.content = reply.log + reply.text.content;
+            }
+
+            reply.userid = user.id;
+            reply.weixinOpenID = weixin.weixinOpenID;
+            reply.createTime = now.getTime().toString().substr(0, 10);
+            var replyXML = replyTemplate.render(reply);
+
             response.write(replyXML);
             response.end();
+            replySent = true
+            return true;
+        }
+
+        var dataSaved = false;
+        api.saveData = function () {
+            return true;
         }
         startResolve();
     }

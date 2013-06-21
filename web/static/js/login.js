@@ -64,7 +64,7 @@ $(document).ready(function () {
         }
         else {
             var user = {
-                account: null,
+                accountName: null,
                 phone: null,
                 email: null,
                 password: password
@@ -76,7 +76,7 @@ $(document).ready(function () {
                 user.phone = text;
             }
             else {
-                user.account = text;
+                user.accountName = text;
             }
             $.ajax({
                 type: "get",
