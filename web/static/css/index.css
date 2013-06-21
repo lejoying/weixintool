@@ -813,14 +813,22 @@ body{
 	float:left;
 	clear:both;	
 }
+.mange_user_list{
+	float:left;
+	clear:both;	
+}
+.user_list{
+	height:680px;
+	overflow-y:auto;
+	width:1206px;	
+}
 .msg_list{
 	background:#657c9c;
 	padding:12px 0;
 	font-size:16px;
 	font-family:"微软雅黑";
 	border-bottom:1px dotted #808080;	
-	padding:10px 42px 0;
-	margin-top:8px;
+	padding:10px 1px 0 42px;
 }
 .msg_list_id{
 	color:#ddd;	
@@ -917,6 +925,9 @@ body{
     line-height: 20px;
     padding: 5px 10px 6px;
     width: 240px;
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 .infomation_bg:hover{
 	background:#e4e4e4;
