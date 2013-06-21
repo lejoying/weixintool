@@ -210,67 +210,30 @@ message.message = function (data, getParam, response) {
                     } else {
                         weixin.token = bindingToken
                         var bindingWeixin = weixins[bindingToken];
-//                        bindingWeixin.weixinNode.data.weixinOpenID = weixin.weixinOpenID;
-//                        bindingWeixin.weixinNode.data.status = "bind_message";
+
                         weixin.weixinName = bindingWeixin.weixinNode.data.weixinName;
-//                        bindingWeixin.weixinNode.save();
-                        reply.log += "【调试信息】新建微信token与weixinOpenID的对应关系/::)\n"
-                        checkWeixin(weixin, next)
+                        weixin.status = "bind_message";
+                        reply.log += "【调试信息】新建微信token与weixinOpenID的对应关系/::)\n";
+                        reply.log += "【调试信息】微信节点不存在，新建微信/::)" + weixin.weixinOpenID + "\n";
+                        addNewWeixin(weixin, next)
                     }
-//                    next();
                 }
             });
         }
 
-        function checkWeixin(weixin, next) {
+
+        function addNewWeixin(weixin, next) {
             var query = [
-                'MATCH weixin:Weixin' ,
-                'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-                'RETURN  weixin'
+                'MATCH weixin:Weixin, app:App' ,
+                'WHERE weixin.token! ={token} AND app.appid! = 99',
+                'CREATE UNIQUE app-[r:BIND]->weixin',
+                'SET weixin.status={status}, weixin.weixinOpenID={weixinOpenID}',
+                'RETURN  app, weixin, r'
             ].join('\n');
-
-            var params = {
-                weixinOpenID: weixin.weixinOpenID
-            };
-
-            db.query(query, params, function (error, results) {
-                if (error) {
-                    console.error(error);
-                }
-                if (results.length == 0) {
-                    reply.log += "【调试信息】微信节点不存在，新建微信/::)" + weixin.weixinOpenID + "\n";
-                    var query = [
-                        'MATCH weixin:Weixin, app:App' ,
-                        'WHERE weixin.token! ={token} AND app.appid! = 99',
-                        'CREATE UNIQUE app-[r:BIND]->weixin',
-                        'SET weixin.status={status}, weixin.weixinOpenID={weixinOpenID}',
-                        'RETURN  app, weixin, r'
-                    ].join('\n');
-
-                    addNewWeixin(query, weixin, next);
-                } else {
-                    var weixinNode = results.pop().weixin;
-                    reply.log += "【调试信息】微信节点已经存在,新建所有关系/::)\n"
-                    reply.log += "【调试信息】微信weixinOpenID:" + weixinNode.data.weixinOpenID + "/::)\n"
-                    var query = [
-                        'MATCH weixin:Weixin, app:App, duplicateWeixin:Weixin<-[r1:HAS_WEIXIN]-account' ,
-                        'WHERE weixin.weixinOpenID! ={weixinOpenID} AND duplicateWeixin.token! ={token} AND app.appid! = 99',
-                        'CREATE UNIQUE app-[r:BIND]->weixin',
-                        'SET weixin.token={token}',
-//                        'DELETE duplicateWeixin, r1',
-                        'RETURN app, weixin, r, duplicateWeixin, r1, account'
-                    ].join('\n');
-                    addNewWeixin(query, weixin, next);
-                }
-            });
-        }
-
-        function addNewWeixin(query, weixin, next) {
-
             var params = {
                 weixinOpenID: weixin.weixinOpenID,
                 token: weixin.token,
-                status:"bind_message"
+                status: "bind_message"
             };
 
             db.query(query, params, function (error, results) {
