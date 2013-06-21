@@ -131,25 +131,6 @@
         <div class="body_right">
             <div class="weixin_user"><b class="user_face"></b><span id="step_2">习敬萍</span></div>
 
-            <div class="circle_out_focus" id="id2">
-                <div class="circle_in"><p id="step_4">微信公众帐号2</p>
-                </div>
-                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
-            </div>
-            <div class="circle_out_move">
-                <div class="circle_in"><p>微信公众帐号3</p></div>
-                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
-                <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
-            </div>
             <!--/*************************************** ***************************************-->
             <!--* template weixin_list-->
             <!--*************************************** ***************************************/-->
@@ -168,7 +149,6 @@
             <!--* template weixin_list-->
             <!--*************************************** ***************************************/-->
 
-
             <div class="circle_out">
                 <p>
                     <a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a>
@@ -177,6 +157,17 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function step1_user() {
+        document.getElementById("step_1").innerText = logindata.localSettings.userstep;
+        document.getElementById("step_2").innerText = logindata.localSettings.userstep;
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        step1_user();
+    });
+</script>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/ue_effect.js"></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
@@ -190,17 +181,7 @@
         loginuser();
     });
 </script>
-<script type="text/javascript">
-    function step1_user() {
-        document.getElementById("step_1").innerText = logindata.localSettings.userstep;
-        document.getElementById("step_2").innerText = logindata.localSettings.userstep;
-    }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        step1_user();
-    });
-</script>
+
 <script type="text/javascript" src="/static/js/ue_api.js"></script>
 <script type="text/javascript" src="/static/js/nTenjin.js"></script>
 </body>

@@ -63,57 +63,75 @@
     <div class="index_body">
         <div class="body_left">
             <div class="apphead_title">添加应用</div>
-            <div class="out_frame" draggable="true" style="left:40px;top:100px;" itemid="app_opreation1">
-                <div class="content_element">
-                    <div class="appicon">
-                        <img src="/static/images/face.jpg"/>
+
+            <div class="hide js_app_list template" template="app_list">
+                <?js var left=40; ?>
+                <?js for (var index in data.apps) { ?><?js var app=data.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
+                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" itemid="app_opreation1" appid="#{app.appid}">
+                    <?js left=left+150; ?>
+                    <div class="content_element">
+                        <div class="appicon">
+                            <img src="/static/images/face.jpg"/>
+                        </div>
+                        <div class="appname">#{ app.name }</div>
                     </div>
-                    <div class="appname">微信订餐管理</div>
-                </div>
-                <div class="app_opreation" id="app_opreation1" style="display:none;">
-                    <a href="javascript:;" class="app_config" title="配置"></a>
-                    <a href="javascript:;" class="app_delete" title="删除"></a>
-                </div>
-            </div>
-            <div class="out_frame" style="left:190px;top:100px;" itemid="app_opreation2">
-                <div class="content_element">
-                    <div class="appicon">
-                        <img src="/static/images/face.jpg"/>
+                    <div class="app_opreation" id="app_opreation1">
+                        <a href="javascript:;" class="app_config" title="配置"></a>
+                        <a href="javascript:;" class="app_delete" title="删除" appid="#{app.appid}"></a>
                     </div>
-                    <div class="appname">微信打折促销</div>
                 </div>
-                <div class="app_opreation" id="app_opreation2" style="display:none;">
-                    <a href="javascript:;" class="app_config" title="配置"></a>
-                    <a href="javascript:;" class="app_delete" title="删除"></a>
-                </div>
+                <?js } ?>
             </div>
 
-            <div class="out_frame_add" style="left:340px;top:100px;">
-                <div class="add_element js_add_element">
+            <div class="out_frame_add" style="left:340px;top:500px;">
+                <div class="add_element">
                     <div class="appicon">
-                        <img src="/static/images/index/add.jpg" />
+                        <img src="/static/images/index/add.jpg"/>
                     </div>
                     <p class="add_border_line"></p>
+
                     <div class="addname">新建应用</div>
                 </div>
             </div>
         </div>
+
         <div class="body_right">
             <div class="weixin_user">习敬萍</div>
-            <div class="circle_out" amount="1">
-                <div class="circle_in"><p>习敬萍</p></div>
-                <div class="circel_ele circel_ele_1" title="微信订餐管理"><img src="/static/images/face.jpg"/></div>
-            </div>
-            <div class="circle_out">
+
+            <div class="hide js_weixin_list template" template="weixin_list" dragable="true">
+                <?js for (var index in data.weixins) { ?><?js var weixin=data.weixins[index]; ?><?js if(weixin==null) { ?><?js continue; ?><?js } ?>
+                <div class="circle_out"  amount="#{(weixin.apps).length}" weixinOpenID="#{weixin.weixinOpenID}">
+                    <div class="circle_in"><p>#{weixin.weixinName.substr(0,8)}</p></div>
+                    <?js for (var index in weixin.apps) { ?><?js var app=weixin.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
+                    <div class="circel_ele circel_ele_#{parseInt(index)+1} " title="微信订餐管理" appid="#{app.appid}" weixinOpenID="#{weixin.weixinOpenID}"><img src="/static/images/face.jpg"/></div>
+                    <?js } ?>
+                </div>
+                <?js } ?>
+
+            <div class="circle_out_new">
              	<p><a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a></p>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
 <script type="text/javascript" src="/static/js/login.js"></script>
-<script type="text/javascript" src="/static/js/drag_out.js"></script>
-<script type="text/javascript" src="/static/js/drag_in.js"></script>
+<script type="text/javascript">
+    function loginuser() {
+        document.getElementById("user").innerText = logindata.localSettings.username + ",已登录";
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        loginuser();
+    });
+</script>
+
+<!--<script type="text/javascript" src="/static/js/drag_in.js"></script>-->
 <script type="text/javascript" src="/static/js/ue_effect.js"></script>
+<script type="text/javascript" src="/static/js/ue_api.js"></script>
+<script type="text/javascript" src="/static/js/testAPI.js"></script>
+<!--<script type="text/javascript" src="/static/js/drag_out.js"></script>-->
 </body>
 </html>
