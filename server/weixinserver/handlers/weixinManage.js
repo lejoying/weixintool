@@ -38,13 +38,19 @@ weixinManage.bindingtoken = function (data, response) {
 
     function createWeixinNode() {
         var query = [
-            'START account=node({uid})' , 'CREATE (weixin:Weixin{weixin})',
-            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin', 'RETURN  weixin, account, r'
+            'START account=node({uid})' ,
+            'MATCH account-[r1:HAS_WEIXIN]->duplicatedWeixin:Weixin',
+            'WHERE duplicatedWeixin.status={status1} OR duplicatedWeixin.status={status2}',
+            'DELETE duplicatedWeixin, r1',
+            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin:Weixin{weixin}',
+            'RETURN  weixin, account, r'
         ].join('\n');
 
         var params = {
             uid: parseInt(account.uid),
-            weixin: weixin
+            weixin: weixin ,
+            status1: "binding",
+            status2: "bind_server"
         };
 
         db.query(query, params, function (error, results) {
@@ -89,7 +95,7 @@ weixinManage.bindapp = function (data, response) {
         ].join('\n');
 
         var params = {
-            //            appid: parseInt(appid)
+            appid: parseInt(appid),
             weixinOpenID: weixin.weixinOpenID
         };
 
@@ -106,7 +112,7 @@ weixinManage.bindapp = function (data, response) {
             }
             else {
                 response.write(JSON.stringify({
-                    "提示信息": "微信公众账号移除应用成功"
+                    "提示信息": "微信公众账号添加应用成功"
                 }));
                 response.end();
             }
@@ -137,7 +143,7 @@ weixinManage.unbindapp = function (data, response) {
         ].join('\n');
 
         var params = {
-            //            appid: parseInt(appid)
+            appid: parseInt(appid),
             weixinOpenID: weixin.weixinOpenID
         };
 
@@ -176,8 +182,8 @@ weixinManage.getall = function (data, response) {
     function getallWeixinNode() {
         var query = [
             'START account=node({uid})' ,
-            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]->app:App',
-            ' WHERE weixin.status! ={status1}OR weixin.status! ={status2}',
+            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
             'RETURN weixin, app'
         ].join('\n');
 

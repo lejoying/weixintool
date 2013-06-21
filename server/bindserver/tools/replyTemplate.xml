@@ -1,0 +1,32 @@
+<xml>
+    <?js var reply = it; ?>
+    <ToUserName><![CDATA[#{reply.userid}]]></ToUserName>
+    <FromUserName><![CDATA[#{reply.weixinOpenID}]]></FromUserName>
+    <CreateTime>#{reply.createTime}</CreateTime>
+    <MsgType><![CDATA[#{reply.type}]]></MsgType>
+    <?js if(reply.type=="text"){ ?>
+    <Content><![CDATA[#{reply.text.content}]]></Content>
+    <?js } else if(reply.type=="music"){ ?>
+    <Music>
+        <Title><![CDATA[#{reply.music.Title}]]></Title>
+        <Description><![CDATA[#{reply.music.Description}]]></Description>
+        <MusicUrl><![CDATA[#{reply.music.MusicUrl}]]></MusicUrl>
+        <HQMusicUrl><![CDATA[#{reply.music.HQMusicUrl}]]></HQMusicUrl>
+    </Music>
+    <?js } else if(reply.type=="news"){ ?>
+    <?js var news=reply.news; ?>
+    <ArticleCount>#{reply.news.ArticleCount}</ArticleCount>
+    <Articles>
+        <?js for (var index in news.Articles) { ?><?js var Article=news.Articles[index]; ?><?js if(Article==null) { ?><?js continue; ?><?js } ?>
+
+        <item>
+            <Title><![CDATA[#{Article.Title}]]></Title>
+            <Description><![CDATA[#{Article.Description}]]></Description>
+            <PicUrl><![CDATA[#{Article.PicUrl}]]></PicUrl>
+            <Url><![CDATA[#{Article.Url}]]></Url>
+        </item>
+        <?js } ?>
+    </Articles>
+    <?js }?>
+    <FuncFlag>1</FuncFlag>
+</xml>
