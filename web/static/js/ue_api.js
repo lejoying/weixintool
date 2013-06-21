@@ -272,4 +272,81 @@ function bindapp() {
 //            alert(JSON.stringify(data));
 //        }
 //    });
-//}
+//}}
+
+
+
+/*************************************** ***************************************
+ *    get users
+ *************************************** ***************************************/
+$(document).ready(function () {
+    data.appid = "36";
+    data.uid = "16";
+    data.accesskey = "123";
+    data.weixinopenid = "gh_7a898e6d9109";
+    data.start = 0;
+    data.end = 50;
+    getUsers();
+});
+function getUsers() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/user/getall",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            weixinopenid: data.weixinopenid,
+            start: data.start,
+            end: data.end
+        },
+        success: function (serverData) {
+            console.log(serverData);
+            data.users = serverData.users;
+            var nTemplate = getTemplate("user_list");
+            nTemplate.templateDiv.html(nTemplate.template.render());
+            nTemplate.templateDiv.removeClass("hide");
+            addUserInfoEvent();
+        }
+    });
+}
+function addUserInfoEvent() {
+    $(".js_add_info").click(function(){
+        var userid = $(this).attr("userid");
+        $(this).hide();
+        $(".js_modify_element[userid="+userid+"]").show();
+    });
+    $(".js_cansonl_button").click(function(){
+        var userid = $(this).attr("userid");
+        $(".js_modify_element[userid="+userid+"]").hide();
+        $(".js_add_info[userid="+userid+"]").show();
+    });
+    $(".js_save_button").click(function(){
+        var userid = $(this).attr("userid");
+        var js_index=  $(this).attr("js_index");
+        var key = $(".key_style"+"[userid='"+userid+"']").val();
+        var value =$(".value_style"+"[userid='"+userid+"']").val();
+        if(key==""||value==""){
+            alert("key或value不能为空");
+        }else{
+            var user=data.users[js_index];
+            user[key]=value;
+            $.ajax({
+                type:"POST",
+                url:"/api2/user/modify?",
+                data:{"uid":"nnnn", "accesskey":"XXXXXX" , "userid":userid,"user":JSON.stringify(user)},
+                success:function(data){
+                    //callback operate
+                    if(data["提示信息"]="修改关注用户信息成功"){
+                        $(".user_info"+"[userid="+userid+"] li"+":last").before(function(){
+                            return "<li><span class='infomation_bg m_left'>"+key+"<img src='/static/images/weixin_step/line.png'/>"+value+"</span></li>";
+                        });
+                    }else{
+                        alert("连接错误");
+                    }
+                }
+            });
+            $(".js_modify_element[userid="+userid+"]").hide();
+            $(".js_add_info[userid="+userid+"]").show();
+        }
+    });
+}

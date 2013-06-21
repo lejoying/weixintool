@@ -13,7 +13,7 @@ $(document).ready(function(){
             if(checkHover(fatitem,subitem)){
                 $("#"+itemid).slideUp(150);
             }
-        }
+        }  
     });
 	$(".js_personality").click(function(){
 		if($(".js_subitem").css("display")=="none"){
@@ -32,6 +32,41 @@ $(document).ready(function(){
 	});
 	$(".add_element").click(function(){
 		window.location.href="personal_app.html";
+	});
+	$(".js_add_info").click(function(){
+		var uid = $(this).attr("uid");
+		$(this).hide();
+		$("[useropeart="+uid+"]").show();
+	});
+	$(".js_save_button").click(function(){
+		var uid = $(this).attr("save");
+		var key = $("[userkey="+uid+"]").val();
+		var value =$("[uservalue="+uid+"]").val();
+        var index = $(".user_info[userid="+uid+"]li").length;
+        alert(index);
+		var user={};
+		user[key]=value;
+		if(key==""||value==""){
+			alert("key或value不能为空");	
+		}else{
+			$.ajax({
+				type:"get",
+				url:"/api2/account/auth?",	
+				data:{"uid":"nnnn", "accesskey":"XXXXXX" , "userid":uid,"user":user},
+				success:function(data){
+					//callback operate
+					
+
+				}
+			});
+			$("[useropeart="+uid+"]").hide();
+			$("[uid="+uid+"]").show();	
+		}	
+	});
+	$(".js_cansonl_button").click(function(){
+		var uid = $(this).attr("cansonl");
+		$("[useropeart="+uid+"]").hide();
+		$("[uid="+uid+"]").show();
 	});
 });
 /**
@@ -109,3 +144,4 @@ function clickother(el){
 		thisObj = thisObj.parentNode;
 	}while(thisObj.parentNode);
 }
+
