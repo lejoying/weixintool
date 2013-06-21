@@ -281,9 +281,8 @@ function bindapp() {
  *************************************** ***************************************/
 $(document).ready(function () {
     data.appid = "36";
-    data.uid = "16";
     data.accesskey = "123";
-    data.weixinopenid = "gh_7a898e6d9109";
+    data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
     data.end = 50;
     getUsers();
@@ -303,6 +302,9 @@ function getUsers() {
             console.log(serverData);
             data.users = serverData.users;
             var nTemplate = getTemplate("user_list");
+            if (nTemplate == null) {
+                return;
+            }
             nTemplate.templateDiv.html(nTemplate.template.render());
             nTemplate.templateDiv.removeClass("hide");
             addUserInfoEvent();
