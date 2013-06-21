@@ -84,15 +84,16 @@ $(document).ready(function () {
                 data: user,
                 success: function (data) {
                     //返回正确操作
-                    if (data["提示信息"] == "电话存在") {
-                        alert("登录成功");
+                    if (data["提示信息"] == "账号登录成功") {
                         location.href = "step.html";
                     }
-                    else if (data["提示信息"] == "账号登录失败") {
+//                    else if (data["提示信息"] == "账号登录失败") {
+//                        $(".error_warning").toggle();
+//                        $("#error_text").text("用户名或密码错误！");
+//                    }
+                    else {
                         $(".error_warning").toggle();
                         $("#error_text").text("用户名或密码错误！");
-                    }
-                    else {
                     }
                 }
             });
@@ -134,7 +135,6 @@ $(document).ready(function () {
                 success: function (data) {
                     //返回正确操作
                     if (data["提示信息"] == "电话存在") {
-                        alert("登录成功");
                         location.href = "step.html";
                     }
                     else if (data["提示信息"] == "账号登录失败") {
