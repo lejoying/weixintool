@@ -316,7 +316,7 @@ function getWeixins() {
                         }
                     });
 
-//                    digui($(button));
+                    digui($(button));
 
                 }
 
