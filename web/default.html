@@ -14,7 +14,7 @@
         <div class="left_icon">
 
             <div><a href="javascript:;" class="personalized" id="js_personality"></a></div>
-            <div class="apps_title">个性化应用</div>
+            <div class="apps_title">微信应用</div>
         </div>
         <div class="right_sub"></div>
     </div>
@@ -77,7 +77,7 @@
                     <?js left=left+150; ?>
                     <div class="content_element">
                         <div class="appicon">
-                            <img src="/static/images/face.jpg"/>
+                            <img src="http://images.weixin.com/#{ app.icon }.png"/>
                         </div>
                         <div class="appname">#{ app.name }</div>
                     </div>
@@ -109,8 +109,7 @@
                 <div class="circle_out" amount="#{(weixin.apps).length}" weixinOpenID="#{weixin.weixinOpenID}">
                     <div class="circle_in"><p>#{weixin.weixinName.substr(0,8)}</p></div>
                     <?js for (var index in weixin.apps) { ?><?js var app=weixin.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
-                    <div class="circel_ele circel_ele_#{parseInt(index)+1} " title="微信订餐管理" appid="#{app.appid}"
-                         weixinOpenID="#{weixin.weixinOpenID}"><img src="/static/images/face.jpg"/></div>
+                    <div class="circel_ele circel_ele_#{parseInt(index)+1} " title="微信订餐管理" appid="#{app.appid}" weixinOpenID="#{weixin.weixinOpenID}"><img src="http://images.weixin.com/#{ app.icon }.png"/></div>
                     <?js } ?>
                 </div>
                 <?js } ?>

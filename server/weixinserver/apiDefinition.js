@@ -11,7 +11,7 @@ api = {
             typical: {"accountname": "XXX", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX", "password": sha1("XXXXXX"), "invite": "XXXXX"}
         },
         response: {
-            success: {"提示信息": "注册账号成功", "uid": uid / PbKey0, "accesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
+            success: {"提示信息": "注册账号成功", "accountname": "XXX", "uid": uid / PbKey0, "acccesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
             failed: {"提示信息": "注册账号失败", "失败原因": ["账号名已存在" | "注册邮箱已存在" | "邀请码不正确"]}
         }
     },
@@ -35,7 +35,7 @@ api = {
             typical: {"accountname": "XXX", "password": "******", "phone": "1XXXXXXXXXX", "email": "XXX@XXX.XXX"}
         },
         response: {
-            success: {"提示信息": "账号登录成功", "uid": uid / PbKey0, "accesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
+            success: {"提示信息": "账号登录成功", "accountname": "XXX", "uid": uid / PbKey0, "accesskey": acccesskey / Pbkey0, "PbKey": PbKey0},
             failed: {"提示信息": "账号登录失败", "失败原因": ["[账号|邮箱|手机]号名不存在" | "密码不正确"]}
         }
     },

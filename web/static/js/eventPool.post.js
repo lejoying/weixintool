@@ -13,14 +13,12 @@ eventPool.main_offline_post = function (status, area) {
 
         $("#input_image").change(function () {
             var myFiles = this.files;
-            //        alert("input_image change");
             for (var i = 0, f; f = myFiles[i]; i++) {
                 var imageReader = new FileReader();
                 imageReader.onload = (function (aFile) {
                     return function (e) {
                         var span = document.createElement('span');
                         span.innerHTML = ['<span id="pointupicon" class="uppoint" style="">▲</span><a class="images_a"  href="javascript:" ><img class="images" src="', e.target.result, '" title="', aFile.name, '"/></a>'].join('');
-                        //                    document.getElementById('thumbs').insertBefore(span, null);
                         $("#thumbs").empty();
                         $("#thumbs").append(span);
                         if (app.uploadStatus = "none") {
