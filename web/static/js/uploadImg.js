@@ -21,7 +21,7 @@ function uploadPic(next) {
         reader.onload = function (e) {
             var urlData = this.result;
 
-            /*$.ajax({
+            $.ajax({
                 data: {filename: "1.png", image: urlData, weibo_user: app.localSettings.ownedWeibo.currentWeibo},
                 type: 'POST',
                 url: ("http://" + app.serverUrl + "/upload2/"),
@@ -35,7 +35,7 @@ function uploadPic(next) {
                         alert(JSON.stringify(data));
                     }
                 }
-            });*/
+            });
         };
 
         app.uploadStatus = "none";
