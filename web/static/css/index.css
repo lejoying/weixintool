@@ -1031,6 +1031,14 @@ body{
     background:#6E85A5;
     padding:5px;
 }
+.lookscript{
+    color: #FFFFFF;
+    font-family: '微软雅黑';
+    font-size: 16px;
+    left: 594px;
+    position: absolute;
+    top: 63px;
+}
 .arrow_left{
     position:absolute;
     left:20px;
