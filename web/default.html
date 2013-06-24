@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
@@ -7,25 +8,25 @@
 </head>
 <body>
 <div class="head_slip"></div>
-<div class="index_content"  draggable="false" >
+<div class="index_content" draggable="false">
     <!--<div class="head_banner"></div>-->
-    <div class="function_model js_personality"  style="left:0;top:20px;">
+    <div class="function_model js_personality" style="left:0;top:20px;">
         <div class="left_icon">
 
-        	<div><a href="javascript:;" class="personalized" id="js_personality"></a></div>
+            <div><a href="javascript:;" class="personalized" id="js_personality"></a></div>
             <div class="apps_title">个性化应用</div>
         </div>
         <div class="right_sub"></div>
     </div>
     <div class="pop_subitem js_subitem" id="js_subitem" style="display:none;">
-		<div class="pop_subitem_in">
+        <div class="pop_subitem_in">
             <div><a id="a_appstore" href="javascript:;">应用商店</a></div>
             <div><a id="a_myapp" href="default.html">我的应用</a></div>
-		</div>
+        </div>
     </div>
     <div class="function_model js_usermanger" style="left:150px;top:20px;">
-    	<div class="left_icon">
-        	<div><a href="user_mange.html" class="user_mange"></a></div>
+        <div class="left_icon">
+            <div><a href="user_mange.html" class="user_mange"></a></div>
             <div class="apps_title">用户管理</div>
         </div>
         <div class="right_sub"></div>
@@ -42,6 +43,7 @@
     <div class="function_model js_weixin_user" draggable="false" style="left:450px;top:20px;width:210px;">
         <div class="left_icon" style="width:90px;">
             <a href="javascript:;" class="weixin_card"></a>
+
             <div class="user_name"></div>
         </div>
         <div class="right_sub">习敬萍</div>
@@ -49,15 +51,18 @@
     <div class="login_user" style="right:0;top:20px;">
         <div>
             <a href="javascript:;" class="app_list" id="app_list"></a>
+
             <div class="logo_apps">
                 <div id="user">usert2已登录</div>
             </div>
 
         </div>
     </div>
-	<div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:block;">
+    <div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:block;">
         <p><b class="change_info"></b><a href="javascript:;" id="div1">修改个人信息</a></p>
+
         <p><b class="change_password"></b><a href="javascript:;" id="div2">修改密码</a></p>
+
         <p><b class="loginout"></b><a href="javascript:;" id="div3">注销</a></p>
     </div>
     <div class="index_body">
@@ -67,7 +72,8 @@
             <div class="hide js_app_list template" template="app_list">
                 <?js var left=40; ?>
                 <?js for (var index in data.apps) { ?><?js var app=data.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
-                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" itemid="app_opreation1" appid="#{app.appid}">
+                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" itemid="app_opreation1"
+                     appid="#{app.appid}">
                     <?js left=left+150; ?>
                     <div class="content_element">
                         <div class="appicon">
@@ -100,38 +106,31 @@
 
             <div class="hide js_weixin_list template" template="weixin_list" dragable="true">
                 <?js for (var index in data.weixins) { ?><?js var weixin=data.weixins[index]; ?><?js if(weixin==null) { ?><?js continue; ?><?js } ?>
-                <div class="circle_out"  amount="#{(weixin.apps).length}" weixinOpenID="#{weixin.weixinOpenID}">
+                <div class="circle_out" amount="#{(weixin.apps).length}" weixinOpenID="#{weixin.weixinOpenID}">
                     <div class="circle_in"><p>#{weixin.weixinName.substr(0,8)}</p></div>
                     <?js for (var index in weixin.apps) { ?><?js var app=weixin.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
-                    <div class="circel_ele circel_ele_#{parseInt(index)+1} " title="微信订餐管理" appid="#{app.appid}" weixinOpenID="#{weixin.weixinOpenID}"><img src="/static/images/face.jpg"/></div>
+                    <div class="circel_ele circel_ele_#{parseInt(index)+1} " title="微信订餐管理" appid="#{app.appid}"
+                         weixinOpenID="#{weixin.weixinOpenID}"><img src="/static/images/face.jpg"/></div>
                     <?js } ?>
                 </div>
                 <?js } ?>
 
-            <div class="circle_out_new">
-             	<p><a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a></p>
+                <div class="circle_out_new">
+                    <p><a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript" src="/static/js/nTenjin.js"></script>
-<script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
-<script type="text/javascript">
-    function loginuser() {
-        document.getElementById("user").innerText = logindata.localSettings.username + ",已登录";
-    }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        loginuser();
-    });
-</script>
 
-<!--<script type="text/javascript" src="/static/js/drag_in.js"></script>-->
-<script type="text/javascript" src="/static/js/ue_effect.js"></script>
-<script type="text/javascript" src="/static/js/ue_api.js"></script>
-<script type="text/javascript" src="/static/js/testAPI.js"></script>
-<!--<script type="text/javascript" src="/static/js/drag_out.js"></script>-->
+    <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+    <script type="text/javascript" src="/static/js/nTenjin.js"></script>
+    <script type="text/javascript" src="/static/js/app.js"></script>
+
+    <script type="text/javascript" src="/static/js/default.js"></script>
+
+
+    <script type="text/javascript" src="/static/js/ue_effect.js"></script>
+    <script type="text/javascript" src="/static/js/ue_api.js"></script>
 </body>
 </html>

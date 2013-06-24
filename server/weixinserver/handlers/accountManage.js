@@ -17,7 +17,7 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 accountManage.add = function (data, response) {
     response.asynchronous = 1;
     var account = {
-        accountName: data.accountName,
+        accountname: data.accountname,
         phone: data.phone,
 //        email: data.email,
         password: data.password
@@ -28,12 +28,12 @@ accountManage.add = function (data, response) {
     function checkAccountNodeExist() {
         var query = [
             'MATCH account:Account',
-            'WHERE account.accountName! ={accountName} OR account.phone! ={phone}',
+            'WHERE account.accountname! ={accountname} OR account.phone! ={phone}',
             'RETURN  account'
         ].join('\n');
 
         var params = {
-            accountName: account.accountName,
+            accountname: account.accountname,
             phone: account.phone
 //            email: account.email
         };
@@ -73,7 +73,7 @@ accountManage.add = function (data, response) {
                 response.write(JSON.stringify({
                     "提示信息": "注册账号成功",
                     "uid": accountNode.id,
-                    "acccesskey": "123",
+                    "accesskey": "123",
                     "PbKey": "123"
                 }));
                 response.end();
@@ -103,7 +103,7 @@ accountManage.exist = function (data, response) {
     else if (account.email != null) {
         type = "邮箱";
         name = account.email;
-        account.accountname = "unexist accountName";
+        account.accountname = "unexist accountname";
     }
 
     checkAccountNodeExist();
@@ -151,30 +151,30 @@ accountManage.exist = function (data, response) {
 accountManage.auth = function (data, response) {
     response.asynchronous = 1;
     var account = {
-        "accountName": data.accountName,
+        "accountname": data.accountname,
         "phone": data.phone,
         "email": data.email,
         "password": data.password
     };
 
     var type = "账号名";
-    var name = account.accountName;
-    if (account.accountName != null) {
+    var name = account.accountname;
+    if (account.accountname != null) {
         type = "账号名";
-        name = account.accountName;
+        name = account.accountname;
         account.phone = "unexist phone";
         account.email = "unexist email";
     }
     else if (account.phone != null) {
         type = "手机";
         name = account.phone;
-        account.accountName = "unexist accountName";
+        account.accountname = "unexist accountname";
         account.email = "unexist email";
     }
     else if (account.email != null) {
         type = "邮箱";
         name = account.email;
-        account.accountName = "unexist accountName";
+        account.accountname = "unexist accountname";
         account.phone = "unexist phone";
     }
 
@@ -183,12 +183,12 @@ accountManage.auth = function (data, response) {
     function checkAccountNode() {
         var query = [
             'MATCH account:Account',
-            'WHERE account.accountName! ={accountName} OR account.phone! ={phone} OR account.email! ={email}',
+            'WHERE account.accountname! ={accountname} OR account.phone! ={phone} OR account.email! ={email}',
             'RETURN  account'
         ].join('\n');
 
         var params = {
-            accountName: account.accountName,
+            accountname: account.accountname,
             phone: account.phone,
             email: account.email
         };
@@ -208,7 +208,7 @@ accountManage.auth = function (data, response) {
                     response.write(JSON.stringify({
                         "提示信息": "账号登录成功",
                         "uid": accountNode.id,
-                        "acccesskey": "123",
+                        "accesskey": "123",
                         "PbKey": "123"
                     }));
                     response.end();
