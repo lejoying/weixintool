@@ -165,7 +165,12 @@ message.message = function (data, getParam, response) {
                         reply.log += "【调试信息】绑定应用：" + appNode.data.appid + "/::)\n"
                     }
 
-                    next();
+                    if (checkSignature(weixinNode.data.token, timestamp, nonce, signature) == true) {
+                        next();
+                    } else {
+                        reply.log += "【调试信息】签名消息不匹配/::)\n"
+                        checkToken(weixin, next);
+                    }
                 }
                 function next() {
                     resolveUser(user, weixin);
@@ -208,19 +213,71 @@ message.message = function (data, getParam, response) {
                         reply.log += "【调试信息】没有微信token对应于该weixinOpenID/::)\n"
                         next();
                     } else {
-                        weixin.token = bindingToken
+                        weixin.token = bindingToken;
                         var bindingWeixin = weixins[bindingToken];
 
                         weixin.weixinName = bindingWeixin.weixinNode.data.weixinName;
                         weixin.status = "bind_message";
                         reply.log += "【调试信息】新建微信token与weixinOpenID的对应关系/::)\n";
                         reply.log += "【调试信息】微信节点不存在，新建微信/::)" + weixin.weixinOpenID + "\n";
-                        addNewWeixin(weixin, next)
+                        checkWeixin(weixin, next);
                     }
                 }
             });
         }
 
+        function checkWeixin(weixin, next) {
+            var query = [
+                'MATCH weixin:Weixin' ,
+                'WHERE weixin.weixinOpenID! ={weixinOpenID}',
+                'RETURN weixin'
+            ].join('\n');
+            var params = {
+                weixinOpenID: weixin.weixinOpenID,
+                token: weixin.token,
+                status: "bind_message"
+            };
+
+            db.query(query, params, function (error, results) {
+                if (error) {
+                    console.error(error);
+                }
+                if (results.length == 0) {
+                    addNewWeixin(weixin, next);
+                } else {
+                    reply.log += "【调试信息】已有微信公众账号，修改绑定信息/::)" + "\n";
+                    var weixinNode = results.pop().weixin;
+                    weixinNode.data.token = weixin.token;
+                    weixinNode.data.weixinName = weixin.weixinName;
+                    weixinNode.save(function (err, node) {
+
+                    });
+
+                    deleteUnusedWeixin(weixin, next);
+                }
+            });
+        }
+
+        function deleteUnusedWeixin(weixin, next) {
+            var query = [
+                'MATCH other-[r]-weixin:Weixin' ,       //?????
+                'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+                'DELETE  weixin, r'
+            ].join('\n');
+            var params = {
+                status1: "binding",
+                status2: "bind_server"
+            };
+
+            db.query(query, params, function (error, results) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    reply.log += "【调试信息】删除无用微信/::)" + "\n";
+                    next();
+                }
+            });
+        }
 
         function addNewWeixin(weixin, next) {
             var query = [
@@ -393,6 +450,7 @@ message.message = function (data, getParam, response) {
             reply.type = "text";
             if (debug == true) {
                 reply.text.content = reply.log + reply.text.content;
+                console.log(reply.text.content);
             }
 
             reply.userid = user.id;

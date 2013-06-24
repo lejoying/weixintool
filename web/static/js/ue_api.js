@@ -65,6 +65,7 @@ function getEvent() {
 function eventLoop(event) {
     if (event.eventID == "bind_server") {
         alert("bind_server");
+        location.href = "default.html";
     }
 }
 
@@ -126,12 +127,6 @@ function getWeixins() {
                     location.href = "step.html";
                 }
             } else if (serverData["提示信息"] == "获取所有绑定微信公众账号成功") {
-                next();
-            }
-
-            function next() {
-
-
                 data.weixins = serverData.weixins;
                 var nTemplate = getTemplate("weixin_list");
                 if (nTemplate == null) {
@@ -141,18 +136,12 @@ function getWeixins() {
                 nTemplate.templateDiv.html(innerHtml);
                 nTemplate.templateDiv.removeClass("hide");
 
+                next();
+            }
+
+            function next() {
 
                 {
-                    data.weixins = serverData.weixins;
-                    var nTemplate = getTemplate("weixin_list");
-                    if (nTemplate == null) {
-                        return;
-                    }
-                    var innerHtml = nTemplate.template.render();
-                    nTemplate.templateDiv.html(innerHtml);
-                    nTemplate.templateDiv.removeClass("hide");
-
-
                     {
                         String.format = function (src) {
                             if (arguments.length == 0) return null;
@@ -278,8 +267,6 @@ function getWeixins() {
                                 append_circle($(this), $(dragSrcEl));
                             }
                         });
-
-                        digui($(button));
                         $(".circle_out").bind("dragend", function () {
                             $(".circle_out").removeClass("over");
                             $(".circle_out").removeClass("moving");
@@ -313,7 +300,7 @@ function getWeixins() {
                                 }
                             });
 
-//                    digui($(button));
+                            digui($(button));
 
                         }
 
@@ -454,6 +441,7 @@ $(document).ready(function () {
                         })
                     },
                     success: function (data) {
+                        location.href = "default.html";
                         console.log(data);
                     }
                 });
@@ -510,7 +498,8 @@ $(document).ready(function () {
                 $.ajax({
                     data: {filename: "1.png", image: urlData, weibo_user: data.uid},
                     type: 'POST',
-                    url: (app.serverUrl + "/upload2/"),
+//                    url: (app.serverUrl + "/upload2/"),
+                    url: ("/upload2/"),
                     success: function (data) {
                         var filename = data.filename;
                         var pidRegExp = /^\d{15}$/;
@@ -552,6 +541,82 @@ $(document).ready(function () {
 
     });
 });
+
+/*************************************** ***************************************
+ *    get apps    del app    modify app
+ *************************************** ***************************************/
+
+$(document).ready(function () {
+    getApps();
+});
+function getApps() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/app/getall",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            weixinopenid: data.weixinopenid,
+            filter: "ALL"
+        },
+        success: function (serverData) {
+            console.log(serverData);
+            data.apps = serverData.apps;
+            var nTemplate = getTemplate("app_list");
+            var innerHtml = nTemplate.template.render();
+            nTemplate.templateDiv.html(innerHtml);
+            nTemplate.templateDiv.removeClass("hide");
+            registerAppListEvent();
+        }
+    });
+}
+
+function registerAppListEvent() {
+
+    $(".app_delete").click(function () {
+        var appid = $(this).attr("appid");
+        console.log(appid);
+        deleteApp(appid);
+    });
+}
+
+function deleteApp(appid) {
+    $.ajax({
+        type: "GET",
+        url: "/api2/app/delete",
+        data: {
+            uid: data.uid,
+            accesskey: data.accesskey,
+            appid: appid
+        },
+        success: function (serverData) {
+            console.log(serverData);
+            if (serverData["提示信息"] == "删除应用成功") {
+                $(".out_frame[appid=" + appid + "]").addClass("hide");
+                getApps();
+            }
+        }
+    });
+}
+function modifyApp() {
+    $.ajax({
+        type: "POST",
+        url: "/api2/app/modify",
+        app: {
+            appid: data.appid,
+            accesskey: data.accesskey,
+            app: JSON.stringify({
+                "名称": "说的萨",
+                "图标": "发货的合法身份哈师傅沙发上飞",
+                "上传脚本": "kdkdldf.js",
+                "应用说明": "飞到天上去"
+            })
+        },
+        success: function (serverData) {
+            console.log(serverData);
+        }
+    });
+}
 /*************************************** ***************************************
  *    bind app    unbind app
  *************************************** ***************************************/
