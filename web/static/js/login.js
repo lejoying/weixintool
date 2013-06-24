@@ -333,9 +333,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $(".login_opt_menu").hide();
     $(".app_list").click(function () {
-        $(".login_opt_menu").animate({
-            height: 'toggle'
-        });
+        $(".login_opt_menu").animate({height: 'toggle'},200);
         addEvent(document.body, "mousedown", clickIndexOther);
     });
 })
