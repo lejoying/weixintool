@@ -1,7 +1,7 @@
 $(document).ready(function () {
     checkLogin();
     function checkLogin() {
-        if (data.uid != "" && data.accesskey != "110") {
+        if (data.uid != "" && data.accesskey != "110" && data.uid != null && data.accesskey != null) {
             location.href = "default.html";
         }
     }
@@ -121,6 +121,7 @@ $(document).ready(function () {
             $("#login").trigger("click");
         }
     });
+
 
 });
 

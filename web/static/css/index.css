@@ -99,14 +99,14 @@ body{
     background-repeat:no-repeat;
     position:absolute;
 }
-.loginout{
+.logout{
     background-position:10px 5px;
-    top:88px
+    top:48px
 
 }
 .change_password{
     background-position:10px -22px;
-    top:45px
+    top:5px
 }
 .change_info{
     background-position:10px -48px;

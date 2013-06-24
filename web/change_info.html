@@ -2,50 +2,65 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="/static/js/jQuery v2.0.0.js" ></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>新建应用</title>
 </head>
 <body>
 <div class="head_slip"></div>
-<div class="index_content">
-	<!--<div class="head_banner"></div>-->
-    <div class="function_model" style="left:0;top:20px;">
-    	<div class="left_icon">
-        	<div><a href="#" class="personalized"></a></div>
+<div class="index_content" draggable="false">
+    <!--<div class="head_banner"></div>-->
+    <div class="function_model js_personality" style="left:0;top:20px;">
+        <div class="left_icon">
+
+            <div><a href="javascript:;" class="personalized" id="js_personality"></a></div>
             <div class="apps_title">微信应用</div>
         </div>
         <div class="right_sub"></div>
     </div>
-    <div class="function_model" style="left:150px;top:20px;">
-    	<div class="left_icon">
-        	<div><a href="#" class="user_mange"></a></div>
+    <div class="pop_subitem js_subitem" id="js_subitem" style="display:block;">
+        <div class="pop_subitem_in">
+            <div><a id="a_appstore" href="javascript:;">应用商店</a></div>
+            <div><a id="a_myapp" href="default.html">我的应用</a></div>
+        </div>
+    </div>
+    <div class="function_model js_usermanger" style="left:250px;top:20px;">
+        <div class="left_icon">
+            <div><a href="user_mange.html" class="user_mange"></a></div>
             <div class="apps_title">用户管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
-    <div class="function_model" style="left:300px;top:20px;">
-    	<div class="left_icon">
-        	<div><a href="#" class="message_mange"></a></div>
+    <div class="function_model js_message" style="left:400px;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="message_mange"></a>
+            </div>
             <div class="apps_title">消息管理</div>
         </div>
         <div class="right_sub"></div>
     </div>
-    <div class="function_model" style="left:450px;top:20px;width:210px;">
-    	<div class="left_icon" style="width:90px;">
-        	<a href="#" class="weixin_card"></a>
+    <div class="function_model js_weixin_user" draggable="false" style="left:550px;top:20px;width:210px;">
+        <div class="left_icon" style="width:90px;">
+            <a href="javascript:;" class="weixin_card"></a>
+
             <div class="user_name"></div>
         </div>
-        <div class="right_sub">很破的一口钟</div>
+        <div class="right_sub">习敬萍</div>
     </div>
     <div class="login_user" style="right:0;top:20px;">
-    	<div>
-            <a href="#" class="app_list"></a>
+        <div>
+            <a href="javascript:;" class="app_list" id="app_list"></a>
+
             <div class="logo_apps">
-            	<div>usert2已登录</div>
-            </div>  
+                <div class="js_account_information"></div>
+            </div>
+
         </div>
+    </div>
+    <div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:none;">
+        <!--<p><b class="change_info"></b><a href="javascript:;" id="div1">修改个人信息</a></p>-->
+        <p><b class="change_password"></b><a href="change_info.html" id="div2">修改密码</a></p>
+        <p class="js_logout" ><b class="logout"></b><a href="javascript:;" id="div3">注销</a></p>
     </div>
 	<div class="index_body">
     	<div class="body_left">
@@ -75,7 +90,7 @@
             </div>
         </div>
         <div class="body_right">
-        	<div class="weixin_user"><b class="user_face"></b><span>很破的一口钟</span></div>
+        	<div class="weixin_user"><b class="user_face"></b><span>习敬萍</span></div>
             <div class="circle_out">
             	<div class="circle_in">
                 	APP1
@@ -118,5 +133,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/app.js"></script>
+<script type="text/javascript" src="/static/js/default.js"></script>
+<script type="text/javascript" src="/static/js/ue_effect.js"></script>
+<script type="text/javascript" src="/static/js/ue_api.js"></script>
 </body>
 </html>

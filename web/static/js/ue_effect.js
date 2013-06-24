@@ -76,6 +76,15 @@ $(document).ready(function(){
 		$("[useropeart="+uid+"]").hide();
 		$("[uid="+uid+"]").show();
 	});
+    /*************************************** ***************************************
+     * popmenu
+     *************************************** ***************************************/
+    $(".login_opt_menu").hide();
+    $(".app_list").click(function () {
+        $(".login_opt_menu").animate({height: 'toggle'},200);
+        addEvent(document.body, "mousedown", clickIndexOther);
+    });
+
 });
 /**
 * 用于检查一个对象是否包含在另外一个对象中
@@ -152,4 +161,24 @@ function clickother(el){
 		thisObj = thisObj.parentNode;
 	}while(thisObj.parentNode);
 }
-
+function clickIndexOther(el) {
+    thisObj = el.target ? el.target : event.srcElement;
+    do {
+        if (thisObj.id == "popmenu" || thisObj.id == "app_list") {
+            return;
+        }
+        if (thisObj.tagName == "BODY") {
+            document.getElementById("popmenu").style.display = "none";
+            return;
+        }
+        thisObj = thisObj.parentNode;
+    } while (thisObj.parentNode);
+}
+function addEvent(obj, eventType, func) {
+    if (obj.attachEvent) {
+        obj.attachEvent("on" + eventType, func);
+    }
+    else {
+        obj.addEventListener(eventType, func, false)
+    }
+}
