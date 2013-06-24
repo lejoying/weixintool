@@ -813,14 +813,9 @@ body{
 	float:left;
 	clear:both;	
 }
-.mange_user_list{
-	float:left;
-	clear:both;	
-}
 .user_list{
-	height:680px;
-	overflow-y:auto;
-	width:1206px;	
+	height:675px;
+	overflow:auto;	
 }
 .msg_list{
 	background:#657c9c;
@@ -828,7 +823,8 @@ body{
 	font-size:16px;
 	font-family:"微软雅黑";
 	border-bottom:1px dotted #808080;	
-	padding:10px 1px 0 42px;
+	padding:10px 42px 0;
+	margin-top:8px;
 }
 .msg_list_id{
 	color:#ddd;	
@@ -855,7 +851,7 @@ body{
 .user_info li{
 	float:left;
 	margin-right: 10px;
-    width: 264px;
+    width: 260px;
 	height:34px;
 	line-height:34px;
 	overflow:hidden;
@@ -917,7 +913,7 @@ body{
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#425d7d), to(#4c6a8f));	
 }
 .infomation_bg{
-    background: none repeat scroll 0 0 #D4D4D4;
+	background: none repeat scroll 0 0 #D4D4D4;
     color: #333333;
     display: inline-block;
     font-size: 15px;
@@ -926,8 +922,6 @@ body{
     padding: 5px 10px 6px;
     width: 240px;
 	overflow:hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
 }
 .infomation_bg:hover{
 	background:#e4e4e4;
