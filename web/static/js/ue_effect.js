@@ -1,5 +1,11 @@
-// JavaScript Document
-
+$(document).ready(function(){
+    $(".js_logout").click(function(){
+        data.uid = "";
+        data.accesskey = "110";
+        saveLocalSettings();
+        window.location.href="login.html";
+    });
+});
 $(document).ready(function(){
     $('.out_frame').bind({  
         mouseenter:function(){  

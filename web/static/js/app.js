@@ -37,11 +37,11 @@ window.onbeforeunload = function () {
 };
 
 function saveLocalSettings() {
-    window.localStorage.localSettings = JSON.stringify(data);
+    window.localStorage.data = JSON.stringify(data);
 }
 
 $(document).ready(function () {
-    if (window.localStorage.localSettings != null) {
+    if (window.localStorage.data != null) {
         data = JSON.parse(window.localStorage.data);
     }
 });

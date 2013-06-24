@@ -1,3 +1,12 @@
+$(document).ready(function(){
+    checkLogin();
+    function checkLogin() {
+        if (data.uid != "" && data.accesskey != "110") {
+            location.href = "default.html";
+        }
+    }
+});
+
 $(document).ready(function () {
 
     $("#register").click(function () {
