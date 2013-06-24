@@ -1,4 +1,6 @@
 $(document).ready(function(){
+
+    $(".js_account_information").html(data.accountname+", 已登录");
     $(".js_logout").click(function(){
         data.uid = "";
         data.accesskey = "110";

@@ -1,20 +1,3 @@
-var data = {};
-/*************************************** ***************************************
- *    resolve local storage
- *************************************** ***************************************/
-var logindata = {};
-logindata.localSettings = {};
-var logindata = {};
-logindata.localSettings = {};
-window.onbeforeunload = function () {
-    window.localStorage.localSettings = JSON.stringify(logindata.localSettings);
-};
-$(document).ready(function () {
-    if (window.localStorage.localSettings != null) {
-        logindata.localSettings = JSON.parse(window.localStorage.localSettings);
-    }
-});
-
 /*************************************** ***************************************
  *    public functions
  *************************************** ***************************************/
@@ -51,8 +34,6 @@ function getTemplate(template) {
 $(document).ready(function () {
     var now = new Date();
     data.appid = "36";
-    data.uid = "91";
-    data.accesskey = "123";
     data.sessionID = data.uid + now.getTime();
     getEvent();
 });
@@ -102,12 +83,12 @@ $(document).ready(function () {
                     type: "get",
                     url: "/api2/weixin/bindingtoken?",
                     data: {
-                        weixinName: weixinName, uid: data.uid, accesskey: "XXXXXX"
+                        weixinName: weixinName, uid: data.uid, accesskey: data.accesskey
                     },
-                    success: function (data) {
-                        if (data["提示信息"] == "微信公众账号正在绑定") {
-                            logindata.localSettings.bindingWeixinName = weixinName;
-                            logindata.localSettings.bindingToken = data.token;
+                    success: function (serverData) {
+                        if (serverData["提示信息"] == "微信公众账号正在绑定") {
+                            data.bindingWeixinName = weixinName;
+                            data.bindingToken = serverData.token;
                             location.href = "step_1.html";
                         }
                     }
@@ -121,7 +102,7 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $("#bindingToken").val(logindata.localSettings.bindingToken);
+    $("#bindingToken").val(data.bindingToken);
 });
 
 
@@ -129,7 +110,7 @@ $(document).ready(function () {
  *    get Weixins
  *************************************** ***************************************/
 $(document).ready(function () {
-    getWeixins();
+//    getWeixins();
 });
 function getWeixins() {
     $.ajax({
@@ -140,18 +121,17 @@ function getWeixins() {
             accesskey: data.accesskey
         },
         success: function (serverData) {
-//            console.log(serverData);
-            data.weixins = serverData.weixins;
-            var nTemplate = getTemplate("weixin_list");
-            if (nTemplate == null) {
-                return;
+            if (serverData["提示信息"] == "获取所有绑定微信公众账号失败") {
+                if (serverData["失败原因"] == "没有已绑定微信公众账号") {
+//                    location.href = "step.html";
+                }
+            } else if (serverData["提示信息"] == "获取所有绑定微信公众账号成功") {
+                next();
             }
-            var innerHtml = nTemplate.template.render();
-            nTemplate.templateDiv.html(innerHtml);
-            nTemplate.templateDiv.removeClass("hide");
+
+            function next() {
 
 
-            {
                 data.weixins = serverData.weixins;
                 var nTemplate = getTemplate("weixin_list");
                 if (nTemplate == null) {
@@ -163,219 +143,186 @@ function getWeixins() {
 
 
                 {
-                    String.format = function (src) {
-                        if (arguments.length == 0) return null;
-                        var args = Array.prototype.slice.call(arguments, 1);
-                        return src.replace(/\{(\d+)\}/g, function (m, i) {
-                            return args[i];
-                        });
-                    };
-                    var dragSrcEl = null;
-
-                    function handleDragStart(e) {
-                        this.style.opacity = '0.2';
-                        dragSrcEl = this;
-                        var appid = $(this).attr("appid");
-                        this.classList.add('moving');
+                    data.weixins = serverData.weixins;
+                    var nTemplate = getTemplate("weixin_list");
+                    if (nTemplate == null) {
+                        return;
                     }
+                    var innerHtml = nTemplate.template.render();
+                    nTemplate.templateDiv.html(innerHtml);
+                    nTemplate.templateDiv.removeClass("hide");
 
-                    function handleDragOver(e) {
-                        if (e.preventDefault) {
-                            e.preventDefault(); // Necessary. Allows us to drop.
+
+                    {
+                        String.format = function (src) {
+                            if (arguments.length == 0) return null;
+                            var args = Array.prototype.slice.call(arguments, 1);
+                            return src.replace(/\{(\d+)\}/g, function (m, i) {
+                                return args[i];
+                            });
+                        };
+                        var dragSrcEl = null;
+
+                        function handleDragStart(e) {
+                            this.style.opacity = '0.2';
+                            dragSrcEl = this;
+                            var appid = $(this).attr("appid");
+                            this.classList.add('moving');
                         }
-                        return false;
-                    }
 
-                    function handleDragEnter(e) {
-                        // this / e.target is the current hover target.
-                        this.classList.add('over');
-                    }
+                        function handleDragOver(e) {
+                            if (e.preventDefault) {
+                                e.preventDefault(); // Necessary. Allows us to drop.
+                            }
+                            return false;
+                        }
 
-                    function handleDragEnd(e) {
-                        // this/e.target is the source node.
-                        this.style.opacity = '0.9';
+                        function handleDragEnter(e) {
+                            // this / e.target is the current hover target.
+                            this.classList.add('over');
+                        }
+
+                        function handleDragEnd(e) {
+                            // this/e.target is the source node.
+                            this.style.opacity = '0.9';
+                            [].forEach.call(cols, function (col) {
+                                col.classList.remove('over');
+                                col.classList.remove('moving');
+                            });
+                            $(".circle_out").removeClass("over");
+                            $(".circle_out").removeClass("moving");
+                        }
+
+                        var cols = document.querySelectorAll('.out_frame');
                         [].forEach.call(cols, function (col) {
-                            col.classList.remove('over');
-                            col.classList.remove('moving');
+                            col.setAttribute('draggable', 'true');
                         });
-                        $(".circle_out").removeClass("over");
-                        $(".circle_out").removeClass("moving");
-                    }
-
-                    var cols = document.querySelectorAll('.out_frame');
-                    [].forEach.call(cols, function (col) {
-                        col.setAttribute('draggable', 'true');
-                    });
-                    $(".out_frame").bind("dragstart", handleDragStart);
-                    $(".out_frame").bind("dragenter", handleDragEnter);
-                    $(".out_frame").bind("dragend", handleDragEnd);
-                    /******************************
-                     处理circle_out
-                     *****************************/
-                    $(".circle_out").bind("dragover", function (e) {
-                        if (e.preventDefault) {
-                            e.preventDefault(); // Necessary. Allows us to drop.
-                        }
-                        $(this).addClass("over");
-                    });
-                    $(".circle_out").bind("dragleave", function () {
-                        $(this).removeClass("over");
-                    });
-                    String.format = function (src) {
-                        if (arguments.length == 0) return null;
-                        var args = Array.prototype.slice.call(arguments, 1);
-                        return src.replace(/\{(\d+)\}/g, function (m, i) {
-                            return args[i];
+                        $(".out_frame").bind("dragstart", handleDragStart);
+                        $(".out_frame").bind("dragenter", handleDragEnter);
+                        $(".out_frame").bind("dragend", handleDragEnd);
+                        /******************************
+                         处理circle_out
+                         *****************************/
+                        $(".circle_out").bind("dragover", function (e) {
+                            if (e.preventDefault) {
+                                e.preventDefault(); // Necessary. Allows us to drop.
+                            }
+                            $(this).addClass("over");
                         });
-                    };
-                    var dragSrcEl = null;
+                        $(".circle_out").bind("dragleave", function () {
+                            $(this).removeClass("over");
+                        });
+                        String.format = function (src) {
+                            if (arguments.length == 0) return null;
+                            var args = Array.prototype.slice.call(arguments, 1);
+                            return src.replace(/\{(\d+)\}/g, function (m, i) {
+                                return args[i];
+                            });
+                        };
+                        var dragSrcEl = null;
 
-                    function handleDragStart(e) {
-                        this.style.opacity = '0.2';
-                        dragSrcEl = this;
-                        var appid = $(this).attr("appid");
-                        this.classList.add('moving');
-                    }
-
-                    function handleDragOver(e) {
-                        if (e.preventDefault) {
-                            e.preventDefault(); // Necessary. Allows us to drop.
+                        function handleDragStart(e) {
+                            this.style.opacity = '0.2';
+                            dragSrcEl = this;
+                            var appid = $(this).attr("appid");
+                            this.classList.add('moving');
                         }
-                        return false;
-                    }
 
-                    function handleDragEnter(e) {
-                        // this / e.target is the current hover target.
-                        this.classList.add('over');
-                    }
+                        function handleDragOver(e) {
+                            if (e.preventDefault) {
+                                e.preventDefault(); // Necessary. Allows us to drop.
+                            }
+                            return false;
+                        }
 
-                    function handleDragEnd(e) {
-                        // this/e.target is the source node.
-                        this.style.opacity = '0.9';
+                        function handleDragEnter(e) {
+                            // this / e.target is the current hover target.
+                            this.classList.add('over');
+                        }
+
+                        function handleDragEnd(e) {
+                            // this/e.target is the source node.
+                            this.style.opacity = '0.9';
+                            [].forEach.call(cols, function (col) {
+                                col.classList.remove('over');
+                                col.classList.remove('moving');
+                            });
+                            $(".circle_out").removeClass("over");
+                            $(".circle_out").removeClass("moving");
+                        }
+
+                        var cols = document.querySelectorAll('.out_frame');
                         [].forEach.call(cols, function (col) {
-                            col.classList.remove('over');
-                            col.classList.remove('moving');
+                            col.setAttribute('draggable', 'true');
                         });
-                        $(".circle_out").removeClass("over");
-                        $(".circle_out").removeClass("moving");
-                    }
+                        $(".out_frame").bind("dragstart", handleDragStart);
+                        $(".out_frame").bind("dragenter", handleDragEnter);
+                        $(".out_frame").bind("dragend", handleDragEnd);
+                        /******************************
+                         处理circle_out
+                         *****************************/
+                        $(".circle_out").bind("dragover", function (e) {
+                            if (e.preventDefault) {
+                                e.preventDefault(); // Necessary. Allows us to drop.
+                            }
+                            $(this).addClass("over");
+                        });
+                        $(".circle_out").bind("dragleave", function () {
+                            $(this).removeClass("over");
+                        });
 
-                    var cols = document.querySelectorAll('.out_frame');
-                    [].forEach.call(cols, function (col) {
-                        col.setAttribute('draggable', 'true');
-                    });
-                    $(".out_frame").bind("dragstart", handleDragStart);
-                    $(".out_frame").bind("dragenter", handleDragEnter);
-                    $(".out_frame").bind("dragend", handleDragEnd);
-                    /******************************
-                     处理circle_out
-                     *****************************/
-                    $(".circle_out").bind("dragover", function (e) {
-                        if (e.preventDefault) {
-                            e.preventDefault(); // Necessary. Allows us to drop.
-                        }
-                        $(this).addClass("over");
-                    });
-                    $(".circle_out").bind("dragleave", function () {
-                        $(this).removeClass("over");
-                    });
-
-                    $(".circle_out").bind("drop", function (arg) {
-                        if ($(dragSrcEl).hasClass("out_frame")) {
-                            //                        alert($(dragSrcEl).attr("appid"));
-                            //                        var appid = $(dragSrcEl).attr("appid");
-                            append_circle($(this), $(dragSrcEl));
-                        }
-                    });
-
-                    digui($(button));
-                    $(".circle_out").bind("dragend", function () {
-                        $(".circle_out").removeClass("over");
-                        $(".circle_out").removeClass("moving");
-
-                    });
-                    function append_circle(circle_out, dragSrcEl) {
-                        var amount = parseInt(circle_out.attr("amount"));
-                        var button = document.createElement("div");
-                        button.setAttribute("class", "circel_ele circel_ele_" + (++amount));
-//                    button.setAttribute("title", dragSrcEl.attr("title"));
-                        button.setAttribute("appid", dragSrcEl.attr("appid"));
-                        button.setAttribute("weixinOpenID", circle_out.attr("weixinOpenID"));
-                        var img = document.createElement("img");
-                        img.setAttribute("src", "/static/images/face.jpg");
-                        $(button).append(img);
-                        circle_out.append(button);
-                        circle_out.attr("amount", amount);
-                        var appid = $(button).attr("appid");
-                        var weixinOpenID = $(button).attr("weixinOpenID");
-
-                        $.ajax({
-                            type: "GET",
-                            url: "/api2/weixin/bindapp",
-                            data: {uid: "91", accesskey: "123", weixinopenid: weixinOpenID, appid: appid},
-                            success: function (event, data) {
-                                if (data["提示信息"] == "微信公众账号添加应用成功") {
-                                }
-                                else {
-
-                                }
+                        $(".circle_out").bind("drop", function (arg) {
+                            if ($(dragSrcEl).hasClass("out_frame")) {
+                                //                        alert($(dragSrcEl).attr("appid"));
+                                //                        var appid = $(dragSrcEl).attr("appid");
+                                append_circle($(this), $(dragSrcEl));
                             }
                         });
+
+                        digui($(button));
+                        $(".circle_out").bind("dragend", function () {
+                            $(".circle_out").removeClass("over");
+                            $(".circle_out").removeClass("moving");
+
+                        });
+                        function append_circle(circle_out, dragSrcEl) {
+                            var amount = parseInt(circle_out.attr("amount"));
+                            var button = document.createElement("div");
+                            button.setAttribute("class", "circel_ele circel_ele_" + (++amount));
+//                    button.setAttribute("title", dragSrcEl.attr("title"));
+                            button.setAttribute("appid", dragSrcEl.attr("appid"));
+                            button.setAttribute("weixinOpenID", circle_out.attr("weixinOpenID"));
+                            var img = document.createElement("img");
+                            img.setAttribute("src", "/static/images/face.jpg");
+                            $(button).append(img);
+                            circle_out.append(button);
+                            circle_out.attr("amount", amount);
+                            var appid = $(button).attr("appid");
+                            var weixinOpenID = $(button).attr("weixinOpenID");
+
+                            $.ajax({
+                                type: "GET",
+                                url: "/api2/weixin/bindapp",
+                                data: {uid: "91", accesskey: "123", weixinopenid: weixinOpenID, appid: appid},
+                                success: function (event, data) {
+                                    if (data["提示信息"] == "微信公众账号添加应用成功") {
+                                    }
+                                    else {
+
+                                    }
+                                }
+                            });
 
 //                    digui($(button));
 
-                    }
+                        }
 
-                    function digui(temp) {
-                        $(temp).bind("drag", function (e) {
-                            var appid = $(this).attr("appid");
-                            var weixinOpenID = $(this).attr("weixinOpenID");
-                            if (appid != 99) {
-                                $(temp).remove();
-                                $.ajax({
-                                    type: "GET",
-                                    url: "/api2/weixin/unbindapp",
-                                    data: {uid: "91", accesskey: "123", weixinopenid: weixinOpenID, appid: appid},
-                                    success: function (event, data) {
-                                        if (data["提示信息"] == "微信公众账号移除应用成功") {
-                                            //                                        alert(appid0);
-                                        }
-                                        else {
-                                            //                                        alert(appid0);
-                                        }
-                                    }
-                                });
-                                for (var acc = 0; acc < $(".circle_out").length; acc++) {
-                                    if ($($(".circle_out")[acc]).attr("weixinOpenID") == $(this).attr("weixinOpenID")) {
-
-                                        var circle = $($(".circle_out")[acc]);
-                                        var amount1 = parseInt(circle.attr("amount"));
-                                        circle.attr("amount", amount1 - 1);
-                                        //先删除所有ele
-                                        var all = circle[0].children;
-                                        var length = all.length;
-                                        for (var i = 1; i < length; i++) {
-                                            var button = circle[0].children[i];
-                                            $(button).attr("class", "circel_ele circel_ele_" + (i));
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
-                    }
-
-
-//                直接页面生成的注册事件
-                    for (var acc = 0; acc < $(".circle_out").length; acc++) {
-                        for (var acc2 = 0; acc2 < $($(".circle_out")[acc]).attr("amount"); acc2++) {
-                            var temp = $($(".circle_out")[acc])[0].children[acc2 + 1];
-                            var weixinOpenID = $($(".circle_out")[acc]).attr("weixinOpenID");
+                        function digui(temp) {
                             $(temp).bind("drag", function (e) {
                                 var appid = $(this).attr("appid");
                                 var weixinOpenID = $(this).attr("weixinOpenID");
                                 if (appid != 99) {
-                                    $(this).remove();
+                                    $(temp).remove();
                                     $.ajax({
                                         type: "GET",
                                         url: "/api2/weixin/unbindapp",
@@ -406,12 +353,57 @@ function getWeixins() {
                                     }
                                 }
                             });
-                        }
-                    }
 
+                        }
+
+
+//                直接页面生成的注册事件
+                        for (var acc = 0; acc < $(".circle_out").length; acc++) {
+                            for (var acc2 = 0; acc2 < $($(".circle_out")[acc]).attr("amount"); acc2++) {
+                                var temp = $($(".circle_out")[acc])[0].children[acc2 + 1];
+                                var weixinOpenID = $($(".circle_out")[acc]).attr("weixinOpenID");
+                                $(temp).bind("drag", function (e) {
+                                    var appid = $(this).attr("appid");
+                                    var weixinOpenID = $(this).attr("weixinOpenID");
+                                    if (appid != 99) {
+                                        $(this).remove();
+                                        $.ajax({
+                                            type: "GET",
+                                            url: "/api2/weixin/unbindapp",
+                                            data: {uid: "91", accesskey: "123", weixinopenid: weixinOpenID, appid: appid},
+                                            success: function (event, data) {
+                                                if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                                    //                                        alert(appid0);
+                                                }
+                                                else {
+                                                    //                                        alert(appid0);
+                                                }
+                                            }
+                                        });
+                                        for (var acc = 0; acc < $(".circle_out").length; acc++) {
+                                            if ($($(".circle_out")[acc]).attr("weixinOpenID") == $(this).attr("weixinOpenID")) {
+
+                                                var circle = $($(".circle_out")[acc]);
+                                                var amount1 = parseInt(circle.attr("amount"));
+                                                circle.attr("amount", amount1 - 1);
+                                                //先删除所有ele
+                                                var all = circle[0].children;
+                                                var length = all.length;
+                                                for (var i = 1; i < length; i++) {
+                                                    var button = circle[0].children[i];
+                                                    $(button).attr("class", "circel_ele circel_ele_" + (i));
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+
+                    }
                 }
+                //            registerWeixinListEvent();
             }
-            //            registerWeixinListEvent();
         }
     });
 }
@@ -564,38 +556,38 @@ $(document).ready(function () {
  *    bind app    unbind app
  *************************************** ***************************************/
 
-//$(document).ready(function () {
+$(document).ready(function () {
 //    bindapp();
-////    unbindapp();
-//});
-//function bindapp() {
-//    $.ajax({
-//        type: "GET",
-//        url: "/api2/weixin/bindapp?",
-//        data: {
-//            "appid": 77,
-//            "weixinopenid": "gh_7a898e6d9109"
-//        },
-//        success: function (data) {
-////            alert(JSON.stringify(data));
-//        }
-//    });
-//}
-
-
-//function unbindapp() {
-//    $.ajax({
-//        type: "GET",
-//        url: "/api2/weixin/unbindapp?",
-//        data: {
-//            "appid": 36,
-//            "weixinopenid": "gh_c6cd8a443586"
-//        },
-//        success: function (data) {
+//    unbindapp();
+});
+function bindapp() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/weixin/bindapp?",
+        data: {
+            "appid": 77,
+            "weixinopenid": "gh_7a898e6d9109"
+        },
+        success: function (data) {
 //            alert(JSON.stringify(data));
-//        }
-//    });
-//}}
+        }
+    });
+}
+
+
+function unbindapp() {
+    $.ajax({
+        type: "GET",
+        url: "/api2/weixin/unbindapp?",
+        data: {
+            "appid": 36,
+            "weixinopenid": "gh_c6cd8a443586"
+        },
+        success: function (data) {
+            alert(JSON.stringify(data));
+        }
+    });
+}
 
 
 /*************************************** ***************************************
@@ -607,7 +599,7 @@ $(document).ready(function () {
     data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
     data.end = 50;
-    getUsers();
+//    getUsers();
 });
 function getUsers() {
     $.ajax({

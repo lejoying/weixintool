@@ -59,7 +59,7 @@
         <div>
             <a href="javascript:;" class="app_list" id="app_list"></a>
             <div class="logo_apps">
-                <div id="user"></div>
+                <div class="js_account_information"></div>
             </div>
         </div>
     </div>
@@ -72,10 +72,7 @@
 
             <a href="javascript:;">修改密码</a>
         </p>
-        <p><b class="loginout"></b>
-
-            <a href="javascript:;">注销</a>
-        </p>
+        <p class="js_logout" ><b class="logout"></b><a href="javascript:;" id="div3">注销</a></p>
     </div>
     <div class="index_body">
         <div class="body_left">
@@ -100,19 +97,10 @@
     </div>
 </div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
-<script type="text/javascript" src="/static/js/login.js"></script>
-<script type="text/javascript" src="/static/js/ue_effect.js"></script>
-<script type="text/javascript">
-    function loginuser() {
-        document.getElementById("user").innerText = logindata.localSettings.username + ",已登录";
-    }
-</script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        loginuser();
-    });
-</script>
-<script type="text/javascript" src="/static/js/ue_api.js"></script>
 <script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/app.js"></script>
+
+<script type="text/javascript" src="/static/js/ue_effect.js"></script>
+<script type="text/javascript" src="/static/js/ue_api.js"></script>
 </body>
 </html>

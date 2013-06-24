@@ -34,21 +34,45 @@ weixinManage.bindingtoken = function (data, response) {
     weixin.token = token;
 
 
-    createWeixinNode();
+    deleteBindingWeixinNode(createWeixinNode);
 
-    function createWeixinNode() {
+    function deleteBindingWeixinNode(next) {
         var query = [
             'START account=node({uid}), account1=node({uid})' ,
             'MATCH account1:Account-[r1:HAS_WEIXIN]->duplicatedWeixin:Weixin',
             'WHERE duplicatedWeixin.status={status1} OR duplicatedWeixin.status={status2}',
             'DELETE duplicatedWeixin, r1',
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(account.uid),
+            weixin: weixin,
+            status1: "binding",
+            status2: "bind_server"
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+            }
+            else {
+                next()
+            }
+        });
+    }
+
+    createWeixinNode();
+
+    function createWeixinNode() {
+        var query = [
+            'START account=node({uid}), account1=node({uid})' ,
             'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin:Weixin{weixin}',
             'RETURN  weixin, account, r'
         ].join('\n');
 
         var params = {
             uid: parseInt(account.uid),
-            weixin: weixin ,
+            weixin: weixin,
             status1: "binding",
             status2: "bind_server"
         };
@@ -65,10 +89,8 @@ weixinManage.bindingtoken = function (data, response) {
                 }));
                 response.end();
             }
-
         });
     }
-
 }
 
 
@@ -200,7 +222,7 @@ weixinManage.getall = function (data, response) {
             if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "获取所有绑定微信公众账号失败",
-                    "失败原因 ": "没有已绑定微信公众账号"
+                    "失败原因": "没有已绑定微信公众账号"
                 }));
                 response.end();
             }

@@ -73,6 +73,7 @@ accountManage.add = function (data, response) {
                 response.write(JSON.stringify({
                     "提示信息": "注册账号成功",
                     "uid": accountNode.id,
+                    "accountname": accountNode.data.accountname,
                     "accesskey": "123",
                     "PbKey": "123"
                 }));
@@ -208,6 +209,7 @@ accountManage.auth = function (data, response) {
                     response.write(JSON.stringify({
                         "提示信息": "账号登录成功",
                         "uid": accountNode.id,
+                        "accountname": accountNode.data.accountname,
                         "accesskey": "123",
                         "PbKey": "123"
                     }));

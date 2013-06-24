@@ -46,6 +46,7 @@ $(document).ready(function () {
                             if (serverData["提示信息"] == "注册账号成功") {
                                 data.uid = serverData.uid;
                                 data.accesskey = serverData.accesskey;
+                                data.accountname = serverData.accountname;
                                 saveLocalSettings();
                                 location.href = "default.html";
                             }
@@ -102,6 +103,7 @@ $(document).ready(function () {
                     if (serverData["提示信息"] == "账号登录成功") {
                         data.uid = serverData.uid;
                         data.accesskey = serverData.accesskey;
+                        data.accountname = serverData.accountname;
                         saveLocalSettings();
                         location.href = "default.html";
                     }
