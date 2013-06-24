@@ -128,6 +128,13 @@ function getWeixins() {
                 }
             } else if (serverData["提示信息"] == "获取所有绑定微信公众账号成功") {
                 data.weixins = serverData.weixins;
+                for (var index in data.weixins) {
+                    if (index == "") {
+                        continue;
+                    }
+                    data.weixinOpenID = data.weixins[index].weixinOpenID;
+                    break
+                }
                 var nTemplate = getTemplate("weixin_list");
                 if (nTemplate == null) {
                     return;
@@ -546,9 +553,6 @@ $(document).ready(function () {
  *    get apps    del app    modify app
  *************************************** ***************************************/
 
-$(document).ready(function () {
-    getApps();
-});
 function getApps() {
     $.ajax({
         type: "GET",
@@ -660,8 +664,6 @@ function unbindapp() {
  *************************************** ***************************************/
 $(document).ready(function () {
     data.appid = "36";
-    data.accesskey = "123";
-    data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
     data.end = 50;
 //    getUsers();
@@ -673,7 +675,7 @@ function getUsers() {
         data: {
             uid: data.uid,
             accesskey: data.accesskey,
-            weixinopenid: data.weixinopenid,
+            weixinopenid: data.weixinOpenID,
             start: data.start,
             end: data.end
         },

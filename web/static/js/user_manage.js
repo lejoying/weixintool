@@ -5,8 +5,7 @@ $(document).ready(function () {
             location.href = "login.html";
         }
     }
-    getWeixins();
-    getApps();
+    getUsers();
 });
 
 $(document).ready(function () {
