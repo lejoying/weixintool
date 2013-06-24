@@ -287,7 +287,11 @@ body{
     padding:7px 0;
 }
 .appname{
-    color:#333;
+    color: #333333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
 }
 .addname{
     color:#575757;
@@ -1030,6 +1034,14 @@ body{
     top: 20px;
     background:#6E85A5;
     padding:5px;
+}
+.lookscript{
+    color: #FFFFFF;
+    font-family: '微软雅黑';
+    font-size: 16px;
+    left: 594px;
+    position: absolute;
+    top: 63px;
 }
 .arrow_left{
     position:absolute;
