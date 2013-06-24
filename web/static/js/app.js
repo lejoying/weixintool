@@ -10,11 +10,11 @@ app.environment = "local";//local or server
 
 if (app.environment == "local") {
     app.serverUrl = "www.weixintool.com";
-    app.imageServerUrl = "http://images.weibo.com/";
+    app.imageServerUrl = "http://images.weixintool.com/";
 }
 else if (app.environment == "server") {
     app.serverUrl = "wx.lejoying.com";
-    app.imageServerUrl = "http://tools.wlm1001.com/";
+    app.imageServerUrl = "http://images.weixintool.com/";
 }
 
 /*************************************** ***************************************
@@ -25,10 +25,11 @@ else if (app.environment == "server") {
 var data = {};
 app.data = data;
 
-function initializeData(){
+function initializeData() {
     data.uid = "";
     data.accesskey = "110";
     data.remindme = true;
+    data.imageServerUrl = app.imageServerUrl;
 }
 
 
@@ -43,5 +44,6 @@ function saveLocalSettings() {
 $(document).ready(function () {
     if (window.localStorage.data != null) {
         data = JSON.parse(window.localStorage.data);
+        data.imageServerUrl = app.imageServerUrl;
     }
 });
