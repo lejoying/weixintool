@@ -288,6 +288,7 @@ function getWeixins() {
                         }
                     });
 
+                    digui($(button));
                     $(".circle_out").bind("dragend", function () {
                         $(".circle_out").removeClass("over");
                         $(".circle_out").removeClass("moving");
