@@ -149,7 +149,201 @@ function getWeixins() {
             var innerHtml = nTemplate.template.render();
             nTemplate.templateDiv.html(innerHtml);
             nTemplate.templateDiv.removeClass("hide");
-//            registerWeixinListEvent();
+
+
+            {
+                                String.format = function (src) {
+                                    if (arguments.length == 0) return null;
+                                    var args = Array.prototype.slice.call(arguments, 1);
+                                    return src.replace(/\{(\d+)\}/g, function (m, i) {
+                                        return args[i];
+                                    });
+                                };
+                                var dragSrcEl = null;
+                                function handleDragStart(e) {
+                                    this.style.opacity = '0.2';
+                                    dragSrcEl = this;
+                                    var appid = $(this).attr("appid");
+                                    this.classList.add('moving');
+                                }
+                                function handleDragOver(e) {
+                                    if (e.preventDefault) {
+                                        e.preventDefault(); // Necessary. Allows us to drop.
+                                    }
+                                    return false;
+                                }
+                                function handleDragEnter(e) {
+                                    // this / e.target is the current hover target.
+                                    this.classList.add('over');
+                                }
+                                function handleDragEnd(e) {
+                                    // this/e.target is the source node.
+                                    this.style.opacity = '0.9';
+                                    [].forEach.call(cols, function (col) {
+                                        col.classList.remove('over');
+                                        col.classList.remove('moving');
+                                    });
+                                    $(".circle_out").removeClass("over");
+                                    $(".circle_out").removeClass("moving");
+                                }
+                                var cols = document.querySelectorAll('.out_frame');
+                                [].forEach.call(cols, function (col) {
+                                    col.setAttribute('draggable', 'true');
+                                });
+                                $(".out_frame").bind("dragstart", handleDragStart);
+                                $(".out_frame").bind("dragenter", handleDragEnter);
+                                $(".out_frame").bind("dragend", handleDragEnd);
+                                /******************************
+                                 处理circle_out
+                                 *****************************/
+                                $(".circle_out").bind("dragover", function (e) {
+                                    if (e.preventDefault) {
+                                        e.preventDefault(); // Necessary. Allows us to drop.
+                                    }
+                                    $(this).addClass("over");
+                                });
+                                $(".circle_out").bind("dragleave", function () {
+                                    $(this).removeClass("over");
+                                });
+
+                                $(".circle_out").bind("drop", function (arg) {
+                                    if ($(dragSrcEl).hasClass("out_frame")) {
+                //                        alert($(dragSrcEl).attr("appid"));
+                                        var appid = $(dragSrcEl).attr("appid");
+                                        append_circle($(this), appid);
+                                    }
+                                });
+
+                                $(".circle_out").bind("dragend", function () {
+                                    $(".circle_out").removeClass("over");
+                                    $(".circle_out").removeClass("moving");
+
+                                });
+                                function append_circle(circle, appid) {
+                                    var amount = parseInt(circle.attr("amount"));
+                                    var button=document.createElement("div");
+                                    button.setAttribute("class","circel_ele circel_ele_"+(++amount));
+                                    button.setAttribute("title","微信订餐管理");
+                                    button.setAttribute('draggable', 'true');
+                                    var img = document.createElement("img");
+                                    img.setAttribute("src","/static/images/face.jpg");
+                                    $(button).append(img);
+                                    circle.append(button);
+                                    circle.attr("amount", amount);
+                //                    var i = $(circle);
+                //                    alert(i.attr("weixinOpenID"));
+                //                    alert(appid);
+
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/api2/weixin/bindapp",
+                                        data: {uid: "91", accesskey: "123", weixinopenid: $(circle).attr("weixinOpenID"), appid: appid},
+                                        success: function (event, data) {
+                                            if (data["提示信息"] == "微信公众账号添加应用成功") {
+                                            }
+                                            else{
+
+                                            }
+                                        }
+                                    });
+
+                                    digui($(circle),appid,$(button));
+
+                                }
+                                function digui(circle,appid,qq){
+                //                    alert($(circle).attr("weixinOpenID"));
+                //                    alert(appid);
+                                    qq.bind("drag", function (e) {
+                                        qq.remove();
+                                        if($(this).attr("appid")!=99){
+                                            $.ajax({
+                                                type: "GET",
+                                                url: "/api2/weixin/unbindapp",
+                                                data: {uid: "91", accesskey: "123", weixinopenid: $(circle).attr("weixinOpenID"), appid: $(this).attr("appid")},
+                                                success: function (event, data) {
+                                                    if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                                    }
+                                                    else{
+
+                                                    }
+                                                }
+                                            });
+                                        }
+
+
+                                        var circle= $($(".circle_out")[0]);
+                                        var amount1 = parseInt(circle.attr("amount"));
+                                        circle.attr("amount", amount1 - 1);
+                                        //先删除所有ele
+                                        var all = $(".circel_ele");
+                                        all.remove();
+                                        //重新排列
+                                        for(var i=1; i<amount1; i++){
+                                            var button1=document.createElement("div");
+                                            button1.setAttribute("class","circel_ele circel_ele_"+(i));
+                                            button1.setAttribute("title","微信订餐管理");
+                                            button1.setAttribute('draggable', 'true');
+                                            var img1 = document.createElement("img");
+                                            img1.setAttribute("src","/static/images/logo_app.png");
+                                            $(button1).append(img1);
+                                            circle.append(button1);
+                //                            digui($(button1));
+                                        }
+                                    });
+                                }
+
+                for (var acc = 0; acc < $(".circle_out").length; acc++) {
+                    for (var acc2 = 0; acc2 < $($(".circle_out")[acc]).attr("amount"); acc2++) {
+                        var temp = $($(".circle_out")[acc])[0].children[acc2 + 1];
+                        var weixinOpenID0 = $($(".circle_out")[acc]).attr("weixinOpenID");
+                        //                        var appid0 = $(temp).attr("appid");
+                        //                        alert($($(".circle_out")[acc]).attr("weixinOpenID"));
+                        //                        alert($(temp).attr("appid"));
+                        alert(weixinOpenID0);
+                        $(temp).bind("drag", function (e) {
+                            var appid = $(this).attr("appid");
+                            var weixinOpenID = $(this).attr("weixinOpenID");
+                            $(this).remove();
+                            if (appid != 99) {
+                                $.ajax({
+                                    type: "GET",
+                                    url: "/api2/weixin/unbindapp",
+                                    data: {uid: "91", accesskey: "123", weixinopenid: weixinOpenID, appid: appid},
+                                    success: function (event, data) {
+                                        if (data["提示信息"] == "微信公众账号移除应用成功") {
+                                            //                                        alert(appid0);
+                                        }
+                                        else {
+                                            //                                        alert(appid0);
+                                        }
+                                    }
+                                });
+                            }
+
+                            //                            var circle= $($(".circle_out")[acc])[0];
+                            //                            var amount1 = parseInt(circle.attr("amount"));
+                            //                            circle.attr("amount", amount1 - 1);
+                            //                            //先删除所有ele
+                            //                            var all = $(".circel_ele");
+                            //                            all.remove();
+                            //                            //重新排列
+                            //                            for(var i=1; i<amount1; i++){
+                            //                                var button1=document.createElement("div");
+                            //                                button1.setAttribute("class","circel_ele circel_ele_"+(i));
+                            //                                button1.setAttribute("title","微信订餐");
+                            //                                button1.setAttribute('draggable', 'true');
+                            //                                var img1 = document.createElement("img");
+                            //                                img1.setAttribute("src","/static/images/face.jpg");
+                            //                                $(button1).append(img1);
+                            //                                circle.append(button1);
+                            //                                digui($(button1));
+                            //                            }
+                        });
+                    }
+
+                }
+            }
+            //            registerWeixinListEvent();
         }
     });
 }
@@ -241,23 +435,23 @@ $(document).ready(function () {
  *    bind app    unbind app
  *************************************** ***************************************/
 
-$(document).ready(function () {
+//$(document).ready(function () {
 //    bindapp();
-//    unbindapp();
-});
-function bindapp() {
-    $.ajax({
-        type: "GET",
-        url: "/api2/weixin/bindapp?",
-        data: {
-            "appid": 36,
-            "weixinopenid": "gh_c6cd8a443586"
-        },
-        success: function (data) {
-            alert(JSON.stringify(data));
-        }
-    });
-}
+////    unbindapp();
+//});
+//function bindapp() {
+//    $.ajax({
+//        type: "GET",
+//        url: "/api2/weixin/bindapp?",
+//        data: {
+//            "appid": 77,
+//            "weixinopenid": "gh_7a898e6d9109"
+//        },
+//        success: function (data) {
+////            alert(JSON.stringify(data));
+//        }
+//    });
+//}
 
 
 //function unbindapp() {
@@ -281,7 +475,6 @@ function bindapp() {
  *************************************** ***************************************/
 $(document).ready(function () {
     data.appid = "36";
-    data.uid = "16";
     data.accesskey = "123";
     data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
@@ -303,6 +496,9 @@ function getUsers() {
             console.log(serverData);
             data.users = serverData.users;
             var nTemplate = getTemplate("user_list");
+            if (nTemplate == null) {
+                return;
+            }
             nTemplate.templateDiv.html(nTemplate.template.render());
             nTemplate.templateDiv.removeClass("hide");
             addUserInfoEvent();
