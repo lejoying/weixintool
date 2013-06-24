@@ -123,7 +123,7 @@ function getWeixins() {
         success: function (serverData) {
             if (serverData["提示信息"] == "获取所有绑定微信公众账号失败") {
                 if (serverData["失败原因"] == "没有已绑定微信公众账号") {
-//                    location.href = "step.html";
+                    location.href = "step.html";
                 }
             } else if (serverData["提示信息"] == "获取所有绑定微信公众账号成功") {
                 next();

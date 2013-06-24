@@ -41,7 +41,7 @@ weixinManage.bindingtoken = function (data, response) {
             'START account=node({uid}), account1=node({uid})' ,
             'MATCH account1:Account-[r1:HAS_WEIXIN]->duplicatedWeixin:Weixin',
             'WHERE duplicatedWeixin.status={status1} OR duplicatedWeixin.status={status2}',
-            'DELETE duplicatedWeixin, r1',
+            'DELETE duplicatedWeixin, r1'
         ].join('\n');
 
         var params = {
@@ -62,11 +62,12 @@ weixinManage.bindingtoken = function (data, response) {
     }
 
     createWeixinNode();
-
     function createWeixinNode() {
         var query = [
-            'START account=node({uid}), account1=node({uid})' ,
-            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin:Weixin{weixin}',
+            'START account=node({uid})' ,
+            'MATCH  app:App' ,
+            'WHERE  app.appid! = 99',
+            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin:Weixin{weixin}<-[r:BIND]-app',
             'RETURN  weixin, account, r'
         ].join('\n');
 
