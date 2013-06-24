@@ -287,7 +287,11 @@ body{
     padding:7px 0;
 }
 .appname{
-    color:#333;
+    color: #333333;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100px;
 }
 .addname{
     color:#575757;
