@@ -152,6 +152,70 @@ function getWeixins() {
 
 
             {
+            data.weixins = serverData.weixins;
+            var nTemplate = getTemplate("weixin_list");
+            if (nTemplate == null) {
+                return;
+            }
+            var innerHtml = nTemplate.template.render();
+            nTemplate.templateDiv.html(innerHtml);
+            nTemplate.templateDiv.removeClass("hide");
+
+
+            {
+                                String.format = function (src) {
+                                    if (arguments.length == 0) return null;
+                                    var args = Array.prototype.slice.call(arguments, 1);
+                                    return src.replace(/\{(\d+)\}/g, function (m, i) {
+                                        return args[i];
+                                    });
+                                };
+                                var dragSrcEl = null;
+                                function handleDragStart(e) {
+                                    this.style.opacity = '0.2';
+                                    dragSrcEl = this;
+                                    var appid = $(this).attr("appid");
+                                    this.classList.add('moving');
+                                }
+                                function handleDragOver(e) {
+                                    if (e.preventDefault) {
+                                        e.preventDefault(); // Necessary. Allows us to drop.
+                                    }
+                                    return false;
+                                }
+                                function handleDragEnter(e) {
+                                    // this / e.target is the current hover target.
+                                    this.classList.add('over');
+                                }
+                                function handleDragEnd(e) {
+                                    // this/e.target is the source node.
+                                    this.style.opacity = '0.9';
+                                    [].forEach.call(cols, function (col) {
+                                        col.classList.remove('over');
+                                        col.classList.remove('moving');
+                                    });
+                                    $(".circle_out").removeClass("over");
+                                    $(".circle_out").removeClass("moving");
+                                }
+                                var cols = document.querySelectorAll('.out_frame');
+                                [].forEach.call(cols, function (col) {
+                                    col.setAttribute('draggable', 'true');
+                                });
+                                $(".out_frame").bind("dragstart", handleDragStart);
+                                $(".out_frame").bind("dragenter", handleDragEnter);
+                                $(".out_frame").bind("dragend", handleDragEnd);
+                                /******************************
+                                 处理circle_out
+                                 *****************************/
+                                $(".circle_out").bind("dragover", function (e) {
+                                    if (e.preventDefault) {
+                                        e.preventDefault(); // Necessary. Allows us to drop.
+                                    }
+                                    $(this).addClass("over");
+                                });
+                                $(".circle_out").bind("dragleave", function () {
+                                    $(this).removeClass("over");
+                                });
                 String.format = function (src) {
                     if (arguments.length == 0) return null;
                     var args = Array.prototype.slice.call(arguments, 1);
@@ -473,7 +537,6 @@ $(document).ready(function () {
  *************************************** ***************************************/
 $(document).ready(function () {
     data.appid = "36";
-    data.uid = "16";
     data.accesskey = "123";
     data.weixinopenid = "gh_c6cd8a443586";
     data.start = 0;
@@ -495,6 +558,9 @@ function getUsers() {
             console.log(serverData);
             data.users = serverData.users;
             var nTemplate = getTemplate("user_list");
+            if (nTemplate == null) {
+                return;
+            }
             nTemplate.templateDiv.html(nTemplate.template.render());
             nTemplate.templateDiv.removeClass("hide");
             addUserInfoEvent();
