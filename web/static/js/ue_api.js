@@ -316,7 +316,7 @@ function getWeixins() {
                         }
                     });
 
-                    digui($(button));
+//                    digui($(button));
 
                 }
 
@@ -360,7 +360,7 @@ function getWeixins() {
                 }
 
 
-                //直接页面生成的注册事件
+//                直接页面生成的注册事件
                 for (var acc = 0; acc < $(".circle_out").length; acc++) {
                     for (var acc2 = 0; acc2 < $($(".circle_out")[acc]).attr("amount"); acc2++) {
                         var temp = $($(".circle_out")[acc])[0].children[acc2 + 1];
@@ -403,8 +403,7 @@ function getWeixins() {
                     }
                 }
 
-
-
+            }
             }
             //            registerWeixinListEvent();
         }
