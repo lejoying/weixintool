@@ -469,8 +469,12 @@ $(document).ready(function () {
         }
     }
 
-    $('.js_upload_js').click(function () {
+    $('.js_upload_image').click(function () {
+        $("#input_image").val("");
+        $("#input_image").trigger("click");
+    });
 
+    $('.js_upload_js').click(function () {
         $("#input_js").val("");
         $("#input_js").trigger("click");
     });
