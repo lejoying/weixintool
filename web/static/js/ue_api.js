@@ -413,9 +413,68 @@ function registerWeixinListEvent() {
 
 
 /*************************************** ***************************************
- *    add App
+ *    add and modify App
  *************************************** ***************************************/
 $(document).ready(function () {
+
+
+    var image_changed = false;
+    var js_changed = false;
+
+    $("#app_modify").click(function () {
+        var name = $("#app_name").val();
+        var description = $("#app_description").val();
+        if (name != "") {
+            modifyApp(name, description);
+        }
+        else {
+            alert("应用名称不能为空！");
+        }
+    });
+
+    function modifyApp(name, description) {
+        if (image_changed == true) {
+            uploadPic(next);
+        }
+        else {
+            next(data.currentApp.icon);
+        }
+
+        function next(filename) {
+            if (js_changed == true) {
+                readJS(next);
+            }
+            else {
+                next(data.currentApp.script);
+            }
+            function next(script) {
+                $.ajax({
+                    type: "POST",
+                    url: "/api2/app/modify?",
+                    data: {
+                        uid: data.uid,
+                        accesskey: data.accesskey,
+                        script: script,
+                        appid: data.currentApp.appid,
+                        app: JSON.stringify({
+                            name: name,
+                            description: description,
+                            icon: filename,
+                            type: "public"
+                        })
+                    },
+                    success: function (serverData) {
+                        if (serverData["提示信息"] == "修改应用成功") {
+                            location.href = "default.html";
+                        }
+                        else {
+                            console.log(serverData);
+                        }
+                    }
+                });
+            }
+        }
+    }
 
     $("#app_add").click(function () {
         var name = $("#app_name").val();
@@ -447,9 +506,13 @@ $(document).ready(function () {
                             type: "public"
                         })
                     },
-                    success: function (data) {
-                        location.href = "default.html";
-                        console.log(data);
+                    success: function (serverData) {
+                        if (serverData["提示信息"] == "新建应用成功") {
+                            location.href = "default.html";
+                        }
+                        else {
+                            console.log(serverData);
+                        }
                     }
                 });
             }
@@ -467,6 +530,7 @@ $(document).ready(function () {
     });
 
     $("#input_js").change(function () {
+        js_changed = true;
         var files = this.files;
         for (var i = 0, file; file = files[i]; i++) {
             filename = file.name;
@@ -529,6 +593,8 @@ $(document).ready(function () {
 
 
     $("#input_image").change(function () {
+        image_changed = true;
+
         var myFiles = this.files;
         for (var i = 0, file; file = myFiles[i]; i++) {
             var imageReader = new FileReader();
@@ -577,9 +643,21 @@ function getApps() {
 
 function registerAppListEvent() {
 
-    $(".app_delete").click(function () {
+    $(".app_config").click(function () {
         var appid = $(this).attr("appid");
         console.log(appid);
+        modifyApp(appid);
+    });
+
+
+    $(".app_delete").click(function () {
+
+        var appid = $(this).attr("appid");
+        console.log(appid);
+        if (appid == "99") {
+            alert("基础应用不能被删除")
+            return;
+        }
         deleteApp(appid);
     });
 }
@@ -602,24 +680,26 @@ function deleteApp(appid) {
         }
     });
 }
-function modifyApp() {
-    $.ajax({
-        type: "POST",
-        url: "/api2/app/modify",
-        app: {
-            appid: data.appid,
-            accesskey: data.accesskey,
-            app: JSON.stringify({
-                "名称": "说的萨",
-                "图标": "发货的合法身份哈师傅沙发上飞",
-                "上传脚本": "kdkdldf.js",
-                "应用说明": "飞到天上去"
-            })
-        },
-        success: function (serverData) {
-            console.log(serverData);
-        }
-    });
+function modifyApp(appid) {
+    data.appid = appid;
+    location.href = "personal_app_change.html";
+//    $.ajax({
+//        type: "POST",
+//        url: "/api2/app/modify",
+//        app: {
+//            appid: data.appid,
+//            accesskey: data.accesskey,
+//            app: JSON.stringify({
+//                "名称": "说的萨",
+//                "图标": "发货的合法身份哈师傅沙发上飞",
+//                "上传脚本": "kdkdldf.js",
+//                "应用说明": "飞到天上去"
+//            })
+//        },
+//        success: function (serverData) {
+//            console.log(serverData);
+//        }
+//    });
 }
 /*************************************** ***************************************
  *    bind app    unbind app

@@ -90,7 +90,7 @@ applicationManage.delete = function (data, response) {
     function deleteAppNode() {
         var query = [
             'MATCH other-[r]-app:App',
-            'WHERE app.appid =' + appid,
+            'WHERE app.appid! =' + appid,
             'DELETE  app, r'
         ].join('\n');
 
@@ -164,13 +164,17 @@ applicationManage.modify = function (data, response) {
             if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "修改应用失败",
-                    "失败原因 ": "脚本形式不正确"
+                    "失败原因 ": "应用不存在"
                 }));
                 response.end();
             } else {
                 var appNode = results.pop().app;
-                appNode.data = app;
-                appNode.save();
+                for(var index in app){
+                    appNode.data[index] = app[index];
+                }
+
+                appNode.save(function (err, node) {
+                });
                 response.write(JSON.stringify({
                     "提示信息": "修改应用成功",
                     "app": app
