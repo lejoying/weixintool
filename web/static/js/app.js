@@ -14,7 +14,7 @@ if (app.environment == "local") {
 }
 else if (app.environment == "server") {
     app.serverUrl = "wx.lejoying.com";
-    app.imageServerUrl = "http://images.weixintool.com/";
+    app.imageServerUrl = "http://images.lejoying.com/";
 }
 
 /*************************************** ***************************************
