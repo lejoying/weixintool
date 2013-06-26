@@ -19,7 +19,7 @@ userManage.getall = function (data, response) {
     response.asynchronous = 1;
     var weixin =
     {
-        weixinOpenID: data.weixinOpenID
+        weixinOpenID: data.weixinopenid
     };
     var start = data.start;   //todo take it effect
     var end = data.end;
@@ -30,7 +30,7 @@ userManage.getall = function (data, response) {
         var query = [
             'MATCH user:User-[:FOCUS]->weixin:Weixin' ,
             'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-            'RETURN  user',
+            'RETURN  user'
 //            'SKIP {start}',
 //            'LIMIT {count}'
         ].join('\n');
