@@ -9,20 +9,7 @@ $(document).ready(function(){
     });
 });
 $(document).ready(function(){
-    $('.out_frame').bind({  
-        mouseenter:function(){  
-			var itemid = $(this).attr("itemid");
-            $("#"+itemid).slideDown(150);
-        },  
-        mouseleave:function(){
-			var itemid = $(this).attr("itemid");
-            var subitem =String($("#"+itemid));
-			var fatitem = String($(this));
-            if(checkHover(fatitem,subitem)){
-                $("#"+itemid).slideUp(150);
-            }
-        }  
-    });
+
 	$(".js_personality").click(function(){
 		if($(".js_subitem").css("display")=="none"){
 			$(".js_usermanger").animate({left:'-10px'},100);

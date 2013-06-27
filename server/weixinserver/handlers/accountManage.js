@@ -68,6 +68,7 @@ accountManage.add = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             } else {
                 var accountNode = results.pop().account;
                 response.write(JSON.stringify({
@@ -124,6 +125,7 @@ accountManage.exist = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             } else if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "验证失败",
@@ -197,6 +199,7 @@ accountManage.auth = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             } else if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "账号登录失败",
@@ -250,6 +253,7 @@ accountManage.modify = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             if (results.length == 0) {
                 response.write(JSON.stringify({

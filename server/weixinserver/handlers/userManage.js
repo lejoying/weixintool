@@ -40,30 +40,40 @@ userManage.getall = function (data, response) {
             start: start,
             count: end - start
         };
-
-        db.query(query, params, function (error, results) {
-            if (error) {
-                console.error(error);
-            }
-            if (results.length == 0) {
-                response.write(JSON.stringify({
-                    "提示信息": "获得所有关注用户失败",
-                    "失败原因 ": "微信公众账号不存在"
-                }));
-                response.end();
-            } else {
-                var users = [];
-                for (var index in results) {
-                    var userNode = results[index].user;
-                    users.push(userNode.data);
+        if(weixin.weixinOpenID == null){
+            response.write(JSON.stringify({
+                "提示信息": "获得所有关注用户失败",
+                "失败原因 ": "微信公众账号不存在"
+            }));
+            response.end();
+        }
+        else{
+            db.query(query, params, function (error, results) {
+                if (error) {
+                    console.error(error);
+                    return;
                 }
-                response.write(JSON.stringify({
-                    "提示信息": "获得所有关注用户成功",
-                    "users": users
-                }));
-                response.end();
-            }
-        });
+                if (results.length == 0) {
+                    response.write(JSON.stringify({
+                        "提示信息": "获得所有关注用户失败",
+                        "失败原因 ": "微信公众账号不存在"
+                    }));
+                    response.end();
+                } else {
+                    var users = [];
+                    for (var index in results) {
+                        var userNode = results[index].user;
+                        users.push(userNode.data);
+                    }
+                    response.write(JSON.stringify({
+                        "提示信息": "获得所有关注用户成功",
+                        "users": users
+                    }));
+                    response.end();
+                }
+            });
+        }
+
     }
 }
 
@@ -93,6 +103,7 @@ userManage.modify = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             if (results.length == 0) {
                 response.write(JSON.stringify({

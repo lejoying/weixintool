@@ -196,6 +196,8 @@ function getWeixins() {
                         $(".out_frame").bind("dragstart", handleDragStart);
                         $(".out_frame").bind("dragenter", handleDragEnter);
                         $(".out_frame").bind("dragend", handleDragEnd);
+                        $('.out_frame').bind("mouseenter",mouseenters);
+                        $('.out_frame').bind("mouseleave",mouseleaves);
                         /******************************
                          处理circle_out
                          *****************************/
@@ -815,4 +817,13 @@ function addUserInfoEvent() {
             $(".js_add_info[userid=" + userid + "]").show();
         }
     });
+}
+
+function mouseenters(){
+    var appid = $(this).attr("appid");
+    $(".app_opreation[appid="+appid+"]").slideDown(150);
+}
+function mouseleaves(){
+    var appid = $(this).attr("appid");
+    $(".app_opreation[appid="+appid+"]").slideUp(150);
 }
