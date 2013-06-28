@@ -1,9 +1,4 @@
 @charset "utf-8";
-/**
- * Author：Chen Liguo
- * QQ:150362521
- * Phone:18210241415
- */
  
 /*** Style Reset ***/
 html, body, div, span, applet, object, iframe,
@@ -25,15 +20,47 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
- line-height: 1.125;
- SCROLLBAR-FACE-COLOR: #fcfcfc;
- SCROLLBAR-HIGHLIGHT-COLOR: #6c6c90;
- SCROLLBAR-SHADOW-COLOR: #fcfcfc;
- SCROLLBAR-3DLIGHT-COLOR: #fcfcfc;
- SCROLLBAR-ARROW-COLOR: #240024;
- SCROLLBAR-TRACK-COLOR: #fcfcfc;
- SCROLLBAR-DARKSHADOW-COLOR: #48486c;
- SCROLLBAR-BASE-COLOR: #fcfcfc
+     line-height: 1.125;
+    /* SCROLLBAR-FACE-COLOR: #fcfcfc;
+     SCROLLBAR-HIGHLIGHT-COLOR: #6c6c90;
+     SCROLLBAR-SHADOW-COLOR: #fcfcfc;
+     SCROLLBAR-3DLIGHT-COLOR: #fcfcfc;
+     SCROLLBAR-ARROW-COLOR: #240024;
+     SCROLLBAR-TRACK-COLOR: #fcfcfc;
+     SCROLLBAR-DARKSHADOW-COLOR: #48486c;
+     SCROLLBAR-BASE-COLOR: #fcfcfc;*/
+
+
+    /*scrollbar-3d-light-color:#fcfcfc;
+    scrollbar-highlight-color:#6c6c90;
+    scrollbar-face-color:#fcfcfc;
+    scrollbar-arrow-color:#240024;
+    scrollbar-shadow-color:#fcfcfc;
+    scrollbar-dark-shadow-color:#48486c;
+    scrollbar-base-color:#fcfcfc;*/
+
+}
+::-webkit-scrollbar-track-piece{
+    /*background-color:#4c678c;*/
+    opacity: 30;
+    -webkit-border-radius:0;
+}
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+::-webkit-scrollbar-thumb{
+    height:50px;
+    background-color:rgba(51,77,111,0.3);
+    opacity: 80;
+    -webkit-border-radius:4px;
+    outline-offset:-2px;
+    border: 1px solid #677e9e;
+}
+::-webkit-scrollbar-thumb:hover{
+    height:50px;
+    background-color:#334d6f;
+    -webkit-border-radius:4px;
 }
 
 ol, ul {
