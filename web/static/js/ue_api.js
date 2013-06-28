@@ -145,7 +145,7 @@ function getWeixins() {
 
                 next();
             }
-
+            click_a_bindapp();
             function next() {
 
                 {

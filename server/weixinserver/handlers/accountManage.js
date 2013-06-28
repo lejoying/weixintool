@@ -234,42 +234,55 @@ accountManage.auth = function (data, response) {
  ***************************************/
 accountManage.modify = function (data, response) {
     response.asynchronous = 1;
-    var uid = data.uid;
-    var accountStr = data.account;
-    var account = JSON.parse(accountStr);
+
+    var account = {
+        accountname: data.accountname,
+        password: data.password
+    };
 
     modifyAccountNode();
 
     function modifyAccountNode() {
         var query = [
-            'START account=node({uid})',
+            'MATCH account:Account',
+            'WHERE account.accountname! ={accountname} AND account.password! ={password}',
+            'SET account.password={password}',
             'RETURN  account'
         ].join('\n');
 
         var params = {
-            uid: uid
+            accountname: account.accountname,
+            password: account.password
         };
 
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
                 return;
-            }
-            if (results.length == 0) {
+            } else if (results.length == 0) {
                 response.write(JSON.stringify({
-                    "提示信息": "修改账号信息失败",
+                    "提示信息": "修改密码失败",
                     "失败原因 ": "账号不存在"
                 }));
                 response.end();
-            } else {
+            }else {
                 var accountNode = results.pop().account;
-                accountNode.data = account;
-                accountNode.save();
-                response.write(JSON.stringify({
-                    "提示信息": "修改账号信息成功",
-                    "account": account
-                }));
-                response.end();
+                if (accountNode.data.password == account.password){
+                    accountNode.data = account;
+                    accountNode.save();
+                    response.write(JSON.stringify({
+                        "提示信息": "修改密码成功",
+                        "account": account
+                    }));
+                    response.end();
+                }else{
+                    response.write(JSON.stringify({
+                        "提示信息": "修改密码失败",
+                        "失败原因 ": "原密码不正确"
+                    }));
+                    response.end();
+                }
+
             }
         });
     }

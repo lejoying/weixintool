@@ -1,75 +1,75 @@
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $(".js_account_information").html(data.accountname+", 已登录");
-    $(".js_logout").click(function(){
+    $(".js_account_information").html(data.accountname + ", 已登录");
+    $(".js_logout").click(function () {
         data.uid = "";
         data.accesskey = "110";
         saveLocalSettings();
-        window.location.href="login.html";
+        window.location.href = "login.html";
     });
 });
-$(document).ready(function(){
+$(document).ready(function () {
 
-	$(".js_personality").click(function(){
-		if($(".js_subitem").css("display")=="none"){
-			$(".js_usermanger").animate({left:'-10px'},100);
-			$(".js_message").animate({left:'-10px'},200);
-			$(".js_weixin_user").animate({left:'-10px'},300);
-		}else{
-			$(".js_usermanger").animate({left:'0px'},300);
-			$(".js_message").animate({left:'0px'},200);
-			$(".js_weixin_user").animate({left:'0px'},100);
-		}
-		$(".js_subitem").animate({width:'toggle'},200);
-		addEvent(document.body,"mousedown",clickother);
-	});
-	$(".add_element").click(function(){
-		window.location.href="personal_app.html";
-	});
-	$(".js_add_info").click(function(){
-		var uid = $(this).attr("uid");
-		$(this).hide();
-		$("[useropeart="+uid+"]").show();
-	});
-	$(".js_save_button").click(function(){
-		var uid = $(this).attr("save");
-		var key = $("[userkey="+uid+"]").val();
-		var value =$("[uservalue="+uid+"]").val();
-        var index = $(".user_info[userid="+uid+"]li").length;
+    $(".js_personality").click(function () {
+        if ($(".js_subitem").css("display") == "none") {
+            $(".js_usermanger").animate({left: '-10px'}, 100);
+            $(".js_message").animate({left: '-10px'}, 200);
+            $(".js_weixin_user").animate({left: '-10px'}, 300);
+        } else {
+            $(".js_usermanger").animate({left: '0px'}, 300);
+            $(".js_message").animate({left: '0px'}, 200);
+            $(".js_weixin_user").animate({left: '0px'}, 100);
+        }
+        $(".js_subitem").animate({width: 'toggle'}, 200);
+        addEvent(document.body, "mousedown", clickother);
+    });
+    $(".add_element").click(function () {
+        window.location.href = "personal_app.html";
+    });
+    $(".js_add_info").click(function () {
+        var uid = $(this).attr("uid");
+        $(this).hide();
+        $("[useropeart=" + uid + "]").show();
+    });
+    $(".js_save_button").click(function () {
+        var uid = $(this).attr("save");
+        var key = $("[userkey=" + uid + "]").val();
+        var value = $("[uservalue=" + uid + "]").val();
+        var index = $(".user_info[userid=" + uid + "]li").length;
         alert(index);
-		var user={};
-		user[key]=value;
-		if(key==""||value==""){
-			alert("key或value不能为空");	
-		}else{
-			$.ajax({
-				type:"get",
-				url:"/api2/account/auth?",	
-				data:{"uid":"nnnn", "accesskey":"XXXXXX" , "userid":uid,"user":user},
-				success:function(data){
-					//callback operate
-					
+        var user = {};
+        user[key] = value;
+        if (key == "" || value == "") {
+            alert("key或value不能为空");
+        } else {
+            $.ajax({
+                type: "get",
+                url: "/api2/account/auth?",
+                data: {"uid": "nnnn", "accesskey": "XXXXXX", "userid": uid, "user": user},
+                success: function (data) {
+                    //callback operate
 
-				}
-			});
-			$("[useropeart="+uid+"]").hide();
-			$("[uid="+uid+"]").show();	
-		}	
-	});
-	$(".js_cansonl_button").click(function(){
-		var uid = $(this).attr("cansonl");
-		$("[useropeart="+uid+"]").hide();
-		$("[uid="+uid+"]").show();
-	});
+
+                }
+            });
+            $("[useropeart=" + uid + "]").hide();
+            $("[uid=" + uid + "]").show();
+        }
+    });
+    $(".js_cansonl_button").click(function () {
+        var uid = $(this).attr("cansonl");
+        $("[useropeart=" + uid + "]").hide();
+        $("[uid=" + uid + "]").show();
+    });
     /*************************************** ***************************************
      * popmenu
      *************************************** ***************************************/
     $(".login_opt_menu").hide();
     $(".app_list").click(function () {
-        $(".login_opt_menu").animate({height: 'toggle'},200);
+        $(".login_opt_menu").animate({height: 'toggle'}, 200);
         addEvent(document.body, "mousedown", clickIndexOther);
     });
-    $(".circle_out .circle_in p").click(function (){
+    $(".circle_out .circle_in p").click(function () {
         moveElement();
     });
     /*************************************** ***************************************
@@ -137,14 +137,14 @@ $(document).ready(function(){
         $(".step_img_form[index!='" + index1 + "']").removeClass("current");
 
         $(".step_img_form[index='" + index1 + "']").addClass("current");
-        $(".step_img_form[index='" + index1 + "']").css("left","1100px");
-        $(".step_img_form[index='" + index1 + "']").animate({left:'0'});
+        $(".step_img_form[index='" + index1 + "']").css("left", "1100px");
+        $(".step_img_form[index='" + index1 + "']").animate({left: '0'});
 
         $(".step_img[index!='" + index1 + "']").removeClass("current");
 
         $(".step_img[index='" + index1 + "']").addClass("current");
-        $(".step_img[index='" + index1 + "']").css("left","1100px");
-        $(".step_img[index='" + index1 + "']").animate({left:'0'});
+        $(".step_img[index='" + index1 + "']").css("left", "1100px");
+        $(".step_img[index='" + index1 + "']").animate({left: '0'});
     });
 
     /***********
@@ -179,37 +179,38 @@ $(document).ready(function(){
         $(".word_tip").addClass("hide");
         $(".word_tip[index!='" + index1 + "']").removeClass("current");
         $(".word_tip[index='" + index1 + "']").addClass("current");
-        $(".word_tip[index='" + index1 + "']").css("left","-1100px");
-        $(".word_tip[index='" + index1 + "']").animate({left:'0'});
+        $(".word_tip[index='" + index1 + "']").css("left", "-1100px");
+        $(".word_tip[index='" + index1 + "']").animate({left: '0'});
 
         $(".step_img_form[index!='" + index1 + "']").removeClass("current");
         $(".step_img_form[index='" + index1 + "']").addClass("current");
-        $(".step_img_form[index='" + index1 + "']").css("left","-1100px");
-        $(".step_img_form[index='" + index1 + "']").animate({left:'0'});
+        $(".step_img_form[index='" + index1 + "']").css("left", "-1100px");
+        $(".step_img_form[index='" + index1 + "']").animate({left: '0'});
 
         $(".step_img[index!='" + index1 + "']").removeClass("current");
         $(".step_img[index='" + index1 + "']").addClass("current");
-        $(".step_img[index='" + index1 + "']").css("left","-1100px");
-        $(".step_img[index='" + index1 + "']").animate({left:'0'});
+        $(".step_img[index='" + index1 + "']").css("left", "-1100px");
+        $(".step_img[index='" + index1 + "']").animate({left: '0'});
     });
 
 });
-function moveElement(){
-    $(".circle_out .circle_in p").bind("click" , function(){
+function moveElement() {
+    $(".circle_out .circle_in p").bind("click", function () {
         var $removeElement = $(this).parent().parent().remove();
         $removeElement.insertAfter($(".weixin_user"));
         moveElement();
     });
 }
 /**
-* 用于检查一个对象是否包含在另外一个对象中
-* @method contains
-* @param {string} parentNode 父节点
-* @param {string} childNode 子节点
+ * 用于检查一个对象是否包含在另外一个对象中
+ * @method contains
+ * @param {string} parentNode 父节点
+ * @param {string} childNode 子节点
  **/
 function contains(parentNode, childNode) {
     if (parentNode.contains) {
-        return parentNode != childNode && parentNode.contains(childNode); }
+        return parentNode != childNode && parentNode.contains(childNode);
+    }
     else {
         //return !!(parentNode.compareDocumentPosition(childNode) & 16);
     }
@@ -222,14 +223,14 @@ function contains(parentNode, childNode) {
  * @param {string} relatedTarget 属性代表的就是鼠标刚刚离开的那个节点，当触发mouseout事件时它代表的是鼠标移向的那个对象。
  * 由于MSIE不支持这个属性，不过它有代替的属性，分别是 fromElement和toElement
  */
-function checkHover(e,target){
+function checkHover(e, target) {
     var rel = getEvent(e).relatedTarget ,
         from = getEvent(e).fromElement ,
         to = getEvent(e).toElement;
-    if (getEvent(e).type=="mouseover")  {
-        return !contains(target,rel||from) && !( (rel||from)===target );
+    if (getEvent(e).type == "mouseover") {
+        return !contains(target, rel || from) && !( (rel || from) === target );
     } else {
-        return !contains(target,rel||to) && !( (rel||to)===target );
+        return !contains(target, rel || to) && !( (rel || to) === target );
     }
 }
 
@@ -242,40 +243,53 @@ function checkHover(e,target){
 function getEvent(event) {
     var ev = event || window.event;
     if (!ev) {
-            var c = this.getEvent.caller;
-            while (c) {
-                    ev = c.arguments[0];
-        if (ev && (Event == ev.constructor || MouseEvent  == ev.constructor)) {
-            break;
-        }
-        c = c.caller;
+        var c = this.getEvent.caller;
+        while (c) {
+            ev = c.arguments[0];
+            if (ev && (Event == ev.constructor || MouseEvent == ev.constructor)) {
+                break;
             }
+            c = c.caller;
+        }
     }
     return ev;
 }
 //添加点击空白处关闭弹出框事件
-function addEvent(obj,eventType,func){
-	if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
-	else{obj.addEventListener(eventType,func,false)}
+function addEvent(obj, eventType, func) {
+    if (obj.attachEvent) {
+        obj.attachEvent("on" + eventType, func);
+    }
+    else {
+        obj.addEventListener(eventType, func, false)
+    }
 }
-function clickother(el){
-	thisObj = el.target?el.target:event.srcElement;
-	if(thisObj.id == "js_subitem"||thisObj.id=="js_personality"||thisObj.id=="a_appstore"||thisObj.id=="a_myapp"){
-		return;
-	} 
-	do{		
-		if(thisObj.tagName == "BODY"){			
-			if(document.getElementById("js_subitem")){
-				document.getElementById("js_subitem").style.display = "none";
-                $(".js_usermanger").animate({left:'0px'},300);
-                $(".js_message").animate({left:'0px'},200);
-                $(".js_weixin_user").animate({left:'0px'},100);
-			}
-			return;
-		};
-		thisObj = thisObj.parentNode;
-	}while(thisObj.parentNode);
+function clickother(el) {
+    thisObj = el.target ? el.target : event.srcElement;
+    if (thisObj.id == "js_subitem") {
+        return;
+    } else if (thisObj.id == "js_personality") {
+        return;
+    } else if (thisObj.id == "a_appstore") {
+        alert(33);
+
+
+    } else if (thisObj.id == "a_myapp") {
+        return;
+    }
+    do {
+        if (thisObj.tagName == "BODY") {
+            if (document.getElementById("js_subitem")) {
+                document.getElementById("js_subitem").style.display = "none";
+                $(".js_usermanger").animate({left: '0px'}, 300);
+                $(".js_message").animate({left: '0px'}, 200);
+                $(".js_weixin_user").animate({left: '0px'}, 100);
+            }
+            return;
+        }
+        thisObj = thisObj.parentNode;
+    } while (thisObj.parentNode);
 }
+
 function clickIndexOther(el) {
     thisObj = el.target ? el.target : event.srcElement;
     do {
@@ -297,3 +311,98 @@ function addEvent(obj, eventType, func) {
         obj.addEventListener(eventType, func, false)
     }
 }
+
+function click_a_bindapp(){
+    $(".circle_out").click(function () {
+        var a = $(this).attr("weixinOpenID");
+        $.ajax({
+            type: "get",
+            url: "/api2/app/getall?",
+            data: {
+//            uid: data.uid,
+//            accesskey: data.accesskey,
+                weixinOpenID: $(this).attr("weixinOpenID"),
+                filter: "BIND"
+            },
+            success: function (serverData) {
+                console.log(serverData);
+                data.apps = serverData.apps;
+                var nTemplate = getTemplate("app_list");
+                var innerHtml = nTemplate.template.render();
+                nTemplate.templateDiv.html(innerHtml);
+                nTemplate.templateDiv.removeClass("hide");
+                registerAppListEvent();
+            }
+        });
+    });
+}
+
+//$($(".circle_out")[0]).click(function(){
+//    alert("shf");
+//    $(this);
+//} );
+//function click_a_allapp() {
+//    alert("djsfvjksd");
+//    $.ajax({
+//        type: "get",
+//        url: "/api2/app/getall?",
+//        data: {
+////            uid: data.uid,
+////            accesskey: data.accesskey,
+////            weixinopenid: data.weixinopenid,
+//            filter: "ALL"
+//        },
+//        success: function (serverData) {
+//            console.log(serverData);
+//            data.apps = serverData.apps;
+//            var nTemplate = getTemplate("app_list");
+//            var innerHtml = nTemplate.template.render();
+//            nTemplate.templateDiv.html(innerHtml);
+//            nTemplate.templateDiv.removeClass("hide");
+//            registerAppListEvent();
+//        }
+//    });
+//}
+
+//function click_a_myapp(data) {
+////    alert("djsfvjksd");
+//    $.ajax({
+//        type: "get",
+//        url: "/api2/app/getall?",
+//        data: {
+//            uid: data.uid,
+//            filter: "OWN"
+//        },
+//        success: function (serverData) {
+//            console.log(serverData);
+//            data.apps = serverData.apps;
+//            var nTemplate = getTemplate("app_list");
+//            var innerHtml = nTemplate.template.render();
+//            nTemplate.templateDiv.html(innerHtml);
+//            nTemplate.templateDiv.removeClass("hide");
+//            registerAppListEvent();
+//        }
+//    });
+//}
+//function click_a_bindapp(data) {
+//    alert("djsfvjksd");
+//    $.ajax({
+//        type: "get",
+//        url: "/api2/app/getall?",
+//        data: {
+////            uid: data.uid,
+////            accesskey: data.accesskey,
+//            weixinOpenID: data.weixinOpenID,
+//            filter: "BIND"
+//        },
+//        success: function (serverData) {
+//            console.log(serverData);
+//            data.apps = serverData.apps;
+//            var nTemplate = getTemplate("app_list");
+//            var innerHtml = nTemplate.template.render();
+//            nTemplate.templateDiv.html(innerHtml);
+//            nTemplate.templateDiv.removeClass("hide");
+//            registerAppListEvent();
+//        }
+//    });
+//}
