@@ -241,6 +241,7 @@ accountManage.modify = function (data, response) {
         newpassword: data.newpassword
     };
 
+
     modifyAccountNode();
 
     function modifyAccountNode() {
@@ -251,8 +252,9 @@ accountManage.modify = function (data, response) {
             'RETURN  account'
         ].join('\n');
 
+        var uid =  data.uid;
         var params = {
-            uid: account.uid,
+            uid: parseInt(uid),
             password: account.oldpassword,
             newpassword: account.newpassword
         };
@@ -269,6 +271,8 @@ accountManage.modify = function (data, response) {
 
             } else {
                 response.write(JSON.stringify({
+                    "sdjmsd":  account.uid,
+                    "sdjmsd":  params.uid,
                     "提示信息": "修改密码失败",
                     "失败原因": "原密码不正确"
                 }));
