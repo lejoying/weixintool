@@ -250,13 +250,11 @@ accountManage.modify = function (data, response) {
             'SET account.password={password}',
             'RETURN  account'
         ].join('\n');
-
         var params = {
             uid: account.uid,
             password: account.oldpassword,
             password: account.newpassword
         };
-
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
@@ -264,7 +262,7 @@ accountManage.modify = function (data, response) {
             } else if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "修改密码失败",
-                    "失败原因 ": "原密码不正确"
+                    "失败原因": "原密码不正确"
                 }));
                 response.end();
             } else {
@@ -280,11 +278,10 @@ accountManage.modify = function (data, response) {
                 } else {
                     response.write(JSON.stringify({
                         "提示信息": "修改密码失败",
-                        "失败原因 ": "原密码不正确"
+                        "失败原因": "原密码不正确"
                     }));
                     response.end();
                 }
-
             }
         });
     }

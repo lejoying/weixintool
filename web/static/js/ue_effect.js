@@ -32,6 +32,7 @@ $(document).ready(function(){
             success:function(data){
                 if( data["提示信息"] == "修改密码失败"){
                     showBlackPage(40,data["失败原因"]);
+
                     $(".js_changeSaveButton").bind("click",function(){
                         closeBlackBackground();
                     });

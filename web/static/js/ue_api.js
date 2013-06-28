@@ -431,10 +431,12 @@ $(document).ready(function () {
             modifyApp(name, description);
         }
         else {
-            alert("应用名称不能为空！");
+            showBlackPage(40,"应用名称不能为空!");
+            $(".js_changeSaveButton").bind("click",function(){
+                closeBlackBackground();
+            });
         }
     });
-
     function modifyApp(name, description) {
         if (image_changed == true) {
             uploadPic(next);
@@ -442,7 +444,6 @@ $(document).ready(function () {
         else {
             next(data.currentApp.icon);
         }
-
         function next(filename) {
             if (js_changed == true) {
                 readJS(next);
@@ -478,7 +479,6 @@ $(document).ready(function () {
             }
         }
     }
-
     $("#app_add").click(function () {
         var name = $("#app_name").val();
         var description = $("#app_description").val();
@@ -489,7 +489,6 @@ $(document).ready(function () {
             alert("应用名称不能为空！");
         }
     });
-
     function addApp(name, description) {
         uploadPic(next);
         function next(filename) {
