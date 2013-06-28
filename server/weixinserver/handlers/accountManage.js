@@ -246,46 +246,39 @@ accountManage.modify = function (data, response) {
     function modifyAccountNode() {
         var query = [
             'MATCH account:Account',
-            'WHERE account.uid! ={uid} OR account.password! ={password}',
-            'SET account.password={password}',
+            'WHERE account.uid! ={uid} AND account.password! ={password}',
+            'SET account.password={newpassword}',
             'RETURN  account'
         ].join('\n');
 
         var params = {
             uid: account.uid,
             password: account.oldpassword,
-            password: account.newpassword
+            newpassword: account.newpassword
         };
 
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
                 return;
-            } else if (results.length == 0) {
+            } else if (results.length != 0) {
+//                var accountNode = results.pop().account;
+//                accountNode.data = account;
+//                accountNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改密码成功",
+                    "account": account
+                }));
+                response.end();
+
+            } else {
                 response.write(JSON.stringify({
                     "提示信息": "修改密码失败",
                     "失败原因 ": "原密码不正确"
                 }));
                 response.end();
-            } else {
-                var accountNode = results.pop().account;
-                if (accountNode.data.password == account.password) {
-                    accountNode.data = account;
-                    accountNode.save();
-                    response.write(JSON.stringify({
-                        "提示信息": "修改密码成功",
-                        "account": account
-                    }));
-                    response.end();
-                } else {
-                    response.write(JSON.stringify({
-                        "提示信息": "修改密码失败",
-                        "失败原因 ": "原密码不正确"
-                    }));
-                    response.end();
-                }
-
             }
+
         });
     }
 

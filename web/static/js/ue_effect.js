@@ -11,42 +11,37 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
    $(".js_personal_input").blur(function(){
-        var oldPassword = $(".js_personal_input").val();
-
-        if(oldPassword==""||oldPassword==null){
-            $(".js_oldpassword").show();
-            $(".js_oldpassword .js_error").html("请输入原密码");
-        }else{
-            $(".js_oldpassword").hide();
-        }
+       checkOldPassword();
     });
     $(".js_password_second,.js_password_first").blur(function(){
-        var passwordPlaint1 = $(".js_password_first").val();
-        var passwordPlaint2 = $(".js_password_second").val();
-        var password = hex_sha1(passwordPlaint1);
-        if(passwordPlaint1!=passwordPlaint2||passwordPlaint1==""||passwordPlaint2==""||passwordPlaint1==null||passwordPlaint2==null){
-            $(".js_newpassword").show();
-            $(".js_newpassword .js_error").html("两次输入的密码不一致");
-            showBlackPage(40,"修改成功");
-            $(".js_changeSaveButton").bind("click",function(){
-                closeBlackBackground();
-            });
-        }else{
-            $(".js_newpassword").hide();
-        }
+        checkNewPassword();
     });
 
     $(".js_change_passwrod").click(function(){
+        checkOldPassword();
+        checkNewPassword();
         var oldPassword = $(".js_personal_input").val();
-        var passwordPlaint2 = $(".js_password_second").val();
-        var password = hex_sha1(passwordPlaint1);
+        var newPassword = $(".js_password_second").val();
+        var oldPasswordHex = hex_sha1(oldPassword);
+        var newPasswordHex = hex_sha1(newPassword);
+        var uid = data.uid;
         $.ajax({
             type:"get",
             url:"/api2/account/modify?",
-            data:{"uid":"nnnn", "accesskey":"XXXXXX" , "account":user},
+            data:{"uid":uid, "accesskey":"XXXXXX" , "oldpassword":oldPasswordHex,"newpassword":newPasswordHex},
             success:function(data){
-                if( serverData["提示信息"] == "修改成功"){
-                    showBlackPage(40,"修改成功");
+                if( data["提示信息"] == "修改密码失败"){
+                    showBlackPage(40,data["失败原因"]);
+                    $(".js_changeSaveButton").bind("click",function(){
+                        closeBlackBackground();
+                    });
+                }else if( data["提示信息"] == "修改密码成功"){
+                    showBlackPage(40,"修改密码成功");
+                    $(".js_changeSaveButton").bind("click",function(){
+                        closeBlackBackground();
+                    });
+                }else{
+                    showBlackPage(40,"请求出现异常");
                     $(".js_changeSaveButton").bind("click",function(){
                         closeBlackBackground();
                     });
@@ -388,4 +383,24 @@ function showBackground(obj,endInt){
 function closeBlackBackground(){
     $("#blackbackCommonWindow").remove();
     $("#blackbackcommon").remove();
+}
+function checkOldPassword(){
+    var oldPassword = $(".js_personal_input").val();
+    if(oldPassword==""||oldPassword==null){
+        $(".js_oldpassword").show();
+        $(".js_oldpassword .js_error").html("请输入原密码");
+    }else{
+        $(".js_oldpassword").hide();
+    }
+}
+function checkNewPassword(){
+    var passwordPlaint1 = $(".js_password_first").val();
+    var passwordPlaint2 = $(".js_password_second").val();
+    var password = hex_sha1(passwordPlaint1);
+    if(passwordPlaint1!=passwordPlaint2||passwordPlaint1==""||passwordPlaint2==""||passwordPlaint1==null||passwordPlaint2==null){
+        $(".js_newpassword").show();
+        $(".js_newpassword .js_error").html("两次输入的密码不一致");
+    }else{
+        $(".js_newpassword").hide();
+    }
 }

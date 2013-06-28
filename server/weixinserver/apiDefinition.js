@@ -56,7 +56,7 @@ api = {
      ***************************************/
     "account_modify": {
         request: {
-            typical: {accountname: "XXX", accesskey: "XXXXXX", "password": "******"}
+            typical: {uid: "nnnn", accountname: "XXX", accesskey: "XXXXXX", "oldpassword": "******", "newpassword": "******"}
         },
         response: {
             success: {"提示信息": "修改密码成功", account: {}},
