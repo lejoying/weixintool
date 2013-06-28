@@ -46,7 +46,6 @@
 
             <div class="user_name"></div>
         </div>
-        <div class="right_sub"></div>
     </div>
     <div class="login_user" style="right:0;top:20px;">
         <div>
@@ -71,7 +70,6 @@
             <div class="hide js_app_list template" template="app_list">
                 <?js var left=40; ?>
                 <?js for (var index in data.apps) { ?><?js var app=data.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
-                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;"
                      appid="#{app.appid}">
                     <?js left=left+150; ?>
                     <div class="content_element">
@@ -80,6 +78,7 @@
                         </div>
                         <div class="appname">#{ app.name }</div>
                     </div>
+
                     <div class="app_opreation" appid="#{app.appid}" style="display: none;">
                         <a href="javascript:;" class="app_config" title="配置" appid="#{app.appid}"></a>
                         <a href="javascript:;" class="app_delete" title="删除" appid="#{app.appid}"></a>
@@ -103,14 +102,12 @@
         <div class="body_right">
             <div class="weixin_user">
                 <b class="user_face"></b>
+                <span id="step_2">敬萍</span>
                 <span id="step_2"><p>ChrisGai</p></span>
             </div>
             <div class="hide js_weixin_list template" template="weixin_list" dragable="true">
-                <?js for (var index in data.weixins) { ?>
-                <?js var weixin=data.weixins[index]; ?>
-                <?js if(weixin==null) { ?>
-                <?js continue; ?>
-                <?js } ?>
+                <?js for (var index in data.weixins) { ?><?js var weixin=data.weixins[index]; ?><?js if(weixin==null) { ?><?js continue; ?><?js } ?>
+               
                 <div class="circle_out" amount="#{(weixin.apps).length}" weixinOpenID="#{weixin.weixinOpenID}">
                     <div class="circle_in"><p>#{weixin.weixinName.substr(0,8)}</p></div>
                     <?js for (var index in weixin.apps) { ?><?js var app=weixin.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
@@ -133,8 +130,6 @@
     <script type="text/javascript" src="/static/js/nTenjin.js"></script>
     <script type="text/javascript" src="/static/js/app.js"></script>
     <script type="text/javascript" src="/static/js/default.js"></script>
-
-    <script type="text/javascript" src="/static/js/ue_api.js"></script>
     <script type="text/javascript" src="/static/js/ue_effect.js"></script>
 </body>
 </html>
