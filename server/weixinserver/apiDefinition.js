@@ -59,8 +59,8 @@ api = {
             typical: {uid: "nnnn", accesskey: "XXXXXX", account: JSON({})}
         },
         response: {
-            success: {"提示信息": "修改账号信息成功", account: {}},
-            failed: {"提示信息": "修改账号信息失败", "失败原因": "账号不存在"}
+            success: {"提示信息": "修改密码成功", account: {}},
+            failed: {"提示信息": "修改密码失败", "失败原因": "原密码不正确"}
         }
     }
 }
