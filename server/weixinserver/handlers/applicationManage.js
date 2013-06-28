@@ -64,6 +64,7 @@ applicationManage.add = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             } else {
                 var appNode = results.pop().app;
                 response.write(JSON.stringify({
@@ -160,6 +161,7 @@ applicationManage.modify = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             if (results.length == 0) {
                 response.write(JSON.stringify({
@@ -169,7 +171,7 @@ applicationManage.modify = function (data, response) {
                 response.end();
             } else {
                 var appNode = results.pop().app;
-                for(var index in app){
+                for (var index in app) {
                     appNode.data[index] = app[index];
                 }
 
@@ -196,7 +198,7 @@ applicationManage.getall = function (data, response) {
     var filter = data.filter;
     var weixin =
     {
-        weixinOpenID: data.weixinopenid
+        weixinOpenID: data.weixinOpenID
     };
 
     getallAppNode();
@@ -234,6 +236,7 @@ applicationManage.getall = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             if (results.length == 0) {
                 response.write(JSON.stringify({
@@ -254,6 +257,7 @@ applicationManage.getall = function (data, response) {
                 response.end();
             }
         });
+
     }
 }
 
