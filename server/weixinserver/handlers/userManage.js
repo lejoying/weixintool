@@ -30,7 +30,7 @@ userManage.getall = function (data, response) {
         var query = [
             'MATCH user:User-[:FOCUS]->weixin:Weixin' ,
             'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-            'RETURN  user',
+            'RETURN  user'
 //            'SKIP {start}',
 //            'LIMIT {count}'
         ].join('\n');
