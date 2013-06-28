@@ -833,16 +833,13 @@ function saveClick(userid,js_index,opt){
     alert("开始保存");
     var userid = userid;
     var opt = opt;
-    alert(userid);
     var js_index = js_index;
     var key = $(".key_style" + "[userid='" + userid + "']").val();
     var value = $(".value_style" + "[userid='" + userid + "']").val();
-    alert(key);
-    alert(value);
     if (key == "" || value == "") {
         alert("key或value不能为空");
     }
-    else {    alert(12);
+    else {
         var user = data.users[js_index];
         user[key] = value;
         $.ajax({
@@ -874,7 +871,6 @@ function getWeixinName(){
     $(".weixin_user span").html(weixin_name);
 }
 function outFrameOver(){
-    alert(2);
     $('.out_frame').bind({
         mouseenter:function(){
             var appid = $(this).attr("appid");
