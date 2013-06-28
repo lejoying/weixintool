@@ -145,7 +145,7 @@ function getWeixins() {
 
                 next();
             }
-
+            click_a_bindapp();
             function next() {
 
                 {
@@ -196,6 +196,8 @@ function getWeixins() {
                         $(".out_frame").bind("dragstart", handleDragStart);
                         $(".out_frame").bind("dragenter", handleDragEnter);
                         $(".out_frame").bind("dragend", handleDragEnd);
+                        $('.out_frame').bind("mouseenter",mouseenters);
+                        $('.out_frame').bind("mouseleave",mouseleaves);
                         getWeixinName();
                         /******************************
                          处理circle_out

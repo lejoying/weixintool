@@ -10,7 +10,7 @@ $(document).ready(function(){
     getWeixinName();
 });
 $(document).ready(function(){
-   $(".js_personal_input").blur(function(){
+    $(".js_personal_input").blur(function(){
         var oldPassword = $(".js_personal_input").val();
 
         if(oldPassword==""||oldPassword==null){
@@ -56,68 +56,68 @@ $(document).ready(function(){
     });
     $('.out_frame').bind({
         mouseenter:function(){
-			var itemid = $(this).attr("itemid");
+            var itemid = $(this).attr("itemid");
             $("#"+itemid).slideDown(150);
         },
         mouseleave:function(){
-			var itemid = $(this).attr("itemid");
+            var itemid = $(this).attr("itemid");
             var subitem =String($("#"+itemid));
-			var fatitem = String($(this));
+            var fatitem = String($(this));
             if(checkHover(fatitem,subitem)){
                 $("#"+itemid).slideUp(150);
             }
         }
     });
-	$(".js_personality").click(function(){
-		if($(".js_subitem").css("display")=="none"){
-			$(".js_usermanger").animate({left:'-10px'},100);
-			$(".js_message").animate({left:'-10px'},200);
-			$(".js_weixin_user").animate({left:'-10px'},300);
-		}else{
-			$(".js_usermanger").animate({left:'0px'},300);
-			$(".js_message").animate({left:'0px'},200);
-			$(".js_weixin_user").animate({left:'0px'},100);
-		}
-		$(".js_subitem").animate({width:'toggle'},200);
-		addEvent(document.body,"mousedown",clickother);
-	});
-	$(".add_element").click(function(){
-		window.location.href="personal_app.html";
-	});
-	$(".js_add_info").click(function(){
-		var uid = $(this).attr("uid");
-		$(this).hide();
-		$("[useropeart="+uid+"]").show();
-	});
-	$(".js_save_button").click(function(){
-		var uid = $(this).attr("save");
-		var key = $("[userkey="+uid+"]").val();
-		var value =$("[uservalue="+uid+"]").val();
+    $(".js_personality").click(function(){
+        if($(".js_subitem").css("display")=="none"){
+            $(".js_usermanger").animate({left:'-10px'},100);
+            $(".js_message").animate({left:'-10px'},200);
+            $(".js_weixin_user").animate({left:'-10px'},300);
+        }else{
+            $(".js_usermanger").animate({left:'0px'},300);
+            $(".js_message").animate({left:'0px'},200);
+            $(".js_weixin_user").animate({left:'0px'},100);
+        }
+        $(".js_subitem").animate({width:'toggle'},200);
+        addEvent(document.body,"mousedown",clickother);
+    });
+    $(".add_element").click(function(){
+        window.location.href="personal_app.html";
+    });
+    $(".js_add_info").click(function(){
+        var uid = $(this).attr("uid");
+        $(this).hide();
+        $("[useropeart="+uid+"]").show();
+    });
+    $(".js_save_button").click(function(){
+        var uid = $(this).attr("save");
+        var key = $("[userkey="+uid+"]").val();
+        var value =$("[uservalue="+uid+"]").val();
         var index = $(".user_info[userid="+uid+"]li").length;
-		var user={};
-		user[key]=value;
-		if(key==""||value==""){
+        var user={};
+        user[key]=value;
+        if(key==""||value==""){
             showBlackPage(40,"key或value不能为空");
-		}else{
-			$.ajax({
-				type:"get",
-				url:"/api2/account/auth?",	
-				data:{"uid":"nnnn", "accesskey":"XXXXXX" , "userid":uid,"user":user},
-				success:function(data){
-					//callback operate
-					
+        }else{
+            $.ajax({
+                type:"get",
+                url:"/api2/account/auth?",
+                data:{"uid":"nnnn", "accesskey":"XXXXXX" , "userid":uid,"user":user},
+                success:function(data){
+                    //callback operate
 
-				}
-			});
-			$("[useropeart="+uid+"]").hide();
-			$("[uid="+uid+"]").show();	
-		}	
-	});
-	$(".js_cansonl_button").click(function(){
-		var uid = $(this).attr("cansonl");
-		$("[useropeart="+uid+"]").hide();
-		$("[uid="+uid+"]").show();
-	});
+
+                }
+            });
+            $("[useropeart="+uid+"]").hide();
+            $("[uid="+uid+"]").show();
+        }
+    });
+    $(".js_cansonl_button").click(function(){
+        var uid = $(this).attr("cansonl");
+        $("[useropeart="+uid+"]").hide();
+        $("[uid="+uid+"]").show();
+    });
     /*************************************** ***************************************
      * popmenu
      *************************************** ***************************************/
@@ -262,10 +262,10 @@ function moveElement(){
     });
 }
 /**
-* 用于检查一个对象是否包含在另外一个对象中
-* @method contains
-* @param {string} parentNode 父节点
-* @param {string} childNode 子节点
+ * 用于检查一个对象是否包含在另外一个对象中
+ * @method contains
+ * @param {string} parentNode 父节点
+ * @param {string} childNode 子节点
  **/
 function contains(parentNode, childNode) {
     if (parentNode.contains) {
@@ -302,39 +302,39 @@ function checkHover(e,target){
 function getEvent(event) {
     var ev = event || window.event;
     if (!ev) {
-            var c = this.getEvent.caller;
-            while (c) {
-                    ev = c.arguments[0];
-        if (ev && (Event == ev.constructor || MouseEvent  == ev.constructor)) {
-            break;
-        }
-        c = c.caller;
+        var c = this.getEvent.caller;
+        while (c) {
+            ev = c.arguments[0];
+            if (ev && (Event == ev.constructor || MouseEvent  == ev.constructor)) {
+                break;
             }
+            c = c.caller;
+        }
     }
     return ev;
 }
 //添加点击空白处关闭弹出框事件
 function addEvent(obj,eventType,func){
-	if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
-	else{obj.addEventListener(eventType,func,false)}
+    if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
+    else{obj.addEventListener(eventType,func,false)}
 }
 function clickother(el){
-	thisObj = el.target?el.target:event.srcElement;
-	if(thisObj.id == "js_subitem"||thisObj.id=="js_personality"||thisObj.id=="a_appstore"||thisObj.id=="a_myapp"){
-		return;
-	} 
-	do{		
-		if(thisObj.tagName == "BODY"){			
-			if(document.getElementById("js_subitem")){
-				document.getElementById("js_subitem").style.display = "none";
+    thisObj = el.target?el.target:event.srcElement;
+    if(thisObj.id == "js_subitem"||thisObj.id=="js_personality"||thisObj.id=="a_appstore"||thisObj.id=="a_myapp"){
+        return;
+    }
+    do{
+        if(thisObj.tagName == "BODY"){
+            if(document.getElementById("js_subitem")){
+                document.getElementById("js_subitem").style.display = "none";
                 $(".js_usermanger").animate({left:'0px'},300);
                 $(".js_message").animate({left:'0px'},200);
                 $(".js_weixin_user").animate({left:'0px'},100);
-			}
-			return;
-		};
-		thisObj = thisObj.parentNode;
-	}while(thisObj.parentNode);
+            }
+            return;
+        };
+        thisObj = thisObj.parentNode;
+    }while(thisObj.parentNode);
 }
 function clickIndexOther(el) {
     thisObj = el.target ? el.target : event.srcElement;
@@ -361,7 +361,7 @@ function addEvent(obj, eventType, func) {
 function showBlackPage(clarity,tipword){
     var bWidth='100%';
     var bHeight=$(".mange_outform").offset().top+$(".mange_outform").height()+19;
-   // var wWidth = 602;
+    // var wWidth = 602;
     //var left = bWidth/2-wWidth/2-19;
     var back=document.createElement("div");
     back.id="blackbackcommon";
@@ -380,11 +380,11 @@ function showBlackPage(clarity,tipword){
 }
 http://weixintool.com/change_info.html
 // 显示弹出背景
-function showBackground(obj,endInt){
-    var al=parseFloat(obj.style.opacity);al+=0.1;
-    obj.style.opacity=al;
-    if(al<(endInt/100)){setTimeout(function(){showBackground(obj,endInt)},1);}
-}
+    function showBackground(obj,endInt){
+        var al=parseFloat(obj.style.opacity);al+=0.1;
+        obj.style.opacity=al;
+        if(al<(endInt/100)){setTimeout(function(){showBackground(obj,endInt)},1);}
+    }
 function closeBlackBackground(){
     $("#blackbackCommonWindow").remove();
     $("#blackbackcommon").remove();
