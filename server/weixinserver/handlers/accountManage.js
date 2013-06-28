@@ -236,8 +236,9 @@ accountManage.modify = function (data, response) {
     response.asynchronous = 1;
 
     var account = {
-        accountname: data.accountname,
-        password: data.password
+        uid: data.uid,
+        oldpassword: data.oldpassword,
+        newpassword: data.newpassword
     };
 
     modifyAccountNode();
@@ -245,14 +246,15 @@ accountManage.modify = function (data, response) {
     function modifyAccountNode() {
         var query = [
             'MATCH account:Account',
-            'WHERE account.accountname! ={accountname} AND account.password! ={password}',
+            'WHERE account.uid! ={uid} OR account.password! ={password}',
             'SET account.password={password}',
             'RETURN  account'
         ].join('\n');
 
         var params = {
-            accountname: account.accountname,
-            password: account.password
+            uid: account.uid,
+            password: account.oldpassword,
+            password: account.newpassword
         };
 
         db.query(query, params, function (error, results) {
@@ -262,12 +264,12 @@ accountManage.modify = function (data, response) {
             } else if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "修改密码失败",
-                    "失败原因 ": "账号不存在"
+                    "失败原因 ": "原密码不正确"
                 }));
                 response.end();
-            }else {
+            } else {
                 var accountNode = results.pop().account;
-                if (accountNode.data.password == account.password){
+                if (accountNode.data.password == account.password) {
                     accountNode.data = account;
                     accountNode.save();
                     response.write(JSON.stringify({
@@ -275,7 +277,7 @@ accountManage.modify = function (data, response) {
                         "account": account
                     }));
                     response.end();
-                }else{
+                } else {
                     response.write(JSON.stringify({
                         "提示信息": "修改密码失败",
                         "失败原因 ": "原密码不正确"

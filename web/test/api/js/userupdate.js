@@ -1,13 +1,14 @@
 $(document).ready(function () {
     $("#userUpdate").click(function () {
 
-        var accountname = $(".text_accountname").val();
-        var password = $(".text_password").val();
+        var uid = $(".text_uid").val();
+        var oldpassword = $(".text_oldpassword").val();
+        var newpassword = $(".text_newpassword").val();
 
         $.ajax({
             type: "get",
             url: "/api2/account/modify",
-            data: { "accountname": accountname, "password": password},
+            data: { "uid": uid, "oldpassword": oldpassword, "newpassword": newpassword},
             success: function (data) {
                 //返回正确操作
             }
