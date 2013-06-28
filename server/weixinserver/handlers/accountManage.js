@@ -262,19 +262,15 @@ accountManage.modify = function (data, response) {
                 console.error(error);
                 return;
             } else if (results.length != 0) {
-//                var accountNode = results.pop().account;
-//                accountNode.data = account;
-//                accountNode.save();
                 response.write(JSON.stringify({
-                    "提示信息": "修改密码成功",
-                    "account": account
+                    "提示信息": "修改密码成功"
                 }));
                 response.end();
 
             } else {
                 response.write(JSON.stringify({
                     "提示信息": "修改密码失败",
-                    "失败原因 ": "原密码不正确"
+                    "失败原因": "原密码不正确"
                 }));
                 response.end();
             }
