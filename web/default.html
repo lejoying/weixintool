@@ -71,7 +71,7 @@
             <div class="hide js_app_list template" template="app_list">
                 <?js var left=40; ?>
                 <?js for (var index in data.apps) { ?><?js var app=data.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
-                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" itemid="app_opreation1"
+                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" appid="#{app.appid}"
                      appid="#{app.appid}">
                     <?js left=left+150; ?>
                     <div class="content_element">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="appname">#{ app.name }</div>
                     </div>
-                    <div class="app_opreation" id="app_opreation1" appid="#{app.appid}" style="display: none;">
+                    <div class="app_opreation"  appid="#{app.appid}" style="display: none;">
                         <a href="javascript:;" class="app_config" title="配置" appid="#{app.appid}"></a>
                         <a href="javascript:;" class="app_delete" title="删除" appid="#{app.appid}"></a>
                     </div>

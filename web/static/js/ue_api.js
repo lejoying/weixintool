@@ -196,6 +196,7 @@ function getWeixins() {
                         $(".out_frame").bind("dragstart", handleDragStart);
                         $(".out_frame").bind("dragenter", handleDragEnter);
                         $(".out_frame").bind("dragend", handleDragEnd);
+                        outFrameOver();
                         getWeixinName();
                         /******************************
                          处理circle_out
@@ -871,4 +872,17 @@ function saveClick(userid,js_index,opt){
 function getWeixinName(){
     var weixin_name = $(".js_weixin_list div div p").html();
     $(".weixin_user span").html(weixin_name);
+}
+function outFrameOver(){
+    alert(2);
+    $('.out_frame').bind({
+        mouseenter:function(){
+            var appid = $(this).attr("appid");
+            $(".app_opreation[appid="+appid+"]").slideDown(150);
+        },
+        mouseleave:function(){
+            var appid = $(this).attr("appid");
+            $(".app_opreation[appid="+appid+"]").slideUp(150);
+        }
+    });
 }
