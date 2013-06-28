@@ -19,7 +19,7 @@ userManage.getall = function (data, response) {
     response.asynchronous = 1;
     var weixin =
     {
-        weixinOpenID: data.weixinOpenID
+        weixinOpenID: data.weixinopenid
     };
     var start = data.start;   //todo take it effect
     var end = data.end;
