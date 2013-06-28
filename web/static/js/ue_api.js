@@ -196,6 +196,7 @@ function getWeixins() {
                         $(".out_frame").bind("dragstart", handleDragStart);
                         $(".out_frame").bind("dragenter", handleDragEnter);
                         $(".out_frame").bind("dragend", handleDragEnd);
+                        getWeixinName();
                         /******************************
                          处理circle_out
                          *****************************/
@@ -769,6 +770,7 @@ function getUsers() {
             nTemplate.templateDiv.html(nTemplate.template.render());
             nTemplate.templateDiv.removeClass("hide");
             addUserInfoEvent();
+            changeUserInfoEvent();
         }
     });
 }
@@ -779,7 +781,7 @@ function addUserInfoEvent() {
         $(this).hide();
         $(".js_modify_element[userid=" + userid + "]").show();
     });
-    $(".js_cansonl_button").click(function () {
+    $(".js_cancel_button").click(function () {
         var userid = $(this).attr("userid");
         $(".js_modify_element[userid=" + userid + "]").hide();
         $(".js_add_info[userid=" + userid + "]").show();
@@ -787,32 +789,86 @@ function addUserInfoEvent() {
     $(".js_save_button").click(function () {
         var userid = $(this).attr("userid");
         var js_index = $(this).attr("js_index");
-        var key = $(".key_style" + "[userid='" + userid + "']").val();
-        var value = $(".value_style" + "[userid='" + userid + "']").val();
-        if (key == "" || value == "") {
-            alert("key或value不能为空");
-        }
-        else {
-            var user = data.users[js_index];
-            user[key] = value;
-            $.ajax({
-                type: "POST",
-                url: "/api2/user/modify?",
-                data: {"uid": "nnnn", "accesskey": "XXXXXX", "userid": userid, "user": JSON.stringify(user)},
-                success: function (data) {
-                    //callback operate
-                    if (data["提示信息"] = "修改关注用户信息成功") {
-                        $(".user_info" + "[userid=" + userid + "] li" + ":last").before(function () {
-                            return "<li><span class='infomation_bg m_left'>" + key + "<img src='/static/images/weixin_step/line.png'/>" + value + "</span></li>";
-                        });
-                    }
-                    else {
-                        alert("连接错误");
-                    }
+        saveClick(userid,js_index,"creat");
+    });
+}
+function changeUserInfoEvent() {
+    $(".js_change_info").click(function(){
+        var parentParentId = $(this).parent().parent().attr("userid");
+        var parentObj = $(this).parent();
+        var resetValue = parentObj.html();
+        var js_index =  $(".js_save_button[userid='"+parentParentId+"']").attr("js_index");
+
+        /* var childLength =$(this).parent().parent().length;
+        var childArray = new array();
+        childArray=null;
+        var allKey = $(".user_info[userid="+parentParentId+"]").children().children().children()[0].innerHTML;
+        for(i=0;i<childLength;i+3){
+        childArray[i] = $(".user_info[userid="+parentParentId+"]").children().children().children()[i].innerHTML;
+        }*/
+
+        var allValue =$(this).parent() ;
+        var changeKey = $(this).children()[0].innerHTML;
+        var changValue = $(this).children()[2].innerHTML;
+        var changeOpt = "<span class='js_modify_element' style='display:block;' userid='"+parentParentId+"'><input name='' type='text' value='"+changeKey+"'  class='key_style'  userid='"+parentParentId+"'/><input name='' type='text' value='"+changValue+"' class='value_style' userid='"+parentParentId+"'/><span><a href='javascript:;' class='add_opt_button js_change_save' userid='"+parentParentId+"' js_index='"+js_index+"'>保存</a><a href='javascript:;' class='add_opt_button js_change_cancel' userid='"+parentParentId+"'>取消</a></span></span>"
+
+        parentObj.empty();
+        parentObj.html(changeOpt);
+        $('.js_change_cancel').bind('click', function() {
+            alert("修改-取消");
+            $(this).parent().parent().parent().html(resetValue);
+            //changeUserInfoEvent();
+        });
+        $('.js_change_save').bind('click', function() {
+            alert("修改-保存");
+            var userid = $(this).attr("userid");
+            var js_index = $(this).attr("js_index");
+            saveClick(userid,js_index,"change");
+        });
+
+    });
+}
+function saveClick(userid,js_index,opt){
+    alert("开始保存");
+    var userid = userid;
+    var opt = opt;
+    alert(userid);
+    var js_index = js_index;
+    var key = $(".key_style" + "[userid='" + userid + "']").val();
+    var value = $(".value_style" + "[userid='" + userid + "']").val();
+    alert(key);
+    alert(value);
+    if (key == "" || value == "") {
+        alert("key或value不能为空");
+    }
+    else {    alert(12);
+        var user = data.users[js_index];
+        user[key] = value;
+        $.ajax({
+            type: "POST",
+            url: "/api2/user/modify?",
+            data: {"uid": "nnnn", "accesskey": "XXXXXX", "userid": userid, "user": JSON.stringify(user)},
+            success: function (data) {
+                //callback operate
+                if (data["提示信息"] = "修改关注用户信息成功") {
+                    $(".user_info" + "[userid=" + userid + "] li" + ":last").before(function () {
+                        return "<li><span class='infomation_bg js_change_info'><span>" + key + "</span><img src='/static/images/weixin_step/line.png'/><span>" + value + "</span></span></li>";
+                    });
                 }
-            });
+                else {
+                    alert("连接错误");
+                }
+            }
+        });
+        if(opt=="creat"){
             $(".js_modify_element[userid=" + userid + "]").hide();
             $(".js_add_info[userid=" + userid + "]").show();
+        }else if(opt=="change"){
+            return;
         }
-    });
+    }
+}
+function getWeixinName(){
+    var weixin_name = $(".js_weixin_list div div p").html();
+    $(".weixin_user span").html(weixin_name);
 }

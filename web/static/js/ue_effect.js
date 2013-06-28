@@ -7,13 +7,58 @@ $(document).ready(function(){
         saveLocalSettings();
         window.location.href="login.html";
     });
+    getWeixinName();
 });
 $(document).ready(function(){
-    $('.out_frame').bind({  
-        mouseenter:function(){  
+   $(".js_personal_input").blur(function(){
+        var oldPassword = $(".js_personal_input").val();
+
+        if(oldPassword==""||oldPassword==null){
+            $(".js_oldpassword").show();
+            $(".js_oldpassword .js_error").html("请输入原密码");
+        }else{
+            $(".js_oldpassword").hide();
+        }
+    });
+    $(".js_password_second,.js_password_first").blur(function(){
+        var passwordPlaint1 = $(".js_password_first").val();
+        var passwordPlaint2 = $(".js_password_second").val();
+        var password = hex_sha1(passwordPlaint1);
+        if(passwordPlaint1!=passwordPlaint2||passwordPlaint1==""||passwordPlaint2==""||passwordPlaint1==null||passwordPlaint2==null){
+            $(".js_newpassword").show();
+            $(".js_newpassword .js_error").html("两次输入的密码不一致");
+            showBlackPage(40,"修改成功");
+            $(".js_changeSaveButton").bind("click",function(){
+                closeBlackBackground();
+            });
+        }else{
+            $(".js_newpassword").hide();
+        }
+    });
+
+    $(".js_change_passwrod").click(function(){
+        var oldPassword = $(".js_personal_input").val();
+        var passwordPlaint2 = $(".js_password_second").val();
+        var password = hex_sha1(passwordPlaint1);
+        $.ajax({
+            type:"get",
+            url:"/api2/account/modify?",
+            data:{"uid":"nnnn", "accesskey":"XXXXXX" , "account":user},
+            success:function(data){
+                if( serverData["提示信息"] == "修改成功"){
+                    showBlackPage(40,"修改成功");
+                    $(".js_changeSaveButton").bind("click",function(){
+                        closeBlackBackground();
+                    });
+                }
+            }
+        });
+    });
+    $('.out_frame').bind({
+        mouseenter:function(){
 			var itemid = $(this).attr("itemid");
             $("#"+itemid).slideDown(150);
-        },  
+        },
         mouseleave:function(){
 			var itemid = $(this).attr("itemid");
             var subitem =String($("#"+itemid));
@@ -21,7 +66,7 @@ $(document).ready(function(){
             if(checkHover(fatitem,subitem)){
                 $("#"+itemid).slideUp(150);
             }
-        }  
+        }
     });
 	$(".js_personality").click(function(){
 		if($(".js_subitem").css("display")=="none"){
@@ -49,11 +94,10 @@ $(document).ready(function(){
 		var key = $("[userkey="+uid+"]").val();
 		var value =$("[uservalue="+uid+"]").val();
         var index = $(".user_info[userid="+uid+"]li").length;
-        alert(index);
 		var user={};
 		user[key]=value;
 		if(key==""||value==""){
-			alert("key或value不能为空");	
+            showBlackPage(40,"key或value不能为空");
 		}else{
 			$.ajax({
 				type:"get",
@@ -82,9 +126,10 @@ $(document).ready(function(){
         $(".login_opt_menu").animate({height: 'toggle'},200);
         addEvent(document.body, "mousedown", clickIndexOther);
     });
-    $(".circle_out .circle_in p").click(function (){
+    $(".circle_in p").click(function (){
         moveElement();
     });
+
     /*************************************** ***************************************
      * bind step
      *************************************** ***************************************/
@@ -209,8 +254,10 @@ $(document).ready(function(){
 });
 function moveElement(){
     $(".circle_out .circle_in p").bind("click" , function(){
+        var weixinName = $(this).html();
         var $removeElement = $(this).parent().parent().remove();
         $removeElement.insertAfter($(".weixin_user"));
+        $(".weixin_user span").html(weixinName);
         moveElement();
     });
 }
@@ -309,4 +356,36 @@ function addEvent(obj, eventType, func) {
     else {
         obj.addEventListener(eventType, func, false)
     }
+}
+//背景变黑弹出窗口
+function showBlackPage(clarity,tipword){
+    var bWidth='100%';
+    var bHeight=$(".mange_outform").offset().top+$(".mange_outform").height()+19;
+   // var wWidth = 602;
+    //var left = bWidth/2-wWidth/2-19;
+    var back=document.createElement("div");
+    back.id="blackbackcommon";
+    var styleStr="top:0px;left:0;position:absolute;background:#000;z-index:21;width:"+bWidth+";height:"+bHeight+"px;opacity:0.2;";
+    //styleStr+=(isIe)?"filter:alpha(opacity=0);":"opacity:0;";
+    back.style.cssText=styleStr;
+    document.body.appendChild(back);
+    showBackground(back,clarity);
+    var mesW=document.createElement("div");
+    mesW.id="blackbackCommonWindow";
+    mesW.innerHTML="<div class='prompted' id='promptedShow'><div class='tipWord'></div><div><a class='buttonblue changeSaveButton js_changeSaveButton' href='javascript:;'>确定</a></div></div>" ;
+    document.body.appendChild(mesW);
+    $(".tipWord").html(tipword);
+    var popWidth = parseInt($("#promptedShow").css("width"))+60;
+    $("#promptedShow").css("margin-left",-(popWidth/2));
+}
+http://weixintool.com/change_info.html
+// 显示弹出背景
+function showBackground(obj,endInt){
+    var al=parseFloat(obj.style.opacity);al+=0.1;
+    obj.style.opacity=al;
+    if(al<(endInt/100)){setTimeout(function(){showBackground(obj,endInt)},1);}
+}
+function closeBlackBackground(){
+    $("#blackbackCommonWindow").remove();
+    $("#blackbackcommon").remove();
 }

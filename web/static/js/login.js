@@ -23,13 +23,13 @@ $(document).ready(function () {
         var password = hex_sha1(passwordPlaint1);
         if ((accountname == "") || (password == "") || passwordPlaint1 != passwordPlaint2) {
             $(".error_warning").show();
-            $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "注册信息出错！");
+            $("#username_error").html("注册信息出错！");
         }
         else {
 
             if (!phoneRegexp.test(phone) || accountname.length < 2) {
                 $(".error_warning").show();
-                $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "注册信息出错！");
+                $("#username_error").html("注册信息出错！");
             } else {
                 var user = {
                     accountname: accountname,
@@ -52,7 +52,7 @@ $(document).ready(function () {
                             }
                             else if (serverData["提示信息"] == "注册账号失败") {
                                 $(".error_warning").show();
-                                $("#username_error").html("<" + "span class='error_icon'" + "></" + "span" + ">" + "注册不成功！");
+                                $("#username_error").html("注册不成功！");
                             }
                         }
                     }

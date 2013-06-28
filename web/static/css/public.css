@@ -25,8 +25,8 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
-	line-height: 1.125;
-	SCROLLBAR-FACE-COLOR: #fcfcfc;
+ line-height: 1.125;
+ SCROLLBAR-FACE-COLOR: #fcfcfc;
  SCROLLBAR-HIGHLIGHT-COLOR: #6c6c90;
  SCROLLBAR-SHADOW-COLOR: #fcfcfc;
  SCROLLBAR-3DLIGHT-COLOR: #fcfcfc;
@@ -125,4 +125,29 @@ input[type="checkbox"] {
 }
 .show_inline{
 	display:inline-block;	
+}
+.prompted{
+    background: none repeat scroll 0 0 #4C678C;
+    border: 10px solid #6B82A1;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    display: block;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    left: 50%;
+
+    margin-top: -120px;
+    min-height: 140px;
+    min-width: 240px;
+    padding: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+}
+#blackbackCommonWindow{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
 }
