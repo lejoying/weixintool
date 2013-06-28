@@ -54,6 +54,7 @@ weixinManage.bindingtoken = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             else {
                 next()
@@ -81,6 +82,7 @@ weixinManage.bindingtoken = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             else {
                 var accountNode = results.pop().account;
@@ -125,6 +127,7 @@ weixinManage.bindapp = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             else if (results.length == 0) {
                 response.write(JSON.stringify({
@@ -219,6 +222,7 @@ weixinManage.getall = function (data, response) {
         db.query(query, params, function (error, results) {
             if (error) {
                 console.error(error);
+                return;
             }
             if (results.length == 0) {
                 response.write(JSON.stringify({
