@@ -1,0 +1,272 @@
+@charset "utf-8";
+ 
+/*** Style Reset ***/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	border:0;
+}
+
+body {
+     line-height: 1.125;
+	 font-size:14px;
+	 font-family:Microsoft YaHei,Simsum,serif;
+}
+/*::-webkit-scrollbar-track-piece{
+     opacity: 30;
+     -webkit-border-radius:0;
+ }
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+::-webkit-scrollbar-thumb{
+    height:50px;
+    background-color:rgba(51,77,111,0.3);
+    opacity: 80;
+    -webkit-border-radius:4px;
+    outline-offset:-2px;
+    border: 1px solid #677e9e;
+}
+::-webkit-scrollbar-thumb:hover{
+    height:50px;
+    background-color:#334d6f;
+    -webkit-border-radius:4px;
+}*/
+
+ol, ul {
+	list-style-type:none;
+}
+a{
+	text-decoration:none;
+	color:#2367d1;
+}
+button, a {
+	outline:none
+}
+fieldset, img, a img {
+	border:0
+}
+input, textarea {
+	padding: 0;
+	margin: 0;
+}
+
+/* remember to define focus styles! */
+
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+
+ins {
+	text-decoration: none;
+}
+
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align:left;
+	font-weight:normal
+}
+table, td, th {
+	vertical-align:middle
+}
+
+/*** public style lib ***/
+.clearevery{ 
+	clear: both;
+	height:0;
+	clear:both;
+	overflow:hidden;
+}
+.clearfix {
+	*zoom:1;
+}
+.clearfix:after, .clearfix:before {
+	display:block;
+	content:"clear";
+	height:0;
+	clear:both;
+	overflow:hidden;
+	visibility:hidden;
+}
+input[type="checkbox"] { 
+    cursor: pointer;
+    height: 13px;
+	width: 13px;
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+	border:none;
+	outline:none;
+	font-size:12px;
+}
+.warning_icon{
+	background-image:url(/static/images/public/icon/smallicon.png);	
+	background-repeat:no-repeat;
+	padding: 4px 10px;
+}
+.hide{
+	display:none;	
+}
+.show, .current{
+	display:block;	
+}
+.show_inline{
+	display:inline-block;	
+}
+.centerBody{
+	width:990px;
+	position:relative;
+	margin:0 auto;
+	min-height:600px;	
+}
+/*****************************/
+
+/*   switch close or open    */
+
+/*****************************/
+.switch {
+	position: relative;
+	top:-5px;
+	right:30px;
+}
+.switch label {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: block;
+}
+.switch input {
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0;
+	z-index: 100;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+.switch.demo3 {
+	width:90px;
+	height:25px;
+}
+.switch.demo3 label {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: #C61A14;
+	border-radius: 40px;
+	box-shadow:
+ inset 0 3px 8px 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.switch.demo3 label:after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	top: -4px;
+	right: -4px;
+	bottom: -4px;
+	left: -4px;
+	border-radius: inherit;
+	background: #ababab;
+	background: -moz-linear-gradient(#F8F8F8, #ddd);
+	background: -ms-linear-gradient(#F8F8F8, #ddd);
+	background: -o-linear-gradient(#F8F8F8, #ddd);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#F8F8F8), to(#ddd));
+	background: -webkit-linear-gradient(#F8F8F8, #ddd);
+	background: linear-gradient(#F8F8F8, #ddd);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+.switch.demo3 label i {
+	display: block;
+	height: 100%;
+	width: 60%;
+	border-radius: inherit;
+	background: silver;
+	position: absolute;
+	z-index: 2;
+	right: 40%;
+	top: 0;
+	background: #b2ac9e;
+	background: -moz-linear-gradient(#f2f2f2, #d6d6d6);
+	background: -ms-linear-gradient(#f2f2f2, #d6d6d6);
+	background: -o-linear-gradient(#f2f2f2, #d6d6d6);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#d6d6d6));
+	background: -webkit-linear-gradient(#f2f2f2, #d6d6d6);
+	background: linear-gradient(#f2f2f2, #d6d6d6);
+	box-shadow:inset 0 1px 0 #889ec2, 0 0 8px rgba(0, 0, 0, 0.3), 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+.switch.demo3 label i:after {
+	font-size:12px;
+	font-style:normal;
+	text-shadow: 0 1px 0 #eee, 0 -1px 0 #f2f2f2;
+	color:#333;
+	content: "设置";
+	position: absolute;
+	left:6px;
+	top: 2px;
+	bottom:2px;
+	padding:4px 0 0 7px;
+	right:2px;
+	/*  width: 70%;
+  height: 50%;
+  background: #d2cbc3;
+	background: -moz-linear-gradient(#334861, #506F98);
+	background: -ms-linear-gradient(#334861, #506F98);
+	background: -o-linear-gradient(#334861, #506F98);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#334861), to(#506F98));
+	background: -webkit-linear-gradient(#334861, #506F98);
+	background: linear-gradient(#334861, #506F98);*/
+	border-radius: inherit;
+}
+.switch.demo3 label i:before {
+	content: "关";
+	text-transform: uppercase;
+	font-style: normal;
+	color:#fff;
+	text-shadow: 0 1px 0 #f0504a, 0 -1px 0 #f36863;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size:14px;
+	position: absolute;
+	top:65%;
+	margin-top: -11px;
+	right: -50%;
+}
+ .switch.demo3 input:checked ~ label {
+	background: #72af15;
+}
+ .switch.demo3 input:checked ~ label i {
+	right: -1%;
+}
+ .switch.demo3 input:checked ~ label i:before {
+	content: "开";
+	font-weight:normal;
+	right: 115%;
+	color: #fff;
+	text-shadow:0 1px 0 #afcb9b, 0 -1px 0 #6b8659;
+}

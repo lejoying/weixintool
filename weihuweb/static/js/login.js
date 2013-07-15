@@ -1,0 +1,14 @@
+$(document).ready(function(){
+	$("#login").click(function(){
+		$(".js_regeditBody").hide();
+		$(".js_loginBody").show();
+		$(".js_login").css("background","#C61A14");
+		$(".js_regedit").css("background","#292D33");
+	});
+	$("#regedit").click(function(){
+		$(".js_loginBody").hide();
+		$(".js_regeditBody").show();
+		$(".js_regedit").css("background","#C61A14");
+		$(".js_login").css("background","#292D33");
+	});
+});
