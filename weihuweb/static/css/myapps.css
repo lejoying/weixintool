@@ -61,6 +61,7 @@
     border-collapse: collapse;
     border-spacing: 0;
 	border:1px solid #d6d6d6;
+	width:100%;
 }
 .appExamplesList .replyWord {
     padding-left: 20px;
