@@ -3,7 +3,7 @@
 <head>
 <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微乎-首页</title>
+<title>微乎-微信会员</title>
 </head>
 <body>
 <div class="head">
@@ -31,8 +31,8 @@
 <div class="navigation">
 	<div class="nav">
 		<ul>
-            <li><a class="" href="weixinMember.html">微信会员</a></li>
-            <li><a href="messageList.html">消息列表</a></li>
+            <li><a class="navSelected" href="javascript:;">微信会员</a></li>
+            <li><a href="javascript:;">消息列表</a></li>
             <li><a href="javascript:;">公共应用</a></li>
             <li><a href="javascript:;">行业应用</a></li>
             <li><a href="javascript:;">生活服务</a></li>
@@ -45,7 +45,7 @@
     <div class="content">
         <div class="sildLeft">
         	<ul>
-            	<li><a href="myapps.html"><b>我的应用</b></a></li>
+            	<li><a href="javascript:;"><b>我的应用</b></a></li>
                 <li><a href="javascript:;"><b>已开应用</b></a></li>
                 <li><a href="javascript:;">笑话</a></li>
                 <li><a href="javascript:;">点歌</a></li>
@@ -65,63 +65,36 @@
             </div>-->
         </div>
         <div class="mainContern">
-        	<div class="welcome">欢迎您：<span>易佳洁</span></div>
-            <div class="sysNotice">今日新增<a href="javascript:;" title="点击查看">5位朋友</a></div>
-            <div class="sysNotice">系统通知：2013年7月11日新增加应用：<a href="javascript:;">外卖</a>，欢迎使用</div>
-            <div class="sysNotice">当前微信乎一共有56个公共应用，您开启了5个应用欢迎使用<a href="javascript:;">更多应用...</a></div>
-            <div class="messageNumber">消息数</div>
-            <div class="messageList">
-            	<span>今日</span>
-                <span class="messageOfNumber"><a href="javascript:;">24条</a></span>
+        	<div class="messageListTitle">
+            	<div><span>易洁佳</span><span>22</span>条消息详情</div>
+                <a class="goPrevious" href="javascript:;">返回上一页</a>
             </div>
-            <div class="messageList">
-            	<span>昨日</span>
-                <span class="messageOfNumber"><a href="javascript:;">35条</a></span>
+            <div class="userMessageContent">
+            	<div class="receiveMessages">
+                	<div class="receiveMessagesTiele">接收</div>
+                    <div class="receiveMessagesUser">陈明(1408220242) </div>
+                    <div class="receiveMessagesDetail">时代的审美。。</div>
+                    <div class="receiveMessagesDate">2013-5-6</div>
+                </div>
+                
+                <div class="sendMessages">
+                	<div class="sendMessagesTitle">发送</div>
+                    <div class="sendMessagesDetail">时代的审美。。</div>
+                    <div class="sendMessagesDate">2013-5-6</div>
+                </div>
             </div>
-            <div class="messageNumber">以下为你推荐一些微信公众平台帐号，根据个人需要开启。</div>
-            <div class="indexAppOpen">
-            	<ul>
-                	<li>
-                    	您的微信公众帐号
-                    	<div style="float:right;clear:both;">
-                            <div class="switch indexswitch demo3">
-                                <input type="checkbox" checked=""> 
-                                <label><i></i></label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                    	社会化媒体营销
-                    	<div style="float:right;clear:both;">
-                            <div class="switch indexswitch demo3">
-                                <input type="checkbox" checked=""> 
-                                <label><i></i></label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                    	创业家
-                    	<div style="float:right;clear:both;">
-                            <div class="switch indexswitch demo3">
-                                <input type="checkbox" > 
-                                <label><i></i></label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                    	养猪能手
-                    	<div style="float:right;clear:both;">
-                            <div class="switch indexswitch demo3">
-                                <input type="checkbox" checked=""> 
-                                <label><i></i></label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                    	继续添加御定
-                    	<a href="javascript:;">更多...</a>
-                    </li>
-                </ul>
+            <div class="pagination">
+                <a href="#" title="上一页">首页</a>
+                <a href="#" title="上一页">上一页</a>
+                <a href="#" class="pageSelected">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <span>···</span>
+                <a href="#">10</a>
+                <a href="#" title="下一页">下一页</a>
+                <a href="#" title="上一页">尾页</a>
             </div>
         </div>
     </div>
@@ -133,6 +106,7 @@
     </div>
 </div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript" src="/static/js/setting.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

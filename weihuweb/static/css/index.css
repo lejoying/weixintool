@@ -31,6 +31,7 @@
 	background:#fff;
 	border:1px solid #6c6c6c;
 	border-radius:3px;
+	z-index:10;
 }
 .accountSwitching ul li a, .accountSwitching ul li a:hover{
 	height:35px;

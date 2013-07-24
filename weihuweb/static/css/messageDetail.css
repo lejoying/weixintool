@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+.goPrevious{
+	background:#C61A14;
+	color:#fff;
+	font-size:14px;
+	padding:6px 15px;
+	border-radius:3px; 	
+	position:absolute;
+	right:15px;
+	top:12px;
+}
+.userMessageContent{
+	margin:15px;
+	min-height:500px;	
+}
+.receiveMessages{
+	border:1px solid #d6d6d6;
+	margin-bottom:30px;
+		
+}
+.sendMessages{
+	border:1px solid #d6d6d6;
+	margin-bottom:30px;	
+}
+.receiveMessagesUser{
+	font-size:14px;
+	padding:15px;	
+	font-weight:bold;
+}
+.receiveMessagesTiele, .sendMessagesTitle{
+	background:#f2f2f2;
+	padding:15px;
+	border-bottom:1px solid #d6d6d6;
+	font-size:16px;
+	font-weight:bold;	
+}
+.receiveMessagesDetail, .sendMessagesDetail{
+	padding:10px 30px;	
+}
+.receiveMessagesDate, .sendMessagesDate{
+	padding:10px 15px;
+	font-size:12px;
+	color:#666;	
+}

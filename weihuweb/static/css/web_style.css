@@ -3,8 +3,8 @@
 @import url(/static/css/index.css);
 @import url(/static/css/setting.css);
 @import url(/static/css/bindWeixin.css);
-
-
-
-
-
+@import url(/static/css/myapps.css);
+@import url(/static/css/weixinMember.css);
+@import url(/static/css/weixinMemberEdit.css);
+@import url(/static/css/messageList.css);
+@import url(/static/css/messageDetail.css);

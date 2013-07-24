@@ -1,0 +1,95 @@
+@charset "utf-8";
+/* CSS Document */
+.weixinMemberTitle{
+	background:#f2f2f2;
+	margin:15px;
+	padding:15px;
+	font-size:18px;
+	font-weight:bold;
+	border:1px solid #d6d6d6;
+	position:relative;
+}
+.gotoWeixinList{
+	position:absolute;
+	right:15px;
+	top:15px;
+	color:#2367D1;
+	font-size:16px;
+	font-weight:normal;	
+}
+.wixinMemberTable{
+	margin:15px;
+	text-align:center;	
+	min-height:500px;
+}
+.wixinMemberTable table{
+	border-collapse: collapse;
+    border-spacing: 0;
+	border:1px solid #d6d6d6;	
+}
+.weixinId{
+	padding-left: 20px;
+    text-align: left;
+    width: 100px;
+}
+.nickName{
+	padding-left: 20px;
+    text-align: left;
+    width: 130px;	
+}
+.province{
+	padding-left: 20px;
+    text-align: left;
+    width: 120px;	
+}
+.joinTime{
+	padding-left: 20px;
+    text-align: left;
+    width:100px;	
+}
+.memberOperating{
+	padding-left: 20px;
+    text-align: left;
+    width: 240px;	
+}
+.wixinMemberTable tbody td {
+    border-bottom: 1px solid #E6E6E6;
+    padding: 15px;
+    vertical-align: top;
+}
+.wixinMemberTable tbody th {
+	border-top:1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+    padding: 15px;
+	font-weight:bold;
+    vertical-align: top;
+	background:#f8f8f8;
+	font-size:14px;
+	color:#333;
+}
+.pagination{
+	margin: 10px auto 25px;
+	text-align:center;	
+}
+.pagination a{
+	padding:8px 14px;
+	border-radius:3px;
+	margin:0 5px;
+	display:inline-block;
+	border:1px solid #ccc;	
+	background:#fafafa;
+	color:#59606B;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight:bold;
+}
+.pagination a:hover{
+	border:1px solid #9f9f9f;	
+	color:#000;
+	background:#fff;
+}
+a.pageSelected{
+	background:#C61A14;
+	color:#fff;
+	border:1px solid #ff0000;	
+}

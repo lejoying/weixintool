@@ -1,0 +1,49 @@
+@charset "utf-8";
+/* CSS Document */
+.titleMemberId{
+	font-size:18px;
+	font-weight:bold;
+	padding:15px;
+	margin:0 0 15px;
+	background:#f2f2f2;
+	border-bottom:1px solid #d6d6d6;	
+}
+.weixinMemberEdit{
+	border:1px solid #d6d6d6;
+	margin:0 15px;	
+}
+.weixinMemberEdit p {
+    padding: 10px 0 0 185px;
+}
+.weixinMemberEdittName {
+    font-size: 16px;
+    padding: 5px 10px;
+}
+
+.weixinMemberEdit p span input {
+    height: 30px;
+    padding: 0 8px;
+    width: 270px;
+}
+.weixinMemberEdit p.weixinMemberEditThree{
+	padding: 10px 0 0 168px;
+}
+.weixinMemberEdit p.weixinMemberEditFore{
+	padding: 10px 0 0 153px;
+}
+.saveChange{
+	text-align:center;	
+}
+.saveButton{
+	display:inline-block;
+	text-align:center;
+	border:1px solid #ccc;
+	border-radius:3px;
+	color:#333;
+	font-size:16px;
+	padding:8px 28px;
+	background:url("/static/images/public/btn_bg.png") repeat-x;	
+}
+.weixinMemberEditBtn{
+	margin:30px;	
+}

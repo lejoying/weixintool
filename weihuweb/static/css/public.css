@@ -148,10 +148,16 @@ input[type="checkbox"] {
 /*   switch close or open    */
 
 /*****************************/
-.switch {
+.indexswitch {
 	position: relative;
 	top:-5px;
 	right:30px;
+}
+.myappswitch{
+	position:absolute;
+	top:16px;
+	right:30px;	
+	z-index:2;
 }
 .switch label {
 	width: 100%;
