@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+input[type=file].uploadFace{
+	width:1px;
+	overflow:hidden;
+	opacity:0;	
+}
+.clickButton{
+    background: url("/static/images/public/btn_bg.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px 3px 3px 3px;
+    color: #333333;
+    display: inline-block;
+    text-align: center;
+}
+.browseButtion{
+	font-size: 14px;
+	padding:6px 18px;
+	vertical-align:top;
+	margin-left:5px;	
+}
+.weixinSummary{
+	width:286px;
+	height:160px;
+	resize:none;	
+	vertical-align:text-top;
+}

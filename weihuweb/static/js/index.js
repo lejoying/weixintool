@@ -12,15 +12,15 @@ function addEvent(obj,eventType,func){
 }
 function clickother(el){
 	thisObj = el.target?el.target:event.srcElement;
-	if(thisObj.id == "accountSwitching"||thisObj.id == "weixinNow"){
+	if(thisObj.id == "accountSwitching"||thisObj.id == "weixinNow"||thisObj!==this){
 		return;
 	} 
 	do{		
 		if(thisObj.tagName == "BODY"){			
 			if(document.getElementById("accountSwitching")){
 				document.getElementById("accountSwitching").style.display = "none";
+				return;
 			}
-			return;
 		};
 		thisObj = thisObj.parentNode;
 	}while(thisObj.parentNode);
