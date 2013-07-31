@@ -129,7 +129,7 @@ accountManage.exist = function (data, response) {
             } else if (results.length == 0) {
                 response.write(JSON.stringify({
                     "提示信息": "验证失败",
-                    "失败原因": name + type + " 用户名已存在",
+                    "失败原因": name + type + " ",
                     "status": "failed"
                 }));
                 response.end();

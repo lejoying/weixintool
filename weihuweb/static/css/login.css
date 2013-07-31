@@ -44,11 +44,16 @@
 	color:#fff;	
 	display:block;
 }
+.redbg{
+     background:#C61A14;
+}
+.blackbg{
+    background:#292D33;
+}
 .login{
 	width:50%;
 	hieght:42px;
 	line-height:42px;
-	background:#c61a14;
 	color:#fff;	
 	float:left;
 	text-align:center;
@@ -134,7 +139,6 @@ p.confirmPwd{
 	width:50%;
 	height:42px;
 	line-height:42px;
-	background:#292d33;
 	color:#fff;
 	display:inline-block;		
 	text-align:center;
