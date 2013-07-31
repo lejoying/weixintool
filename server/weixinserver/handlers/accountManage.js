@@ -88,7 +88,7 @@ accountManage.add = function (data, response) {
 /***************************************
  *     URL：/api2/account/exist
  ***************************************/
-accountManage.exist = function (data, response) {
+/*accountManage.exist = function (data, response) {
     response.asynchronous = 1;
     var account = {
         accountname: data.accountname,
@@ -145,7 +145,7 @@ accountManage.exist = function (data, response) {
             }
         });
     }
-}
+}*/
 
 
 /***************************************
@@ -284,6 +284,67 @@ accountManage.modify = function (data, response) {
     }
 
 }
+/***************************************
+ *     URL：/api2/account/exist
+ ***************************************/
+accountManage.exist = function (data, response) {
+    response.asynchronous = 1;
+    var account = {
+        accountname: data.accountname,
+        email: data.email
+    };
+
+    var type = "账号名";
+    var name = account.accountname;
+    if (account.accountname != null) {
+        type = "账号名";
+        name = account.accountname;
+        account.email = "unexist email";
+    }
+    else if (account.email != null) {
+        type = "邮箱";
+        name = account.email;
+        account.accountname = "unexist accountname";
+    }
+
+    checkAccountNodeExist();
+
+    function checkAccountNodeExist() {
+        var query = [
+            'MATCH account:Account',
+            'WHERE account.accountname! ={accountname} OR account.email! ={email}',
+            'RETURN  account'
+        ].join('\n');
+
+        var params = {
+            accountname: account.accountname,
+            email: account.email
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            } else if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "用户名可以使用",
+                    "失败原因": name + type + " ",
+                    "status": "failed"
+                }));
+                response.end();
+            } else {
+                var accountNode = results.pop().account;
+//                if (accountNode.data.password == account.password) {
+                    response.write(JSON.stringify({
+                        "提示信息": "用户名存在",
+                        "status": "passed"
+                    }));
+                    response.end();
+//                }
+            }
+        });
+    }
+}
 
 /***************************************
  *     URL：/api2/account/trash
@@ -293,3 +354,5 @@ accountManage.trash = function (data, response) {
 
 
 module.exports = accountManage;
+
+

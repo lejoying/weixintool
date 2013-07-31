@@ -66,7 +66,7 @@ $(document).ready(function(){
                 "accountname": accountname
             },
             success: function (serverData) {
-                if (serverData["提示信息"] == "验证失败") {
+                if (serverData["提示信息"] == "用户名可以使用") {
                     $(".js_errorPrompt").addClass("show");
                     $(".js_errorPrompt").html(serverData["失败原因"]);
                 }
