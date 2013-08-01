@@ -1,0 +1,177 @@
+@charset "utf-8";
+.head{
+	height:80px;
+	background:#f2f2f2;	
+}
+.headContent{
+	width:980px;
+	height:80px;
+	margin: auto;	
+}
+.logo{
+	width:110px;
+	height:80px;
+	float:left;
+	background:url("/static/images/logo.png") 0 12px no-repeat;	
+}
+.logo a{
+	display:block;
+	height:80px;	
+}
+.weixinSwitch{
+	float:left;	
+	height:80px;
+	position:relative;
+}
+.accountSwitching{
+	position:absolute;
+	left:8px;
+	top:56px;
+	width:180px;	
+	background:#fff;
+	border:1px solid #6c6c6c;
+	border-radius:3px;
+	z-index:10;
+}
+.accountSwitching ul li a, .accountSwitching ul li a:hover{
+	height:35px;
+	line-height:35px;
+	padding:0 10px;
+	display:block;
+	color:#59606B;
+	border-bottom:1px dotted #d6d6d6;
+}
+.accountSwitching ul li a:hover{
+	background:#eee;
+	color:#2367D1;	
+}
+.weixinNow{
+	width:55px;
+	height:30px;
+	background:#f9f9f9;
+	border:1px solid #6c6c6c;
+	color:#59606b;
+	display:inline-block;
+	text-align:center;
+	line-height:30px;
+	font-size:16px;
+	margin:25px 0 0 8px;
+	border-radius:2px;
+	padding:0 20px 0 5px;
+	background:url("/static/images/weixinSelect.png") right 8px no-repeat #fff;
+}
+.navigation{
+	height:40px;
+	background:#292d33;	
+}
+.nav{
+	width:980px;
+	height:40px;
+	margin: auto;	
+}
+.nav ul li{
+	float:left;	
+}
+.nav ul li a, .nav ul li a:hover, .navSelected{
+	color:#fff;
+	font-size:14px;	
+	padding:0 15px;
+	display:inline-block;
+	height:40px;
+	line-height:40px;
+}
+.navSelected{
+	background:#c61a14;	
+}
+.nav ul li a:hover{
+	background:#666;	
+}
+.userAccount{
+	float:right;
+	padding-top:33px;	
+}
+.content{
+	width:980px;
+	margin:0 auto;
+}
+.sildLeft{
+	float:left;
+	width:220px;	
+	background:#eee;
+	border:1px solid #d6d6d6;
+	min-height:670px;
+}
+.mainContern{
+	float:right;
+	width:755px;
+	border:1px solid #d6d6d6;	
+	border-left:none;
+	min-height:670px;
+	
+}
+.sildLeft ul li a, .sildLeft ul li a:hover, .sildLeftSelect{
+	font-size:14px;
+	color:#333;
+	display:block;
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+	border-bottom:1px dotted #d6d6d6;
+}
+.sildLeft ul li a{
+	
+}
+.sildLeft ul li a:hover, .sildLeftSelect{
+	background:#f0504a;	
+	color:#fff;
+}
+.replyRules{
+	border-top:1px solid #d6d6d6;
+	padding:20px;
+	font-size:14px;	
+	background:#f7f7f7;
+}
+.replyRules p{
+	padding:5px 0;	
+}
+.indexAppOpen{
+	margin:25px 0 25px;	
+}
+.indexAppOpen ul li{
+	padding:20px 30px 20px 60px;	
+	font-size:16px;
+}
+.indexAppOpen ul li:last-child{
+	text-align:right;	
+}
+.welcome{
+	margin:20px;
+	font-size:24px;	
+}
+.sysNotice{
+	margin:20px;	
+}
+.messageNumber{
+	margin:30px 0 5px 20px;
+	font-size:16px;
+	font-weight:bold;	
+}
+.messageList{
+	margin:0 20px;
+	padding:10px 20px;
+	border:1px solid #d6d6d6;	
+}
+.messageOfNumber{
+	float:right;
+}
+.footBar{
+	border-top:2px solid #d6d6d6;	
+}
+.foot{
+	width:980px;
+	margin:0 auto;	
+}
+.foot p{
+	text-align:center;
+	padding:10px 0;	
+}

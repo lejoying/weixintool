@@ -1,9 +1,12 @@
 @charset "utf-8";
+<<<<<<< HEAD
 /**
  * Author：Chen Liguo
  * QQ:150362521
  * Phone:18210241415
  */
+=======
+>>>>>>> weihu
  
 /*** Style Reset ***/
 html, body, div, span, applet, object, iframe,
@@ -25,7 +28,51 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 body {
+<<<<<<< HEAD
 	line-height: 1.125;
+=======
+     line-height: 1.125;
+    /* SCROLLBAR-FACE-COLOR: #fcfcfc;
+     SCROLLBAR-HIGHLIGHT-COLOR: #6c6c90;
+     SCROLLBAR-SHADOW-COLOR: #fcfcfc;
+     SCROLLBAR-3DLIGHT-COLOR: #fcfcfc;
+     SCROLLBAR-ARROW-COLOR: #240024;
+     SCROLLBAR-TRACK-COLOR: #fcfcfc;
+     SCROLLBAR-DARKSHADOW-COLOR: #48486c;
+     SCROLLBAR-BASE-COLOR: #fcfcfc;*/
+
+
+    /*scrollbar-3d-light-color:#fcfcfc;
+    scrollbar-highlight-color:#6c6c90;
+    scrollbar-face-color:#fcfcfc;
+    scrollbar-arrow-color:#240024;
+    scrollbar-shadow-color:#fcfcfc;
+    scrollbar-dark-shadow-color:#48486c;
+    scrollbar-base-color:#fcfcfc;*/
+
+}
+::-webkit-scrollbar-track-piece{
+     /*background-color:#4c678c;*/
+     opacity: 30;
+     -webkit-border-radius:0;
+ }
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+::-webkit-scrollbar-thumb{
+    height:50px;
+    background-color:rgba(51,77,111,0.3);
+    opacity: 80;
+    -webkit-border-radius:4px;
+    outline-offset:-2px;
+    border: 1px solid #677e9e;
+}
+::-webkit-scrollbar-thumb:hover{
+    height:50px;
+    background-color:#334d6f;
+    -webkit-border-radius:4px;
+>>>>>>> weihu
 }
 
 ol, ul {
@@ -108,4 +155,41 @@ input[type="checkbox"] {
 	background-image:url(/static/images/public/icon/smallicon.png);	
 	background-repeat:no-repeat;
 	padding: 4px 10px;
+<<<<<<< HEAD
+=======
+}
+.hide{
+	display:none;	
+}
+.show, .current{
+	display:block;	
+}
+.show_inline{
+	display:inline-block;	
+}
+.prompted{
+    background: none repeat scroll 0 0 #4C678C;
+    border: 10px solid #6B82A1;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    display: block;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    left: 50%;
+
+    margin-top: -120px;
+    min-height: 140px;
+    min-width: 240px;
+    padding: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+}
+#blackbackCommonWindow{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+>>>>>>> weihu
 }

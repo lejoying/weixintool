@@ -1,0 +1,121 @@
+@charset "utf-8";
+
+body{
+	margin:0;
+	padding:0;
+	background:#f7f7f7;	
+}
+.phone_bg{
+	width:521px;
+	height:774px;
+	background:url(/page/shejiao/images/phone.png) no-repeat;
+	position:absolute;
+	left:50%;
+	top:50%;
+	margin-left:-260px;	
+	margin-top:-387px;
+}
+.phone_in_frame{
+	width:320px;
+	height:460px;
+	border:1px solid #fff;
+	margin:152px 0 0 92px;	
+	position:relative;
+	background:#fff;
+}
+.dialogue{
+	position:relative;	
+	margin:30px 10px 0 20px;
+}
+.dialogue2{
+	position:relative;	
+	margin:42px 20px 0 20px;
+}
+.dialogue_box{
+	border:3px solid #0099cd;
+	border-radius:10px;
+	padding:10px 20px 10px 48px;
+	font-family:"微软雅黑";
+	font-size:15px;	
+}
+.face img{
+	width:50px;
+	height:50px;
+	border-radius:50px;
+	border:3px solid #0099cd;
+	position:absolute;
+	left:-10px;
+	top:-15px;	
+}
+.face2 img{
+	width:50px;
+	height:50px;
+	border-radius:50px;
+	border:3px solid #0099cd;
+	position:absolute;
+	right:-10px;
+	bottom:-2px;	
+}
+.opt_icon{
+	width:71px;
+	height:64px;
+	background:url(/page/shejiao/images/sixline.png) no-repeat;
+	position:absolute;
+	right:10px;
+	bottom:-30px;	
+}
+.house_icon{
+	background:url(/page/shejiao/images/house.png) 22px 10px no-repeat;
+	height:38px;
+}
+.house_word{
+	font-size:12px;
+	color:#676767;	
+	font-family:"微软雅黑";
+	padding-left:16px;
+}
+.change_opt{
+	font-size:10px;
+	color:#676767;
+	border-top:1px solid #cdcdcd;
+	margin-top:3px;
+	padding-top:3px;
+	margin-right:20px;	
+	font-family:"微软雅黑";
+}
+.input_dialogue{
+	position:absolute;
+	height:30px;
+	bottom:0px;
+	border:2px solid #0099cd;
+	border-radius:18px;	
+	width:296px;
+	margin:10px;
+}
+.input_dialogue img{
+	margin:6px 3px 0 8px;	
+}
+.input_dialogue input{
+	height:28px;	
+	width:205px;
+	vertical-align:top;
+	font-size:14px;
+	font-family:"微软雅黑";
+	border:none;
+	color:#333;
+}
+.input_dialogue a{
+	background:#0099cd;
+	color:#fff;
+	border-radius:0 10px 10px 0;
+	width:43px;
+	height:30px;
+	display:inline-block;
+	vertical-align:top;	
+	line-height:30px;
+	text-decoration:none;
+	float:right;
+	font-family:"微软雅黑";
+	font-size:15px;
+	padding-left:12px;
+}

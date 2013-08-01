@@ -1,0 +1,72 @@
+@charset "utf-8";
+/* CSS Document */
+.settingFrame{
+	margin:20px 0 20px 156px;	
+}
+.settingTitle{
+	border-bottom:1px solid #f0504a;
+	background:#f0f0f0;
+}
+.settingTitle a{
+	display:block;
+	font-size:16px;
+}
+.accountSetting{
+	width:25%;
+	height:34px;
+	line-height:34px;
+/*	background:#c61a14;*/
+	color:#fff;	
+	float:left;
+	text-align:center;
+}
+.pwdSetting{
+	width:24%;
+	height:34px;
+	line-height:34px;
+	/*background:#292d33;*/
+	color:#333;
+	display:inline-block;		
+	text-align:center;
+}
+.pwdSetting a, .accountSetting a{
+	color:#333;
+}
+a.settingClick{
+	background:#f05a4a;
+	color:#fff;
+	position:relative;
+	top:1px;	
+}
+.accountSettingBody p{
+	padding:10px 0 0 35px;	
+}
+.accountSettingBody p span input{
+	width:270px;
+	height:30px;
+	padding:0 8px;	
+}
+.settingProjectName{
+	padding:5px 10px;
+	font-size:16px;	
+}
+.pwdSettingBody p{
+	padding:10px 0 10px 16px;	
+}
+.pwdSettingBody p span input{
+	width:270px;
+	height:30px;
+	padding:0 8px;	
+}
+.settingSaveBtn{
+	display:inline-block;
+	width:100px;
+	height:30px;
+	text-align:center;
+	line-height:30px;
+	border:1px solid #ccc;
+	border-radius:3px;
+	color:#333;
+	margin:20px 0 0 150px;
+	background:url("/static/images/public/btn_bg.png") repeat-x;	
+}

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户管理</title>
+</head>
+<body>
+<div class="head_slip"></div>
+<div class="index_content">
+    <!--<div class="head_banner"></div>-->
+    <div class="function_model js_personality" style="left:0px;top:20px;margin-left:0px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="personalized" id="js_personality"></a>
+            </div>
+            <div class="apps_title">微信应用</div>
+        </div>
+        <div class="right_sub"></div>
+    </div>
+    <div class="pop_subitem js_subitem" id="js_subitem" style="display:block;">
+        <div class="pop_subitem_in">
+            <div>
+                <a id="a_appstore" >应用商店</a>
+            </div>
+            <div>
+                <a id="a_myapp" href="default.html">我的应用</a>
+            </div>
+        </div>
+    </div>
+    <div class="function_model js_usermanger" style="left:-10px;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="user_mange.html" class="user_mange"></a>
+            </div>
+            <div class="apps_title">用户管理</div>
+        </div>
+        <div class="right_sub"></div>
+    </div>
+    <div class="function_model js_message" style="left:-10px;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="message_mange"></a>
+            </div>
+            <div class="apps_title">消息管理</div>
+        </div>
+        <div class="right_sub"></div>
+    </div>
+    <div class="function_model js_weixin_user" style="left:-10px;top:20px;width:210px;">
+        <div class="left_icon" style="width:90px;">
+            <a href="javascript:;" class="weixin_card"></a>
+            <div class="user_name"></div>
+        </div>
+        <div class="right_sub" id="step_1">敬萍</div>
+    </div>
+    <div class="login_user" style="right:0;top:20px;">
+        <div>
+            <a href="javascript:;" class="app_list" id="app_list"></a>
+
+            <div class="logo_apps">
+                <div id="user"></div>
+            </div>
+        </div>
+    </div>
+    <div class="login_opt_menu" id="popmenu" style="right:0;top:125px; display:none;">
+        <!--<p><b class="change_info"></b><a href="javascript:;" id="div1">修改个人信息</a></p>-->
+        <p><b class="change_password"></b><a href="change_info.html" id="div2">修改密码</a></p>
+        <p class="js_logout" ><b class="logout"></b><a href="javascript:;" id="div3">注销</a></p>
+    </div>
+<div class="index_body">
+<div class="body_left">
+    <div class="mange_outform">
+        <div class="mange_title">
+            <span>用户管理</span>
+            <div class="mange_opt">
+                <a href="#this " onclick="checkAll(this,'selectbox')">全选</a>
+                <a href="javascript:;">删除</a>
+            </div>
+        </div>
+        <div class="user_list template hide" template="user_list">
+            <?js for (var js_index in data.users) { ?>
+            <?js var user=data.users[js_index]; ?>
+            <?js if(user==null) { ?>
+            <?js continue; ?>
+            <?js } ?>
+            <div class="msg_list">
+                <ul class="user_head">
+                    <li><input name="selectbox" type="checkbox" value="" /></li>
+                    <li><span class="msg_list_id">敬萍</span></li>
+                    <li><span class="msg_list_id">ID:#{user.id}</span></li>
+                    <div style="display:block;clear:both;"></div>
+                </ul>
+                <div class="clearevery"></div>
+                <ul class="user_info" userid ="#{user.id}">
+                    <?js for (var index in user) { ?><?js if(index=="id") { ?><?js continue; ?><?js } ?>
+                    <li>
+                        <span class="infomation_bg js_change_info"><span>#{ index }</span><img src="/static/images/weixin_step/line.png"/><span>#{ user[index] }</span></span>
+                    </li>
+                    <?js } ?>
+                    <li>
+                        <a href="javascript:;" class="add_info js_add_info" userid ="#{user.id}">添加属性</a>
+                        <span class="js_modify_element" style="display:none;" userid="#{user.id}">
+                            <input name="" type="text" placeholder="key"  class="key_style"  userid="#{user.id}"/>
+                            <input name="" type="text" placeholder="value" class="value_style" userid="#{user.id}"/>
+                            <span>
+                                <a href="javascript:;" class="add_opt_button js_save_button" userid="#{user.id}" js_index="#{js_index}">保存</a>
+                                <a href="javascript:;" class="add_opt_button js_cancel_button" userid="#{user.id}">取消</a>
+                            </span>
+                        </span>
+                    </li>
+                    <div style="display:block;clear:both;"></div>
+                </ul>
+                <div class="clearevery"></div>
+            </div>
+            <?js } ?>
+        </div>
+    </div>
+</div>
+<div class="body_right">
+    <div class="weixin_user"><b class="user_face"></b><span id="step_2">敬萍</span></div>
+    <div class="circle_out" >
+        <div class="circle_in"><p id="step_3">敬萍</p>
+        </div>
+        <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
+    </div>
+
+    <div class="circle_out">
+        <div class="circle_in"><p id="step_4">微信公众帐号2</p>
+        </div>
+        <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
+    </div>
+    <div class="circle_out">
+        <div class="circle_in"><p>微信公众帐号3</p></div>
+        <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
+        <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
+    </div>
+    <div class="circle_out">
+        <p><a href="step.html" style="font-size:100px;color:#5e99cd;font-weight:bold;" title="添加微信帐号">+</a></p>
+    </div>
+</div>
+</div>
+</div>
+
+
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/app.js"></script>
+
+<script type="text/javascript" src="/static/js/user_manage.js"></script>
+
+
+<script type="text/javascript" src="/static/js/ue_effect.js"></script>
+<script type="text/javascript" src="/static/js/ue_api.js"></script>
+
+</body>
+</html>

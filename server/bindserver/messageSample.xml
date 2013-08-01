@@ -1,0 +1,65 @@
+﻿<?xml version="1.0"?>
+<message>
+	<!-- 语音 -->
+	<xml>
+		<ToUserName>
+			<![CDATA[gh_c6cd8a443586]]>
+		</ToUserName>
+		<FromUserName>
+			<![CDATA[oeFW0juS8FCHZN6VAGYN6MCdyBxo]]>
+		</FromUserName>
+		<CreateTime>1369203915</CreateTime>
+		<MsgType>
+			<![CDATA[voice]]>
+		</MsgType>
+		<MediaId>
+			<![CDATA[1hEjJdBF2svJOaBSpbn6Rmxjom_eqYgoxmuDCk5lCtNDksB14j9MzQH7Gfae7fsj]]>
+		</MediaId>
+		<Format>
+			<![CDATA[amr]]>
+		</Format>
+		<MsgId>5880686036480163937</MsgId>
+	</xml>
+
+
+
+	<!-- 文本 -->
+	<xml>
+		<ToUserName>
+			<![CDATA[gh_c6cd8a443586]]>
+		</ToUserName>
+		<FromUserName>
+			<![CDATA[oeFW0juS8FCHZN6VAGYN6MCdyBxo]]>
+		</FromUserName>
+		<CreateTime>1369204090</CreateTime>
+		<MsgType>
+			<![CDATA[text]]>
+		</MsgType>
+		<Content>
+			<![CDATA[金三角地]]>
+		</Content>
+		<MsgId>5880686788099440738</MsgId>
+	</xml>
+
+
+	<!-- 回复文本 -->
+
+	<XML>
+		<ToUserName>
+			<![CDATA[oeFW0juS8FCHZN6VAGYN6MCdyBxo]]>
+		</ToUserName>
+		<FromUserName>
+			<![CDATA[gh_c6cd8a443586]]>
+		</FromUserName>
+		<CREATETIME>1369214948</CREATETIME>
+		<MSGTYPE>
+			<![CDATA[text]]>
+		</MSGTYPE>
+		<CONTENT>
+			<![CDATA[你好！app智能回复。]]>
+		</CONTENT>
+		<FuncFlag>0</FuncFlag>
+	</XML>
+
+	
+</message>

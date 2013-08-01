@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>无标题文档</title>
+</head>
+<body>
+<div class="head_slip"></div>
+<div class="index_content" draggable="false">
+    <!--<div class="head_banner"></div>-->
+    <div class="function_model" style="left:0;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="personalized"></a>
+            </div>
+            <div class="apps_title">个性化应用</div>
+        </div>
+        <div class="right_sub"></div>
+    </div>
+    <div class="function_model" style="left:150px;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="user_mange"></a>
+            </div>
+            <div class="apps_title">用户管理</div>
+        </div>
+        <div class="right_sub"></div>
+    </div>
+    <div class="function_model" style="left:300px;top:20px;">
+        <div class="left_icon">
+            <div>
+                <a href="javascript:;" class="message_mange"></a>
+            </div>
+            <div class="apps_title">消息管理</div>
+        </div>
+        <div class="right_sub"></div>
+    </div>
+    <div class="function_model" draggable="false" style="left:450px;top:20px;width:210px;">
+        <div class="left_icon" style="width:90px;">
+            <a href="javascript:;" class="weixin_card"></a>
+
+            <div class="user_name"></div>
+        </div>
+        <div class="right_sub">很破的一口钟</div>
+    </div>
+    <div class="login_user" style="right:0;top:20px;">
+        <div>
+            <a href="javascript:;" class="app_list"></a>
+
+            <div class="logo_apps">
+                <div>usert2已登录</div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="index_body">
+        <div class="body_left">
+            <div class="apphead_title">添加应用</div>
+            <div class="hide js_app_list template" template="app_list">
+
+                <?js var left=40; ?>
+                <?js for (var index in data.apps) { ?><?js var app=data.apps[index]; ?><?js if(app==null) { ?><?js continue; ?><?js } ?>
+                <div class="out_frame" draggable="true" style="left:#{left}px;top:100px;" itemid="app_opreation1" appid="#{app.appid}">
+                    <?js left=left+150; ?>
+                    <div class="content_element">
+                        <div class="appicon">
+                            <img src="/static/images/face.jpg"/>
+                        </div>
+                        <div class="appname">#{ app.name }</div>
+                    </div>
+                    <div class="app_opreation" id="app_opreation1">
+                        <a href="javascript:;" class="app_config" title="配置"></a>
+                        <a href="javascript:;" class="app_delete" title="删除" appid="#{app.appid}"></a>
+                    </div>
+                </div>
+                <?js } ?>
+            </div>
+            <div class="out_frame_add" style="left:340px;top:500px;">
+                <div class="add_element">
+                    <div class="appicon">
+                        <img src="/static/images/index/add.jpg"/>
+                    </div>
+                    <p class="add_border_line"></p>
+
+                    <div class="addname">新建应用</div>
+                </div>
+            </div>
+        </div>
+        <div class="body_right">
+            <div class="weixin_user">很破的一口钟</div>
+            <div class="circle_out" amount="1">
+                <div class="circle_in"></div>
+                <div class="circel_ele circel_ele_1" title="微信订餐管理"><img src="/static/images/face.jpg"/></div>
+                <!--
+                <div class="circel_ele circel_ele_2 circel_ele_turning" title="微信打折促销"><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_8 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_9 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_10 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_11 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_12 "><img src="/static/images/face.jpg"/></div>
+                -->
+            </div>
+            <!--
+            <div class="circle_out" amount="6">
+                <div class="circle_in"></div>
+                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
+
+            </div>
+            <div class="circle_out" amount="7">
+                <div class="circle_in"></div>
+                <div class="circel_ele circel_ele_1 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_2 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_3 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_4 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_5 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_6 "><img src="/static/images/face.jpg"/></div>
+                <div class="circel_ele circel_ele_7 "><img src="/static/images/face.jpg"/></div>
+
+            </div>
+
+
+            <div class="circle_out" amount="0">
+                <div class="circle_in"></div>
+            </div>
+            -->
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript" src="/static/js/testAPI.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+</body>
+</html>
