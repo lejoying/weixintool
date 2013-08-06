@@ -23,8 +23,8 @@ api = {
             typical: {"accountname": "XXX", "email": "XXX@XXX.XXX"}
         },
         response: {
-            success: {"提示信息": ["用户名存在" | "邮箱已存在"], "status": "passed"},
-            failed: {"提示信息": ["验证失败"], "失败原因": ["用户名不存在" | "邮箱不存在" ], "status": "failed"}
+            success: {"提示信息": ["用户名存在" | "邮箱已存在"], "失败原因": ["用户名已存在" | "邮箱已存在" ], "status": "failed"},
+            failed: {"提示信息": ["用户名不存在" | "邮箱不存在"], "status": "passed"}
         }
     },
     /***************************************

@@ -32,8 +32,6 @@ weixinManage.bindingtoken = function (data, response) {
     var random = Math.random();
     var token = (timestamp * random).toString().substring(1, 11);
     weixin.token = token;
-
-
     deleteBindingWeixinNode(createWeixinNode);
 
     function deleteBindingWeixinNode(next) {
@@ -57,12 +55,12 @@ weixinManage.bindingtoken = function (data, response) {
                 return;
             }
             else {
-                next()
+                next();
             }
         });
     }
 
-    createWeixinNode();
+//    createWeixinNode();
     function createWeixinNode() {
         var query = [
             'START account=node({uid})' ,

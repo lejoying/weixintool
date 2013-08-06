@@ -16,6 +16,16 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
  ***************************************/
 accountManage.add = function (data, response) {
     response.asynchronous = 1;
+    if("" == (data.accountname.trim()) || "" == (data.password.trim())){
+        response.write(JSON.stringify({
+            "提示信息": "注册账号失败",
+            "reason": "账号信息不能为空"
+        }));
+       /* if(data.phone==undefined){
+            data.phone="123654789";
+        }*/
+        response.end();
+    }
     var account = {
         accountname: data.accountname,
         phone: data.phone,
@@ -26,15 +36,16 @@ accountManage.add = function (data, response) {
     checkAccountNodeExist();
 
     function checkAccountNodeExist() {
+
         var query = [
             'MATCH account:Account',
-            'WHERE account.accountname! ={accountname} OR account.phone! ={phone}',
+            'WHERE account.accountname! ={accountname}',
             'RETURN  account'
         ].join('\n');
 
         var params = {
-            accountname: account.accountname,
-            phone: account.phone
+            accountname: account.accountname
+//            phone: account.phone
 //            email: account.email
         };
 
@@ -49,7 +60,6 @@ accountManage.add = function (data, response) {
                     "reason": "账号信息已存在"
                 }));
                 response.end();
-
             }
         });
     }
@@ -294,18 +304,18 @@ accountManage.exist = function (data, response) {
         email: data.email
     };
 
-    var type = "账号名";
+    var type = "邮箱";
     var name = account.accountname;
     if (account.accountname != null) {
-        type = "账号名";
+        type = "邮箱";
         name = account.accountname;
         account.email = "unexist email";
     }
-    else if (account.email != null) {
-        type = "邮箱";
+  /*  else if (account.email != null) {
+        type = "昵称";
         name = account.email;
         account.accountname = "unexist accountname";
-    }
+    }*/
 
     checkAccountNodeExist();
 
@@ -327,9 +337,8 @@ accountManage.exist = function (data, response) {
                 return;
             } else if (results.length == 0) {
                 response.write(JSON.stringify({
-                    "提示信息": "用户名可以使用",
-                    "失败原因": name + type + " ",
-                    "status": "failed"
+                    "提示信息": "用户名不存在",
+                    "status": "passed"
                 }));
                 response.end();
             } else {
@@ -337,7 +346,8 @@ accountManage.exist = function (data, response) {
 //                if (accountNode.data.password == account.password) {
                     response.write(JSON.stringify({
                         "提示信息": "用户名存在",
-                        "status": "passed"
+                        "失败原因": name + type + "已存在",
+                        "status": "failed"
                     }));
                     response.end();
 //                }

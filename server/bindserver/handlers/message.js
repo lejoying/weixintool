@@ -268,7 +268,6 @@ message.message = function (data, getParam, response) {
                 status1: "binding",
                 status2: "bind_server"
             };
-
             db.query(query, params, function (error, results) {
                 if (error) {
                     console.error(error);
@@ -277,6 +276,7 @@ message.message = function (data, getParam, response) {
                     next();
                 }
             });
+
         }
 
         function addNewWeixin(weixin, next) {

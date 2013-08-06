@@ -11,17 +11,7 @@ var accountManage = require('./handlers/accountManage');
 requestHandlers.accountManage = function (request, response, pathObject, data) {
     var operation = pathObject["operation"];
     if (operation == "add") {
-        var invite = data.invite;
-        if (invite != "lejoying") {
-            response.write(JSON.stringify({
-                "提示信息": "注册账号失败",
-                "reason": "邀请码不正确"
-            }));
-            response.end();
-        }
-        else {
-            accountManage.add(data, response);
-        }
+        accountManage.add(data, response);
     }
     else if (operation == "exist") {
         accountManage.exist(data, response);
