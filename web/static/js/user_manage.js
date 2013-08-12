@@ -9,7 +9,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $(".out_frame_add").click(function () {
         location.href = "personal_app.html";
     });
 });

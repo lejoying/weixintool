@@ -3,7 +3,8 @@
 input[type=file].uploadFace{
 	width:1px;
 	overflow:hidden;
-	opacity:0;	
+	opacity:0;
+    filter:alpha(opacity=0);
 }
 .clickButton{
     background: url("/static/images/public/btn_bg.png") repeat-x scroll 0 0 transparent;

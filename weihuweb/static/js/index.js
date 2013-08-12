@@ -47,16 +47,22 @@ function addEvent(obj,eventType,func){
 }
 function clickother(el){
 	thisObj = el.target?el.target:event.srcElement;
-	if(thisObj.id == "accountSwitching"||thisObj.id == "weixinNow"||thisObj!==this){
-		return;
-	} 
-	do{		
-		if(thisObj.tagName == "BODY"){			
-			if(document.getElementById("accountSwitching")){
-				document.getElementById("accountSwitching").style.display = "none";
-				return;
-			}
-		};
-		thisObj = thisObj.parentNode;
-	}while(thisObj.parentNode);
+    if(thisObj.tagName == "BODY"){
+        document.getElementById("accountSwitching").style.display = "none";
+        return;
+    }
+    if(thisObj.id == "accountSwitching"||thisObj.id == "weixinNow"||(thisObj.parentNode).parentNode.parentNode.id=="accountSwitching"){
+        return;
+    }
+    do{
+        if(thisObj.tagName == "BODY"){
+            if(document.getElementById("accountSwitching")){
+                document.getElementById("accountSwitching").style.display = "none";
+                return;
+            }
+        };
+        thisObj = thisObj.parentNode;
+    }while(thisObj.parentNode);
+
+
 }

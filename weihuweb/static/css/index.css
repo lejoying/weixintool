@@ -61,12 +61,12 @@
 	background:url("/static/images/weixinSelect.png") right 8px no-repeat #fff;
 }
 .navigation{
-	height:40px;
+	height:50px;
 	background:#292d33;	
 }
 .nav{
 	width:980px;
-	height:40px;
+	height:50px;
 	margin: auto;	
 }
 .nav ul li{
@@ -74,11 +74,11 @@
 }
 .nav ul li a, .nav ul li a:hover, .navSelected{
 	color:#fff;
-	font-size:14px;	
-	padding:0 15px;
+	font-size:16px;
+	padding:0 20px;
 	display:inline-block;
-	height:40px;
-	line-height:40px;
+	height:50px;
+	line-height:50px;
 }
 .navSelected{
 	background:#c61a14;	
@@ -122,7 +122,7 @@
 	
 }
 .sildLeft ul li a:hover, .sildLeftSelect{
-	background:#f0504a;	
+	background:#f0504a;
 	color:#fff;
 }
 .replyRules{
