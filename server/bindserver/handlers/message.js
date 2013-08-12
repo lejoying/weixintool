@@ -109,7 +109,7 @@ message.message = function (data, getParam, response) {
                         }
                     ]
                 },
-                log: "【公众账号管理工具】\n"
+                log: "【公众账号管理工具.】\n"
             };
         }
 
@@ -215,7 +215,7 @@ message.message = function (data, getParam, response) {
                     } else {
                         weixin.token = bindingToken;
                         var bindingWeixin = weixins[bindingToken];
-
+                        console.log(bindingToken+"---");
                         weixin.weixinName = bindingWeixin.weixinNode.data.weixinName;
                         weixin.status = "bind_message";
                         reply.log += "【调试信息】新建微信token与weixinOpenID的对应关系/::)\n";
