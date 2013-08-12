@@ -30,6 +30,7 @@
 	margin:0 auto;
 /*	height:400px;*/	
 	height:434px;
+    overflow: hidden;
 }
 .loginFrame{
 	float:right;
@@ -62,6 +63,22 @@
 	background:#f8f8f8;	
 	padding:34px 20px 60px;	
 }
+.registSuccess{
+    background: none repeat scroll 0 0 #f2f2f2;
+    border: 1px solid #D6D6D6;
+    border-radius: 5px 5px 5px 5px;
+    font-size: 16px;
+    font-weight: bold;
+    height: 200px;
+    left: 1000px;
+    line-height: 30px;
+    padding-top: 40px;
+    position: relative;
+    text-align: center;
+    top: 40px;
+    width: 400px;
+    padding-bottom:20px;
+}
 .loginBody p{
 	margin:3px 0;	
 }
@@ -76,13 +93,13 @@
 }
 .regeditBody{
 	background:#fafafa;	
-	padding:34px 20px;
+	padding:44px 20px;
 	opacity:0.9;
 }
 .errorPrompt{
 	position:absolute;
 	color:#d22f2a;
-	top:50px;
+	top:55px;
 	z-index:5;	
 	left:18px;
 }
@@ -101,7 +118,7 @@ p.confirmPwd{
 }
 .regeditBody p input, .loginBody p input{
 	border: 1px solid #A09E99;
-    font-size: 14px;
+    font-size: 12px;
     height: 15px;
     margin-bottom: 10px;
     padding: 7px 5px;    
@@ -122,13 +139,21 @@ p.confirmPwd{
 }
 .loginBtn a, .regeditBtn a{
 	display:inline-block;
-	width:230px;
+
 	height:35px;
 	line-height:35px;
 	text-align:center;
 	color:#fff;
 	border:1px solid #b71f1e;
 	background:url("/static/images/login/loginBtnBg.png") repeat-x;
+}
+.loginBtn a{
+    width:200px;
+    margin-left:30px;
+}
+.regeditBtn a{
+    width:178px;
+    margin-left:60px;
 }
 .loginBtn a:hover, .regeditBtn a:hover{
 	background:#d22f2a;	
