@@ -37,9 +37,9 @@ weixinManage.bindingtoken = function (data, response) {
     function deleteBindingWeixinNode(next) {
         var query = [
             'START account=node({uid}), account1=node({uid})' ,
-            'MATCH account1:Account-[r1:HAS_WEIXIN]->duplicatedWeixin:Weixin',
-            'WHERE duplicatedWeixin.status={status1} OR duplicatedWeixin.status={status2}',
-            'DELETE duplicatedWeixin, r1'
+            'MATCH account1:Account-[r1:HAS_WEIXIN]->duplicatedWeixin:Weixin<-[r2]-app:App',
+            'WHERE duplicatedWeixin.status={status1}',
+            'DELETE duplicatedWeixin, r1, r2'
         ].join('\n');
 
         var params = {

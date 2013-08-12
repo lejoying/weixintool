@@ -1,6 +1,6 @@
 // JavaScript Document
 $(document).ready(function(){
-	$("#accountSetting").click(function(){
+	/*$("#accountSetting").click(function(){
 		$(".js_bindStepTwo").hide();
 		$(".js_bindStepOne").show();
 		$("#accountSetting").addClass("settingClick");
@@ -11,7 +11,7 @@ $(document).ready(function(){
 		$(".js_bindStepTwo").show();
 		$("#pwdSetting").addClass("settingClick");
 		$("#accountSetting").removeClass("settingClick");
-	});
+	});*/
 
 
     $("#js_bindWeixinNext1").click(function(){
@@ -26,7 +26,7 @@ $(document).ready(function(){
             type: "GET",
             url: "/api2/weixin/bindingtoken?",
             data: {
-                "uid":29,
+                "uid":26,
                 "weixinName": weixinName
             },
             success: function (serverData) {
@@ -37,31 +37,28 @@ $(document).ready(function(){
                     $("#pwdSetting").addClass("settingClick");
                     $("#accountSetting").removeClass("settingClick");
 
-
                     $(".js_token").val(serverData.token);
                     $(".js_bindurl").val("http://bindwx.lejoying.com/");
 
+                    connection();
                 }
             }
         })
     });
-    $("#js_bindWeixinNext2").click(function(){
-        alert("---");
-        connection();
-    });
     function connection(){
         $.ajax({
-            url:"",
-            type:"POST",
-            dataType:"json",
-            success:function(response){
-                connection();
+            type:"GET",
+            url:"/api2/session/event?",
+            data:{
+                "uid":26,
+                "sessionID":"cool"
             },
-            error:function(){
-                connection();
+            success:function(serverData){
+//                    alert(serverData["eventID"]+"---");
+                    setInterval(connection(),1000);
             },
-            complete:function(){
-                connection();
+            error:function(XMLHttpRequest, textStatus, errorThrown){
+                    setInterval(connection(),1000);
             }
         });
     }
