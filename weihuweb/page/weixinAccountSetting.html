@@ -71,14 +71,14 @@
             <div class="weixinMemberEdit">
             	<p></p>
 				<p class="weixinMemberEditFore">
-                    <span class="weixinMemberEdittName">帐号名称</span><span><input name="" type="text"/></span>
+                    <span class="weixinMemberEdittName">帐号名称</span><span><input name="name" type="text"/></span>
                 </p>
                 <p>
-                    <span class="weixinMemberEdittName">头像</span><span><input name="" class="fileInput" id="faceimg" type="text" /></span>
-                    <span><a href="javascript:;" class="clickButton browseButtion">浏览</a><input class="uploadFace" name="" type="file" onchange="faceimg.value=this.value" /></span>
+                    <span class="weixinMemberEdittName">头像</span><span><input name="headimg" readonly="readonly" class="fileInput" id="faceimg" type="text" onclick="document.getElementsByName('file')[0].click();" /></span>
+                    <span><a href="javascript:;" class="clickButton browseButtion" onclick="document.getElementsByName('file')[0].click();">浏览</a><input class="uploadFace" name="file" type="file" onchange="faceimg.value=this.value" /></span>
                 </p>
                 <p>
-                    <span class="weixinMemberEdittName">简介</span><span><textarea name="" class="weixinSummary" cols="" rows=""></textarea></span>
+                    <span class="weixinMemberEdittName">简介</span><span><textarea name="intro" class="weixinSummary" cols="" rows=""></textarea></span>
                 </p>
                 <div class="saveChange"><a class="saveButton weixinMemberEditBtn" href="javascript:;">保&nbsp;存</a></div>
             </div>
@@ -93,6 +93,7 @@
 </div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
+<script type="text/javascript" src="/static/js/weixinAccountSetting.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

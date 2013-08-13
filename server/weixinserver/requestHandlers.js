@@ -51,6 +51,9 @@ requestHandlers.userManage = function (request, response, pathObject, data) {
     else if (operation == "modify") {
         userManage.modify(data, response);
     }
+    else if (operation == "getbyid") {
+        userManage.getbyid(data, response);
+    }
 };
 
 var applicationManage = require('./handlers/applicationManage');

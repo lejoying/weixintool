@@ -87,9 +87,9 @@ userManage.modify = function (data, response) {
     var userStr = data.user;
     var user = JSON.parse(userStr);
 
-    modifyUserNode();
+    getByIdUserNode();
 
-    function modifyUserNode() {
+    function getByIdUserNode() {
         var query = [
             'MATCH user:User' ,
             'WHERE user.id! ={userid}',
@@ -124,5 +124,45 @@ userManage.modify = function (data, response) {
         });
     }
 }
+/***************************************
+ *     URL：/api2/user/modify
+ ***************************************/
+userManage.getbyid = function (data, response) {
+    response.asynchronous = 1;
+    var userid = data.userid;
+    modifyUserNode();
 
+    function modifyUserNode() {
+        var query = [
+            'MATCH user:User' ,
+            'WHERE user.id! ={userid}',
+            'RETURN  user'
+        ].join('\n');
+
+        var params = {
+            userid: userid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取用户信息失败",
+                    "失败原因 ": "用户信息不存在"
+                }));
+                response.end();
+            } else {
+                var user = results.pop().user.data;
+                response.write(JSON.stringify({
+                    "提示信息": "获取用户信息成功",
+                    "user": user
+                }));
+                response.end();
+            }
+        });
+    }
+}
 module.exports = userManage;
