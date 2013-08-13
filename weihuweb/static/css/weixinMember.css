@@ -32,16 +32,19 @@
 	padding-left: 20px;
     text-align: left;
     width: 100px;
+    overflow: hidden;
 }
 .nickName{
 	padding-left: 20px;
     text-align: left;
-    width: 130px;	
+    width: 130px;
+    overflow: hidden;
 }
 .province{
 	padding-left: 20px;
     text-align: left;
-    width: 120px;	
+    width: 120px;
+    overflow: hidden;
 }
 .joinTime{
 	padding-left: 20px;
@@ -51,7 +54,8 @@
 .memberOperating{
 	padding-left: 20px;
     text-align: left;
-    width: 240px;	
+    width: 240px;
+    overflow: hidden;
 }
 .wixinMemberTable tbody td {
     border-bottom: 1px solid #E6E6E6;

@@ -1,11 +1,13 @@
 // JavaScript Document
 $(document).ready(function(){
-
+    var leftHeight=$(".mainContern").height();
+    $(".sildLeft").css("height",leftHeight);
     var name = window.localStorage.getItem("nowWeixinName");
     if(name != null){
 //        alert(name);
-        $(".js_weixinNow").html(name.substr(0,3));
-        $(".welcome").find("span").html(name);
+        $(".js_weixinNow").html(name.substr(0,8));
+        $(".welcome").find("span").html(name.substr(0,8));
+        $(".js_weixinNow").attr("title",name);
     }
 
     //发送Ajax请求，获取绑定的微信用户
@@ -63,6 +65,4 @@ function clickother(el){
         };
         thisObj = thisObj.parentNode;
     }while(thisObj.parentNode);
-
-
 }

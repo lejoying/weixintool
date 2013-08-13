@@ -51,8 +51,13 @@ ol, ul {
 }
 a{
 	text-decoration:none;
-	color:#2367d1;
+	color:#3F83E8;
 }
+a:hover{
+    text-decoration:none;
+    color:#2367d1;
+}
+
 button, a {
 	outline:none
 }

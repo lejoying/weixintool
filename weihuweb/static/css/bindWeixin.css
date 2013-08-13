@@ -2,14 +2,25 @@
 /* CSS Document */
 
 .bindStepTitle{
-	font-size:18px;
-	border-bottom:1px dotted #d6d6d6;
-	padding:15px 30px;
-	text-align:center;
+    border-bottom: 1px dotted #D6D6D6;
+    font-size: 18px;
+    line-height: 25px;
+    padding: 15px 30px;
+    text-align: center;
 }
 .inputWeixinName{
 	text-align:center;
 	padding:30px;	
+}
+div.bindStepTwo .inputWeixinName{
+    text-align:center;
+    padding:15px;
+}
+div.inputWeixinName label.tokenLabel{
+    padding-left:17px;
+}
+div.bindStepTwo .bindStepTitle{
+    margin-bottom:15px;
 }
 .inputWeixinName input{
 	width:180px;
@@ -22,9 +33,10 @@
 	line-height:30px;	
 }
 .inputWeixinName label{
-	margin-right:5px;
+	margin-right:8px;
 	font-size:16px;
-	color:#F05A4A;	
+	color:#F05A4A;
+    padding-left:8px;
 }
 .bindWeixinOpt{
 	text-align:center;	
