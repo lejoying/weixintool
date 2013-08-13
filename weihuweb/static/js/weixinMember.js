@@ -75,12 +75,6 @@ $(document).ready(function(){
 
                    $(".wixinMemberTable table")[0].appendChild(tr);
                }
-               //给table中td添加CSS样式
-               $(".wixinMemberTable table tr td").css({
-                    "border-bottom": "1px solid #E6E6E6",
-                    "padding": "15px",
-                    "vertical-align": "top"
-               });
            }
         }
     });

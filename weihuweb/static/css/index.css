@@ -103,8 +103,8 @@
 .mainContern{
 	float:right;
 	width:755px;
-	border:1px solid #d6d6d6;	
-	border-left:none;
+	border-top:1px solid #d6d6d6;
+    border-right:1px solid #d6d6d6;
 	min-height:670px;
 	
 }

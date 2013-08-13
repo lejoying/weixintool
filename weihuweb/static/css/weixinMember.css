@@ -31,20 +31,18 @@
 .weixinId{
 	padding-left: 20px;
     text-align: left;
-    width: 100px;
-    overflow: hidden;
+    width: 110px;
+    overflow:auto;
 }
 .nickName{
 	padding-left: 20px;
     text-align: left;
     width: 130px;
-    overflow: hidden;
 }
 .province{
 	padding-left: 20px;
     text-align: left;
     width: 120px;
-    overflow: hidden;
 }
 .joinTime{
 	padding-left: 20px;
@@ -55,12 +53,13 @@
 	padding-left: 20px;
     text-align: left;
     width: 240px;
-    overflow: hidden;
 }
-.wixinMemberTable tbody td {
+.wixinMemberTable table tr td {
     border-bottom: 1px solid #E6E6E6;
     padding: 15px;
-    vertical-align: top;
+    vertical-align:middle;
+    word-break:break-all;
+    word-wrap:break-word;
 }
 .wixinMemberTable tbody th {
 	border-top:1px solid #E6E6E6;
