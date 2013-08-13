@@ -38,7 +38,7 @@ $(document).ready(function(){
                     data.bindingToken = serverData.token;
                     location.href = "step_1.html";
                 }else if (serverData["提示信息"] == "账号登录成功") {
-                    location.href = "default.html";
+                    location.href = "/page/default.html";
                 }else if(serverData["提示信息"] == "账号登录失败"){
                     $(".js_errorPrompt").addClass("show");
                     $(".js_errorPrompt").html(serverData["失败原因"]);
