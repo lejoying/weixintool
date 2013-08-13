@@ -1,8 +1,8 @@
 $(document).ready(function(){
 	$("#login").click(function(){
         $(".js_errorPrompt").removeClass("show");
-        $(".js_regeditBody").toggleClass("hide");
-        $(".js_loginBody").toggleClass("hide");
+        $(".js_regeditBody").addClass("hide");
+        $(".js_loginBody").removeClass("hide");
 		$(".js_login").addClass("redbg");
         $(".js_login").removeClass("blackbg") ;
 		$(".js_regedit").addClass("blackbg");
@@ -10,8 +10,8 @@ $(document).ready(function(){
 	});
 	$("#regedit").click(function(){
         $(".js_errorPrompt").removeClass("show");
-        $(".js_regeditBody").toggleClass("hide");
-        $(".js_loginBody").toggleClass("hide");
+        $(".js_regeditBody").removeClass("hide");
+        $(".js_loginBody").addClass("hide");
 		$(".js_regedit").addClass("redbg");
         $(".js_regedit").removeClass("blackbg");
 		$(".js_login").addClass("blackbg");
