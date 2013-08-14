@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    //清除window.localStorage和window.sessionStorage下存放的键值对
+    window.localStorage.clear();
+    window.sessionStorage.clear();
 	$("#login").click(function(){
         $(".js_errorPrompt").removeClass("show");
         $(".js_regeditBody").addClass("hide");
@@ -39,6 +42,7 @@ $(document).ready(function(){
                     location.href = "step_1.html";
                 }else if (serverData["提示信息"] == "账号登录成功") {
                     location.href = "/page/default.html";
+                    window.localStorage.setItem("nowAccount",JSON.stringify(serverData["account"]));
                 }else if(serverData["提示信息"] == "账号登录失败"){
                     $(".js_errorPrompt").addClass("show");
                     $(".js_errorPrompt").html(serverData["失败原因"]);

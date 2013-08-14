@@ -2,26 +2,31 @@
 $(document).ready(function(){
     var leftHeight=$(".mainContern").height();
     $(".sildLeft").css("height",leftHeight);
+    var nowAccount = window.localStorage.getItem("nowAccount");
+    if(nowAccount != null){
+        $(".userAccount span").html("欢迎"+JSON.parse(nowAccount).accountname);
+    }else{
+        location.href="/login.html";
+    }
     var name = window.localStorage.getItem("nowWeixinName");
     if(name != null){
 //        alert(name);
         $(".js_weixinNow").html(name.substr(0,8));
         $(".welcome").find("span").html(name.substr(0,8));
         $(".js_weixinNow").attr("title",name);
-    }/*else{
-        location.href="/static/login.html";
-    }*/
+    }
 
     //发送Ajax请求，获取绑定的微信用户
     $.ajax({
         type:"GET",
         url:"/api2/weixin/getall?",
         data:{
-            "uid":26
+            "uid":JSON.parse(nowAccount).uid
         },
         success:function(serverData){
 //            alert(serverData["提示信息"]);
             for(var key in serverData["weixins"]){
+                window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
 //                alert(serverData["weixins"][key].weixinName);
                 var li = document.createElement("li");
                 var a = document.createElement("a");
@@ -33,7 +38,9 @@ $(document).ready(function(){
             $(".accountSwitching ul li").click(function(){
                 $(".accountSwitching").hide();
                 location.href="default.html";
-                window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                if($(this).find("a").html() != "全部"){
+                    window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                }
             });
 
         }
@@ -44,6 +51,8 @@ $(document).ready(function(){
 		addEvent(document.body,"mousedown",clickother);
 	});
 });
+
+
 //添加点击空白处关闭弹出框事件
 function addEvent(obj,eventType,func){
 	if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
