@@ -39,6 +39,12 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "getall") {
         weixinManage.getall(data, response);
     }
+    else if (operation == "getbyid") {
+        weixinManage.getbyid(data, response);
+    }
+    else if (operation == "modify") {
+        weixinManage.modify(data, response);
+    }
 };
 
 

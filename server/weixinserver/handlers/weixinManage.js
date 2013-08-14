@@ -250,5 +250,91 @@ weixinManage.getall = function (data, response) {
         });
     }
 }
+/***************************************
+ *     URL：/api2/weixin/modify
+ ***************************************/
+weixinManage.modify = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var userStr = data.weixin;
+    var weixin = JSON.parse(userStr);
 
+    getByIdUserNode();
+
+    function getByIdUserNode() {
+        var query = [
+            'MATCH weixin:Weixin' ,
+            'WHERE weixin.weixinOpenID! ={weixinid}',
+            'RETURN  weixin'
+        ].join('\n');
+
+        var params = {
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改绑定微信信息失败",
+                    "失败原因 ": "绑定微信信息不存在"
+                }));
+                response.end();
+            } else {
+                var weixinNode = results.pop().weixin;
+                weixinNode.data = weixin;
+                weixinNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改绑定微信信息成功",
+                    "weixin": weixin
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/weixin/getbyid
+ ***************************************/
+weixinManage.getbyid = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    getByIdWeixinNode();
+
+    function getByIdWeixinNode() {
+        var query = [
+            'MATCH weixin:Weixin' ,
+            'WHERE weixin.weixinOpenID! ={weixinid}',
+            'RETURN  weixin'
+        ].join('\n');
+
+        var params = {
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取微信信息失败",
+                    "失败原因 ": "微信信息不存在"
+                }));
+                response.end();
+            } else {
+                var weixin = results.pop().weixin.data;
+                response.write(JSON.stringify({
+                    "提示信息": "获取微信信息成功",
+                    "weixin": weixin
+                }));
+                response.end();
+            }
+        });
+    }
+}
 module.exports = weixinManage;

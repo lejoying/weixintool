@@ -8,9 +8,9 @@ $(document).ready(function(){
         $(".js_weixinNow").html(name.substr(0,8));
         $(".welcome").find("span").html(name.substr(0,8));
         $(".js_weixinNow").attr("title",name);
-    }else{
+    }/*else{
         location.href="/static/login.html";
-    }
+    }*/
 
     //发送Ajax请求，获取绑定的微信用户
     $.ajax({

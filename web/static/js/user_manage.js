@@ -10,5 +10,4 @@ $(document).ready(function () {
 
 $(document).ready(function () {
         location.href = "personal_app.html";
-    });
 });
