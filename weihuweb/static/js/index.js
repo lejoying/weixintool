@@ -4,7 +4,7 @@ $(document).ready(function(){
     $(".sildLeft").css("height",leftHeight);
     var nowAccount = window.localStorage.getItem("nowAccount");
     if(nowAccount != null){
-        $(".userAccount span").html("欢迎"+JSON.parse(nowAccount).accountname);
+        $(".userAccount span").html("欢迎"+unescape(JSON.parse(nowAccount).accountname));
     }else{
         location.href="/login.html";
     }
