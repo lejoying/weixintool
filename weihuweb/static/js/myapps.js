@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function(){
+    $($(".myappBottomMessage")[0]).html("共有0条回复，此处显示最前10条回复设置");
     //获取当前微信用户的ID
     var weixinid = "";
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
@@ -95,17 +96,21 @@ $(document).ready(function(){
                 }
                 objs = objs.substr(0,objs.lastIndexOf(","));
                 objs += "]"
-                $.ajax({
-                    type:"POST",
-                    url:"/api2/myapp/add?",
-                    data:{
-                        weixinid:weixinid,
-                        "myapp":objs
-                    },
-                    success:function(serverData){
-                        alert(serverData["提示信息"]);
-                    }
-                });
+                if(weixinid != ""){
+                    $.ajax({
+                        type:"POST",
+                        url:"/api2/myapp/add?",
+                        data:{
+                            weixinid:weixinid,
+                            "myapp":objs
+                        },
+                        success:function(serverData){
+                            alert(serverData["提示信息"]);
+                        }
+                    });
+                }else{
+                    alert("您还没有绑定微信公众账号");
+                }
             }
         }else{
             alert("您上传的不是txt文件");

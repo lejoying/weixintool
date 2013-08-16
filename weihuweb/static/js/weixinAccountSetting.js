@@ -61,8 +61,8 @@ $(document).ready(function(){
         }
     });
     function editWeixin(){
-        var weixinName = document.getElementsByName("name")[0].value;
-        var intro = document.getElementsByName("intro")[0].value;
+        var weixinName = domByName("name").value;
+        var intro = domByName("intro").value;
         obj.weixinName = weixinName;
         obj.intro = intro;
         $.ajax({

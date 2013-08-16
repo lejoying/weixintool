@@ -39,7 +39,20 @@ $(document).ready(function(){
         obj.weixinNum = domByName("weixinNum").value.trim();
         obj.company = domByName("company").value.trim();
         obj.serviceName = domByName("serviceName").value.trim();
-
+        if(domByName("phone").value.trim() != ""){
+            var phoneRegexp = /^[1][358]\d{9}$/;
+            if(!phoneRegexp.test(domByName("phone").value.trim())){
+                alert("手机号码格式不正确");
+                return;
+            }
+        }
+        if(domByName("email").value.trim() != ""){
+            var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+            if(!emailRegexp.test(domByName("email").value.trim())){
+                alert("邮箱格式不正确");
+                return;
+            }
+        }
         obj.id = Request("id");
         $.ajax({
             type:"POST",
