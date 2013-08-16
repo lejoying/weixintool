@@ -17,28 +17,8 @@ $(document).ready(function(){
                 "uid":JSON.parse(nowAccount).uid
             },
             success:function(serverData){
-    //            alert(serverData["提示信息"]);
                 var bind_weixin = getTemplate("bind_weixin");
                 $(".allAppsList").html(bind_weixin.render(serverData["weixins"]));
-
-//                var fs = require("fs");
-                /*for(var i=0;i<$(".headimg").length-1;i++){
-                    alert($($(".headimg")[i]).val());
-                   *//* var file = $(".fileimg")[i].files[0];
-                    var reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    var urlData;
-                    reader.onload = function (e) {
-                        $(".fileimg")[i].src = this.result;
-                        alert(this.result);
-                    }*//*
-//                    $($(".appsImg")[i]).html(id.substr(0,12));
-                }*/
-/*                for(var i=0;i<$(".appsImg").length-1;i++){
-                    var id = $(".appsImg img")[i].src;
-                    alert(id)
-//                    $($(".appsImg")[i]).html(id.substr(0,12));
-                }*/
             }
         });
     }

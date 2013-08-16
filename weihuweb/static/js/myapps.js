@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function(){
+    $($(".myappBottomMessage")[0]).html("共有0条回复，此处显示最前10条回复设置");
     //获取当前微信用户的ID
     var weixinid = "";
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
@@ -18,29 +19,31 @@ $(document).ready(function(){
             }
         }
     }
-    //获取个性化设置的前10条数据
-    $.ajax({
-        type:"POST",
-        url:"/api2/myapp/getall?",
-        data:{
-            weixinid : weixinid
-        },
-        success:function(serverData){
-            if(serverData["提示信息"] == "获取个性化设置成功"){
-                var selfdom_myapps = getTemplate("selfdom_myapps");
-                $(".appExamplesList").html(selfdom_myapps.render(serverData["myapps"]));
-                $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
-                for(var i=0;i<$(".receivetxt").length;i++){
-                    var id = $($(".receivetxt")[i]).html();
-                    $($(".receivetxt")[i]).html(id.substr(0,20)+"...");
+    if(weixinid != ""){
+        //获取个性化设置的前10条数据
+        $.ajax({
+            type:"POST",
+            url:"/api2/myapp/getall?",
+            data:{
+                weixinid : weixinid
+            },
+            success:function(serverData){
+                if(serverData["提示信息"] == "获取个性化设置成功"){
+                    var selfdom_myapps = getTemplate("selfdom_myapps");
+                    $(".appExamplesList").html(selfdom_myapps.render(serverData["myapps"]));
+                    $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
+                    for(var i=0;i<$(".receivetxt").length;i++){
+                        var id = $($(".receivetxt")[i]).html();
+                        $($(".receivetxt")[i]).html(id.substr(0,20)+"...");
+                    }
+                    $(".receiveimg img").css({
+                        "width":"50px",
+                        "height":"50px"
+                    });
                 }
-                $(".receiveimg img").css({
-                    "width":"50px",
-                    "height":"50px"
-                });
             }
-        }
-     });
+        });
+    }
     //给上传按钮添加点击事件
     $(".myappTXTUploadBtn").click(function(){
 
@@ -93,17 +96,21 @@ $(document).ready(function(){
                 }
                 objs = objs.substr(0,objs.lastIndexOf(","));
                 objs += "]"
-                $.ajax({
-                    type:"POST",
-                    url:"/api2/myapp/add?",
-                    data:{
-                        weixinid:weixinid,
-                        "myapp":objs
-                    },
-                    success:function(serverData){
-                        alert(serverData["提示信息"]);
-                    }
-                });
+                if(weixinid != ""){
+                    $.ajax({
+                        type:"POST",
+                        url:"/api2/myapp/add?",
+                        data:{
+                            weixinid:weixinid,
+                            "myapp":objs
+                        },
+                        success:function(serverData){
+                            alert(serverData["提示信息"]);
+                        }
+                    });
+                }else{
+                    alert("您还没有绑定微信公众账号");
+                }
             }
         }else{
             alert("您上传的不是txt文件");

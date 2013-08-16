@@ -307,7 +307,8 @@ message.message = function (data, getParam, response) {
          *    resolve user
          *************************************** ***************************************/
         var user = {
-            id: messageData.FROMUSERNAME
+            id: messageData.FROMUSERNAME,
+            time: new Date()
         }
 
         function resolveUser(user, weixin) {
