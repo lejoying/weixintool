@@ -10,9 +10,9 @@
 	margin: auto;	
 }
 .logo{
-	width:240px;
+	width:300px;
 	height:80px;
-	background:url("/static/images/loginlogo.png") 0 12px no-repeat;	
+	background:url("/static/images/loginlogo.png") 0 15px no-repeat;
 }
 
 .announcement{

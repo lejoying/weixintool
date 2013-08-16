@@ -12,7 +12,7 @@
 	width:110px;
 	height:80px;
 	float:left;
-	background:url("/static/images/logo.png") 0 12px no-repeat;	
+	background:url("/static/images/logo.png") 0 16px no-repeat;
 }
 .logo a{
 	display:block;
@@ -24,14 +24,14 @@
 	position:relative;
 }
 .accountSwitching{
-	position:absolute;
-	left:8px;
-	top:56px;
-	width:180px;	
-	background:#fff;
-	border:1px solid #6c6c6c;
-	border-radius:3px;
-	z-index:10;
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #6C6C6C;
+    border-radius: 3px 3px 3px 3px;
+    left: 30px;
+    position: absolute;
+    top: 67px;
+    width: 180px;
+    z-index: 10;
 }
 .accountSwitching ul li a, .accountSwitching ul li a:hover{
 	height:35px;
@@ -46,17 +46,16 @@
 	color:#2367D1;	
 }
 .weixinNow{
-	height:30px;
-	background:#f9f9f9;
-	border:1px solid #6c6c6c;
-	color:#59606b;
-	display:inline-block;
-	text-align:center;
-	line-height:30px;
-	font-size:16px;
-	margin:25px 0 0 8px;
-	border-radius:2px;
-	padding:0 25px 0 5px;
+    border: 1px solid #6C6C6C;
+    border-radius: 2px 2px 2px 2px;
+    color: #59606B;
+    display: inline-block;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    margin: 35px 0 0 30px;
+    padding: 0 25px 0 5px;
+    text-align: center;
 	background:url("/static/images/weixinSelect.png") right 8px no-repeat #fff;
 }
 .navigation{
@@ -87,7 +86,7 @@
 }
 .userAccount{
 	float:right;
-	padding-top:33px;	
+	padding-top:50px;
 }
 .content{
 	width:980px;
