@@ -60,6 +60,7 @@
     vertical-align:middle;
     word-break:break-all;
     word-wrap:break-word;
+    font-weight: normal;
 }
 .wixinMemberTable tbody th {
 	border-top:1px solid #E6E6E6;
