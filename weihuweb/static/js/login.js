@@ -21,50 +21,61 @@ $(document).ready(function(){
         $(".js_login").removeClass("redbg");
 	});
     $(".js_login_btn").click(function(){
-        $(".js_errorPrompt").html("");
-        var accountname = $(".js_email").val();
-        var password = $(".js_password").val();
-
-        if(accountname==""||password==""){
-            $(".js_errorPrompt").addClass("show");
-            $(".js_errorPrompt").html("您输入的用户名或密码不能为空");
-        }
-        $.ajax({
-            type: "GET",
-            url: "/api2/account/auth?",
-            data: {
-                "accountname": accountname, "password": hex_sha1(password)
-            },
-            success: function (serverData) {
-                if (serverData["提示信息"] == "微信公众账号正在绑定") {
-                    data.bindingWeixinName = weixinName;
-                    data.bindingToken = serverData.token;
-                    location.href = "step_1.html";
-                }else if (serverData["提示信息"] == "账号登录成功") {
-                    location.href = "/page/default.html";
-                    window.localStorage.setItem("nowAccount",JSON.stringify(serverData["account"]));
-                }else if(serverData["提示信息"] == "账号登录失败"){
-                    $(".js_errorPrompt").addClass("show");
-                    $(".js_errorPrompt").html(serverData["失败原因"]);
-                }
-            }
-        });
+        loginSubmit();
     });
     $(".js_regedit_btn").click(function(){
-        pagesubmit();
+        regeditSubmit();
+    });
+    $(".js_password").focus(function(){
+        document.onkeydown=function(event){
+            var e = event ? event :(window.event ? window.event : null);
+            if(e.keyCode==13){
+                //执行的方法
+                loginSubmit();
+            }
+        }
+    });
+    $(".js_oncepassword").focus(function(){
+        document.onkeydown=function(event){
+            var e = event ? event :(window.event ? window.event : null);
+            if(e.keyCode==13){
+                //执行的方法
+                regeditSubmit();
+            }
+        }
     });
 });
-document.onkeydown=function(event){
-    var pwd = $(".js_password").value().replace(/(^\s*)|(\s*$)/g, "");
-    if (pwd!='') {
-        var e = event ? event :(window.event ? window.event : null);
-        if(e.keyCode==13){
-            //执行的方法
-            pagesubmit();
-        }
+function loginSubmit(){
+    $(".js_errorPrompt").html("");
+    var accountname = $(".js_email").val();
+    var password = $(".js_password").val();
+
+    if(accountname==""||password==""){
+        $(".js_errorPrompt").addClass("show");
+        $(".js_errorPrompt").html("您输入的用户名或密码不能为空");
     }
+    $.ajax({
+        type: "GET",
+        url: "/api2/account/auth?",
+        data: {
+            "accountname": accountname, "password": hex_sha1(password)
+        },
+        success: function (serverData) {
+            if (serverData["提示信息"] == "微信公众账号正在绑定") {
+                data.bindingWeixinName = weixinName;
+                data.bindingToken = serverData.token;
+                location.href = "step_1.html";
+            }else if (serverData["提示信息"] == "账号登录成功") {
+                location.href = "/page/default.html";
+                window.localStorage.setItem("nowAccount",JSON.stringify(serverData["account"]));
+            }else if(serverData["提示信息"] == "账号登录失败"){
+                $(".js_errorPrompt").addClass("show");
+                $(".js_errorPrompt").html(serverData["失败原因"]);
+            }
+        }
+    });
 }
-function pagesubmit(){
+function regeditSubmit(){
     $(".js_errorPrompt").html("");
     var accountname = $(".js_reg_email").val();
     var nickname = $(".js_nick_name").val();
@@ -72,6 +83,8 @@ function pagesubmit(){
     var oncepassword = $(".js_oncepassword").val();
     var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
     if(accountname.trim()==""||password.trim()==""){
+        alert(accountname);
+        alert(password);
         $(".js_errorPrompt").addClass("show");
         $(".js_errorPrompt").html("您输入的用户名或密码不能为空");
         return;
