@@ -86,7 +86,7 @@
             <div class="myappTXTUpload"><input readonly="readonly" name="" id="txtdoc" type="text" placeholder="上传TXT个性回复文本，非TXT文本请勿上传" onclick="document.getElementsByName('file')[0].click();"/><a class="myappTXTUploadBtn" href="#">上&nbsp;传</a><input class="uploadFace" name="file" type="file" onchange="txtdoc.value=this.value" /></div>
             <div class="replyTipTitle">你的个性化回复文本文字</div>
             <div class="appExamplesList">
-                <table>
+                <!--<table>
                 	<col class="replyWord"/>
                     <col class="replyContent"/>
                     <col class="receivePic"/>
@@ -110,7 +110,7 @@
                         <td>肥瘦相间的五花肉</td>
                         <td>图片</td>
                       </tr>
-                </table>
+                </table>-->
             </div>
             <div class="myappBottomMessage">共有563条回复，此处显示最前10条回复设置</div>
             <div class="myappBottomMessage">更多个性定制服务、接入网站API请联系客服QQ：11123456</div>
@@ -123,9 +123,49 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="selfdom_myapps" serverdata="selfdom_myapps" evenpool="selfdom_myapps">
+        <div class="selfdom_myapps" id="selfdom_myapps">
+            <table>
+                <col class="replyWord"/>
+                <col class="replyContent"/>
+                <col class="receivePic"/>
+                <tr>
+                    <th>会员回复文字</th>
+                    <th>会员接收文字</th>
+                    <th>接收图片</th>
+                </tr>
+                <?js for(var index in it) { ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                    <?js continue; ?>
+                <?js } ?>
+                <tr>
+                    <?js if(post.replytxt!=null){ ?>
+                        <td>#{post.replytxt}</td>
+                    <?js }else{ ?>
+                        <td></td>
+                    <?js } ?>
+                    <?js if(post.receivetxt!=null){ ?>
+                        <td class="receivetxt">#{post.receivetxt}</td>
+                    <?js }else{ ?>
+                        <td></td>
+                    <?js } ?>
+                    <?js if(post.receiveimg!=null){ ?>
+                        <td class="receiveimg"><img src="#{post.receiveimg}"/></td>
+                    <?js }else{ ?>
+                        <td></td>
+                    <?js } ?>
+                </tr>
+                <?js } ?>
+            </table>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
 <script type="text/javascript" src="/static/js/myapps.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

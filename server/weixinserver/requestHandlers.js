@@ -79,4 +79,15 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     }
 };
 
+var myappManage = require('./handlers/myappManage');
+requestHandlers.myappManage = function (request, response, pathObject, data) {
+    var operation = pathObject["operation"];
+    if (operation == "add") {
+        myappManage.add(data, response);
+    }
+    else if (operation == "getall") {
+        myappManage.getall(data, response);
+    }
+};
+
 module.exports = requestHandlers;

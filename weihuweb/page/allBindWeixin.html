@@ -132,7 +132,7 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
-<div class="templates">
+<div class="templates hide">
     <div class="template" templete="main_panel" status="main_bindweixin" serverdata="main_bindweixin" evenpool="main_bindweixin">
         <div class="bind_weixin" id="bind_weixin">
             <ul>
@@ -144,7 +144,7 @@
                 <li>
                     <div class="appsImg">
                         <?js if(post.headimg!=null){ ?>
-                        <img class="headimg" src="" />
+                        <img class="headimg" src="http://images.weixintool.com/#{ post.headimg }.png" />
                         <?js }else{ ?>
                         <img src="/static/images/app/6.jpg" />
                         <?js } ?>

@@ -6,7 +6,7 @@ serverSetting.environment = "local";//local or server
 serverSetting.debug = true;
 
 if (serverSetting.environment == "local") {
-    serverSetting.imageFolder = "D://Users//";
+    serverSetting.imageFolder = "E://nginx//upload//";
     serverSetting.neo4jUrl = "http://42.96.138.221:7474/";
 }
 else if (serverSetting.environment == "server") {
