@@ -65,7 +65,7 @@
         </div>
         <div class="mainContern">
             <div class="allAppsList">
-            	<ul>
+            	<!--<ul>
                 	<li>
                     	<div class="appsImg"><img src="/static/images/app/6.jpg" /></div>
                         <div class="appsSummary">
@@ -74,7 +74,7 @@
                         </div>
                         <div class="publicAppsOperating">
                         	<div class="switch publicAppSwitch demo3">
-                                <input type="checkbox" > 
+                                <input type="checkbox" >
                                 <label><i></i></label>
                             </div>
                             <a class="publicAppFull" href="publicAppDetail.html">进入</a>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="publicAppsOperating">
                         	<div class="switch publicAppSwitch demo3">
-                                <input type="checkbox" > 
+                                <input type="checkbox" >
                                 <label><i></i></label>
                             </div>
                             <a class="publicAppFull" href="publicAppDetail.html">进入</a>
@@ -102,13 +102,13 @@
                         </div>
                         <div class="publicAppsOperating">
                         	<div class="switch publicAppSwitch demo3">
-                                <input type="checkbox" > 
+                                <input type="checkbox" >
                                 <label><i></i></label>
                             </div>
                             <a class="publicAppFull" href="publicAppDetail.html">进入</a>
                         </div>
                     </li>
-                </ul>
+                </ul>-->
             </div>
             <div class="pagination">
                 <a href="#" title="上一页">首页</a>
@@ -132,9 +132,44 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates">
+    <div class="template" templete="main_panel" status="main_bindweixin" serverdata="main_bindweixin" evenpool="main_bindweixin">
+        <div class="bind_weixin" id="bind_weixin">
+            <ul>
+                <?js for(var index in it){ ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <li>
+                    <div class="appsImg">
+                        <?js if(post.headimg!=null){ ?>
+                        <img class="headimg" src="" />
+                        <?js }else{ ?>
+                        <img src="/static/images/app/6.jpg" />
+                        <?js } ?>
+                    </div>
+                    <div class="appsSummary">
+                        <div class="publicAppExplanation"><span class="publicAppName">#{post.weixinName}</span><span><a href="/page/weixinAccountSetting.html?id=#{index}">设置</a></span></div>
+                        <div class="publicAppIntroduction">#{post.intro}</div>
+                    </div>
+                    <div class="publicAppsOperating">
+                        <div class="switch publicAppSwitch demo3">
+                            <input type="checkbox" >
+                            <label><i></i></label>
+                        </div>
+                        <a class="publicAppFull" href="publicAppDetail.html?id=#{index}">进入</a>
+                    </div>
+                </li>
+                <?js } ?>
+            </ul>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
 <script type="text/javascript" src="/static/js/allBindWeixin.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

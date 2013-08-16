@@ -18,65 +18,41 @@ $(document).ready(function(){
             },
             success:function(serverData){
     //            alert(serverData["提示信息"]);
-                for(var key in serverData["weixins"]){
-    //                alert(serverData["weixins"][key].weixinName);
-                    var li = document.createElement("li");
-                    var div1 = document.createElement("div");
-                    div1.className = "appsImg";
-                    var img = document.createElement("img");
-                    img.src = "/static/images/app/6.jpg";
-                    div1.appendChild(img);
-                    li.appendChild(div1);
+                var bind_weixin = getTemplate("bind_weixin");
+                $(".allAppsList").html(bind_weixin.render(serverData["weixins"]));
 
-                    var div2 = document.createElement("div");
-                    div2.className = "appsSummary";
-                    var div2_1 = document.createElement("div");
-                    div2_1.className = "publicAppExplanation";
-                    var span1 = document.createElement("span");
-                    span1.className = "publicAppName";
-                    if(serverData["weixins"][key].weixinName != undefined)
-                        span1.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
-                    var span2 = document.createElement("span");
-                    var sa = document.createElement("a");
-                    sa.href = "/page/weixinAccountSetting.html?id="+key;
-                    sa.appendChild(document.createTextNode("设置"));
-                    var div2_2 = document.createElement("div");
-                    div2_2.className = "publicAppIntroduction";
-                    if(serverData["weixins"][key].intro != undefined)
-                        div2_2.appendChild(document.createTextNode(serverData["weixins"][key].intro));
-                    span2.appendChild(sa);
-                    div2_1.appendChild(span1);
-                    div2_1.appendChild(span2);
-                    div2.appendChild(div2_1);
-                    div2.appendChild(div2_2);
-                    li.appendChild(div2);
-
-                    var div3 = document.createElement("div");
-                    div3.className = "publicAppsOperating";
-                    var div3_1 = document.createElement("div");
-                    div3_1.className = "switch publicAppSwitch demo3";
-                    var input = document.createElement("input");
-                    input.type = "checkbox";
-                    var label = document.createElement("label");
-                    var i = document.createElement("i");
-                    var a = document.createElement("a");
-                    a.className = "publicAppFull";
-                    a.href = "publicAppDetail.html?id="+key;
-                    a.appendChild(document.createTextNode("进入"));
-                    div3_1.appendChild(input);
-                    label.appendChild(i);
-                    div3_1.appendChild(label);
-                    div3.appendChild(div3_1);
-                    div3.appendChild(a);
-                    li.appendChild(div3)
-                    $(".allAppsList ul")[0].appendChild(li);
-                }
-                /*var link = document.createElement("link");
-                link.href = "/static/css/web_style.css";
-                link.type = "text/css";
-                link.rel = "stylesheet";
-                $("head")[0].appendChild(link);*/
+//                var fs = require("fs");
+                /*for(var i=0;i<$(".headimg").length-1;i++){
+                    alert($($(".headimg")[i]).val());
+                   *//* var file = $(".fileimg")[i].files[0];
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    var urlData;
+                    reader.onload = function (e) {
+                        $(".fileimg")[i].src = this.result;
+                        alert(this.result);
+                    }*//*
+//                    $($(".appsImg")[i]).html(id.substr(0,12));
+                }*/
+/*                for(var i=0;i<$(".appsImg").length-1;i++){
+                    var id = $(".appsImg img")[i].src;
+                    alert(id)
+//                    $($(".appsImg")[i]).html(id.substr(0,12));
+                }*/
             }
         });
     }
 });
+//根据id获取模版
+function getTemplate(id) {
+    var tenjin = nTenjin;
+    var templateDiv = $('.templates #' + id).parent();
+    var string = templateDiv.html();
+    string = string.replace(/\<\!\-\-\?/g, "<?");
+    string = string.replace(/\?\-\-\>/g, "?>");
+    string = string.replace(/比较符号大于/g, ">");
+    string = string.replace(/比较符号兄小于/g, "<");
+    var template = new tenjin.Template();
+    template.convert(string);
+    return template;
+}

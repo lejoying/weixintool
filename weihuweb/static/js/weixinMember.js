@@ -25,7 +25,13 @@ $(document).ready(function(){
             },
             success:function(serverData){
                 if(serverData["提示信息"] == "获得所有关注用户成功"){
-                    for(var i=0;i<8;i++){
+                    var weixin_user = getTemplate("weixin_user");
+                    $(".wixinMemberTable").html(weixin_user.render(serverData["users"]));
+                    for(var i=0;i<$(".idsubstr").length;i++){
+                        var id = $($(".idsubstr")[i]).html();
+                        $($(".idsubstr")[i]).html(id.substr(0,9)+"...");
+                    }
+                    /*for(var i=0;i<8;i++){
 //                   alert(serverData["users"][i].id!=undefined);
                         var tr = document.createElement("tr")
                         var td1 = document.createElement("td");
@@ -82,10 +88,23 @@ $(document).ready(function(){
                         tr.appendChild(td4);
                         tr.appendChild(td5);
 
-                        $(".wixinMemberTable table")[0].appendChild(tr);
-                    }
+//                        $(".wixinMemberTable table")[0].appendChild(tr);
+                    }*/
                 }
             }
         });
     }
 });
+//根据id获取模版
+function getTemplate(id) {
+    var tenjin = nTenjin;
+    var templateDiv = $('.templates #' + id).parent();
+    var string = templateDiv.html();
+    string = string.replace(/\<\!\-\-\?/g, "<?");
+    string = string.replace(/\?\-\-\>/g, "?>");
+    string = string.replace(/比较符号大于/g, ">");
+    string = string.replace(/比较符号兄小于/g, "<");
+    var template = new tenjin.Template();
+    template.convert(string);
+    return template;
+}
