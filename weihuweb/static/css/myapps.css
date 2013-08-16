@@ -57,7 +57,10 @@
 	color:#fff;
 	padding:5px 35px;
 	font-size:16px;	
-	border-radius:0 10px 10px 0;
+	border-radius:0 5px 5px 0;
+}
+a.myappTXTUploadBtn:hover{
+    color:#eee;
 }
 .appExamplesList{
 	margin:15px;
