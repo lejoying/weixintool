@@ -22,8 +22,8 @@
 	margin-top:10px;
 }
 .content{
-	background:url("/static/images/login_bg.png") center -10px no-repeat;	
-	border-bottom:2px solid #ccc;
+	background:url("/static/images/login_bg.png") center -10px no-repeat;
+    border-bottom: 4px solid #EEEEEE;
 }
 .contentBody{
 	width:980px;
@@ -34,12 +34,14 @@
 }
 .loginFrame{
 	float:right;
-	border:2px solid #bbb;	
+    border: 1px solid #FFBFBB;
 	width:280px;
 	margin-top:20px;
 	box-shadow:2px 2px 2px #b2b2b2;
 	border-radius:2px;
 	position:relative;
+    opacity:0.85;
+    margin-right:1px;
 }
 .loginTitle a{
 	color:#fff;	
@@ -94,7 +96,6 @@
 .regeditBody{
 	background:#fafafa;	
 	padding:44px 20px;
-	opacity:0.9;
 }
 .errorPrompt{
 	position:absolute;
@@ -180,7 +181,7 @@ p.confirmPwd{
 	width:100px;
 }
 .footBar{
-	border-top:2px solid #d6d6d6;	
+    border-top: 1px solid #EEEEEE;
 }
 .foot{
 	width:980px;
