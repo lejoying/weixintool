@@ -130,9 +130,61 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates">
+    <div class="template" templete="main_panel" status="main_weixin_user" serverdata="main_weixin_user" evenpool="main_weixin_user">
+        <div class="weixin_user" id="weixin_user">
+            <table>
+                <col class="weixinId"/>
+                <col class="nickName"/>
+                <col class="province"/>
+                <col class="joinTime"/>
+                <col class="memberOperating"/>
+                <tr>
+                    <th>微信ID</th>
+                    <th>昵称</th>
+                    <th>省市</th>
+                    <th>加入时间</th>
+                    <th>操作</th>
+                </tr>
+            <?js for (var index in it) { ?>
+            <?js post=it[index]; ?>
+            <?js if(post==null) { ?>
+                <?js continue; ?>
+            <?js } ?>
+            <tr>
+            <td class="idsubstr">#{post.id}</td>
+            <?js if(post.nickName!=null){ ?>
+                <td>#{post.nickName}</td>
+            <?js }else{ ?>
+                <td></td>
+            <?js } ?>
+            <?js if(post.city!=null){ ?>
+                <td>#{post.city}</td>
+            <?js }else{ ?>
+                <td></td>
+            <?js } ?>
+            <?js if(post.time!=null){ ?>
+                <td>#{post.time}</td>
+            <?js }else{ ?>
+                <td></td>
+            <?js } ?>
+
+            <td>
+                <a href="javascript:;">删除</a> |
+                <a href="weixinMemberEdit.html?id=#{post.id}">编辑</a> |
+                <a href="javascript:;">消息列表</a> |
+                <a href="javascript:;">回复</a>
+            </td>
+            </tr>
+            <?js } ?>
+            </table>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
 <script type="text/javascript" src="/static/js/weixinMember.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

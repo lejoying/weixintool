@@ -87,9 +87,9 @@ userManage.modify = function (data, response) {
     var userStr = data.user;
     var user = JSON.parse(userStr);
 
-    getByIdUserNode();
+    modifyUserNode();
 
-    function getByIdUserNode() {
+    function modifyUserNode() {
         var query = [
             'MATCH user:User' ,
             'WHERE user.id! ={userid}',
@@ -125,14 +125,14 @@ userManage.modify = function (data, response) {
     }
 }
 /***************************************
- *     URL：/api2/user/modify
+ *     URL：/api2/user/getbyid
  ***************************************/
 userManage.getbyid = function (data, response) {
     response.asynchronous = 1;
     var userid = data.userid;
-    modifyUserNode();
+    getByIdUserNode();
 
-    function modifyUserNode() {
+    function getByIdUserNode() {
         var query = [
             'MATCH user:User' ,
             'WHERE user.id! ={userid}',

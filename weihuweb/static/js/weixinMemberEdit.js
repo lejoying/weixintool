@@ -7,6 +7,7 @@
  */
 $(document).ready(function(){
     $(".titleMemberId").html("会员ID："+Request("id"));
+    var obj = {};
     //根据指定的id获取该用户的详细信息
     $.ajax({
         type:"GET",
@@ -16,6 +17,7 @@ $(document).ready(function(){
         },
         success:function(serverData){
             if(serverData["提示信息"] == "获取用户信息成功"){
+                obj = serverData["user"];
                 judgeProperty(serverData["user"].nickName,"nickName");
                 judgeProperty(serverData["user"].city,"city");
                 judgeProperty(serverData["user"].realName,"realName");
@@ -29,24 +31,22 @@ $(document).ready(function(){
     });
     //给保存按钮绑定点击事件
     $(".weixinMemberEditBtn").click(function(){
-        var  nickName = domByName("nickName").value.trim();
-        var  city = domByName("city").value.trim();
-        var  realName = domByName("realName").value.trim();
-        var  phone = domByName("phone").value.trim();
-        var  email = domByName("email").value.trim();
-        var  weixinNum = domByName("weixinNum").value.trim();
-        var  company = domByName("company").value.trim();
-        var  serviceName = domByName("serviceName").value.trim();
+        obj.nickName = domByName("nickName").value.trim();
+        obj.city = domByName("city").value.trim();
+        obj.realName = domByName("realName").value.trim();
+        obj.phone = domByName("phone").value.trim();
+        obj.email = domByName("email").value.trim();
+        obj.weixinNum = domByName("weixinNum").value.trim();
+        obj.company = domByName("company").value.trim();
+        obj.serviceName = domByName("serviceName").value.trim();
 
-        var id=Request("id");
+        obj.id = Request("id");
         $.ajax({
             type:"POST",
             url:"/api2/user/modify?",
             data:{
-                "userid":id,
-                "user":'{"id":"'+id+'","nickName":"'+nickName+'","city":"'+city+
-                    '","realName":"'+realName+'","phone":"'+phone+'","email":"'+email+
-                    '","weixinNum":"'+weixinNum+'","company":"'+company+'","serviceName":"'+serviceName+'"}'
+                "userid":Request("id"),
+                "user":JSON.stringify(obj)
             },
             success:function(serverData){
                 if(serverData["提示信息"] == "修改关注用户信息成功"){

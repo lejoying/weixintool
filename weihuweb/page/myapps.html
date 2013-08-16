@@ -83,7 +83,7 @@
                     <p>【回锅肉】〖http://**.jpg〗肉的讲究：肥瘦相间的五花肉。炖肉的讲究：加入花椒，姜片等作料去腥气，增加香气。酱料的讲究：郫县豆瓣酱和甜面酱用中小火煎炒，完美融合</p>
                 </div>
             </div>
-            <div class="myappTXTUpload"><input name="" type="text" placeholder="上传TXT个性回复文本，非TXT文本请勿上传"/><a class="myappTXTUploadBtn" href="#">上&nbsp;传</a></div>
+            <div class="myappTXTUpload"><input readonly="readonly" name="" id="txtdoc" type="text" placeholder="上传TXT个性回复文本，非TXT文本请勿上传" onclick="document.getElementsByName('file')[0].click();"/><a class="myappTXTUploadBtn" href="#">上&nbsp;传</a><input class="uploadFace" name="file" type="file" onchange="txtdoc.value=this.value" /></div>
             <div class="replyTipTitle">你的个性化回复文本文字</div>
             <div class="appExamplesList">
                 <table>
@@ -125,6 +125,7 @@
 </div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
+<script type="text/javascript" src="/static/js/myapps.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

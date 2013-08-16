@@ -221,6 +221,7 @@ accountManage.auth = function (data, response) {
                 if (accountNode.data.password == account.password) {
                     response.write(JSON.stringify({
                         "提示信息": "账号登录成功",
+                        "account":accountNode.data,
                         "uid": accountNode.id,
                         "accountname": accountNode.data.accountname,
                         "accesskey": "123",
