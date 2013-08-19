@@ -33,6 +33,7 @@ message.message = function (data, getParam, response) {
         var messageXML = key;
         parser.toJson(messageXML, function (error, messageJSON) {
             var messageData = messageJSON.XML;
+            console.log(messageData.CONTENT);
             next(messageData);
         });
     }

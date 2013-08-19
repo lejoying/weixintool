@@ -30,6 +30,20 @@ $(document).ready(function(){
                     for(var i=0;i<$(".idsubstr").length;i++){
                         var id = $($(".idsubstr")[i]).html();
                         $($(".idsubstr")[i]).html(id.substr(0,9)+"...");
+                        var cityName = $($(".js_substrcity")[i]).html();
+                        if(cityName != undefined){
+                            var cy = "";
+                            var arr = cityName.split(" ");
+                            var ar1 = arr[0].split(":");
+                            cy +=ar1[0]+" ";
+                            if(arr[1] != undefined){
+                                if(arr[1] != ""){
+                                    var ar2 = arr[1].split(":");
+                                    cy += ar2[0];
+                                }
+                                $($(".js_substrcity")[i]).html(cy);
+                            }
+                        }
                     }
                 }
             }
