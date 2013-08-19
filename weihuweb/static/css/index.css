@@ -171,3 +171,51 @@
 	text-align:center;
 	padding:10px 0;	
 }
+.prompted{
+    background: none repeat scroll 0 0 #fff;
+    border: 10px solid #B71F1E;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    display: block;
+    font-family: "微软雅黑";
+    font-size: 20px;
+    left: 50%;
+
+    margin-top: -120px;
+    min-height: 140px;
+    min-width: 240px;
+    padding: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+}
+#blackbackCommonWindow{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.changeSaveButton{
+    padding:8px 16px;
+}
+.tipWord{
+    height:90px;
+    line-height: 40px;
+    color:#333;
+}
+.buttonblue{
+    background: -moz-linear-gradient(19% 75% 90deg, #B71F1E, #C42C2B);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#C42C2B), to(#B71F1E));
+    border: 1px solid #737373;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: "微软雅黑";
+    text-align: center;
+}
+.buttonblue:hover{
+    background: -moz-linear-gradient(19% 75% 90deg, #C42C2B, #B71F1E);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#B71F1E), to(#C42C2B));
+    color:#fff;
+}

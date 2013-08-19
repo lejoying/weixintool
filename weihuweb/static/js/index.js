@@ -1,5 +1,6 @@
 // JavaScript Document
 $(document).ready(function(){
+    showBlackPage(60,"dfdfd");
     var leftHeight=$(".mainContern").height();
     $(".sildLeft").css("height",leftHeight);
     var nowAccount = window.localStorage.getItem("nowAccount");
@@ -76,4 +77,37 @@ function clickother(el){
         };
         thisObj = thisObj.parentNode;
     }while(thisObj.parentNode);
+}
+//背景变黑弹出窗口
+function showBlackPage(clarity,tipword){
+    var bWidth='100%';
+    var bHeight=$("BODY").height()+87;
+    //var bHeight=$(".content").offset().top+$(".content").height()+19;
+    // var wWidth = 602;
+    //var left = bWidth/2-wWidth/2-19;
+    var back=document.createElement("div");
+    back.id="blackbackcommon";
+    var styleStr="top:0px;left:0;position:absolute;background:#000;z-index:21;width:"+bWidth+";height:"+bHeight+"px;opacity:0.2;";
+    //styleStr+=(isIe)?"filter:alpha(opacity=0);":"opacity:0;";
+    back.style.cssText=styleStr;
+    document.body.appendChild(back);
+    showBackground(back,clarity);
+    var mesW=document.createElement("div");
+    mesW.id="blackbackCommonWindow";
+    mesW.innerHTML="<div class='prompted' id='promptedShow'><div class='tipWord'></div><div><a class='buttonblue changeSaveButton' href='javascript:closeBlackBackground();'>确定</a></div></div>" ;
+    document.body.appendChild(mesW);
+    $(".tipWord").html(tipword);
+    var popWidth = parseInt($("#promptedShow").css("width"))+60;
+    $("#promptedShow").css("margin-left",-(popWidth/2));
+}
+http://weixintool.com/change_info.html
+// 显示弹出背景
+    function showBackground(obj,endInt){
+        var al=parseFloat(obj.style.opacity);al+=0.1;
+        obj.style.opacity=al;
+        if(al<(endInt/100)){setTimeout(function(){showBackground(obj,endInt)},1);}
+    }
+function closeBlackBackground(){
+    $("#blackbackCommonWindow").remove();
+    $("#blackbackcommon").remove();
 }
