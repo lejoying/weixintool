@@ -66,7 +66,7 @@ weixinManage.bindingtoken = function (data, response) {
             'START account=node({uid})' ,
             'MATCH  app:App' ,
             'WHERE  app.appid! = 99',
-            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin:Weixin{weixin}<-[r:BIND]-app',
+            'CREATE UNIQUE account-[r:HAS_WEIXIN{switch:"false"}]->weixin:Weixin{weixin}<-[r:BIND]-app',
             'RETURN  weixin, account, r'
         ].join('\n');
 
@@ -206,9 +206,9 @@ weixinManage.getall = function (data, response) {
     function getallWeixinNode() {
         var query = [
             'START account=node({uid})' ,
-            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
             'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
-            'RETURN weixin, app'
+            'RETURN weixin, app, r'
         ].join('\n');
 
         var params = {
@@ -234,6 +234,7 @@ weixinManage.getall = function (data, response) {
                 for (var index in results) {
                     var weixinNode = results[index].weixin;
                     if (weixins[weixinNode.data.weixinOpenID] == null) {
+                        weixinNode.data.rela = results[index].r;
                         weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
                         weixins[weixinNode.data.weixinOpenID].apps = [];
                     }

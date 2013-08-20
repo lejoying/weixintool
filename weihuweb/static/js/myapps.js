@@ -7,6 +7,8 @@
  */
 $(document).ready(function(){
     $($(".myappBottomMessage")[0]).html("共有0条回复，此处显示最前10条回复设置");
+    var nowAccount = window.localStorage.getItem("nowAccount");
+    var obj = {};
     //获取当前微信用户的ID
     var weixinid = "";
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
@@ -15,6 +17,23 @@ $(document).ready(function(){
         for(var key in JSON.parse(nowBindWeixins)){
             if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
                 weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
+                $.ajax({
+                    type:"POST",
+                    url:"/api2/weixin/getbyid?",
+                    data:{
+                        weixinid : weixinid
+                    },
+                    success:function(serverData){
+                            obj = serverData["weixin"];
+                            if(obj.switch != undefined){
+                                if(obj.switch == true){
+                                    $(".myappTitle input")[0].setAttribute("checked","true");
+                                }else{
+                                    $(".myappTitle input")[0].removeAttribute("checked");
+                                }
+                            }
+                    }
+                });
                 break;
             }
         }
@@ -42,6 +61,24 @@ $(document).ready(function(){
                     });
                 }
             }
+        });
+
+        $(".myappTitle input").click(function(){
+//            alert(this.checked);
+            obj.switch = this.checked;
+            $.ajax({
+                type:"post",
+                url:"/api2/weixin/modify?",
+                data:{
+                    weixinid:weixinid,
+                    weixin:JSON.stringify(obj)
+                },
+                success:function(serverData){
+                    if(serverData["提示信息"] == "修改绑定微信信息成功"){
+//                        alert("设置成功");
+                    }
+                }
+            });
         });
     }
     //给上传按钮添加点击事件

@@ -14,11 +14,10 @@ $(document).ready(function(){
 	});*/
 
 
+    var obj = JSON.parse(window.localStorage.getItem("nowAccount"));
     $("#js_bindWeixinNext1").click(function(){
         var weixinName = $(".js_inputWeixinNum").val().trim();
         if(weixinName == ""){
-           /* $(".errorPrompt").show();
-            $(".errorPrompt").val("--");*/
             alert("微信帐号不能为空");
             return;
         }
@@ -26,20 +25,17 @@ $(document).ready(function(){
             type: "GET",
             url: "/api2/weixin/bindingtoken?",
             data: {
-                "uid":26,
+                "uid":obj.uid,
                 "weixinName": weixinName
             },
             success: function (serverData) {
                 if (serverData["提示信息"] == "微信公众账号正在绑定") {
-//                   alert(serverData.token);
                     $(".js_bindStepOne").hide();
                     $(".js_bindStepTwo").show();
                     $("#pwdSetting").addClass("settingClick");
                     $("#accountSetting").removeClass("settingClick");
-
                     $(".js_token").val(serverData.token);
                     $(".js_bindurl").val("http://bindwx.lejoying.com/");
-
                     connection();
                 }
             }
@@ -50,11 +46,10 @@ $(document).ready(function(){
             type:"GET",
             url:"/api2/session/event?",
             data:{
-                "uid":26,
+                "uid":obj.uid,
                 "sessionID":"cool"
             },
             success:function(serverData){
-//                    alert(serverData["eventID"]+"---");
                     setInterval(connection(),1000);
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){

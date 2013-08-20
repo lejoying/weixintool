@@ -1,6 +1,5 @@
 // JavaScript Document
 $(document).ready(function(){
-    showBlackPage(60,"dfdfd");
     var leftHeight=$(".mainContern").height();
     $(".sildLeft").css("height",leftHeight);
     var nowAccount = window.localStorage.getItem("nowAccount");

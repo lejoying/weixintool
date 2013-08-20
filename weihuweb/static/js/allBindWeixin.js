@@ -19,6 +19,21 @@ $(document).ready(function(){
             success:function(serverData){
                 var bind_weixin = getTemplate("bind_weixin");
                 $(".allAppsList").html(bind_weixin.render(serverData["weixins"]));
+                $(".publicAppsOperating input").click(function(){
+                    alert(this.checked);
+                    $.ajax({
+                        type:"post",
+                        url:"/api2/weixin/switch?",
+                        data:{
+                            accountid:11,
+                            weixinid:11,
+                            switch:this.checked
+                        },
+                        success:function(serverData){
+                            alert(serverData["提示信息"]);
+                        }
+                    });
+                });
             }
         });
     }
