@@ -44,6 +44,10 @@ $(document).ready(function(){
                                 $($(".js_substrcity")[i]).html(cy);
                             }
                         }
+                        var time = $($(".js_substrtime")[i]).html();
+                        if(time != undefined){
+                            $($(".js_substrtime")[i]).html(time.substr(0,time.indexOf("T")));
+                        }
                     }
                 }
             }

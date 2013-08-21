@@ -45,6 +45,9 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "modify") {
         weixinManage.modify(data, response);
     }
+    else if (operation == "modifyrelapro") {
+        weixinManage.modifyrelapro(data, response);
+    }
 };
 
 

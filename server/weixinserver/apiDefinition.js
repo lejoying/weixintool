@@ -103,6 +103,18 @@ api = {
         }
     },
     /***************************************
+     * URL：/api2/weixin/getbyid
+     ***************************************/
+    "weixin_getbyid": {
+        request: {
+            typical: {weixinid: "nnnn"}
+        },
+        response: {
+            success: {"提示信息": "获取微信信息成功", weixin:{}},
+            failed: {"提示信息": "获取微信信息失败", "失败原因": "微信信息不存在"}
+        }
+    },
+    /***************************************
      * URL：/api2/weixin/bindapp
      ***************************************/
     "weixin_bindapp": {
@@ -136,6 +148,18 @@ api = {
         response: {
             success: {"提示信息": "修改绑定微信信息成功", weixin: {}},
             failed: {"提示信息": "修改绑定微信信息失败", "失败原因": "绑定微信信息不存在"}
+        }
+    },
+    /***************************************
+     * URL：/api2/weixin/modifyrelapro
+     ***************************************/
+    "weixin_modifyrelapro": {
+        request: {
+            typical: {weixinid: "XXXX", uid: "XXXX", switch: true|false}
+        },
+        response: {
+            success: {"提示信息": "修改绑定微信开关成功", weixin: {}},
+            failed: {"提示信息": "改绑定微信开关失败", "失败原因": "数据不正常"}
         }
     }
 }

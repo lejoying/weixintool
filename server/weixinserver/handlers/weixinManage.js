@@ -234,7 +234,7 @@ weixinManage.getall = function (data, response) {
                 for (var index in results) {
                     var weixinNode = results[index].weixin;
                     if (weixins[weixinNode.data.weixinOpenID] == null) {
-                        weixinNode.data.rela = results[index].r;
+                        weixinNode.data.rela = results[index].r.data.switch;
                         weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
                         weixins[weixinNode.data.weixinOpenID].apps = [];
                     }
@@ -297,6 +297,54 @@ weixinManage.modify = function (data, response) {
         });
     }
 }
+
+/***************************************
+ *     URL：/api2/weixin/modifyrelapro
+ ***************************************/
+weixinManage.modifyrelapro = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var uid = data.uid;
+    var onoff = data.switch;
+    modifyRelaProNode();
+
+    function modifyRelaProNode() {
+        var query = [
+            'MATCH account:Account-[r:HAS_WEIXIN]->weixin:Weixin',
+            'WHERE account.uid! ={uid} AND weixin.weixinOpenID! ={weixinid}',
+            'RETURN  r'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(uid),
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改绑定微信开关失败",
+                    "失败原因 ": "数据不正常"
+                }));
+                response.end();
+            } else {
+                var rNode = results.pop().r;
+                rNode.data.switch = onoff;
+                rNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改绑定微信开关成功",
+                    "r": rNode.data
+                }));
+                response.end();
+            }
+        });
+    }
+}
+
 /***************************************
  *     URL：/api2/weixin/getbyid
  ***************************************/

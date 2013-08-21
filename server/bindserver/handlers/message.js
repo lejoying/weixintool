@@ -33,7 +33,7 @@ message.message = function (data, getParam, response) {
         var messageXML = key;
         parser.toJson(messageXML, function (error, messageJSON) {
             var messageData = messageJSON.XML;
-            console.log(messageData.TOUSERNAME+"______"+messageData.CONTENT);
+//            console.log(messageData.TOUSERNAME+"______"+messageData.CONTENT);
             next(messageData);
         });
     }
@@ -338,6 +338,7 @@ message.message = function (data, getParam, response) {
                     next(userNode);
                 }
                 function next(userNode) {
+                    replyMyApp();
                     var userDate = userNode.data;
                     for (var index in userDate) {
                         user[index] = userDate[index];
@@ -406,6 +407,62 @@ message.message = function (data, getParam, response) {
             });
         }
 
+        function replyMyApp(){
+            var query = [
+                'MATCH account:Account-[r:HAS_WEIXIN]->weixin:Weixin-->myapp:Myapp' ,
+                'WHERE weixin.weixinOpenID! ={weixinid} and myapp.replytxt! ={replytxt}',
+                'RETURN r, weixin, myapp'
+            ].join('\n');
+
+            var params = {
+                weixinid: messageData.TOUSERNAME,
+                replytxt:messageData.CONTENT
+            };
+
+            db.query(query, params, function (error, results) {
+                if (error) {
+                    console.error(error);
+                    return;
+                }
+                reply.text.content = ""; //+ reply.text.content;
+                if (results.length == 0) {
+                    reply.text.content = "此回复没有应答";
+                } else {
+                    var weixinData = results[0].weixin.data;
+                    var r = results[0].r.data;
+                    if(r.switch=="true"){
+                        if(weixinData.switch != undefined){
+                            if(weixinData.switch == true){
+                                var myapp = results.pop().myapp.data;
+                                if(myapp.receivetxt != undefined){
+                                    reply.text.content += "【消息】\n描述:"+myapp.receivetxt;
+                                }
+                                if(myapp.receiveimg != undefined){
+                                    reply.text.content += "\n图片链接:"+myapp.receiveimg
+                                }
+
+                            }else{
+                                reply.text.content += "应用开关处于关闭状态";
+                            }
+                        }else{
+                            reply.text.content += "应用开关没有初始化";
+                        }
+                    }else{
+                        reply.text.content += "微信开关处于关闭状态";
+                    }
+                }
+                console.log(reply.text.content);
+                reply.userid = user.id;
+                reply.weixinOpenID = weixin.weixinOpenID;
+                reply.createTime = now.getTime().toString().substr(0, 10);
+                var replyXML = replyTemplate.render(reply);
+
+                response.write(replyXML);
+                response.end();
+                replySent = true
+                return true;
+            });
+        }
         /*************************************** ***************************************
          *    sandbox
          *************************************** ***************************************/
@@ -451,44 +508,18 @@ message.message = function (data, getParam, response) {
 
             reply.type = "text";
             if (debug == true) {
-                var query = [
-                    'MATCH weixin:Weixin-->myapp:Myapp' ,
-                    'WHERE weixin.weixinOpenID! ={weixinid} and myapp.replytxt! ={replytxt}',
-                    'RETURN  myapp'
-                ].join('\n');
-
-                var params = {
-                    weixinid: messageData.TOUSERNAME,
-                    replytxt:messageData.CONTENT
-                };
-
-                db.query(query, params, function (error, results) {
-                    if (error) {
-                        console.error(error);
-                        return;
-                    }
-                    if (results.length == 0) {
-                        reply.text.content = "此回复没有应答";
-                    } else {
-                        var myapp = results.pop().myapp.data;
-                        reply.text.content = "【消息】\n套餐:"+myapp.receivetxt+"\n图片链接:"+myapp.receiveimg;
-                    }
-                });
-                console.log(reply.text.content+"---");
-                reply.text.content = reply.log + reply.text.content;
+                reply.text.content = reply.log; //+ reply.text.content;
                 console.log(reply.text.content);
+                reply.userid = user.id;
+                reply.weixinOpenID = weixin.weixinOpenID;
+                reply.createTime = now.getTime().toString().substr(0, 10);
+                var replyXML = replyTemplate.render(reply);
 
+                response.write(replyXML);
+                response.end();
+                replySent = true
+                return true;
             }
-
-            reply.userid = user.id;
-            reply.weixinOpenID = weixin.weixinOpenID;
-            reply.createTime = now.getTime().toString().substr(0, 10);
-            var replyXML = replyTemplate.render(reply);
-
-            response.write(replyXML);
-            response.end();
-            replySent = true
-            return true;
         }
 
         var dataSaved = false;

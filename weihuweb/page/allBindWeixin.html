@@ -155,7 +155,11 @@
                     </div>
                     <div class="publicAppsOperating">
                         <div class="switch publicAppSwitch demo3">
-                            <input type="checkbox" >
+                            <?js if(post.rela=="true"){ ?>
+                            <input type="checkbox" value="#{index}" checked="checked" >
+                            <?js }else{ ?>
+                            <input type="checkbox" value="#{index}" >
+                            <?js } ?>
                             <label><i></i></label>
                         </div>
                         <a class="publicAppFull" href="publicAppDetail.html?id=#{index}">进入</a>

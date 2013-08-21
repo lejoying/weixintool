@@ -64,7 +64,6 @@ $(document).ready(function(){
         });
 
         $(".myappTitle input").click(function(){
-//            alert(this.checked);
             obj.switch = this.checked;
             $.ajax({
                 type:"post",
@@ -75,7 +74,13 @@ $(document).ready(function(){
                 },
                 success:function(serverData){
                     if(serverData["提示信息"] == "修改绑定微信信息成功"){
-//                        alert("设置成功");
+                        if(serverData["weixin"].switch==true){
+                            showBlackPage("开启成功","开启成功");
+                        }else{
+                            showBlackPage("关闭成功","关闭成功");
+                        }
+                    }else if(serverData["提示信息"] == "修改绑定微信信息失败"){
+                        showBlackPage("设置失败","设置失败");
                     }
                 }
             });
@@ -86,7 +91,7 @@ $(document).ready(function(){
 
         var filepath = $(".uploadFace").val().trim();
         if(filepath == ""){
-            alert("请您选择要上传的txt文件");
+            showBlackPage("请您选择要上传的txt文件","请您选择要上传的txt文件");
             return;
         }
         var last = filepath.substr(filepath.lastIndexOf(".")+1);
@@ -142,7 +147,7 @@ $(document).ready(function(){
                             "myapp":objs
                         },
                         success:function(serverData){
-                            alert(serverData["提示信息"]);
+                            showBlackPage(serverData["提示信息"],serverData["提示信息"]);
                         }
                     });
                 }else{

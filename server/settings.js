@@ -3,7 +3,7 @@ root.globaldata = {};
 var serverSetting = {};
 globaldata.serverSetting = serverSetting;
 serverSetting.environment = "local";//local or server
-serverSetting.debug = true;
+serverSetting.debug = false;
 
 if (serverSetting.environment == "local") {
     serverSetting.imageFolder = "E://nginx//upload//";

@@ -98,6 +98,7 @@ function showBlackPage(clarity,tipword){
     $(".tipWord").html(tipword);
     var popWidth = parseInt($("#promptedShow").css("width"))+60;
     $("#promptedShow").css("margin-left",-(popWidth/2));
+    $(".buttonblue")[0].focus();
 }
 http://weixintool.com/change_info.html
 // 显示弹出背景
