@@ -65,7 +65,7 @@ weixinManage.bindingtoken = function (data, response) {
         var query = [
             'START account=node({uid})' ,
             'MATCH  app:App' ,
-            'WHERE  app.appid! = 99',
+            'WHERE  app.appid! = 125',
             'CREATE UNIQUE account-[r:HAS_WEIXIN{switch:"false"}]->weixin:Weixin{weixin}<-[r:BIND]-app',
             'RETURN  weixin, account, r'
         ].join('\n');
@@ -196,11 +196,11 @@ weixinManage.unbindapp = function (data, response) {
  ***************************************/
 weixinManage.getall = function (data, response) {
     response.asynchronous = 1;
-
+    /*var base = require("./../../bindserver/tools/base64");
+     console.log(base.encode(data.jscode));*/
     var account = {
         "uid": data.uid
     };
-
     getallWeixinNode();
 
     function getallWeixinNode() {

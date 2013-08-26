@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="allAppsList">
-            	<ul>
+            	<!--<ul>
                 	<li>
                     	<div class="appsImg"><img src="/static/images/app/6.jpg" /></div>
                         <div class="appsSummary">
@@ -118,7 +118,7 @@
                             <a class="publicAppFull" href="publicAppDetail2.html">详情</a>
                         </div>
                     </li>
-                </ul>
+                </ul>-->
             </div>
             <div class="pagination">
                 <a href="#" title="上一页">首页</a>
@@ -142,9 +142,48 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_publicapp" serverdata="main_publicapp" evenpool="main_publicapp">
+        <div class="main_publicapp" id="main_publicapp">
+            <ul>
+                <?js for(var index in it){ ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <li>
+                    <div class="appsImg"><img src="/static/images/app/6.jpg" /></div>
+                    <div class="appsSummary">
+                        <div class="publicAppExplanation"><span class="publicAppName">#{post.name}</span><span>
+                            <?js if(post.type=="public"){ ?>
+                                公共应用
+                            <?js }else{ ?>
+                            <?js } ?>
+                            ，适用：#{post.class}</span></div>
+                        <div class="publicAppIntroduction">#{post.intro}</div>
+                        <div class="publicAppRule">回复字母：<span>#{post.replytxt}</span></div>
+                    </div>
+                        <div class="publicAppsOperating">
+                        <div class="switch publicAppSwitch demo3">
+                            <?js if(post.rela==true){ ?>
+                            <input type="checkbox" value="#{post.appid}" checked="checked" >
+                            <?js }else{ ?>
+                            <input type="checkbox" value="#{post.appid}" >
+                            <?js } ?>
+                            <label><i></i></label>
+                        </div>
+                        <a class="publicAppFull" href="publicAppDetail.html?id=#{post.appid}">详情</a>
+                    </div>
+                </li>
+                <?js } ?>
+            </ul>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
 <script type="text/javascript" src="/static/js/publicApp.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

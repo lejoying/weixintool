@@ -19,12 +19,13 @@ $(document).ready(function(){
                 weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
                 $.ajax({
                     type:"POST",
-                    url:"/api2/weixin/getbyid?",
+                    url:"/api2/app/getbyid?",
                     data:{
-                        weixinid : weixinid
+                        weixinid : weixinid,
+                        appid: 125
                     },
                     success:function(serverData){
-                            obj = serverData["weixin"];
+                            obj = serverData["r"];
                             if(obj.switch != undefined){
                                 if(obj.switch == true){
                                     $(".myappTitle input")[0].setAttribute("checked","true");
@@ -42,15 +43,15 @@ $(document).ready(function(){
         //获取个性化设置的前10条数据
         $.ajax({
             type:"POST",
-            url:"/api2/myapp/getall?",
+            url:"/api2/app/myappgetall?",
             data:{
                 weixinid : weixinid
             },
             success:function(serverData){
                 if(serverData["提示信息"] == "获取个性化设置成功"){
                     var selfdom_myapps = getTemplate("selfdom_myapps");
-                    $(".appExamplesList").html(selfdom_myapps.render(serverData["myapps"]));
-                    $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
+                    $(".appExamplesList").html(selfdom_myapps.render(serverData["r"]));
+                    $($(".myappBottomMessage")[0]).html("共有条回复，此处显示最前10条回复设置");
                     for(var i=0;i<$(".receivetxt").length;i++){
                         var id = $($(".receivetxt")[i]).html();
                         $($(".receivetxt")[i]).html(id.substr(0,20)+"...");
@@ -67,10 +68,11 @@ $(document).ready(function(){
             obj.switch = this.checked;
             $.ajax({
                 type:"post",
-                url:"/api2/weixin/modify?",
+                url:"/api2/app/myappmodify?",
                 data:{
                     weixinid:weixinid,
-                    weixin:JSON.stringify(obj)
+                    appid:125,
+                    r:JSON.stringify(obj)
                 },
                 success:function(serverData){
                     if(serverData["提示信息"] == "修改绑定微信信息成功"){
@@ -141,7 +143,7 @@ $(document).ready(function(){
                 if(weixinid != ""){
                     $.ajax({
                         type:"POST",
-                        url:"/api2/myapp/add?",
+                        url:"/api2/app/myappadd?",
                         data:{
                             weixinid:weixinid,
                             "myapp":objs

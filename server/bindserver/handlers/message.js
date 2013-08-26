@@ -10,7 +10,7 @@ var base64 = require('./../tools/base64');
 var replyTemplate = require('./../tools/replyTemplate');
 
 var vm = require('vm');
-
+var http = require('http');
 var scriptPool = {};
 
 var debug = serverSetting.debug;
@@ -133,9 +133,9 @@ message.message = function (data, getParam, response) {
 
         function resolveWeixinANDBindApps(weixin) {
             var query = [
-                'MATCH app:App-[r:BIND]->weixin:Weixin' ,
+                'MATCH app:App-[pr:BIND]->weixin:Weixin<-[cr:HAS_WEIXIN]-account:Account' ,
                 'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-                'RETURN  weixin, app, r'  //resolve weixin data in r
+                'RETURN  weixin, app, pr, cr'  //resolve weixin data in r
             ].join('\n');
 
             var params = {
@@ -160,7 +160,12 @@ message.message = function (data, getParam, response) {
                         var bindApp = {
                             script: appNode.data.script,
                             name: appNode.data.name,
-                            appid: appNode.data.appid
+                            appid: appNode.data.appid,
+                            type: appNode.data.type,
+                            replytxt: appNode.data.replytxt,
+                            cr:results[index].cr.data,
+                            pr:results[index].pr.data,
+                            data:appNode.data.data
                         }
                         bindApps.push(bindApp);
                         reply.log += "【调试信息】绑定应用：" + appNode.data.appid + "/::)\n"
@@ -311,7 +316,6 @@ message.message = function (data, getParam, response) {
             id: messageData.FROMUSERNAME,
             time: new Date()
         }
-
         function resolveUser(user, weixin) {
             var query = [
                 'MATCH user:User-[r:FOCUS]->weixin:Weixin' ,
@@ -338,17 +342,27 @@ message.message = function (data, getParam, response) {
                     next(userNode);
                 }
                 function next(userNode) {
-                    replyMyApp();
                     var userDate = userNode.data;
+                    user.city = userDate.city;
+                    /*var reg = /^[A-Za-z]{2}\d{0,}$/;
+                    if(reg.test(messageData.CONTENT)){
+                        checkWeixinAndApp(next);
+//                        replyPublicApp(userDate.city);
+                    }else{
+                        sandbox();
+//                        replyMyApp();
+                    }*/
                     for (var index in userDate) {
                         user[index] = userDate[index];
                     }
                     reply.log += "【调试信息】用户信息：/::)" + JSON.stringify(user) + "\n";
                     sandbox();
+                    /*function next(){
+                        replyPublicAppTQ(userDate.city);
+                    }*/
                 }
             });
         }
-
         function checkUser(user, weixin, next) {
             var query = [
                 'MATCH user:User' ,
@@ -388,7 +402,6 @@ message.message = function (data, getParam, response) {
                 }
             });
         }
-
         function addNewUser(query, user, weixin, next) {
 
             var params = {
@@ -407,62 +420,6 @@ message.message = function (data, getParam, response) {
             });
         }
 
-        function replyMyApp(){
-            var query = [
-                'MATCH account:Account-[r:HAS_WEIXIN]->weixin:Weixin-->myapp:Myapp' ,
-                'WHERE weixin.weixinOpenID! ={weixinid} and myapp.replytxt! ={replytxt}',
-                'RETURN r, weixin, myapp'
-            ].join('\n');
-
-            var params = {
-                weixinid: messageData.TOUSERNAME,
-                replytxt:messageData.CONTENT
-            };
-
-            db.query(query, params, function (error, results) {
-                if (error) {
-                    console.error(error);
-                    return;
-                }
-                reply.text.content = ""; //+ reply.text.content;
-                if (results.length == 0) {
-                    reply.text.content = "此回复没有应答";
-                } else {
-                    var weixinData = results[0].weixin.data;
-                    var r = results[0].r.data;
-                    if(r.switch=="true"){
-                        if(weixinData.switch != undefined){
-                            if(weixinData.switch == true){
-                                var myapp = results.pop().myapp.data;
-                                if(myapp.receivetxt != undefined){
-                                    reply.text.content += "【消息】\n描述:"+myapp.receivetxt;
-                                }
-                                if(myapp.receiveimg != undefined){
-                                    reply.text.content += "\n图片链接:"+myapp.receiveimg
-                                }
-
-                            }else{
-                                reply.text.content += "应用开关处于关闭状态";
-                            }
-                        }else{
-                            reply.text.content += "应用开关没有初始化";
-                        }
-                    }else{
-                        reply.text.content += "微信开关处于关闭状态";
-                    }
-                }
-                console.log(reply.text.content);
-                reply.userid = user.id;
-                reply.weixinOpenID = weixin.weixinOpenID;
-                reply.createTime = now.getTime().toString().substr(0, 10);
-                var replyXML = replyTemplate.render(reply);
-
-                response.write(replyXML);
-                response.end();
-                replySent = true
-                return true;
-            });
-        }
         /*************************************** ***************************************
          *    sandbox
          *************************************** ***************************************/
@@ -477,19 +434,50 @@ message.message = function (data, getParam, response) {
 
         function test(api, message, reply, weixin, user, bindApps) {
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
-            for (var index in bindApps) {
-                var bindApp = bindApps[index];
+//                var userDate = userNode.data;
+                var reg = /^[A-Za-z]{2}\d{0,}$/;
+                if(reg.test(messageData.CONTENT)){
+                    var flag = false;
+                    for (var index in bindApps) {
+                        var bindApp = bindApps[index];
+                        if(bindApp.replytxt == undefined || bindApp.replytxt == ""){
+                            continue;
+                        }
+                        var a = bindApp.replytxt.substr(0,2).toUpperCase();
+                        var b = message.text.content.substr(0,2).toUpperCase();
+                        if(a == b){
+                            flag = true;
+                            next();
+                            break;
+                        }
+                    }
+                    if(!flag){
+                        reply.text.content = "没有绑定对应的应用";
+                        api.sendReply();
+                    }
+//                    checkWeixinAndApp(next);
+                }else{
+                    //个性化设置的回复
+                    for (var index in bindApps) {
+                        var bindApp = bindApps[index];
+                        if(bindApp.type == "private"){
+                            next();
+                            break;
+                        }
+                    }
+                }
+            function next(){
                 var script = scriptPool[bindApp.appid];
                 if (script == null) {
                     reply.log += "【调试信息】新建应用脚本" + bindApp.appid + "/::)\n";
                     var script_code = base64.decode(bindApp.script);
                     var script = vm.createScript(script_code);
                     scriptPool[bindApp.appid] = script;
+                    console.log(script_code);
                 }
                 sandbox.bindApp = bindApp;
                 reply.log += "【调试信息】调用应用脚本" + bindApp.appid + "/::)\n";
                 script.runInNewContext(sandbox, {}, "loop", 1000);
-                break;
             }
         }
 
@@ -499,7 +487,8 @@ message.message = function (data, getParam, response) {
          *        api.sendReply();
          *************************************** ***************************************/
         var api = {};
-
+//        api.db = db;
+        api.http = http;
         var replySent = false;
         api.sendReply = function () {
             if (replySent == true) {
@@ -508,8 +497,9 @@ message.message = function (data, getParam, response) {
 
             reply.type = "text";
             if (debug == true) {
-                reply.text.content = reply.log; //+ reply.text.content;
-                console.log(reply.text.content);
+                reply.text.content = reply.text.content;
+//                reply.text.content = reply.log; //+ reply.text.content;
+//                console.log(reply.text.content);
                 reply.userid = user.id;
                 reply.weixinOpenID = weixin.weixinOpenID;
                 reply.createTime = now.getTime().toString().substr(0, 10);

@@ -77,19 +77,20 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     else if (operation == "getall") {
         applicationManage.getall(data, response);
     }
+    else if (operation == "getbyid") {
+        applicationManage.getbyid(data, response);
+    }
     else if (operation == "delete") {
         applicationManage.delete(data, response);
     }
-};
-
-var myappManage = require('./handlers/myappManage');
-requestHandlers.myappManage = function (request, response, pathObject, data) {
-    var operation = pathObject["operation"];
-    if (operation == "add") {
-        myappManage.add(data, response);
+    else if (operation == "myappadd") {
+        applicationManage.myappadd(data, response);
     }
-    else if (operation == "getall") {
-        myappManage.getall(data, response);
+    else if (operation == "myappgetall") {
+        applicationManage.myappgetall(data, response);
+    }
+    else if (operation == "myappmodify") {
+        applicationManage.myappmodify(data, response);
     }
 };
 

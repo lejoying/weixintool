@@ -15,10 +15,9 @@ $(document).ready(function(){
         $(".welcome").find("span").html(name.substr(0,8));
         $(".js_weixinNow").attr("title",name);
     }
-
-    //发送Ajax请求，获取绑定的微信用户
+//发送Ajax请求，获取绑定的微信用户
     $.ajax({
-        type:"GET",
+        type:"POST",
         url:"/api2/weixin/getall?",
         data:{
             "uid":JSON.parse(nowAccount).uid
