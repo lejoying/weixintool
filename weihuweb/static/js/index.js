@@ -44,7 +44,47 @@ $(document).ready(function(){
 
         }
     });
-
+    //获取当前微信用户的ID
+    var weixinid = "";
+    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
+    if(nowBindWeixins != null){
+        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+        for(var key in JSON.parse(nowBindWeixins)){
+            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
+                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
+                //发送请求，获取已开启的应用
+                $.ajax({
+                    type:"GET",
+                    url:"/api2/app/getall?",
+                    data:{
+                        weixinOpenID: weixinid,
+                        filter: "BIND"
+                    },
+                    success:function(serverData){
+//                        alert(serverData["提示信息"]);
+                        for(var i=0;i<serverData["apps"].length;i++){
+                            if(serverData["apps"][i].type == "private"){
+                                continue;
+                            }
+                            var li = document.createElement("li");
+                            var a = document.createElement("a");
+                            a.appendChild(document.createTextNode(serverData["apps"][i].name));
+                            a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid;
+                            li.appendChild(a);
+                            $(".js_myopenapp")[0].appendChild(li);
+                        }
+                    }
+                });
+                break;
+            }
+        }
+    }
+    $(".js_exit").click(function(){
+        //清除window.localStorage和window.sessionStorage下存放的键值对
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+        location.href = "default.html";
+    });
 	$(".js_weixinNow").click(function(){
 		$(".accountSwitching").toggle();
 		addEvent(document.body,"mousedown",clickother);
