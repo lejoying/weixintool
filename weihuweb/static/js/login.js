@@ -130,6 +130,7 @@ function regeditSubmit(){
                     success: function (serverData) {
                         if (serverData["提示信息"] == "注册账号成功") {
                             $(".loginFrame").animate({left:'-2000px'},600);
+                            $(".registSuccess").animate({display:'block'},600);
                             $(".registSuccess").animate({left:'280px'},600);
                         }
                     }

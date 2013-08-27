@@ -61,7 +61,7 @@ function addEvent(obj,eventType,func){
 function clickother(el){
 	thisObj = el.target?el.target:event.srcElement;
     if(thisObj.tagName == "BODY"){
-        document.getElementById("accountSwitching").style.display = "none";
+        document.getElementById("operaterBox").style.display = "none";
         return;
     }
     if(thisObj.id == "accountSwitching"||thisObj.id == "weixinNow"||(thisObj.parentNode).parentNode.parentNode.id=="accountSwitching"){
