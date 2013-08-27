@@ -717,8 +717,8 @@ a.btnSecondary:active {
     z-index: 99;
 }
 .chatPanel .list .top {
-    background-color: #5B6774;
-    background-image: -moz-linear-gradient(center top , #6A7786 10%, #5E6977 50%, #56616D 90%, #545E6A 100%);
+    background-color: #0099cd;
+    background-image: -moz-linear-gradient(center top , #0099cd 10%, #008ab8 50%, #0091c2 90%, #0082ad 100%);
     border-bottom: 1px solid #333333;
     border-radius: 3px 3px 0 0;
     border-top: 1px solid #9BA3AE;
@@ -1032,8 +1032,8 @@ a.btnSecondary:active {
     width: 276px;
 }
 .chatPanel .listContent div.activeColumn {
-    background-color: #7A869C;
-    background-image: -moz-linear-gradient(center top , #8592A5 10%, #7A869C 50%, #737F95 90%, #717D93 100%);
+    background-color: #0099cd;
+    background-image: -moz-linear-gradient(center top , #0099cd 10%, #008ab8 50%, #0091c2 90%, #0082ad 100%);
     border-bottom: 1px solid #C9CED3;
     border-top: 1px solid #8598AC;
     font-weight: normal;
@@ -1085,8 +1085,8 @@ a.btnSecondary:active {
     position: relative;
 }
 .chatPanel .chatTitle {
-    background-color: #6B7888;
-    background-image: -moz-linear-gradient(center top , #6A7786 10%, #5E6977 50%, #56616D 90%, #545E6A 100%);
+    background-color: #0099cd;
+    background-image: -moz-linear-gradient(center top , #0099cd 10%, #008ab8 50%, #0091c2 90%, #0082ad 100%);
     border-bottom: 1px solid #333333;
     border-radius: 4px 4px 0 0;
     border-top: 1px solid #9BA3AE;
@@ -1558,7 +1558,7 @@ a.btnSecondary:active {
     min-width: 50px;
 }
 .you .cloudText .cloudBody {
-    background-color: #B2CF73;
+    background-color: #EFEFB5;
     border: 1px solid #7AA23F;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0 1px 0 #DBDBDB;
@@ -4960,4 +4960,11 @@ a.btnBlue:active .btnBluePanel {
     float: right;
     margin-top: 5px;
     width: 200px;
+}
+.scrollDiv{
+    width:9px;
+    position:absolute;
+    top:0;
+    background:#6B747A;
+    border-radius:10px;
 }
