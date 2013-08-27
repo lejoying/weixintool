@@ -1,0 +1,4963 @@
+@charset "utf-8";
+
+html, body {
+    word-break: normal;
+    word-wrap: break-word;
+}
+.chatListColumn .nickName, .chatListColumn .desc {
+    text-overflow: ellipsis;
+    word-wrap: normal;
+}
+.loadingIcon {
+    background: url("../images/ico_loading117ced3.gif") no-repeat scroll center center transparent;
+    height: 20px;
+    margin: 20px auto;
+    width: 20px;
+}
+.chatPanel .unreadDot {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -5px -980px transparent;
+    color: #FFFFFF;
+    font-size: 12px;
+    height: 24px;
+    left: 64px;
+    line-height: 25px;
+    margin: -7px 0 0 -21px;
+    position: absolute;
+    text-align: center;
+    width: 28px;
+}
+.chatPanel .unreadDotS {
+    border: 5px solid red;
+    border-radius: 10px 10px 10px 10px;
+    left: 48px;
+    position: absolute;
+    top: 3px;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    border: 0 none;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none outside none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+html, body {
+    background: url("../images/bg_universal17ced3.png") repeat scroll 0 0 #4E5359;
+    color: #666666;
+    font: 14px/1.5 Helvetica,"微软雅黑","黑体",Arial,Tahoma;
+    height: 100%;
+    overflow-y: hidden;
+    text-align: center;
+}
+a, input {
+    outline: medium none;
+}
+a:link, a:visited {
+    color: #5555AA;
+    text-decoration: none;
+}
+a:hover, a:active {
+    color: #5555AA;
+    text-decoration: underline;
+}
+.pointer {
+    cursor: pointer;
+}
+.lightBorder {
+    border-color: #DDDDDD;
+}
+.lightText {
+    color: #CCCCCC;
+}
+.loadingMask {
+    background: url("../images/ico_loading117ced3.gif") no-repeat scroll center center rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 4px 4px;
+    height: 356px;
+    left: 0;
+    margin-left: -17px;
+    margin-top: -33px;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 415px;
+    z-index: 101;
+}
+.loadingMaskWind {
+    background-color: #000000;
+    border-radius: 4px 4px 4px 4px;
+    height: 100%;
+    margin: auto;
+    opacity: 0.5;
+    width: 100%;
+}
+.chatPanel .media a {
+    display: block;
+}
+.chatPanel .media {
+    background-color: #FAFAFA;
+    background-image: -moz-linear-gradient(center top , #FEFEFE 0%, #FAFAFA 100%);
+    border: 1px solid #AEB4B9;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px #D7D7D7;
+    margin: 0 auto;
+    width: 365px;
+}
+.chatPanel .media .mediaPanel {
+    margin: 0;
+    padding: 0;
+}
+.chatPanel .media .mediaImg {
+    margin: 16px 0 -10px;
+}
+.chatPanel .media .mediaImg .mediaImgPanel {
+    height: 164px;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
+.chatPanel .media .mediaImg img {
+    left: 0;
+    position: absolute;
+}
+.chatPanel .media .mediaImg .mediaImgFooter {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #FFFFFF;
+    height: 29px;
+    line-height: 29px;
+    padding: 0 11px;
+    position: relative;
+    text-align: left;
+    text-shadow: none;
+    top: -29px;
+}
+.chatPanel .media .mediaImg .mediaImgFooter a:hover p {
+    color: #B8B3B3;
+}
+.chatPanel .media .mediaImg .mediaImgFooter .mesgTitleTitle {
+    color: #FFFFFF;
+    height: 26px;
+    line-height: 28px;
+    max-width: 318px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.chatPanel .media .mesgIcon {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -174px -987px transparent;
+    display: inline-block;
+    height: 13px;
+    margin: 8px 0 -2px 4px;
+    width: 13px;
+}
+.chatPanel .media .mediaContent {
+    margin: 0;
+    padding: 0;
+}
+.chatPanel .media .mediaContent .mediaMesg {
+    border-top: 1px solid #D7D7D7;
+    padding: 0 10px;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgDot {
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+    height: 6px;
+    left: 20px;
+    position: relative;
+    top: -3px;
+    width: 6px;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle:hover p {
+    color: #1A1717;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle a {
+    color: #707577;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle a:hover p {
+    color: #444440;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgIcon {
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgTitle p {
+    color: #5D6265;
+    line-height: 1.5em;
+    margin-top: 2px;
+    max-height: 45px;
+    max-width: 286px;
+    min-width: 176px;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+}
+.chatPanel .media .mediaContent .mediaMesg .mediaMesgIcon img {
+    height: 45px;
+    width: 45px;
+}
+.chatPanel .media .mediaHead {
+    border-bottom: 1px solid #D3D8DC;
+    color: #A51000;
+    font-size: 16px;
+    padding: 0 8px 4px;
+}
+.chatPanel .media .mediaHead .title {
+    display: block;
+    line-height: 1.2em;
+    margin-top: 22px;
+    max-width: 312px;
+    text-align: left;
+}
+.chatPanel .mediaFullText .mediaImg {
+    height: 164px;
+    margin: 17px 0 0;
+    overflow: hidden;
+    padding: 0 0 5px;
+    position: relative;
+    width: 100%;
+}
+.chatPanel .mediaFullText .mediaImg img {
+    margin-top: 17px;
+    position: absolute;
+}
+.chatPanel .mediaFullText .mediaContent {
+    color: #666B6E;
+    font-size: 12px;
+    line-height: 1.5em;
+    padding: 6px 8px 10px;
+    text-align: left;
+}
+.chatPanel .mediaFullText .mediaContentP {
+    padding: 12px 8px 10px;
+}
+.chatPanel .media .mediaHead .time {
+    background: none repeat scroll 0 0 transparent;
+    color: #82888C;
+    margin: 21px 0 0;
+    width: auto;
+}
+.chatPanel .media .mediaFooter {
+    background-color: #F0F4F8;
+    border-radius: 0 0 5px 5px;
+}
+.chatPanel .media .mediaFooter a {
+    color: #792F2E;
+    font-size: 14px;
+    padding: 0 7px;
+}
+.chatPanel .media .mediaFooter .mesgIcon {
+    margin: 12px 3px 0 0;
+}
+.chatPanel .media a:hover {
+    cursor: pointer;
+}
+.chatPanel .media a:hover .mesgIcon {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -188px -987px transparent;
+}
+.chatPanel .chatListSearch {
+    background-color: #E7EBEE;
+    background-image: -moz-linear-gradient(center top , #EEF2F5 10%, #EEF1F4 30%, #E7EBEE 50%, #E1E4E8 70%, #D4D8DC 90%, #D2D5D9 100%);
+    border-bottom: 1px solid #ABB0B4;
+    border-top: 1px solid #FFFFFF;
+    height: 71px;
+    margin: 0;
+}
+.chatPanel .chatListSearch span.chatListSearchIcon {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll -36px -166px transparent;
+    display: block;
+    height: 93%;
+    width: 28px;
+}
+.chatPanel .chatListSearchPanel {
+    margin: 0;
+    padding: 0 10px;
+}
+.chatPanel .chatListSearchInput {
+    background-color: #FFFFFF;
+    border: 1px solid #989CA1;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: 0 1px 0 #FFFFFF;
+    height: 20px;
+    margin-top: 6px;
+    width: 100%;
+}
+.chatPanel .chatListSearchInput .searchClean {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -4px -432px transparent;
+    cursor: pointer;
+    height: 23px;
+    width: 21px;
+}
+.chatPanel .chatListSearchInput .searchClean:active {
+    background-position: -38px -432px;
+}
+.chatPanel input {
+    border: medium none;
+    font: 13px/20px Arial;
+    height: 92%;
+    width: 78%;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .conmu, .chatPanel .chatListSearchPanel .listOperatorContent .addr {
+    height: 100%;
+    width: 49%;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .bag {
+    background: url("../images/icon_chat17ced3.png") repeat scroll 0 0 transparent;
+    height: 30px;
+    margin: 0 auto;
+    width: 40px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .conmu .bag {
+    background-position: 1px 3px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .addr .bag {
+    background-position: 1px 10px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .cutOffRule {
+    border-left: 1px dotted #7E7E7E;
+    border-right: 1px dotted #FFFFFF;
+    float: left;
+    height: 15px;
+    margin-top: 11px;
+    width: 0;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .conmu, .chatPanel .chatListSearchPanel .listOperatorContent .addr {
+    display: block;
+    height: 100%;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .conmu .bag, .chatPanel .chatListSearchPanel .listOperatorContent .addr .bag {
+    background: url("../images/button0217ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 22px;
+    margin: 8px auto 0;
+    width: 25px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .conmu .bag {
+    background-position: -1px -69px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .active .conmuButton .bag {
+    background-position: -28px -69px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .addr .bag {
+    background-position: -56px -69px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .active .addrButton .bag {
+    background-position: -84px -69px;
+}
+.chatPanel .chatListSearchPanel .listOperatorContent .conmu .unreadDot {
+    margin: -32px 0 0 9px;
+}
+.chatPanel .listContentWrap .listGroupTitle {
+    background: none repeat scroll 0 0 #DCE2E6;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    color: #96999D;
+    line-height: 20px;
+    margin-top: 0;
+    padding: 4px 10px;
+    position: absolute;
+    text-align: left;
+    width: 240px;
+}
+.chatPanel .listGroupTitle .iconFavoriteFriend {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll -38px -39px transparent;
+    height: 18px;
+    vertical-align: top;
+    width: 22px;
+}
+a.ico_close_circle, a.ico_close_circle_blue {
+    background: url("../images/video_icon.png") no-repeat scroll -256px -128px transparent;
+    display: block;
+    height: 23px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    right: -11px;
+    text-indent: -9999px;
+    top: -10px;
+    width: 23px;
+    z-index: 55;
+}
+.ico_close_circle:hover, a.ico_close_circle_blue:hover {
+    background-position: -256px -96px;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
+.clear {
+    clear: both;
+}
+.hide {
+    display: none;
+}
+.mask {
+    background: none repeat scroll 0 0 #0E1011;
+    height: 100%;
+    left: 0;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 110;
+}
+.trans {
+    opacity: 0;
+}
+.dialog {
+    background: none repeat scroll 0 0 #ECEDED;
+    border: 1px solid #A3A3A3;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 3px #BFBFBF;
+    opacity: 0.95;
+    position: absolute;
+    width: 328px;
+    z-index: 1100;
+}
+.dialog .header {
+    background-color: #E9E9E9;
+    background-image: -moz-linear-gradient(center top , #EFEFEF 10%, #E9E9E9 50%, #E5E5E5 90%, #E4E4E4 100%);
+    border-bottom: 1px solid #C7C7C7;
+    border-radius: 4px 4px 0 0;
+    height: 15px;
+}
+.dialog.tourTip {
+    box-shadow: 0 6px 10px #444444;
+    padding: 0;
+}
+.dialog .dialogContainer {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-color: #FFFFFF;
+    border-radius: 0 0 5px 5px;
+    border-style: solid;
+    border-width: 1px;
+    position: relative;
+    z-index: 999;
+}
+.dialog .dialogContent {
+    color: #2E2C2C;
+    font-size: 16px;
+    text-shadow: 0 1px 0 white;
+}
+.dialog .dialogContent .default {
+    padding: 50px 0 38px;
+    text-align: center;
+}
+.dialog .dialogContent .modifyAvatarTips {
+    padding: 20px 35px;
+    text-align: left;
+}
+.dialog .dialogContent .verificationRequest {
+    font-size: 14px;
+    line-height: 30px;
+    padding: 20px 0;
+    text-align: center;
+}
+.dialog .dialogContent .inputVerify {
+    margin-top: 10px;
+    padding: 3px 5px;
+    width: 170px;
+}
+.dialogOperator {
+    background-color: #F9F9F9;
+    border-radius: 0 0 3px 3px;
+    border-top: 1px solid #E0E0E0;
+    height: 20px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px;
+    text-align: center;
+}
+.dialogOperator .inwrap {
+}
+.dialogOperator .chatSend {
+}
+.dialogOperator .btnGray {
+}
+.dialogOperator .wrapContent a.btn {
+    height: 21px;
+    width: 64px;
+}
+.dialogOperator .wrapContent a.btn b {
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+}
+.dialogOperator .wrapContent a.chatSend {
+    float: right;
+    margin-right: 10px;
+}
+.dialogOperator .wrapContent a.singleBtn {
+    float: none;
+    margin: 0 auto;
+}
+.dialogOperator .wrapContent a.btnGray {
+    border-radius: 2px 2px 2px 2px;
+    float: right;
+}
+.dialogOperator .wrapContent a.btnGray b {
+    color: #000000;
+}
+.dialog a.btn {
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+    float: right;
+    text-align: center;
+    text-decoration: none;
+}
+.dialog a.btn b {
+    border-radius: 2px 2px 2px 2px;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: none;
+}
+.tourTip .dialogContainer {
+    background: none repeat scroll 0 0 #E5E5E5;
+    padding: 25px 0 0;
+}
+.tourTipContent {
+    background: none repeat scroll 0 0 #F0EFEF;
+    border-radius: 0 0 5px 5px;
+    margin: 20px 0 0;
+    padding: 10px 27px;
+}
+.tourTipContent .desc {
+    line-height: 1.7em;
+    padding: 20px 84px;
+    text-align: left;
+}
+.tourTip .tourTipFileTransporterPic {
+    background: url("../images/illustration_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 170px;
+    width: 370px;
+}
+.dialog a.iconClose {
+    height: 28px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 28px;
+}
+.dialog a.iconClose img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -3px -462px transparent;
+    height: 100%;
+    width: 100%;
+}
+.dialog a.iconClose:hover img {
+    background-position: -37px -462px;
+}
+.dialog a.iconClose:active img {
+    background-position: -71px -462px;
+}
+a.btnPrimary {
+    background: -moz-linear-gradient(center top , #8FB2DA, #588ED1) repeat scroll 0 0 transparent;
+    border: 1px solid #6486D3;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px #D3D3D3;
+    color: #FFFFFF;
+    display: block;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    margin: 13px auto;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #4F739F;
+    width: 120px;
+}
+a.btnPrimary:hover {
+    background: -moz-linear-gradient(center top , #4191E6, #2467CC) repeat scroll 0 0 transparent;
+    border: 1px solid #4778A6;
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #333333;
+}
+a.btnPrimary:active {
+    background: -moz-linear-gradient(center top , #5099E7, #2464C4) repeat scroll 0 0 transparent;
+    border: 1px solid #4778A6;
+    box-shadow: 0 1px 3px #D3D3D3;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px #444444;
+}
+a.btnPrimary b {
+    display: block;
+}
+a.btnSecondary {
+    background: -moz-linear-gradient(center top , #F9F9F9, #E9E9E9) repeat scroll 0 0 transparent;
+    border: 1px solid #999999;
+    color: #666666;
+    font-size: 16px;
+    line-height: 30px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+a.btnSecondary:hover {
+    background: -moz-linear-gradient(center top , #FFFFFF, #F0F0F0) repeat scroll 0 0 transparent;
+    border: 1px solid #999999;
+    color: #666666;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+a.btnSecondary:active {
+    background: -moz-linear-gradient(center top , #F9F9F9, #E9E9E9) repeat scroll 0 0 transparent;
+    border: 1px solid #999999;
+    color: #666666;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.container {
+}
+.clr {
+    clear: both;
+    display: block;
+    height: 1px;
+    overflow: hidden;
+}
+.clrLeft {
+    clear: left;
+    height: 1px;
+    overflow: hidden;
+}
+.clrRight {
+    clear: right;
+    height: 1px;
+    overflow: hidden;
+}
+.loginPanel {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    height: 380px;
+    left: 400px;
+    position: absolute;
+    text-align: center;
+    width: 500px;
+}
+.loginPanel .title {
+    border-radius: 4px 4px 0 0;
+    font-size: 22px;
+    height: 50px;
+    line-height: 50px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.loginPanel .panelContent {
+    padding: 20px;
+}
+.loginPanel .qrcode {
+    border-style: solid;
+    border-width: 1px;
+    width: 200px;
+}
+.loginPanel .info {
+    margin: 10px 0 0;
+}
+.chatPanel .triangle {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -88px -977px transparent;
+    height: 16px;
+    margin: 3px 0 0 5px;
+    width: 16px;
+}
+.loginPanel .normlDesc {
+}
+.loginPanel .errorMsg {
+    display: none;
+}
+.loginPanel a.operatorBtn {
+    margin-top: 10px;
+}
+.chatPanel {
+    border-radius: 4px 4px 4px 4px;
+    margin: 0 auto;
+    padding: 40px 0 30px;
+    position: relative;
+    text-align: center;
+    width: 962px;
+}
+.chatPanel .content {
+    position: relative;
+    z-index: 2;
+}
+.chatPanel .panelBackground {
+    color: #35393C;
+    font-size: 24px;
+    position: absolute;
+    right: 253px;
+    text-shadow: 0 1px 1px #535353;
+    top: 180px;
+    z-index: 1;
+}
+.chatPanel .panelBackground img {
+    background: url("../images/illustration_chat17ced3.png") no-repeat scroll -360px -165px transparent;
+    height: 65px;
+    width: 65px;
+}
+.chatPanel .list {
+    border: 1px solid #424448;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 2px 6px #313131;
+    float: left;
+    position: relative;
+    width: 276px;
+    z-index: 99;
+}
+.chatPanel .list .top {
+    background-color: #5B6774;
+    background-image: -moz-linear-gradient(center top , #6A7786 10%, #5E6977 50%, #56616D 90%, #545E6A 100%);
+    border-bottom: 1px solid #333333;
+    border-radius: 3px 3px 0 0;
+    border-top: 1px solid #9BA3AE;
+}
+.chatPanel .list .top .title {
+    border-radius: 5px 5px 0 0;
+    height: 39px;
+}
+.chatPanel .search {
+    background-color: #F0F0F0;
+    border-bottom: 1px solid #DDDDDD;
+    border-top: 1px solid #FFFFFF;
+}
+.chatPanel .searchText {
+    border: 1px solid #F0F0F0;
+}
+.chatPanel .myProfile {
+    display: block;
+    width: 100%;
+}
+.chatPanel .myProfile .avatar {
+    background: url("../images/border_myprofile_avatar17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 68px;
+    left: 5px;
+    position: absolute;
+    top: -26px;
+    width: 68px;
+    z-index: 101;
+}
+.chatPanel .myProfile img {
+    background: url("../images/avatar_default17ced3.png") no-repeat scroll center center transparent;
+    height: 60px;
+    left: 9px;
+    position: absolute;
+    top: -22px;
+    width: 60px;
+    z-index: 100;
+}
+.chatPanel .myProfile a {
+    text-decoration: none;
+}
+.chatPanel .myProfile .nickName {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-family: '微软雅黑',Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    margin-top: 0;
+    max-width: 113px;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.chatPanel .myProfile .info {
+    float: left;
+    margin: 10px 0 0 74px;
+    width: 150px;
+}
+.chatPanel .info a {
+    float: left;
+}
+.myProfile .unreadTotalCount {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -5px -670px transparent;
+    color: #5D4914;
+    font-size: 12px;
+    height: 25px;
+    left: 47px;
+    line-height: 27px;
+    position: absolute;
+    text-shadow: 0 1px 0 #20252B;
+    top: 21px;
+    width: 25px;
+    z-index: 110;
+}
+.myProfile .unreadTotalCount:hover {
+    background-position: -39px -670px;
+    text-decoration: none;
+}
+.myProfile .unreadTotalCount:active {
+    background-position: -72px -670px;
+    text-decoration: none;
+}
+.chatPanel .listContentWrap {
+    background-color: #F5F5F5;
+    height: 452px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+}
+.scrollbarBox {
+    width: 9px;
+}
+.scrollbarBox .scrollbar {
+    background-color: #6B747A;
+    border-radius: 10px 10px 10px 10px;
+    opacity: 0.6;
+    width: 100%;
+}
+.chatPanel .listContent .viewport {
+    height: 498px;
+    overflow: hidden;
+    position: relative;
+    width: 320px;
+}
+.chatPanel .listContent .overview {
+    left: 0;
+    list-style: none outside none;
+    position: absolute;
+    top: 0;
+}
+.chatPanel .listContent .thumb .end, .chatPanel .listContent .thumb {
+    background-color: #003D5D;
+}
+.chatPanel .listContent .scrollbar {
+    float: right;
+    position: relative;
+    width: 15px;
+}
+.chatPanel .listContent .track {
+    background-color: #D8EEFD;
+    height: 100%;
+    padding: 0 1px;
+    position: relative;
+    width: 13px;
+}
+.chatPanel .listContent .thumb {
+    cursor: pointer;
+    height: 20px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 13px;
+}
+.chatPanel .listContent .thumb .end {
+    height: 5px;
+    overflow: hidden;
+    width: 13px;
+}
+.chatPanel .listContent .listDesc {
+    border-top: 1px solid #FFFFFF;
+    font-size: 12px;
+    padding: 20px 0;
+    text-align: center;
+}
+.chatPanel .chatListColumn {
+    padding: 7px 10px;
+    position: relative;
+    text-align: left;
+}
+.chatPanel .chatListColumn .avatar_wrap {
+    float: left;
+    line-height: 0;
+    margin-right: 10px;
+}
+.chatPanel .chatListColumn .avatar {
+    background: none repeat scroll 0 0 #A4A7B8;
+    border: 1px solid #FFFFFF;
+    border-radius: 0 0 0 0;
+    height: 42px;
+    width: 42px;
+}
+.chatPanel .chatListColumn .extend {
+    float: right;
+}
+.chatPanel .chatListColumn .nickName .name {
+    font-size: 13px;
+    margin-top: 2px;
+    max-width: 121px;
+    overflow: hidden;
+    padding: 2px 0 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.chatPanel .chatListColumn .nickName .name .emoji {
+    margin-top: -3px;
+}
+.chatPanel .chatListColumn .nickName .personNum {
+    color: #A3A3A2;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-top: 4px;
+}
+.descWrapper {
+    overflow: hidden;
+}
+.descWrapper .tipIcon {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 20px;
+    width: 20px;
+}
+.descWrapper .iconSendFailed {
+    background-position: 50% -220px;
+    margin-left: -6px;
+}
+.descWrapper .iconSending {
+    background-position: 50% -200px;
+    margin-left: -2px;
+}
+.chatPanel .chatListColumn .desc {
+    color: #77797A;
+    display: inline-block;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+}
+.chatPanel .chatListColumn .time {
+    color: #47778D;
+    font-size: 12px;
+    margin-top: 3px;
+    text-shadow: none;
+}
+.chatPanel .chatListColumn .mute {
+    background: url("../images/button0217ced3.png") no-repeat scroll -76px -36px transparent;
+    float: right;
+    height: 19px;
+    margin-right: 0;
+    width: 17px;
+}
+.chatPanel .chatListColumn .info {
+    overflow: hidden;
+    text-shadow: none;
+}
+.chatPanel .chatListColumn {
+    border-bottom: 1px solid #D5D6D7;
+    border-top: 1px solid #F7F7F7;
+    cursor: pointer;
+    height: 45px;
+    overflow: hidden;
+    text-shadow: 0 1px 0 white;
+}
+.chatPanel .chatListColumn .nickName {
+    color: #343434;
+    font-size: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 150px;
+}
+.chatPanel .chatListColumn .desc {
+    color: #B6B6B6;
+}
+.chatPanel a.loadMoreConv {
+    display: block;
+    font-size: 12px;
+    height: auto;
+    text-align: center;
+}
+.chatPanel a.loadMoreConv .desc {
+    color: #BEBEBE;
+    font-size: 12px;
+}
+.chatPanel a.loadMoreConv, .chatPanel a.loadMoreConv:hover, .chatPanel a.loadMoreConv:active {
+    border-bottom: medium none;
+    color: #BFC3C6;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.chatPanel a.loadMoreConv:active span.desc {
+    color: #9E9E9E;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.chatPanel a.loadMoreConv .tipPic {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -2px -914px transparent;
+    display: block;
+    height: 25px;
+    margin: 8px auto 3px;
+    width: 25px;
+}
+.chatPanel a.loadMoreConv:hover .tipPic {
+    background-position: -32px -914px;
+}
+.chatPanel a.loadMoreConv:active .tipPic {
+    background-position: -62px -914px;
+}
+.chatPanel .list .listOperator {
+    background: -moz-linear-gradient(center top , #F8F9FA, #DADDDF) repeat scroll 0 0 transparent;
+    border-radius: 0 0 5px 5px;
+    border-top: 1px solid #EEEFF0;
+    font-size: 12px;
+    left: 0;
+    position: absolute;
+    width: 276px;
+}
+.chatPanel .list .listOperatorContent {
+    border-radius: 0 0 5px 5px;
+    height: 27px;
+    margin-bottom: 4px;
+    margin-top: 2px;
+}
+.chatPanel .list .listBarContent {
+    border-radius: 0 0 5px 5px;
+    height: 5px;
+}
+.list .chatLeftPanelShadow {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    bottom: -51px;
+    height: 46px;
+    left: 50%;
+    margin-left: -138px;
+    position: absolute;
+    width: 276px;
+}
+.chatPanel .listContent div.activeColumn {
+    background-color: #7A869C;
+    background-image: -moz-linear-gradient(center top , #8592A5 10%, #7A869C 50%, #737F95 90%, #717D93 100%);
+    border-bottom: 1px solid #C9CED3;
+    border-top: 1px solid #8598AC;
+    font-weight: normal;
+    padding: 7px 10px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.chatPanel .listContent .activeColumn a.friendDetail {
+    background: none repeat scroll 0 0 transparent;
+}
+.chatPanel .listContent .activeColumn a.friendDetail {
+    background: none repeat scroll 0 0 transparent;
+}
+.chatPanel .listContent div.activeColumn .nickName, .chatPanel .listContent div.activeColumn .personNum {
+    color: #FFFFFF;
+}
+.chatPanel .listContent div.activeColumn .desc {
+    color: #FFFFFF;
+}
+.chatPanel .listContent div.activeColumn .time {
+    color: #FFFFFF;
+}
+.chatPanel .listContent .desc img {
+    margin-bottom: -7px;
+    margin-top: -2px;
+}
+.chatPanel .activeColumn .clicked {
+    background: url("../images/bg_chat_listclick_blue17ced3.png") repeat scroll 0 0 transparent;
+    height: 73px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 11px;
+}
+.chatPanel .activeColumn .nickName, .chatPanel .activeColumn .desc, .chatPanel .activeColumn .time, .chatPanel .activeColumn .lightText {
+}
+.chatPanel .activeColumn .edited {
+    display: none;
+}
+.chatPanel .chat {
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 2px 6px #313131;
+    margin-left: 312px;
+    z-index: 20;
+}
+.chatPanel .chatContainer {
+    border: 1px solid #424448;
+    border-radius: 2px 2px 6px 6px;
+    overflow: hidden;
+    position: relative;
+}
+.chatPanel .chatTitle {
+    background-color: #6B7888;
+    background-image: -moz-linear-gradient(center top , #6A7786 10%, #5E6977 50%, #56616D 90%, #545E6A 100%);
+    border-bottom: 1px solid #333333;
+    border-radius: 4px 4px 0 0;
+    border-top: 1px solid #9BA3AE;
+    height: 40px;
+    position: relative;
+}
+.chatPanel .chatNameWrap {
+    border-radius: 6px 6px 0 0;
+    font-size: 16px;
+    text-align: center;
+}
+.chatPanel .chatNameWrap .chatName {
+    color: #FFFFFF;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-top: 10px;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    white-space: nowrap;
+    width: 400px;
+    word-wrap: normal;
+
+}
+.chatPanel .chatScorll {
+    background-color: #EFF3F7;
+    height: 390px;
+    min-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+}
+.chatPanel .chatContent {
+    padding: 10px;
+    width: 100%;
+}
+.you {
+    float: left;
+    width: 100%;
+}
+.me {
+    float: right;
+    width: 100%;
+}
+.chatItem {
+    padding: 4px 0 10px;
+}
+.chatItemContent {
+    cursor: pointer;
+}
+.cloudPannel {
+    position: relative;
+}
+.chatItem .time {
+    border-radius: 20px 20px 20px 20px;
+    color: #7F7F7F;
+    font-size: 12px;
+    margin: 0 auto 10px;
+    padding: 2px 0;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: 100px;
+}
+.chatItem .time .timeBg {
+    background-color: #B4B8BD;
+    height: 1px;
+    margin-top: 8px;
+    width: 27px;
+}
+.chatItem .avatar {
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 1px 0 #B3B6BA;
+    height: 38px;
+    width: 38px;
+}
+.chatItem .cloud {
+    cursor: default;
+    max-width: 300px;
+    position: static;
+}
+.chatItem .cloud {
+    margin: 0;
+    padding: 0;
+}
+.chatItem .cloudContent {
+    font-size: 14px;
+    font-weight: normal;
+    min-height: 20px;
+    text-align: left;
+    word-wrap: break-word;
+}
+.zoomIn {
+    border-radius: 1px 1px 1px 1px;
+    cursor: -moz-zoom-in;
+}
+.zoomOut {
+    cursor: -moz-zoom-out;
+}
+.chatPanel .cloud .text {
+    padding: 5px;
+}
+.cloudImg .cloudContent {
+    max-height: 200px;
+    min-height: 30px;
+}
+.cloudImg .cloudContent img {
+    min-height: 50px;
+    min-width: 50px;
+}
+.cloudImg .cloudContent img.waitingEffect {
+    height: 16px;
+    left: -30px;
+    min-height: 0;
+    min-width: 0;
+    position: absolute;
+    top: 23px;
+    width: 16px;
+}
+.me .avatar {
+    float: right;
+    margin-right: 18px;
+}
+.me .cloud {
+    float: right;
+    margin: 0 15px 0 0;
+    max-width: 300px;
+    min-width: 50px;
+}
+.me .cloudText .cloudBody {
+    border: 1px solid #AFAFAF;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 #D5D5D5;
+    margin-left: 8px;
+}
+.me .cloudContent {
+    background-color: #ECECEC;
+    background-image: -moz-linear-gradient(center top , #F3F3F3 10%, #F1F1F1 30%, #ECECEC 50%, #E9E9E9 70%, #E6E6E6 90%, #E5E5E5 100%);
+    border-bottom: 1px solid #F2F2F2;
+    border-radius: 4px 4px 4px 4px;
+    border-top: 1px solid #FFFFFF;
+    color: #000000;
+    overflow: hidden;
+    text-shadow: none;
+}
+.me .cloudText .cloudArrow {
+    background: url("../images/cloud/bubble_right_guid17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    position: absolute;
+    right: -10px;
+    top: 11px;
+    width: 13px;
+}
+.me .cloudText .cloudContent {
+    background-color: #E5E5E5;
+    padding: 7px 10px;
+    vertical-align: top;
+}
+.cloudMesg .cloudBody {
+    background-color: #EFF0F4;
+    background-image: -moz-linear-gradient(center top , #F3F4F8 10%, #EFF0F4 50%, #EAEBEF 90%, #E9EAEE 100%);
+    border: 1px solid #979797;
+    border-radius: 7px 7px 7px 7px;
+}
+.me .cloudMesg .cloudArrow {
+    background: url("../images/cloud/filetype_guid_right17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    position: absolute;
+    right: -13px;
+    top: 10px;
+    width: 17px;
+}
+.chatPanel .cloud .file {
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 1px 3px #9E9E9E;
+    cursor: pointer;
+}
+.chatPanel .cloud .file a {
+    display: block;
+    height: 77px;
+}
+.chatPanel .cloud .file a:hover .name {
+    color: #546072;
+}
+.chatPanel .cloud .file .fileIcon {
+    border-radius: 3px 0 0 3px;
+    height: 75px;
+    margin: 0;
+    padding: 0;
+    width: 75px;
+}
+.chatPanel .cloud .file .fileIcon .fileImg {
+    background: url("../images/file_type17ced3.png") no-repeat scroll -64px -64px transparent;
+    display: block;
+    height: 50px;
+    margin: 13px 0 0 14px;
+    width: 45px;
+}
+.chatPanel .cloud .fileOfWord .fileIcon .fileImg {
+    background-position: -65px -3px;
+}
+.chatPanel .cloud .fileOfExcel .fileIcon .fileImg {
+    background-position: -125px -5px;
+}
+.chatPanel .cloud .fileOfPowerPoint .fileIcon .fileImg {
+    background-position: -185px -5px;
+}
+.chatPanel .cloud .fileOfMusic .fileIcon .fileImg {
+    background-position: -245px -5px;
+}
+.chatPanel .cloud .fileOfPdf .fileIcon .fileImg {
+    background-position: -4px -64px;
+    width: 49px;
+}
+.chatPanel .cloud .fileOfLink .fileIcon .fileImg {
+    background-position: -5px -5px;
+}
+.chatPanel .cloud .ffileOfPhoto .fileIcon .fileImg {
+    background-position: -185px -5px;
+}
+.chatPanel .cloud .fileOfText .fileIcon .fileImg {
+    background-position: -65px -64px;
+}
+.chatPanel .cloud .fileOfZip .fileIcon .fileImg {
+    background-position: -124px -64px;
+}
+.chatPanel .cloud .file .fileIcon {
+    background-color: #6B5A88;
+    background-image: -moz-linear-gradient(center top , #75628C 10%, #6B5A88 50%, #645685 90%, #635584 100%);
+    border-color: #79658E #62478B #635584 #6E5C89;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfZip .fileIcon {
+    background-color: #457191;
+    background-image: -moz-linear-gradient(center top , #4E7A99 10%, #457191 50%, #3E6A89 90%, #3C6887 100%);
+    border-color: #517D9C #39617D #3C6887 #487493;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfExcel .fileIcon {
+    background-color: #3E8342;
+    background-image: -moz-linear-gradient(center top , #458A3F 10%, #3E8342 50%, #377C46 90%, #357A47 100%);
+    border-color: #488D3D #38612C #357A47 #408541;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfPowerPoint .fileIcon {
+    background-color: #BC5E0A;
+    background-image: -moz-linear-gradient(center top , #BE720F 10%, #BC5E0A 50%, #B45709 90%, #B15709 100%);
+    border-color: #BE7610 #974E22 #B15809 #BB5D0A;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfMusic .fileIcon {
+    background-color: #338F9A;
+    background-image: -moz-linear-gradient(center top , #2F939F 10%, #338F9A 50%, #20838F 90%, #1C808D 100%);
+    border-color: #228F9C #2B758B #1C808C #2E8B97;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfWord .fileIcon {
+    background-color: #467291;
+    background-image: -moz-linear-gradient(center top , #4F7B9A 10%, #467291 50%, #3E6989 90%, #3C6887 100%);
+    border-color: #517D9C #39617D #3C6887 #457090;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfPdf .fileIcon {
+    background-color: #AF4258;
+    background-image: -moz-linear-gradient(center top , #B84B61 10%, #AF4258 50%, #A53B52 90%, #A23A51 100%);
+    border-color: #BB4F64 #9A4051 #A13A50 #B04259;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfLink .fileIcon {
+    background-color: #2D72A8;
+    background-image: -moz-linear-gradient(center top , #3D81B2 10%, #2D72A8 50%, #2F74A9 90%, #3276AB 100%);
+    border-color: #4184B5 #30688B #3276AB #2C71A7;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfPhoto .fileIcon {
+    background-color: #1E7D7A;
+    background-image: -moz-linear-gradient(center top , #1F8C86 10%, #1E7D7A 50%, #1D7C76 90%, #1D7D75 100%);
+    border-color: #20938C #126565 #1D7D75 #1E817E;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfText .fileIcon {
+    background-color: #6B5A88;
+    background-image: -moz-linear-gradient(center top , #75628C 10%, #6B5A88 50%, #645685 90%, #635584 100%);
+    border-color: #79658E #62478B #635584 #6E5C89;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .fileOfZip .fileIcon {
+    background-color: #657F89;
+    background-image: -moz-linear-gradient(center top , #6D8792 10%, #657F89 50%, #5E7680 90%, #58707B 100%);
+    border-color: #708B96 #556F7B #58707B #657F89;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel .cloud .file .info {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #EFF0F4;
+    background-image: -moz-linear-gradient(center top , #F3F4F9 10%, #EFF0F4 50%, #EAEBEF 90%, #E9EAEE 100%);
+    border-color: #979797 #979797 #979797 -moz-use-text-color;
+    border-image: none;
+    border-left: medium none;
+    border-radius: 0 3px 3px 0;
+    border-right: 1px solid #979797;
+    border-style: solid solid solid none;
+    border-width: 1px 1px 1px medium;
+    height: 40px;
+    padding: 15px 10px 20px 9px;
+    width: 99px;
+}
+.chatPanel .cloud .file .name {
+    color: #1F252B;
+    font-size: 13px;
+    font-weight: bold;
+    height: 16px;
+    line-height: 1.2em;
+    max-width: 200px;
+    overflow: hidden;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.chatPanel .cloud .file .desc {
+    color: #565C61;
+    font-size: 12px;
+    padding-top: 8px;
+    text-align: left;
+    text-shadow: none;
+}
+.me .cloud .cloudPannel .file {
+}
+.you .cloud .cloudPannel .file {
+    border: 1px solid #75975C;
+    border-radius: 8px 8px 8px 8px;
+}
+.you .cloud .cloudPannel .file .fileIcon {
+    border-radius: 0 6px 6px 0;
+    float: right;
+}
+.you .cloud .cloudPannel .file .info {
+    border-left: 1px solid #979797;
+    border-radius: 6px 0 0 6px;
+    border-right: medium none;
+    float: left;
+}
+.you .cloud .cloudPannel .cloudFileArrow {
+    background: url("../images/cloud/filetype_guid_left17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    left: -8px;
+    position: absolute;
+    top: 10px;
+    width: 17px;
+}
+.me .cloudVideo .cloudBody {
+    border-image: url("../images/cloud/cloud_img_body_white17ced3.png") 8 8 9 8;
+    border-style: solid;
+    border-width: 8px 8px 9px;
+}
+.me .cloudImg .cloudContent, .me .cloudVideo .cloudContent {
+}
+.me .cloudImg .cloudContent {
+    border: medium none;
+    border-radius: 0 0 0 0;
+    padding: 0;
+}
+.me .cloudImg .imageBorder, .me .cloudVideo .imageBorder {
+}
+.me .cloudVideo .cloudArrow {
+    background: url("../images/cloud/cloud_img_arrow_white17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    position: absolute;
+    right: -8px;
+    top: 10px;
+    width: 17px;
+}
+.me .cloudVoice {
+    margin-right: 10px;
+}
+.me .cloudVoice .cloudBody {
+    background: url("../images/cloud/cloud_voide_body_white17ced3.png") repeat-x scroll 0 0 transparent;
+    border: 1px solid #AFAFAF;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 1px 0 #DBDBDB;
+    margin: 0 8px 9px 7px;
+    position: relative;
+}
+.me .cloudVoice .cloudContent {
+    background-color: #EDEDED;
+    border-bottom: 1px solid #F2F2F2;
+    border-radius: 6px 6px 6px 6px;
+    border-top: 1px solid #FFFFFF;
+    padding: 7px;
+}
+.me .cloudVoice .cloudArrow {
+    background: url("../images/cloud/bubble_right_guid17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 25px;
+    position: absolute;
+    right: -7px;
+    top: 11px;
+    width: 18px;
+}
+.me .cloudVoice .cloudContent {
+}
+.me .cloudVoice .icoVoice {
+    background: url("../images/icon_sound17ced3.png") no-repeat scroll -24px -1px transparent;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    height: 20px;
+    width: 25px;
+}
+.me .cloudVoice .icoVoicePlaying {
+    background: url("../images/voice0217ced3.gif") no-repeat scroll left 0 transparent;
+    display: inline-block;
+    float: right;
+    height: 20px;
+    width: 18px;
+}
+.cloudVoice .replyVoice {
+    position: absolute;
+}
+.you .cloudVoice .replyVoice {
+    left: 35px;
+    top: 15px;
+}
+.me .cloudVoice .replyVoice {
+    right: 30px;
+    top: 0;
+}
+.me .sendStatus {
+    color: #B8B8B8;
+    font-size: 12px;
+    left: -250px;
+    margin-top: -9px;
+    position: absolute;
+    text-align: right;
+    top: 50%;
+    width: 250px;
+}
+.me .cloudText .sendStatus, .me .cloudImg .sendStatus {
+    margin-top: -10px;
+}
+.me .sendStatus .iconSendFailed {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll 50% -240px transparent;
+    height: 30px;
+    margin-top: -5px;
+    width: 30px;
+}
+.me .sendStatus .iconSendFailed:active {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll 50% -240px transparent;
+}
+.you .avatar {
+    float: left;
+}
+.you .cloud {
+    float: left;
+    margin: 0 0 0 15px;
+    max-width: 300px;
+    min-width: 50px;
+}
+.you .cloudText .cloudBody {
+    background-color: #B2CF73;
+    border: 1px solid #7AA23F;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 #DBDBDB;
+}
+.you .cloudText .cloudContent {
+    border-bottom: 1px solid #B9CF8B;
+    border-radius: 5px 5px 5px 5px;
+    border-right: 1px solid #CCDEA3;
+    border-top: 1px solid #DCE6C8;
+    color: #030303;
+    padding: 7px 10px;
+    text-shadow: none;
+}
+.you .cloudText .cloudArrow {
+    background: url("../images/cloud/bubble_left_guid17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    left: -6px;
+    position: absolute;
+    top: 11px;
+    width: 13px;
+}
+.you .cloudImg .cloudBody, .you .cloudVideo .cloudBody {
+    background-color: #B2CF73;
+    border: 1px solid #7AA23F;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 #DBDBDB;
+}
+.me .cloudImg .cloudBody, .me .cloudVideo .cloudBody {
+    border-image: url("../images/cloud/cloud_img_body_white17ced3.png") 8 8 9 8;
+    border-style: solid;
+    border-width: 8px 8px 9px;
+}
+.you .cloudImg .cloudBody, .you .cloudVideo .cloudBody {
+}
+.you .cloudImg .cloudContent, .you .cloudVideo .cloudContent {
+    border-bottom: 1px solid #D0E3AB;
+    border-radius: 5px 5px 5px 5px;
+    border-right: 1px solid #EAF9D0;
+    border-top: 1px solid #EAF9D0;
+    color: #030303;
+    padding: 6px;
+    text-shadow: none;
+}
+.me .cloudImg .cloudContent {
+}
+.me .cloudImg .cloudContent, .you .cloudImg .cloudContent {
+    max-height: 150px;
+}
+.me .cloudImg .imageBorder, .me .cloudVideo .imageBorder {
+}
+.me .cloudImg .imageBorder {
+}
+.you .cloudImg .cloudArrow, .you .cloudVideo .cloudArrow {
+    background: url("../images/cloud/bubble_left_guid17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    left: -6px;
+    position: absolute;
+    top: 10px;
+    width: 17px;
+}
+.me .cloudImg .cloudArrow {
+    background: url("../images/cloud/cloud_text_arrow_white17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 25px;
+    position: absolute;
+    right: -13px;
+    top: 8px;
+    width: 18px;
+}
+.you .cloudVoice {
+    margin-left: 10px;
+}
+.you .cloudVoice .cloudBody {
+    background-color: #B2CF73;
+    background-image: -moz-linear-gradient(center top , #CDEB96 0%, #D1EBA2 10%, #C7E492 20%, #BFDB8D 30%, #BDD687 40%, #B7D17E 50%, #B1CE78 60%, #B0CD77 70%, #ABC970 80%, #A7C568 90%, #A4C363 100%);
+    border: 1px solid #7AA23F;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px #CDCDCD;
+    margin: 0 8px 9px 7px;
+    position: relative;
+}
+.you .cloudVoice .cloudArrow {
+    background: url("../images/cloud/bubble_left_guid17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 25px;
+    left: 1px;
+    position: absolute;
+    top: 11px;
+    width: 18px;
+}
+.you .cloudVoice .cloudContent {
+    border-bottom: 1px solid #8EBF3A;
+    border-radius: 7px 7px 7px 7px;
+    border-right: 1px solid #A4D257;
+    border-top: 1px solid #E3EFC9;
+    display: block;
+    padding: 7px;
+}
+.you .cloudVoice .cloudContent .icoVoice {
+    background: url("../images/icon_sound17ced3.png") no-repeat scroll 0 -1px transparent;
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    height: 20px;
+    width: 25px;
+}
+.you .cloudVoice .cloudContent .icoVoicePlaying {
+    background: url("../images/voice0117ced3.gif") no-repeat scroll left 0 transparent;
+    display: inline-block;
+    float: left;
+    height: 20px;
+    width: 20px;
+}
+.you .sendStatus {
+    background: none repeat scroll 0 0 transparent;
+    color: #B8B8B8;
+    font-size: 12px;
+    margin-top: -23px;
+    position: absolute;
+    right: -198px;
+    text-align: left;
+    top: 50%;
+    width: 200px;
+}
+.you .cloudText .sendStatus {
+    margin-top: -8px;
+}
+.you .sendStatus span {
+    display: block;
+    margin-left: 7px;
+    margin-top: 7px;
+}
+.you .sendStatus .iconSendFailed {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll -7px -136px transparent;
+    height: 17px;
+    margin-top: 14px;
+    width: 17px;
+}
+.you .sendStatus .unread {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll -8px -72px transparent;
+    height: 17px;
+    margin: 6px 0 -12px 3px;
+    width: 17px;
+}
+.systemTip {
+    background: none repeat scroll 0 0 #DDDDDD;
+    border-radius: 4px 4px 4px 4px;
+    color: #111111;
+    display: block;
+    font-size: 12px;
+    margin: 10px auto;
+    opacity: 0.4;
+    padding: 8px 10px;
+    text-align: center;
+    text-shadow: none;
+    width: 300px;
+    word-wrap: break-word;
+}
+.systemTip .verifyUniContacts {
+    color: #5555AA;
+    cursor: pointer;
+}
+.cloudImg, .cloudVideo {
+    line-height: 0;
+}
+.cloudVoice {
+    cursor: pointer;
+}
+.cloudText img {
+    margin-bottom: -5px;
+    vertical-align: text-bottom;
+}
+.chatItem .cloudMesg {
+    border: 1px solid #979797;
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 1px 3px #9E9E9E;
+    width: 194px;
+}
+.chatItem .cloudMesg.cloudMesgWord {
+    height: inherit;
+}
+.chatItem .cloudMesg.cloudMesgImg {
+    height: inherit;
+    width: inherit;
+}
+.chatItem .chatItemContent .cloudMesg .cloudBody {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color #63A308 -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+    border-radius: 5px 5px 5px 5px;
+    border-style: none solid none none;
+    border-width: medium 9px medium medium;
+}
+.you .chatItemContent .cloudMesgLink .cloudBody, .you .chatItemContent .cloudMesgFile .cloudBody {
+    background-color: #FAFAFA;
+    background-image: -moz-linear-gradient(center top , white 0%, #FAFAFA 100%);
+}
+.me .chatItemContent .cloudMesg .cloudBody {
+    border-radius: 6px 5px 5px 6px;
+    border-right: medium none;
+}
+.me .chatItemContent .cloudMesgLink .cloudBody, .me .chatItemContent .cloudMesgFile .cloudBody {
+    background-color: #EFF0F4;
+    background-image: -moz-linear-gradient(center top , #F3F4F9 10%, #EFF0F4 50%, #EAEBEF 90%, #E9EAEE 100%);
+    border: medium none;
+}
+.chatItem .cloudMesg .cloudContent {
+    background-color: #EFF0F4;
+    background-image: -moz-linear-gradient(center top , #F3F4F9 10%, #EFF0F4 50%, #EAEBEF 90%, #E9EAEE 100%);
+    padding: 4px 7px 2px 0;
+}
+.you .cloudMesg .cloudContent {
+    border-radius: 5px 0 0 5px;
+}
+.chatItem .cloudMesg .cloudMesgPanel {
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    padding: 13px 10px;
+    width: 90%;
+}
+.chatItem .cloudMesgLink .cloudMesgPanel, .chatItem .cloudMesgFile .cloudMesgPanel {
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+    padding: 0 10px;
+    width: 90%;
+}
+.chatItem .cloudMesg .cloudMesgPanel .cloudMesgContent p {
+    color: #1F252B;
+    line-height: 1em;
+    max-height: 29px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.chatItem .cloudMesg .cloudMesgPanel .cloudMesgContent span {
+    color: #565C61;
+    display: block;
+    font-size: 12px;
+    height: 17px;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.chatItem .cloudMesgWord .cloudContent {
+    border-radius: 5px 0 0 5px;
+}
+.me .cloudMesgWord .cloudContent {
+    border-radius: 5px 5px 5px 5px;
+}
+.chatItem .cloudMesg.cloudMesgImg .cloudMesgPanel .cloudMesgWordPanel {
+    line-height: 0;
+}
+.chatItem .cloudMesg .cloudMesgPanel .cloudMesgWordPanel, .chatItem .cloudMesg .cloudMesgPanel .cloudMesgLinkFilePanel {
+    margin: 0;
+    padding: 0;
+}
+.chatItem .cloudMesg .cloudMesgPanel .cloudMesgWordPanel p {
+    max-width: 183px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.chatItem .cloudMesgLink .cloudMesgLinkFilePanel .cloudMesgIcon, .chatItem .cloudMesgFile .cloudMesgLinkFilePanel .cloudMesgIcon {
+    box-shadow: 0 1px 0 #FFFFFF;
+    height: 62px;
+    margin-left: -5px;
+    margin-right: 13px;
+    padding: 0;
+    width: 62px;
+}
+.you .cloudMesgAppEmojiPanel .cloudMesgIcon {
+    float: left;
+}
+.me .cloudMesgAppEmojiPanel .cloudMesgIcon {
+    float: right;
+}
+.chatItem .cloudMesgLink .cloudMesgLinkFilePanel .cloudMesgContent, .chatItem .cloudMesgFile .cloudMesgLinkFilePanel .cloudMesgContent {
+    padding: 10px 0;
+    width: 90px;
+}
+.me .cloudMesg .cloudArrow {
+    background: url("../images/cloud/bubble_openapi_right17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    position: absolute;
+    right: -12px;
+    top: 10px;
+    width: 13px;
+}
+.you .cloudMesg .cloudArrow {
+    background: url("../images/cloud/bubble_openapi17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 24px;
+    left: -8px;
+    position: absolute;
+    top: 10px;
+    width: 13px;
+}
+.chatItem.chatListloadingMoreMsg {
+    display: none;
+    position: absolute;
+    top: 10px;
+    z-index: 1;
+}
+.chatItem.chatListloadingMoreMsg .systemTip {
+    background-color: #E7EAEC;
+    color: #95989A;
+    opacity: 1;
+}
+.customEmoji {
+    width: 100px;
+}
+.emojiPanel {
+    position: absolute;
+    z-index: 120;
+}
+.bottle_mail .fast_rly .faceWrap {
+    bottom: 94px;
+    left: 15px;
+}
+.replyContainer .faceWrap, .replyContainer .touchWrap, .replyContainer .sendImgWrap, .replyContainer .trueBottleWrap, .penfriendWrap, .close_interact_wrap {
+    bottom: auto;
+    left: 68px;
+    top: 14px;
+}
+.bottle_send .sendImgWrap {
+    bottom: -2px;
+    left: 20px;
+    width: 406px;
+}
+.uploaded .selectPicPanel {
+    display: none;
+}
+.faceBox {
+    background: url("../images/qqSmilies17ced3.png") no-repeat scroll 0 0 transparent;
+    clear: both;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    width: 435px;
+}
+.faceBox a {
+    border-bottom: 1px solid #DFE6F6;
+    border-right: 1px solid #DFE6F6;
+    display: block;
+    float: left;
+    height: 28px;
+    width: 28px;
+}
+.facePreview {
+    background: none repeat scroll 0 0 #008AFF;
+    border: 1px solid #DFE6F6;
+    clear: both;
+    height: 53px;
+    padding: 1px;
+    position: absolute;
+    right: 1px;
+    text-align: center;
+    top: 0;
+    width: 53px;
+}
+.facePreview div {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #E5F3FF;
+    padding-top: 6px;
+}
+.facePreview p {
+    display: block !important;
+    height: 28px;
+    overflow: hidden;
+}
+.facePreview .faceName {
+    background: none repeat scroll 0 0 #F1F1F1;
+    color: #999999;
+    height: 17px;
+    line-height: 19px;
+}
+.facePreviewLeft {
+    left: 0;
+}
+.cmtTip, .goTopBox, .D, .delChose, .faceWrap, .vloadWrap, .mloadWrap, .badgeTips, .atWrap {
+}
+.faceWrap, .touchWrap, .sendImgWrap, .trueBottleWrap, .penfriendWrap {
+    background-color: #FFFFFF;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    outline: medium none;
+    position: absolute;
+    z-index: 20;
+}
+.faceWrap {
+    background-color: #FFFFFF;
+    border: 1px solid #9FA0A0;
+    border-radius: 3px 3px 3px 3px;
+    bottom: 4px;
+    box-shadow: 0 0 6px rgba(94, 89, 89, 0.57);
+    left: 5px;
+    margin-bottom: 88px;
+    overflow-y: hidden;
+    padding: 46px 20px 20px;
+    position: absolute;
+    width: 434px;
+    z-index: 0;
+}
+.faceWrap .tips_arrow {
+    left: 33px;
+}
+.faceWrap .rabbitBox {
+}
+.faceWrap .rabbitContent {
+    height: 203px;
+    margin-bottom: -1px;
+    margin-left: -5px;
+    margin-right: -20px;
+    overflow-y: auto;
+}
+.faceWrap .rabbitPanel {
+    background: url("../images/tusiji_expression17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 352px;
+    padding-left: 2px;
+}
+.faceWrap .rabbitBox a {
+    border-bottom: medium none;
+    border-right: medium none;
+    display: block;
+    float: left;
+    height: 78px;
+    margin-bottom: 13px;
+    margin-right: 16px;
+    width: 75px;
+}
+.faceWrap .rabbitBox a:hover {
+    background: url("../images/46017ced3.gif") no-repeat scroll 0 0 / 75px 77px transparent;
+}
+.emojiPanel a.faceCloseIcon {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -3px -846px transparent;
+    height: 27px;
+    position: absolute;
+    top: -304px;
+    width: 28px;
+    z-index: 10;
+}
+.emojiPanel a.faceCloseIcon:hover {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -37px -846px transparent;
+}
+.emojiPanel a.faceCloseIcon:active {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -71px -846px transparent;
+}
+.emojiPanel a:hover {
+    cursor: pointer;
+}
+.emojiPanel .faceTriangle {
+    display: none;
+    height: 20px;
+    margin-left: 14px;
+    position: absolute;
+    top: -67px;
+    width: 20px;
+    z-index: 10;
+}
+.emojiPanel .faceTrianglePanel {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+.emojiPanel .faceTriangle .faceTriangle1 {
+    border-color: #D3D0D0 transparent transparent;
+    border-style: solid;
+    border-width: 8px;
+    left: 0;
+    position: absolute;
+    top: 1px;
+}
+.emojiPanel .faceTriangle .faceTriangle2 {
+    border-color: #F6F8FB transparent transparent;
+    border-style: solid;
+    border-width: 8px;
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.faceWrap .emojiBox {
+    height: 195px;
+}
+.faceWrap .emojiBox .emojiContent {
+    height: 203px;
+    margin: 7px -20px 12px 0;
+    overflow-y: auto;
+    position: relative;
+    top: -7px;
+}
+.emojiBox .emojiContent .emojiFacePanel {
+    background: url("../images/emojiPanel17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 368px;
+}
+.emojiBox .emojiContent .emojiFacePanel a {
+}
+.faceWrap .emojiBox a {
+    border-bottom: 1px solid #DFE6F6;
+    border-right: 1px solid #DFE6F6;
+    display: block;
+    float: left;
+    height: 28px;
+    width: 28px;
+}
+.faceWrap a.borderRightNone {
+    border-right: medium none;
+    margin-right: 0;
+}
+.faceWrap a.borderBottomNone {
+    border-bottom: medium none;
+}
+.faceWrap .faceWrapFooter {
+    margin: 10px 0 0;
+    position: relative;
+}
+ul.faceTab {
+    background-color: #F6F6F6;
+    border-bottom: 1px solid #D5D5D5;
+    border-radius: 3px 3px 0 0;
+    bottom: 331px;
+    font: bold 12px verdana,arial;
+    height: 6px;
+    list-style-type: none;
+    margin: 0 0 0 6px;
+    padding-bottom: 23px;
+    padding-left: 17px;
+    position: relative;
+    width: 457px;
+    z-index: 10;
+}
+ul.faceTab li {
+    background-color: #F6F8FB;
+    float: left;
+    height: 29px;
+    margin: 0;
+}
+ul.faceTab a:link, ul.faceTab a:visited {
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+    color: #6B6B6B;
+    display: block;
+    font-family: Helvetica,Arial,'宋体',sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 21px;
+    padding: 5px 10px 3px;
+    text-decoration: none;
+}
+.rabbitBox a.r11:hover {
+    background: url("../images/emoji/rabbit/icon_00217ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r12:hover {
+    background: url("../images/emoji/rabbit/icon_00717ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r13:hover {
+    background: url("../images/emoji/rabbit/icon_01017ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r14:hover {
+    background: url("../images/emoji/rabbit/icon_01217ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r15:hover {
+    background: url("../images/emoji/rabbit/icon_01317ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r21:hover {
+    background: url("../images/emoji/rabbit/icon_01817ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r22:hover {
+    background: url("../images/emoji/rabbit/icon_01917ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r23:hover {
+    background: url("../images/emoji/rabbit/icon_02117ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r24:hover {
+    background: url("../images/emoji/rabbit/icon_02217ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r25:hover {
+    background: url("../images/emoji/rabbit/icon_02417ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r31:hover {
+    background: url("../images/emoji/rabbit/icon_02717ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r32:hover {
+    background: url("../images/emoji/rabbit/icon_02917ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r33:hover {
+    background: url("../images/emoji/rabbit/icon_03017ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r34:hover {
+    background: url("../images/emoji/rabbit/icon_03517ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r35:hover {
+    background: url("../images/emoji/rabbit/icon_04017ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+.rabbitBox a.r41:hover {
+    background: url("../images/emoji/rabbit/icon_02017ced3.gif") no-repeat scroll 5px 10px #E9ECEF;
+}
+ul.faceTab a.chooseFaceTab {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #FFFFFF;
+    border-color: -moz-use-text-color #D5D5D5 #FFFFFF;
+    border-image: none;
+    border-left: 1px solid #D5D5D5;
+    border-right: 1px solid #D5D5D5;
+    border-style: none solid solid;
+    border-width: medium 1px 1px;
+}
+.faceWrap .faceBox .borderRight {
+    border-right: medium none;
+}
+.faceWrap .faceBox .borderBottom {
+    border-bottom: medium none;
+}
+.faceWrap .faceWrapFooter .changePointPannel {
+    height: 12px;
+    margin: 20px auto 0;
+    width: 36px;
+}
+.faceWrap .point1 a, .faceWrap .point2 a, .faceWrap .point3 a {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -13px -1108px transparent;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 10px;
+    width: 10px;
+}
+.faceWrap .point1 a:hover, .faceWrap .point2 a:hover, .faceWrap .point3 a:hover {
+    background-position: -1px -1108px;
+}
+.faceWrap .postLocalFace {
+    float: right;
+    height: 24px;
+    margin: 4px 0 -7px;
+}
+.faceWrap .postLocalFace .postLocalFaceMiddle {
+    background-color: #E9EDF2;
+    border-bottom: 1px solid #FFFFFF;
+    border-radius: 12px 12px 12px 12px;
+    border-top: 1px solid #DAE0E5;
+    height: 20px;
+    width: 120px;
+}
+.faceWrap .postLocalFace .postLocalFaceMiddle a {
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    text-shadow: none;
+}
+.faceWrap .postLocalFace a {
+    color: #8F969E;
+    float: left;
+    width: 120px;
+}
+.faceWrap .postLocalFace a:hover {
+    background: none repeat scroll 0 0 transparent;
+    text-decoration: underline;
+}
+.faceWrap .postLocalFace .postLocalFaceMiddle .faceHook {
+    border-color: #E9EDF2 #E9EDF2 #8B9096;
+    border-style: solid;
+    border-width: 5px;
+    float: left;
+    height: 0;
+    margin: 3px 9px 0;
+    width: 0;
+}
+.slidePic {
+    float: left;
+    position: absolute;
+}
+.slidePic a.iconClose {
+    background-color: #393939;
+    border-radius: 0 0 0 138px;
+    height: 58px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 58px;
+}
+.slidePic .iconClose span {
+    background: url("../images/button0217ced3.png") no-repeat scroll -38px -37px transparent;
+    display: block;
+    float: right;
+    height: 34px;
+    margin: 10px 5px 0 0;
+    width: 34px;
+}
+.slidePic img {
+    box-shadow: 0 4px 30px #333333;
+    cursor: move;
+    z-index: 49;
+}
+.chatPanel .toolbar {
+}
+.chatPanel .dragUploaderPanel {
+    margin: -189px 0 0;
+}
+.chatPanel .dragUploaderPanel .close {
+    font-size: 14px;
+    position: absolute;
+    right: 5px;
+}
+.chatPanel .dragUploaderPanel div {
+    background: url("../images/illustration_chat17ced3.png") no-repeat scroll 0 -407px transparent;
+    color: #536E82;
+    height: 135px;
+    line-height: 170px;
+    text-align: center;
+    text-shadow: 0 1px 0 #CFCFCF;
+    width: 100%;
+}
+.chatPanel .dragUploaderPanel .dragUploaderIcon {
+    background: url("../images/illustration_chat17ced3.png") no-repeat scroll 0 -170px transparent;
+    display: block;
+    height: 108px;
+    left: 180px;
+    position: absolute;
+    top: -108px;
+    width: 108px;
+}
+.chatPanel .inputArea {
+    height: 43px;
+    padding: 14px 10px 0 5px;
+}
+.chatPanel .inputArea .attach {
+    float: left;
+}
+.chatPanel .inputArea .attach a.func {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    height: 34px;
+    margin-right: 2px;
+    text-decoration: none;
+    width: 34px;
+}
+.chatPanel .inputArea .attach a.expression:link, .chatPanel .inputArea .attach a.expression:visited {
+    background-position: 3px -1px;
+}
+.chatPanel .inputArea .attach a.expression:hover {
+    background-position: -29px -1px;
+}
+.chatPanel .inputArea .attach a.expression:active {
+    background-position: -61px -1px;
+}
+.chatPanel .inputArea .attach a.sendVoice:link, .chatPanel .inputArea .attach a.sendVoice:visited {
+    background-position: -1px -66px;
+}
+.chatPanel .inputArea .attach a.sendVoice:hover {
+    background-position: -33px -66px;
+}
+.chatPanel .inputArea .attach a.sendVoice:active {
+    background-position: -65px -66px;
+}
+.chatPanel .inputArea .attach a.photoActive:link, .chatPanel .inputArea .attach a.photoActive:visited {
+    background-position: -4px -34px;
+}
+.chatPanel .inputArea .attach a.photoActive:hover {
+    background-position: -32px -34px;
+    cursor: pointer;
+}
+.chatPanel .inputArea .attach a.photoActive:active {
+    background-position: -64px -34px;
+}
+.chatPanel .inputArea .attach a.screensnap:link, .chatPanel .inputArea .attach a.screensnap:visited {
+    background-position: -1px -98px;
+}
+.chatPanel .inputArea .attach a.screensnap:hover {
+    background-position: -32px -98px;
+}
+.chatPanel .inputArea .attach a.screensnap:active {
+    background-position: -62px -98px;
+}
+.chatPanel .inputArea .attach a.file:link, .chatPanel .inputArea .attach a.file:visited {
+    background-position: 0 -34px;
+}
+.chatPanel .inputArea .attach a.file:hover {
+    background-position: -31px -34px;
+}
+.chatPanel .inputArea .attach a.file:active {
+    background-position: -64px -34px;
+}
+.chatPanel .chatInput {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-color: -moz-use-text-color -moz-use-text-color #FFFFFF;
+    border-image: none;
+    border-radius: 2px 2px 2px 2px;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    box-shadow: 1px 1px 2px #BBBBBB inset;
+    float: left;
+    font: 14px/1.2em Helvetica,"微软雅黑","黑体",Arial,Tahoma;
+    height: 20px;
+    margin: 0 10px;
+    outline: medium none;
+    padding: 7px 10px 2px;
+    resize: none;
+    width: 403px;
+}
+.chatPanel .chatInput:focus {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+.chatPanel .chatOperator {
+    background: -moz-linear-gradient(center top , #F8F9FA, #DADDDF) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #DDDDDD;
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid #808384;
+    color: #383E45;
+    height: 55px;
+    position: relative;
+    text-align: left;
+}
+a.chatSend {
+    background: -moz-linear-gradient(center top , #5E76A7 10%, #546B9C 50%, #495F8F 90%, #465C8C 100%) repeat scroll 0 0 #486CB4;
+    border: 1px solid #29447E;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 1px 3px #D9D9D9;
+    color: #FFFFFF;
+    display: block;
+    float: right;
+    height: 28px;
+    margin: 0 1px 1px 0;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0 1px 1px #444444;
+    width: 80px;
+}
+a.chatSend:active {
+    background: none repeat scroll 0 0 #5F78AB;
+    border: 1px solid #1B4AB2;
+    box-shadow: 0 1px 3px #D3D3D3;
+    color: #FFFFFF;
+    text-shadow: 0 1px 1px #444444;
+}
+a.chatSend b {
+    border-radius: 3px 3px 3px 3px;
+    border-top: 1px solid #7B8FB8;
+    display: block;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    text-shadow: 0 -1px 0 #4F739F;
+}
+.chatPanel .chatMainPanel {
+    border-radius: 2px 2px 6px 6px;
+    position: absolute;
+    width: 100%;
+}
+.chatPanel .chatOperator a.chatSend:active b {
+    border-top: 1px solid #5F78AB;
+}
+.chatDetails {
+    border-radius: 6px 6px 0 0;
+    position: absolute;
+    width: 100%;
+}
+.chatDetails .chatDetailsContent {
+    background-color: #FFFFFF;
+    border-radius: 0 0 6px 6px;
+    margin: 0;
+    padding: 0;
+}
+.chatDetails .chatDetailsContent .chatDetailsTitle {
+    border: 1px solid #DEDEDE;
+    border-radius: 3px 3px 3px 3px;
+    height: 33px;
+    margin-bottom: 56px;
+    margin-top: -53px;
+}
+.chatDetails .chatDetailsContent .chatDetailsTitle input {
+    border: medium none;
+    color: #65686E;
+    font: 14px/30px Helvetica,"Microsoft YaHei",Arial,Tahoma;
+    height: 30px;
+    left: 1px;
+    position: absolute;
+    text-align: center;
+    top: 1px;
+    width: 218px;
+}
+.chatDetails .chatDetailsContent .groupName {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -105px -1235px transparent;
+    display: none;
+    height: 20px;
+    margin: 10px 0 0 13px;
+    width: 20px;
+}
+.chatDetails .chatDetailsContent h3 {
+    background: none repeat scroll 0 0 #ECECEC;
+    border-right: 1px solid #D9D9D9;
+    border-top: 1px solid white;
+    height: 32px;
+    line-height: 32px;
+    padding: 0 5px;
+    text-align: left;
+}
+.chatDetails .chatDetailsContent .partiTitleName {
+    background-color: #F9F9F9;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    color: #65686E;
+    cursor: pointer;
+    height: 32px;
+    line-height: 33px;
+    overflow: hidden;
+    padding: 0 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 200px;
+    word-wrap: normal;
+}
+.chatDetails .chatDetailsContent .partiTitleName .emoji {
+    margin-top: 5px;
+}
+.chatDetails .chatDetailsContent .partiTitleName:hover {
+    background: none repeat scroll 0 0 #ECECEC;
+}
+.chatDetails .chatDetailsContent .partiTitleName input {
+    border: medium none;
+    font: 15px/30px Helvetica,"Microsoft YaHei",Arial,Tahoma;
+    height: 30px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 207px;
+}
+.chatDetails .exitGroup {
+    border: 1px solid #DEDEDE;
+    border-radius: 3px 3px 3px 3px;
+    display: none;
+    height: 33px;
+    margin-bottom: 2px;
+    margin-top: 3px;
+    width: 146px;
+}
+.chatDetails .exitGroupPanel {
+    border-top: 1px solid #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+.chatDetails .exitGroupPanel .exitGroupIcon {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -144px -1224px #ECECEC;
+    border-bottom-left-radius: 3px;
+    border-right: 1px solid #D9D9D9;
+    border-top-left-radius: 3px;
+    height: 32px;
+    width: 38px;
+}
+.chatDetails .exitGroupPanel .exitGroupWorld {
+    background-color: #F7F7F7;
+    border-bottom-right-radius: 3px;
+    border-left: 1px solid #FFFFFF;
+    border-top-right-radius: 3px;
+    color: #65686E;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: 106px;
+}
+.chatDetails .exitGroupPanel a.exitGroupWorld:hover {
+    background-color: #ECECEC;
+    text-decoration: none;
+}
+.chatDetails .section {
+    overflow: hidden;
+    padding: 70px 10px 16px;
+}
+.chatDetails .section span {
+}
+.chatDetails .participant {
+    background-color: #F6F9FC;
+    border: 1px solid #E3E7ED;
+    margin: 10px 12px 0;
+    overflow-y: auto;
+    padding: 14px 3px 14px 22px;
+}
+.chatDetails .participant .contr {
+    padding-top: 10px;
+}
+.chatDetails .chatPerson {
+    background-color: #FFFFFF;
+    border: 1px solid #DBE3ED;
+    box-shadow: 0 1px 1px #EEF1F4;
+    height: 128px;
+    margin-bottom: 7px;
+    margin-right: 12px;
+    position: relative;
+}
+.chatDetails .chatPerson a {
+    display: block;
+    line-height: 0;
+    padding: 10px;
+}
+.chatDetails .chatPerson:hover {
+    background-color: #E5EAEF;
+}
+.chatDetails .chatPerson .personClose {
+    display: none;
+}
+.chatDetails .chatPerson:hover .personClose {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 1px -813px transparent;
+    display: block;
+    height: 12px;
+    margin-right: -16px;
+    margin-top: -11px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 12px;
+}
+.chatDetails .chatPerson:hover .personClose:hover {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -34px -813px transparent;
+}
+.chatDetails .chatPerson img {
+    height: 80px;
+    width: 80px;
+}
+.chatDetails .chatPerson .participantName {
+    color: #5A5959;
+    margin: 0 10px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 80px;
+    word-wrap: normal;
+}
+.chatDetails .chatPerson .participantFemale, .chatDetails .chatPerson .participantMale {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    float: left;
+    height: 20px;
+    margin-top: -2px;
+    width: 20px;
+}
+.chatDetails .chatPerson .participantFemale {
+    background-position: -79px -1232px;
+}
+.chatDetails .chatPerson .participantMale {
+    background-position: -60px -1232px;
+}
+.chatDetails .addButton {
+    border: 1px dashed #D0D0D0;
+    cursor: pointer;
+    height: 128px;
+    width: 100px;
+}
+.chatDetails .addButton:hover {
+    background-color: #E5EAEF;
+}
+.chatDetails .addButton a {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -4px -1010px transparent;
+    display: block;
+    height: 30px;
+    margin: 48px auto;
+    padding: 0;
+    width: 28px;
+}
+.chatDetails .addButton:hover a {
+    background-position: -34px -1010px;
+}
+.chatPanel .chatScroll {
+    border-bottom: 1px solid #DDDDDD;
+}
+.wx_ico_video {
+    background: url("../images/ico_video17ced3.png") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: inline-block;
+    height: 36px;
+    left: 50%;
+    margin: -18px 0 0 -18px;
+    opacity: 0.8;
+    position: absolute;
+    top: 50%;
+    transition: opacity 0.1s ease-in 0s;
+    width: 36px;
+    z-index: 3;
+}
+.wx_ico_video:hover {
+    filter: none;
+    opacity: 1;
+}
+.wx_video_duration {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.6);
+    border-radius: 0 0 1px 1px;
+    color: #FFFFFF;
+    line-height: 20px;
+    margin-top: -20px;
+    padding-right: 8px;
+    position: relative;
+    text-align: right;
+    text-shadow: none;
+    z-index: 3;
+}
+.footer {
+    background: url("../images/button_login17ced3.png") no-repeat scroll -12px -181px transparent;
+    bottom: 20px;
+    color: #242627;
+    left: 50%;
+    margin-left: -188px;
+    position: absolute;
+    text-shadow: 0 1px 0 #5B5C5E;
+    width: 376px;
+}
+a.icon_faq {
+    display: block;
+    margin: 0 auto;
+    width: 37px;
+}
+a.icon_faq img {
+    background: url("../images/button_login17ced3.png") no-repeat scroll 0 -1px transparent;
+    height: 37px;
+    width: 37px;
+}
+a.icon_faq:hover img {
+}
+a.icon_faq:active img {
+    background-position: -38px -2px;
+}
+.chatPanel .activeChatVernier {
+    position: absolute;
+    top: 153px;
+    width: 34px;
+}
+.chatPanel .activeChatVernier img {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll -8px -40px transparent;
+    height: 16px;
+    width: 16px;
+}
+.iconOperater {
+    background: url("../images/button0217ced3.png") no-repeat scroll -2px -96px transparent;
+    display: block;
+    height: 12px;
+    position: absolute;
+    right: 10px;
+    text-indent: -9999px;
+    top: 14px;
+    width: 12px;
+}
+a.iconOperater:active {
+    background-position: -17px -96px;
+}
+.operaterBox {
+    background-color: #FFFFFF;
+    border: 1px solid #A2ACB4;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 7px #8D8D8D;
+    padding: 0;
+    position: absolute;
+    right: 2px;
+    top: 43px;
+    width: 140px;
+    z-index: 999;
+}
+.operaterBox .operaterBoxPanel {
+    position: relative;
+}
+.operaterBox .operaterBoxPanel a.iconLogout, .operaterBox .operaterBoxPanel a.voiceCancel, .operaterBox .operaterBoxPanel a.DesktopRemind, .operaterBox .operaterBoxPanel a.addFriends, .operaterBox a.feedback {
+    border-bottom: 1px solid #C0C5C9;
+    color: #000000;
+    display: block;
+    font-size: 12px;
+    line-height: 21px;
+    margin: 0;
+    padding: 7px 2px 6px 9px;
+}
+.operaterBox .operaterBoxPanel a.iconLogout {
+    border: medium none;
+}
+.operaterBox .operaterBoxPanel a.voiceCancel {
+}
+.operaterBox .operaterBoxPanel a.DesktopRemind {
+}
+.operaterBox .operaterBoxPanel a:active {
+    background-color: #1960AE;
+    background-image: -moz-linear-gradient(center bottom , #1960AE 0%, #246BB8 25%, #3278C5 50%, #4489D5 75%, #5196E1 100%);
+    color: #FFFFFF;
+    text-shadow: none;
+}
+.operaterBox .operaterBoxPanel .iconPic {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 20px;
+    margin-left: 6px;
+    margin-right: 6px;
+    width: 20px;
+}
+.operaterBox .operaterBoxPanel .addFriends .iconPic {
+    background-position: -118px -599px;
+}
+.operaterBox .operaterBoxPanel .iconLogout .iconPic {
+    background-position: -5px -599px;
+}
+.operaterBox .operaterBoxPanel .voiceCancel .iconPic {
+    background-position: -26px -599px;
+}
+.operaterBox .operaterBoxPanel .DesktopRemind .iconPic {
+    background-position: -71px -599px;
+}
+.operaterBox .operaterBoxPanel .addFriends:active .iconPic {
+    background-position: -118px -570px;
+}
+.operaterBox .operaterBoxPanel a.iconLogout:active .iconPic {
+    background-position: -5px -570px;
+}
+.operaterBox .operaterBoxPanel a.voiceCancel:active .iconPic {
+    background-position: -26px -570px;
+}
+.operaterBox .operaterBoxPanel a.DesktopRemind:active .iconPic {
+    background-position: -71px -570px;
+}
+.operaterBox .operaterBoxPanel .DesktopRemind .iconPicDeskRem {
+    background-position: -95px -599px;
+}
+.operaterBox .operaterBoxPanel .voiceCancel .iconPicVoice {
+    background-position: -50px -599px;
+}
+.operaterBox .operaterBoxPanel a.voiceCancel:active .iconPicVoice {
+    background-position: -50px -570px;
+}
+.operaterBox .operaterBoxPanel a.DesktopRemind:active .iconPicDeskRem {
+    background-position: -95px -570px;
+}
+.operaterBox .operaterBoxPanel .feedback .iconFeedback {
+    background-position: -140px -599px;
+}
+.operaterBox .operaterBoxPanel a.feedback:active .iconFeedback {
+    background-position: -140px -570px;
+}
+.chatPanel a.iconCreateNewChat {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #FFFFFF #FFFFFF #C9CACD;
+    border-image: none;
+    border-radius: 6px 6px 0 0;
+    border-style: solid;
+    border-width: 1px;
+    color: #434950;
+    display: block;
+    height: 54px;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: 178px;
+}
+.chatPanel a.iconCreateNewChat:after {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent transparent #E2E5E7;
+    border-image: none;
+    border-style: solid;
+    border-width: 9px;
+    content: "";
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 29px;
+    top: -18px;
+    width: 0;
+}
+.chatPanel a.iconCreateNewChat:before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent transparent #FFFFFF;
+    border-image: none;
+    border-style: solid;
+    border-width: 9px;
+    content: "";
+    display: block;
+    height: 0;
+    position: absolute;
+    right: 29px;
+    top: -19px;
+    width: 0;
+}
+.chatPanel a.iconCreateNewChat span.iconPic {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -4px -564px transparent;
+    display: block;
+    float: left;
+    height: 26px;
+    margin: 17px 0 0 22px;
+    width: 28px;
+}
+.chatPanel a.iconCreateNewChat span.desc {
+    float: left;
+    margin: 20px 0 0 10px;
+}
+.chatPanel a.iconCreateNewChat:hover {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #7D8792;
+    border-color: #727C86 #727C86 #5F6369;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+}
+.chatPanel a.iconCreateNewChat:hover:after {
+    border-bottom-color: #7D8792;
+}
+.chatPanel a.iconCreateNewChat:hover:before {
+    border-bottom-color: #727C86;
+}
+.chatPanel a.iconCreateNewChat:hover span.iconPic {
+    background-position: -38px -564px;
+}
+.chatPanel a.iconCreateNewChat:hover span.desc {
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #585F66;
+}
+.chatPanel a.iconLogout:hover span.desc {
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #585F66;
+}
+.chatPanel a.iconLogout span.desc {
+    float: left;
+    margin: 4px 0 0 10px;
+}
+.chatPanel a.iconCloseChat {
+    background: url("../images/button_chat17ced3.png") repeat scroll 0 -462px transparent;
+    display: block;
+    height: 30px;
+    margin: 7px 9px 0 0;
+    position: absolute;
+    right: 0;
+    width: 30px;
+    z-index: 1;
+}
+.chatPanel .backToChat, .chatPanel .rightOpBtn {
+    height: 46px;
+    margin-top: 1px;
+    position: absolute;
+    top: 0;
+    width: 59px;
+}
+.chatPanel .backToChat {
+    left: 0;
+}
+.chatPanel .rightOpBtn {
+    right: 0;
+}
+.chatPanel .singleChat a, .chatPanel .groupChat a, .chatPanel .backToChat a {
+    background: url("../images/button0217ced3.png") no-repeat scroll 0 0 transparent;
+    height: 37px;
+    position: absolute;
+    width: 32px;
+    z-index: 1;
+}
+.chatPanel .singleChat a {
+    background-position: -102px -91px;
+    display: block;
+    margin-right: 10px;
+    margin-top: 6px;
+    right: 0;
+    width: 27px;
+}
+.chatPanel .singleChat a:active {
+    background-position: -129px -91px;
+    display: block;
+}
+.chatPanel .groupChat a {
+    background-position: -62px -91px;
+    display: block;
+    height: 25px;
+    margin-right: 10px;
+    margin-top: 6px;
+    position: absolute;
+    right: 0;
+    width: 27px;
+}
+.chatPanel .groupChat a:active {
+    background-position: -90px -91px;
+}
+.chatPanel .backToChat a {
+    background-position: -29px -92px;
+    display: block;
+    height: 28px;
+    left: 10px;
+    margin-top: 2px;
+    position: absolute;
+    top: 5px;
+    width: 18px;
+}
+.chatPanel .backToChat a:active {
+    background-position: -45px -92px;
+}
+.chatPanel a.iconCloseChat:hover {
+    background-position: -34px -462px;
+}
+.chatPanel a.iconCloseChat:active {
+    background-position: -68px -462px;
+}
+.complexDialog {
+    border-radius: 8px 8px 8px 8px;
+    position: absolute;
+    text-align: left;
+}
+.complexDialog .titleContainer {
+    background: url("../images/bg_top17ced3.png") repeat scroll 0 0 #50555C;
+    border-radius: 4px 4px 0 0;
+}
+.complexDialog .title {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px 4px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    height: 45px;
+    padding: 0 5px 0 10px;
+    text-align: left;
+}
+.complexDialog .title h3 {
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 45px;
+    text-shadow: none;
+}
+.complexDialog .title a.iconTitleClose {
+    float: right;
+    margin: 7px 6px 8px;
+}
+.complexDialog .title a.iconTitleClose img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 -460px transparent;
+    height: 34px;
+    width: 34px;
+}
+.complexDialog .title a.iconTitleClose:active img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -32px -460px transparent;
+    height: 34px;
+    width: 34px;
+}
+.complexDialog .title .iconTitleCreateNewChat {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -100px -527px transparent;
+    height: 30px;
+    vertical-align: middle;
+    width: 30px;
+}
+.complexDialog .content {
+    background: none repeat scroll 0 0 #F8F8F8;
+    border-radius: 0 0 4px 4px;
+    margin-top: -1px;
+}
+.createNewChat {
+    left: 400px;
+    top: 200px;
+    width: 400px;
+    z-index: 999;
+}
+.createNewChat .selectFriendContainer {
+}
+.createNewChat .selectGroupContainer {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.createNewChat .choosePersGroup {
+    border-bottom: 1px solid #DEE6E9;
+    font-size: 14px;
+    height: 33px;
+    width: 100%;
+}
+.createNewChat .choosePersGroup a {
+    text-shadow: none;
+}
+.createNewChat .choosePersGroup .selectPersChat {
+    background-color: #ABB5BD;
+    border-color: #C5CDD3 #7E868C #97A1A9 #ABB5BD;
+    border-style: solid;
+    border-width: 1px;
+    color: #495157;
+    height: 100%;
+    line-height: 33px;
+    text-align: center;
+    width: 198px;
+}
+.createNewChat .choosePersGroup a:hover div {
+    background: none repeat scroll 0 0 #ABB5BD;
+}
+.createNewChat .choosePersGroup a:hover {
+    text-decoration: none;
+}
+.createNewChat .choosePersGroup .selectGroupChat {
+    background-color: #ABB5BD;
+    border-color: #C3CBD1 #ABB5BD #96A2A9 #BDC5CB;
+    border-style: solid;
+    border-width: 1px;
+    color: #495157;
+    height: 100%;
+    line-height: 33px;
+    margin-top: -9px;
+    text-align: center;
+    width: 198px;
+}
+.createNewChat .choosePersGroup .selectGroupChat {
+    margin-top: -8px;
+}
+.createNewChat .choosePersGroup .selectGroupCha {
+    margin-top: -10px;
+}
+.createNewChat .choosePersGroup .selectedChat {
+    background: none repeat scroll 0 0 #C5CDD3;
+}
+.createNewChat .choosePersGroup a:hover .selectedChat {
+    background: none repeat scroll 0 0 #C5CDD3;
+}
+.createNewChat .selectFriendContainer .search {
+    background: none repeat scroll 0 0 #CED7DC;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    margin-top: 1px;
+    padding: 7px 10px 8px;
+}
+.createNewChat .selectFriendContainer .searchBar {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #8F96A0;
+    border-radius: 28px 28px 28px 28px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    display: block;
+    height: 26px;
+    line-height: 28px;
+    text-align: left;
+    width: 100%;
+}
+.createNewChat .selectFriendContainer .searchBar .iconSearch {
+    background: url("../images/icon_chat17ced3.png") no-repeat scroll -40px -167px transparent;
+    float: left;
+    height: 18px;
+    margin: 4px 0 5px 7px;
+    width: 18px;
+}
+.createNewChat .selectFriendContainer .searchBar input {
+    border: 0 solid #FFFFFF;
+    color: #666666;
+    float: left;
+    font-size: 14px;
+    height: 24px;
+    line-height: 25px;
+    width: 86%;
+}
+.createNewChat .selectFriendContainer .searchBar .searchClean {
+    background: url("../images/searchCloseIcon17ced3.png") no-repeat scroll 0 center transparent;
+    cursor: pointer;
+    height: 25px;
+    width: 21px;
+}
+.createNewChat .friendList {
+    background-color: #F5F5F5;
+    border-radius: 0 0 4px 4px;
+    height: 373px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.createNewChat .selectGroupContainer .friendList {
+    background-color: #F5F5F5;
+    border-top: 1px solid #888888;
+}
+.createNewChat .groupTitle {
+    border-top: 1px solid #D0D8E2;
+    color: #536175;
+    display: block;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 8px 31px 3px;
+    text-align: left;
+    text-decoration: none;
+    text-shadow: none;
+}
+.createNewChat .groupTitle .lapIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll -109px -34px transparent;
+    display: block;
+    height: 20px;
+    width: 17px;
+}
+.createNewChat a.groupTitle:active .lapIcon {
+    background-position: -121px -34px;
+}
+.createNewChat .groupTitle .lapedIcon {
+    background-position: -135px -34px;
+}
+.createNewChat a.groupTitle:active .lapedIcon {
+    background-position: -149px -34px;
+}
+.createNewChat .groupTitle .lapIcon .createNewChat .starFriendsTitle {
+    border-top: 1px solid #F7F7F7;
+}
+.createNewChat .groupTitle .iconFavoriteFriend {
+    background: url("../images/button0217ced3.png") no-repeat scroll -91px -35px transparent;
+    height: 18px;
+    margin-left: -24px;
+    vertical-align: top;
+    width: 22px;
+}
+.createNewChat .groupTitle .groupTitleLetter {
+    font-size: 14px;
+    font-weight: bold;
+}
+.createNewChat a.friendDetail {
+    background: none repeat scroll 0 0 #F5F5F5;
+    cursor: pointer;
+    display: block;
+    padding: 5px 10px 5px 32px;
+}
+.createNewChat a.friendDetail .name {
+    max-width: 306px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.createNewChat a.friendDetail span.photoEnter {
+    display: none;
+}
+.createNewChat a.friendDetail:hover {
+    background: none repeat scroll 0 0 #EEF3F4;
+    text-decoration: none;
+}
+.createNewChat a.friendDetail:hover span.photoEnter {
+    display: inline;
+}
+.createNewChat a.activeColumn {
+    background-color: #7A869C;
+    background-image: -moz-linear-gradient(center top , #8592A5 10%, #7A869C 50%, #737F95 90%, #717D93 100%);
+}
+.createNewChat a.activeColumn:hover {
+    background-color: #B8B7B5;
+    background-image: -moz-linear-gradient(center top , #869AB0 10%, #71859B 50%, #64788E 90%, #61758B 100%);
+}
+.createNewChat a.activeColumn .nickName {
+    color: #FFFFFF;
+    text-shadow: none;
+}
+.createNewChat .friendDetail .checkbox {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 -493px transparent;
+    display: block;
+    float: left;
+    height: 34px;
+    margin: 3px 5px 3px 0;
+    width: 34px;
+}
+.createNewChat .friendDetail .checkbox img {
+    height: 34px;
+    width: 34px;
+}
+.createNewChat .friendDetail .checked img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -34px -493px transparent;
+    height: 34px;
+    width: 34px;
+}
+.createNewChat .friendDetail .avatar {
+    display: block;
+    float: left;
+    height: 36px;
+    width: 36px;
+}
+.createNewChat .friendDetail .avatar img {
+    border: 1px solid #FFFFFF;
+    display: block;
+    height: 33px;
+    width: 33px;
+}
+.createNewChat .friendDetail .nickName {
+    color: #343434;
+    display: block;
+    float: left;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+    padding-top: 4px;
+    text-align: left;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 #FFFFFF;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.createNewChat .friendDetail .photoEnter {
+    background: url("../images/button0217ced3.png") no-repeat scroll -116px -124px transparent;
+    display: block;
+    height: 25px;
+    margin-top: 4px;
+    width: 23px;
+}
+.createNewChat .friendDetail .photoEnter:active {
+    background-position: -143px -124px;
+}
+.createNewChat .friendDetail .nickName .emoji {
+    margin-top: -5px;
+    vertical-align: bottom;
+}
+.createNewChat .friendDetail .nickName .name {
+    margin-top: -4px;
+    max-width: 187px;
+    overflow: hidden;
+    padding-top: 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.complexDialog.createNewChat .friendDetail .nickName {
+    max-width: 250px;
+}
+.complexDialog.createNewChat .friendDetail .nickName .personNum {
+    color: #A3A3A2;
+    margin-left: 5px;
+}
+.complexDialog.createNewChat .friendDetail .nickName .name {
+    margin-top: -5px;
+    max-width: 261px;
+    overflow: hidden;
+    padding-top: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-wrap: normal;
+}
+.createNewChat a.activeColumn .avatar img {
+    border: 1px solid #FFFFFF;
+}
+.createNewChat .selectedPanel {
+    display: none;
+    height: 70px;
+}
+.createNewChat .selectedPanel a.arrowLeft {
+    cursor: pointer;
+    float: left;
+    height: 70px;
+    width: 40px;
+}
+.createNewChat .selectedPanel a.arrowRight {
+    cursor: pointer;
+    float: right;
+    height: 70px;
+    width: 40px;
+}
+.createNewChat .selectedPanel a.arrowLeft img, .createNewChat .selectedPanel a.arrowRight img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 18px;
+    margin: 26px 11px;
+    width: 18px;
+}
+.createNewChat .selectedPanel a.arrowLeft img {
+    background-position: -7px -748px;
+}
+.createNewChat .selectedPanel a.arrowRight img {
+    background-position: -7px -782px;
+}
+.createNewChat .selectedPanel a.arrowLeft:hover img {
+    background-position: -41px -748px;
+}
+.createNewChat .selectedPanel a.arrowRight:hover img {
+    background-position: -41px -782px;
+}
+.createNewChat .selectedPanel .selectedList {
+    height: 70px;
+    overflow: hidden;
+    position: relative;
+}
+.createNewChat .selectedPanel .selectedListScroll {
+    position: absolute;
+}
+.createNewChat .selectedPanel .selectedList span {
+    float: left;
+    margin: 16px 11px 0 5px;
+    position: relative;
+}
+.createNewChat .selectedPanel .selectedList .avatar {
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 0 #999999;
+    height: 48px;
+    width: 48px;
+}
+.createNewChat .selectedPanel .selectedList:hover .iconRemove {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -4px -813px transparent;
+    cursor: pointer;
+    height: 25px;
+    margin: -12px 0 0 35px;
+    position: absolute;
+    width: 25px;
+}
+.createNewChat .selectedPanel .selectedList .iconRemove:hover {
+    background-position: -39px -813px;
+}
+.complexDialog .operationBar {
+    background: none repeat scroll 0 0 #C5CACE;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 4px 4px;
+    border-top: 1px solid #B9C1C5;
+    height: 60px;
+    text-align: center;
+}
+.complexDialog .operationBar .chatSend {
+    float: none;
+    margin: 12px auto;
+}
+.faqPanel {
+    left: 100px;
+    top: 200px;
+    width: 500px;
+    z-index: 1009;
+}
+.faqPanel .titleContainer {
+    background: none repeat scroll 0 0 #8EB8CA;
+}
+.faqPanel .title a.iconTitleClose {
+}
+.faqPanel .title a.iconTitleClose img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 -428px transparent;
+}
+.faqPanel .title a.iconTitleClose:hover img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -34px -428px transparent;
+}
+.faqPanel .title a.iconTitleClose:active img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -68px -428px transparent;
+}
+.faqPanel .title h3 {
+    color: #759DAE;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 5px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.faqPanel .content {
+    color: #666666;
+    padding: 30px;
+    text-shadow: none;
+}
+.faqPanel .content dt {
+    color: #444444;
+}
+.faqPanel .content dd {
+    margin-bottom: 20px;
+}
+.faqPanel .content ol li {
+    list-style-type: disc;
+    margin-left: 23px;
+}
+.faqPanel .tips {
+    color: #77A5B9;
+}
+.imageView {
+    position: absolute;
+}
+.imageView .imageContent {
+    position: relative;
+}
+.imageView a.iconClose {
+    background: none repeat scroll 0 0 #DFDFDF;
+    border-radius: 24px 24px 24px 24px;
+    float: right;
+    margin: -13px -13px 0 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1000;
+}
+.imageView a.iconClose img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -8px -470px transparent;
+    display: block;
+    height: 17px;
+    margin: 5px;
+    width: 17px;
+}
+.imageView a.iconClose:hover img {
+    background-position: -42px -470px;
+}
+.imageView a.iconClose:active img {
+    background-position: -76px -470px;
+}
+.imageView .imageContent .image {
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0 20px #111111;
+}
+.imageView .imageContent .image img {
+    border-radius: 6px 6px 6px 6px;
+    display: block;
+    width: 500px;
+}
+.imageViewControllBar {
+    bottom: 40px;
+    position: absolute;
+    width: 100%;
+    z-index: 200;
+}
+.imageViewControllBar .controllBar {
+    background: none repeat scroll 0 0 #333333;
+    border-radius: 40px 40px 40px 40px;
+    box-shadow: 0 1px 2px #000000;
+    margin: 0 auto;
+    padding: 0 0 0 20px;
+    width: 166px;
+}
+.imageViewControllBar .controllBar a.icon {
+    display: block;
+    float: left;
+    margin: 8px 0;
+    padding: 0 10px;
+}
+.imageViewControllBar .controllBar .icon img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 28px;
+    margin-top: 4px;
+    width: 34px;
+}
+.imageViewControllBar .controllBar .iconBorderLeft {
+    border-left: 1px solid #474747;
+}
+.imageViewControllBar .controllBar .iconBorderRight {
+    border-right: 1px solid #2C2C2C;
+}
+.imageViewControllBar .controllBar a.iconZoomOut img {
+    background-position: 0 -258px;
+}
+.imageViewControllBar .controllBar a.iconZoomeIn img {
+    background-position: 0 -292px;
+}
+.imageViewControllBar .controllBar a.iconDownload img {
+    background-position: 0 -326px;
+}
+.imageViewControllBar .controllBar a.iconZoomOut:active img {
+    background-position: -34px -258px;
+}
+.imageViewControllBar .controllBar a.iconZoomeIn:active img {
+    background-position: -34px -292px;
+}
+.imageViewControllBar .controllBar a.iconDownload:active img {
+    background-position: -34px -326px;
+}
+.uploadPreview {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #F0F3F4;
+    border-color: #CCCCCC #AAAAAA #AAAAAA;
+    border-image: none;
+    border-radius: 4px 4px 4px 4px;
+    border-right: 1px solid #AAAAAA;
+    border-style: solid;
+    border-width: 1px;
+    display: none;
+    height: 451px;
+    padding: 19px;
+    position: absolute;
+    width: 622px;
+    z-index: 120;
+}
+.uploadPreview a.iconClose {
+    height: 28px;
+    position: absolute;
+    right: -13px;
+    top: -13px;
+    width: 28px;
+}
+.uploadPreview a.iconClose img {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -3px -845px transparent;
+    height: 100%;
+    width: 100%;
+}
+.uploadPreview a.iconClose:hover img {
+    background-position: -37px -845px;
+}
+.uploadPreview a.iconClose:active img {
+    background-position: -71px -845px;
+}
+.uploadPreview .picPreviewWrap {
+    display: table;
+    height: 370px;
+    line-height: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 630px;
+}
+.uploadPreview .picPreviewInner {
+    display: table-cell;
+    vertical-align: middle;
+}
+.uploadPreview .picPreviewWrap img {
+    border-radius: 3px 3px 3px 3px;
+    margin: 0 auto;
+}
+.uploadPreview .picPreviewOperator {
+    height: 50px;
+    padding-top: 26px;
+}
+.picPreviewOperator a.btnSendPic, .picPreviewOperator a.btnCancelPic {
+    background: none repeat scroll 0 0 #F7F9FA;
+    border: 1px solid #CACDCF;
+    border-radius: 22px 22px 22px 22px;
+    color: #485261;
+    display: inline-block;
+    margin: 0 10px;
+    padding: 2px 3px 2px 10px;
+}
+.picPreviewOperator a.btnSendPic input, .picPreviewOperator a.btnCancelPic input {
+    text-shadow: 0 1px 0 #D0D2D7;
+}
+.picPreviewOperator a.btnSendPic span, .picPreviewOperator a.btnCancelPic span {
+    display: block;
+    float: left;
+    height: 17px;
+    margin: 3px 0 -19px;
+    width: 17px;
+}
+.picPreviewOperator a.btnSendPic span.tipPic {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -7px -367px transparent;
+}
+.picPreviewOperator a.btnCancelPic span.tipPic {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll -7px -399px transparent;
+}
+.picPreviewOperator a.btnSendPic:hover, .picPreviewOperator a.btnCancelPic:hover {
+    background: none repeat scroll 0 0 #8BA9C0;
+    border-color: #597B96;
+    text-decoration: none;
+}
+.picPreviewOperator a.btnSendPic:hover input, .picPreviewOperator a.btnCancelPic:hover input {
+    color: #FFFFFF;
+    text-shadow: 0 1px 0 #627E93;
+}
+.picPreviewOperator .btnSendPic:hover .tipPic {
+    background-position: -41px -368px;
+}
+.picPreviewOperator .btnCancelPic:hover .tipPic {
+    background-position: -43px -400px;
+}
+.picPreviewOperator input {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+    color: #485261;
+    cursor: pointer;
+    margin-left: 8px;
+}
+.profileMesg {
+    background-color: #EEF0F2;
+    border-radius: 2px 2px 2px 2px;
+    box-shadow: 0 0 2px #FFFFFF;
+    color: #343434;
+    letter-spacing: 0;
+    max-width: 213px;
+    padding: 16px;
+    position: relative;
+    text-align: left;
+}
+.profileMesg .triangleRight, .profileMesg .triangleLeft {
+    border-style: solid;
+    border-width: 5px;
+    height: 0;
+    margin-top: 10px;
+    position: absolute;
+    top: 0;
+    width: 0;
+}
+.profileMesg .triangleRight {
+    border-color: transparent transparent transparent #EEF0F2;
+    margin-right: -10px;
+    right: 0;
+}
+.profileMesg .triangleLeft {
+    border-color: transparent #EEF0F2 transparent transparent;
+    left: 0;
+    margin-left: -10px;
+}
+.profileMesg .profileNormMesgPanel {
+    border-bottom: 1px dotted #B5B7B8;
+    margin: 0 0 15px;
+    padding-bottom: 15px;
+}
+.profileMesg .profileNormMesgPanel .avatar_wrap {
+    border: 1px solid #FFFFFF;
+    float: left;
+    height: 60px;
+    margin: 0 13px 0 0;
+    padding: 0;
+    width: 60px;
+}
+.profileMesg .avatar_wrap img.avatar {
+    height: 60px;
+    width: 60px;
+}
+.profileMesg .nickname {
+    font-size: 14px;
+    max-width: 109px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0;
+    white-space: nowrap;
+}
+.profileMesg .genderIcon {
+    margin: 5px;
+}
+.profileMesg .profileNormMesgPanel .profileNormMesgContent {
+    float: left;
+}
+.profileMesg .profileNormMesgContent .profileNormMesgName {
+    color: #343434;
+    font-size: 18px;
+    text-shadow: 0 1px 0 #CCCCCC;
+}
+.profileMesg .profileNormMesgContent .profileNormMesgID {
+    font-size: 12px;
+    max-width: 137px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 #FFFFFF;
+    white-space: nowrap;
+}
+.profileMesg .profileNormMesgSign {
+    background-color: #E6EAEE;
+    font-size: 12px;
+    margin: 0;
+    padding: 1px 3px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.noMsgIip {
+    color: #CCCCCC;
+    margin: 100px 0 0;
+}
+.window {
+    background-color: white;
+    border: 1px solid #829397;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 6px #757575;
+    text-align: left;
+    width: 415px;
+}
+.window .header {
+    background-color: #DDE1E6;
+    border-bottom: 1px solid #AFB3B9;
+    border-radius: 5px 5px 0 0;
+    border-top: 1px solid #F1F1F1;
+    cursor: move;
+    height: 34px;
+}
+.window .header p {
+    color: #434B55;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 35px;
+    margin-left: 13px;
+    text-shadow: 0 1px 0 #EBEBEB;
+}
+.window .header .closeIconPanel {
+    border-left: 1px solid #E5E8EB;
+    box-shadow: -1px 0 0 #B9C3CE;
+    display: block;
+    height: 35px;
+    margin-top: -36px;
+    width: 35px;
+}
+.window .header .closeIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll -73px -17px transparent;
+    display: block;
+    height: 17px;
+    margin-left: 9px;
+    margin-top: 8px;
+    width: 17px;
+}
+.window .header .closeIcon:active {
+    background-position: -90px -17px;
+}
+.window .content {
+    padding: 32px 17px 23px;
+}
+.window .content .section {
+    padding: 8px 0;
+}
+.window .content .friendImg {
+    background: url("../images/avatar_default17ced3.png") no-repeat scroll center center transparent;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 0 #B9B9B9;
+    height: 98px;
+    margin-right: 14px;
+    width: 98px;
+}
+.window .content .personalInfo {
+    margin-top: -19px;
+}
+.window .content .personalInfo .friendMesg {
+    bottom: 0;
+    min-height: 103px;
+    position: relative;
+    width: 250px;
+}
+.window .content .personalInfo .nickname {
+    color: #434B55;
+    font-size: 13px;
+    height: 20px;
+    margin-right: 5px;
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    white-space: nowrap;
+}
+.window .content .personalInfo p {
+    color: #A9B0B6;
+    font-size: 12px;
+    line-height: 22px;
+    text-shadow: none;
+}
+.window .content .personalInfo .modifyInput {
+    line-height: 16px;
+    margin: 0;
+    padding: 0;
+    width: 100px;
+}
+.window .content .personalInfo .remarkSection {
+}
+.window .content .personalInfo .remarkSection a {
+    color: #A9B0B6;
+    padding-right: 10px;
+    text-decoration: none;
+}
+.window .content .personalInfo .remarkSection a .remarkname {
+    display: inline-block;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.window .content .personalInfo .remarkSection a .editRemarkNameIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll 2px -153px transparent;
+    display: inline-block;
+    height: 16px;
+    margin-bottom: -3px;
+    margin-left: 5px;
+    visibility: hidden;
+    width: 18px;
+}
+.window .content .personalInfo .remarkSection a .editRemarkNameIcon.show {
+    visibility: visible;
+}
+.window .content .personalInfo .remarkSection a:hover .editRemarkNameIcon {
+    display: inline-block;
+    visibility: visible;
+}
+.window .content .personalInfo .remarkSection a:active .editRemarkNameIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll -13px -153px transparent;
+    display: inline-block;
+    visibility: visible;
+}
+.window .content .personalInfo .replyWrapper {
+    border-top: 1px solid #EEEEEE;
+    margin-top: 7px;
+    padding-top: 5px;
+}
+.window .content .personalInfo .replyVerifyMsg {
+    background-color: #EEEEEE;
+    border: 1px solid #DDDDDD;
+    border-radius: 9px 9px 9px 9px;
+    cursor: pointer;
+    float: right;
+    font-size: 12px;
+    padding: 0 5px;
+}
+.window .content .personalInfo .replyVerifyMsg:hover {
+    background-color: #EAEAEA;
+    color: inherit;
+    text-decoration: none;
+}
+.window .content .personalInfo p.valiMesg {
+    background-color: #DDDDDD;
+    border-radius: 6px 6px 6px 6px;
+    color: #63676B;
+    display: inline-block;
+    line-height: 20px;
+    padding: 2px 4px;
+}
+.window .content .personalInfo .valiMesg .hook {
+    border-color: transparent #DDDDDD transparent transparent;
+    border-style: solid;
+    border-width: 5px;
+    display: block;
+    height: 0;
+    left: -10px;
+    position: absolute;
+    top: 9px;
+    width: 0;
+}
+.window .content .personalInfo .valiMesg .hook1 {
+    display: none;
+}
+.window .content .personalInfo .valiMesg .valiMesgContent {
+    display: block;
+    max-width: 254px;
+}
+.window .content .verification label {
+    color: #A1AAB8;
+    font-size: 12px;
+    text-shadow: none;
+}
+.window .content .verification p {
+    color: #A0A4AA;
+    font-size: 12px;
+    margin-bottom: 3px;
+}
+.window .content .verification .inputVerifi {
+    background-color: #E6E9EC;
+    border-color: #DDE1E6 #DEE2E6 #FDFDFD;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 -1px 0 #C6CACE;
+    margin: 4px auto 0;
+    padding: 4px 2px;
+    width: 220px;
+}
+.window .content .verification .inputVerifi:focus {
+    background-color: #FFFFFF;
+}
+a.btnBrown:hover, a.btnGray:hover {
+    cursor: pointer;
+    text-decoration: none;
+}
+a.btnBrown {
+    background-color: #596674;
+    background-image: -moz-linear-gradient(center top , #5F6C7A 10%, #596674 50%, #55606F 90%, #535F6D 100%);
+    border: 1px solid #424C55;
+    border-radius: 15px 15px 15px 15px;
+    display: inline-block;
+    margin: 0 auto;
+}
+a.btnBrown:active {
+    background-color: #4E5866;
+    background-image: -moz-linear-gradient(center top , #48535F 10%, #4E5866 50%, #555F6D 90%, #5A6572 100%);
+}
+a.btnBrown:active input {
+    color: #C0C8D1;
+}
+a.btnBrown input {
+    background: none repeat scroll 0 0 transparent;
+    border-color: #758293 #5D6A78 #525E6C;
+    border-radius: 15px 15px 15px 15px;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 3px 30px;
+}
+a.btnGray {
+    background-color: #E6E8EA;
+    background-image: -moz-linear-gradient(center top , #F2F3F4 10%, #E6E8EA 50%, #DCDFE2 90%, #DADDE1 100%);
+    border: 1px solid #AAAAAA;
+    border-radius: 15px 15px 15px 15px;
+    display: inline-block;
+    margin: 0 auto;
+}
+a.btnGray:active {
+    background-color: #4E5866;
+    background-image: -moz-linear-gradient(center top , #D2D5D8 10%, #D9DBDD 50%, #E0E2E3 90%, #E6E7E8 100%);
+}
+a.btnGray:active input {
+    color: #7B8691;
+}
+a.btnGray input {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 transparent;
+    border-color: #FFFFFF -moz-use-text-color -moz-use-text-color;
+    border-image: none;
+    border-radius: 15px 15px 15px 15px;
+    border-right: medium none;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    color: #5C6977;
+    cursor: pointer;
+    display: block;
+    margin: 0;
+    padding: 3px 30px;
+    text-shadow: 0 1px 0 #F3F4F5;
+}
+.friendInfo a.btnBrown, .friendInfo a.btnGray {
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 24px;
+    margin: 0 auto;
+    text-shadow: none;
+}
+.friendInfo .nextStep {
+    text-align: center;
+}
+.friendInfo .verification a.btnGray input, .friendInfo .verification a.btnBrown input {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+.friendInfo .nextStep .friendInfo a.btnBrown {
+}
+.friendInfo .nextStep .friendInfo a.btnBrown input {
+}
+.friendInfo a.btnBrown input, .friendInfo a.btnGray input {
+    line-height: 20px;
+    text-align: center;
+}
+.genderIcon {
+    background: url("../images/button_chat17ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 15px;
+    margin-top: 2px;
+    width: 17px;
+}
+.maleIcon {
+    background-position: -138px -984px;
+    margin-top: 1px;
+}
+.femaleIcon {
+    background-position: -157px -984px;
+}
+.window .content .physicalInfor {
+    border-bottom: 1px solid #E0E0E0;
+    margin: 1px -17px 2px;
+}
+.window .content .physicalInfor .tr {
+    border-top: 1px solid #E0E0E0;
+    clear: both;
+    display: block;
+    font-size: 12px;
+    line-height: 33px;
+    min-height: 33px;
+    overflow: hidden;
+}
+.window .content .physicalInfor .tr.photoAlbum {
+    line-height: 50px;
+    min-height: 50px;
+}
+.window .content .physicalInfor .firstTr {
+}
+.window .content .physicalInfor .tr .tdLeft {
+    color: #969EA6;
+    display: block;
+    margin-right: 14px;
+    text-align: right;
+    width: 29%;
+}
+.window .content .physicalInfor .tr .tdRight {
+    color: #434B55;
+    line-height: 1.5em;
+    max-width: 262px;
+    padding-top: 8px;
+}
+.window .content .physicalInfor .photoAlbum a {
+    display: block;
+    height: 50px;
+}
+.window .content .physicalInfor .photoAlbum a:hover {
+    background-color: #EEEEEE;
+}
+.window .content .physicalInfor .photoAlbum div {
+    border: 2px solid #F7F7F7;
+    height: 40px;
+    margin: 3px 2px -9px 0;
+    overflow: hidden;
+    position: relative;
+    width: 40px;
+}
+.window .content .physicalInfor .photoAlbum img {
+    position: absolute;
+}
+.window .content .verification {
+    text-align: center;
+}
+.window .content .verification .operBtn {
+    margin: 15px auto 0;
+    width: 56%;
+}
+.window .content .btnPrimary {
+    margin: auto;
+}
+.window .content .btnSecondary {
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px lightGrey;
+    display: block;
+    height: 30px;
+    text-align: center;
+    width: 120px;
+}
+.window .content .btnPrimary input, .window .content .verification .btnSecondary input {
+    background: none repeat scroll 0 0 transparent;
+    border: medium none;
+}
+.window .content .btnPrimary input {
+    color: #FFFFFF;
+}
+.window .content .btnSecondary input {
+    color: #6D6D6D;
+}
+.window .content .nextStep .complementOper {
+    font-size: 12px;
+    text-shadow: none;
+}
+.window .content .nextStep .complementOper .addBlacklist {
+    color: #A7B0BC;
+    margin-right: 10px;
+}
+.window .content .nextStep .complementOper .report {
+    color: #A7B0BC;
+}
+.window .content .nextStep .complementOper .addBlacklistIcon, .window .content .nextStep .complementOper .reportIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 18px;
+    width: 18px;
+}
+.window .content .nextStep .complementOper .addBlacklistIcon {
+    background-position: -1px -17px;
+}
+.window .content .nextStep .complementOper .reportIcon {
+    background-position: -37px -17px;
+}
+.window .content .nextStep .complementOper a:active .addBlacklistIcon {
+    background-position: -19px -17px;
+}
+.window .content .nextStep .complementOper a:active .reportIcon {
+    background-position: -55px -17px;
+}
+.avatorInfo {
+    height: 300px;
+}
+.avatorInfo.editAvartorContent {
+    margin-bottom: 25px;
+}
+.avatorInfo .editAvartorContent .editAvartorPanel {
+    margin-left: 32px;
+}
+.avatorInfo .preAvartorContent {
+    text-align: center;
+}
+.avatorInfo .preAvartorContent img {
+    border: 1px solid #FFFFFF;
+    box-shadow: 0 1px 0 #B9B9B9;
+    height: 90px;
+    margin: 0 auto 10px;
+    width: 90px;
+}
+.avatorInfo .editAvartorContent .editIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll -107px -17px transparent;
+    display: block;
+    height: 15px;
+    margin-right: -16px;
+    margin-top: 2px;
+    width: 15px;
+}
+.avatorInfo .editAvartorContent p {
+    margin-bottom: 28px;
+    text-align: center;
+}
+.avatorInfo .preForm {
+    margin-bottom: 30px;
+}
+.avatorInfo .preOper {
+    position: relative;
+}
+.avatorInfo .editOper {
+    margin: 0 auto;
+    width: 232px;
+}
+.avatorInfo .preOper a {
+    cursor: pointer;
+    margin-right: -8px;
+    margin-top: 47px;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    text-align: center;
+}
+.avatorInfo .preOper input {
+    cursor: pointer;
+    font-size: 100px;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+}
+.avatorInfo .editBox {
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 0 #B9B9B9;
+    height: 230px;
+    margin-left: 25px;
+    margin-right: 22px;
+    width: 230px;
+}
+.avatorInfo .previewBox {
+    background: url("../images/avatar_default17ced3.png") no-repeat scroll center center transparent;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 0 #B9B9B9;
+    height: 69px;
+    width: 70px;
+}
+.chatItem .callingCard {
+    float: none;
+    margin: 0 auto;
+    width: 238px;
+}
+.you .haveAvatarCard {
+    float: left;
+    margin-left: 20px;
+}
+.callingCard .cloudBody {
+    border: 1px solid #A5A5A5;
+    border-radius: 2px 2px 2px 2px;
+    width: 237px;
+}
+.callingCard .cloudPannel {
+    box-shadow: 0 1px 2px #C5C5C5;
+}
+.callingCard .cloudBody .content {
+    background-color: #FFFFFF;
+    padding: 4px 4px 3px;
+}
+.callingCard .cloudBody .friendMesg {
+    color: #4C5B7C;
+    overflow: hidden;
+    width: 124px;
+}
+.me .haveAvatarCard {
+    float: right;
+    margin-right: 20px;
+}
+.me .haveAvatarCard .cloudContent {
+}
+.callingCard .cloudBody .friendMesg .nickname {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    height: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 119px;
+}
+.callingCard .cloudBody .friendMesg p {
+    color: #A6A6A6;
+    font-size: 12px;
+    height: 15px;
+    line-height: 1.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 120px;
+}
+.callingCard .cloudBody .content img {
+    background: url("../images/avatar_default17ced3.png") no-repeat scroll center center transparent;
+    height: 79px;
+    margin-right: 10px;
+    width: 79px;
+}
+.callingCard .cloudBody .footer {
+    background-color: #F2F2F2;
+    background-image: none;
+    border-radius: 0 0 2px 2px;
+    border-top: 1px solid #DEDEDE;
+    color: #828282;
+    font-size: 12px;
+    line-height: 21px;
+    margin-left: auto;
+    padding: 3px 5px;
+    position: static;
+    text-shadow: none;
+    width: auto;
+}
+.callingCard .cloudBody .footer .callingCardIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 15px;
+    margin-right: 5px;
+    margin-top: 3px;
+    width: 15px;
+}
+.callingCard .cloudBody .footer .friendScanIcon {
+    background-position: -64px 0;
+}
+.callingCard .cloudBody .footer .friendAroundIcon {
+    background-position: -16px 0;
+}
+.callingCard .cloudBody .footer .friendShakeIcon {
+    background-position: -97px 0;
+}
+.callingCard .cloudBody .footer .addresIcon {
+    background-position: -32px 0;
+    width: 12px;
+}
+.callingCard .cloudBody .footer .bottleIcon {
+    background-position: -48px 0;
+}
+.callingCard .cloudBody .footer .facebookIcon {
+    background-position: -80px 0;
+}
+.callingCard .cloudBody .footer .qqIcon {
+    background-position: -113px 0;
+    width: 13px;
+}
+a.btnBlue {
+    border: 1px solid #424C55;
+    border-radius: 2px 2px 2px 2px;
+    display: block;
+    height: 19px;
+    margin-top: 1px;
+}
+a.btnBlue:active .btnBluePanel {
+    background-color: #536072;
+}
+.btnBlue .btnBluePanel {
+    background-color: #626F80;
+    border-top: 1px solid #758293;
+}
+.btnBlue .btnGrayAdded .btnPanel {
+    background-color: #F1F2F3;
+    background-image: -moz-linear-gradient(center top , #FCFCFD 0%, #F1F2F3 100%);
+}
+.btnBlue .btnWord {
+    color: #FFFFFF;
+    display: block;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 4px;
+}
+.callingCard .cloudBody .footer .addIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll -121px -17px transparent;
+    display: block;
+    height: 11px;
+    margin: 4px -1px 0 6px;
+    width: 12px;
+}
+.callingCard .cloudBody .footer a:active .addIcon {
+    background-position: -131px -17px;
+}
+.tips {
+    background-color: #000000;
+    border-radius: 3px 3px 3px 3px;
+    color: #FFFFFF;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    opacity: 0.5;
+    padding: 10px 20px;
+    text-shadow: 0 1px 0 #000000;
+    width: 146px;
+    z-index: 100000;
+}
+.tips .tipsIcon {
+    background: url("../images/button0217ced3.png") no-repeat scroll 2px -37px transparent;
+    display: block;
+    height: 32px;
+    width: 42px;
+}
+.tips .errorIcon {
+    background-position: -37px -37px;
+    width: 40px;
+}
+.inputArea .recordInput .recordVol {
+    margin-left: 95px;
+    position: relative;
+    width: 300px;
+}
+.inputArea .recordInput .recordVol span {
+    background: none repeat scroll 0 0 rgba(137, 147, 160, 0.9);
+    border-color: #60666D rgba(137, 147, 160, 0.9) #B8BBC3;
+    border-style: solid;
+    border-width: 1px;
+    bottom: 7px;
+    display: block;
+    height: 11px;
+    margin-left: 1px;
+    margin-right: 1px;
+    position: absolute;
+    width: 2px;
+}
+.inputArea .recordInput .recordVol .voiceBac {
+    background: none repeat scroll 0 0 #3476AA;
+    border-color: #29628F #3270A2 #B8BBC3;
+    border-style: solid;
+    border-width: 1px;
+}
+.inputArea .recordInput .recordTime {
+    color: #53575A;
+}
+.me .cloud .cloudPannel .cloudFileArrow {
+    background: url("../images/cloud/filetype_guid_right17ced3.png") no-repeat scroll 0 0 transparent;
+    height: 25px;
+    position: absolute;
+    right: -15px;
+    top: 8px;
+    width: 18px;
+}
+.preAvartor {
+    background-color: #F8F8F8;
+    height: 100%;
+    left: 0;
+    margin-top: -1px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 201;
+}
+.preAvartor img {
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 0 #A5A5A5;
+    height: 250px;
+    left: 63px;
+    position: absolute;
+    top: 0;
+    width: 250px;
+}
+.preAvartor .bigAvatar {
+    background: url("../images/edit_avatar17ced3.png") no-repeat scroll center center transparent;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0 1px 0 #A5A5A5;
+    height: 250px;
+    left: 67px;
+    position: absolute;
+    top: 0;
+    width: 250px;
+}
+.preAvartor .editOper {
+    left: 71px;
+    margin-top: 20px;
+    position: absolute;
+    top: 251px;
+}
+.preAvartor .editOper a {
+    margin-left: 73px;
+}
+.editAvartor {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.editAvartor .editAvartorContent a {
+}
+.editAvartor .editAvartorContent .postPhoto {
+    border-radius: 4px 4px 4px 4px;
+    color: #818181;
+    font-size: 12px;
+    margin-left: 1px;
+    margin-top: 10px;
+    padding: 0 11px;
+}
+.editAvartor .editAvartorContent a:active {
+    color: #000000;
+}
+.editAvartor .editOper {
+    margin-left: 82px;
+    margin-top: 20px;
+    width: 223px;
+}
+.fileLoad {
+    margin: 25px 0 0;
+    padding: 0;
+}
+.fileLoad .fileLoadPanel {
+    background-color: #AEBAC6;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 0 #FFFFFF;
+    height: 4px;
+    position: relative;
+    right: 0;
+    width: 98px;
+}
+.fileLoad .fileLoadPanel .progrBar {
+    background-color: #8B95A1;
+    border-radius: 2px 2px 2px 2px;
+    height: 4px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 62px;
+}
+.fileLoad .fileLoadPanel .closeFileLoad {
+    background: url("http://dev.web.weixin.qq.com/zh_CN/htmledition/images/button0217ced3.png") no-repeat scroll -74px -18px transparent;
+    border-image: initial;
+    display: block;
+    height: 15px;
+    margin-right: -7px;
+    margin-top: -4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 15px;
+    z-index: 3;
+}
+.fileLoad .fileLoadPanel .closeFileLoad:active {
+    background-position: -91px -18px;
+}
+.cloudImgLoad .fileLoad .fileLoadPanel {
+    margin-left: 8px;
+    margin-top: -18px;
+}
+.chatPanel .recordInput {
+    border: medium none;
+    box-shadow: none;
+    height: 31px;
+    padding: 0;
+    width: 385px;
+}
+.chatPanel .recordInput .recordBakLeft {
+    background: url("../images/voice0117ced3.png") no-repeat scroll center center transparent;
+    height: 100%;
+    width: 12px;
+}
+.chatPanel .recordInput .recordBakMiddle {
+    background: url("../images/voice0217ced3.png") repeat-x scroll center center transparent;
+    border-radius: 0 5px 5px 0;
+    border-right: 1px solid #81878E;
+    height: 100%;
+    line-height: 30px;
+    width: 371px;
+}
+.chatPanel .recordInput .recordBakMiddle .recordInfo {
+    font-size: 12px;
+    line-height: 32px;
+    text-shadow: none;
+}
+.chatPanel .recordInput .recordBakRight {
+    background: url("../images/voice0317ced3.png") no-repeat scroll center center transparent;
+    display: block;
+    height: 100%;
+    margin-right: 2px;
+    margin-top: -31px;
+    width: 30px;
+}
+.chatPanel .recordInput a.recordBakRight:active {
+    background: url("../images/voice03hl17ced3.png") no-repeat scroll center center transparent;
+}
+.newMsgPlayer img {
+    left: -100000px;
+}
+.popupPhotoAlbumWindow {
+    background-color: #FFFFFF;
+    border: 1px solid #3A3B3F;
+    border-radius: 5px 5px 5px 5px;
+    height: 100%;
+    overflow: hidden;
+}
+.popupPhotoAlbumWindow .popupPhotoAlbumPanel {
+    background-color: #333A42;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.popupPhotoAlbumPanel .friendCirL {
+    border-right: 1px solid rgba(35, 38, 43, 0.8);
+    height: 100%;
+    width: 77%;
+}
+.popupPhotoAlbumPanel .friendCirR {
+    width: 22%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel {
+    background-color: #FFFFFF;
+    border-right: 1px solid #1B1C20;
+    height: 100%;
+    margin: 0;
+    padding: 60px 16px 16px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .photoViewOper {
+    display: none;
+    height: 49px;
+    margin-top: -25px;
+    position: absolute;
+    top: 50%;
+    width: 49px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .photoViewOperRight {
+    right: 40px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .photoViewOperLeft {
+    left: 40px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .photoViewOper a {
+    display: block;
+    height: 100%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView a.photoPre {
+    background: url("../images/friend17ced3.png") no-repeat scroll -39px -33px transparent;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .title {
+    border: medium none;
+    color: #CECFD2;
+    font-size: 20px;
+    padding-bottom: 5px;
+    text-shadow: 0 1px 0 #FFFFFF;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .title .data {
+    font-size: 40px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView a.photoNext {
+    background: url("../images/friend17ced3.png") no-repeat scroll -114px -34px transparent;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView a.photoPre:active {
+    background-position: -38px -88px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView a.photoNext:active {
+    background-position: -114px -89px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .photoViewBox {
+    background-color: #FFFFFF;
+    border-color: #ECECED #E3E3E3 #D3D3D3;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 3px #DEDEDF;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    width: 80%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView .photoViewBox .photoWrapper img {
+    position: absolute;
+    vertical-align: middle;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoViewBox .photoViewPanel {
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoView p {
+    color: #121212;
+    font-size: 14px;
+    margin-left: 67px;
+    text-align: left;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoViewBox .albumContentWrapper {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoViewBox p.albumContent {
+    background-color: rgba(50, 50, 50, 0.4);
+    color: #FFFFFF;
+    font-size: 14px;
+    height: 21px;
+    margin-left: 0;
+    padding: 5px 3%;
+    text-align: left;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    white-space: nowrap;
+    width: 94%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoViewBox .showAll p.albumContent {
+    height: auto;
+    white-space: normal;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView {
+    margin-top: 31px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .albumContent {
+    height: 42px;
+    overflow: hidden;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList {
+    margin: 19px auto 0;
+    position: relative;
+    width: 80%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .photoListOper {
+    display: block;
+    height: 25px;
+    margin-top: 20px;
+    width: 25px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList a {
+    display: block;
+    height: 100%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList a.photoPreListPre {
+    background: url("../images/friend17ced3.png") no-repeat scroll -48px -160px transparent;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList a.photoPreListNext {
+    background: url("../images/friend17ced3.png") no-repeat scroll -126px -160px transparent;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList a.photoPreListPre:active {
+    background-position: -48px -193px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList a.photoPreListNext:active {
+    background-position: -126px -193px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .photoPreListBox {
+    height: 86px;
+    margin: 12px auto 0;
+    max-width: 917px;
+    overflow: hidden;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .photoPreListBox ul {
+    height: 100%;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList ul li {
+    float: left;
+    margin-right: 5px;
+    width: 93px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList ul a {
+    background-color: #E3E2E2;
+    border: 4px solid #FFFFFF;
+    height: 78px;
+    line-height: 76px;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 78px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList ul a img {
+    border: 1px solid #FFFFFF;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .thumbPreView {
+    background-color: #FFFFFF;
+    border: 1px solid #B7BEC6;
+    box-shadow: 0 1px 2px #EAEBED;
+    display: none;
+    left: 50%;
+    padding: 2px;
+    position: absolute;
+    top: -50px;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .thumbPreView img {
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .thumbPreView .hook {
+    bottom: 3px;
+    left: 50%;
+    margin-bottom: -5px;
+    margin-left: -5px;
+    position: relative;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .thumbPreView .hook .hook2 {
+    border-color: #FFFFFF transparent transparent;
+    border-style: solid;
+    border-width: 6px;
+    display: block;
+    height: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .thumbPreView .hook .hook1 {
+    border-color: #B7BEC6 transparent transparent;
+    border-style: solid;
+    border-width: 6px;
+    display: block;
+    height: 0;
+    position: absolute;
+    top: 1px;
+    width: 0;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList ul span {
+    background: url("../images/friend_photo_cover17ced3.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    height: 80px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 80px;
+    z-index: 2;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList ul img {
+    vertical-align: middle;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .on a {
+    border: 4px solid #A8BDD9;
+    box-shadow: 0 1px 0 #EBEBEB;
+}
+.popupPhotoAlbumPanel .friendCirLPanel .photoPreView .photoPreList .on a span {
+    display: none;
+}
+.popupPhotoAlbumPanel .friendCirRPanel {
+    margin: 0;
+    padding: 24px 0 24px 10px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel a.closeIcon {
+    background: url("../images/friend17ced3.png") no-repeat scroll -48px -286px transparent;
+    display: block;
+    float: right;
+    height: 22px;
+    margin-right: -10px;
+    margin-top: -14px;
+    width: 22px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel a.closeIcon:active {
+    background-position: -45px -324px;
+    height: 23px;
+    width: 23px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .friendMsg {
+    margin-top: 42px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .friendMsg .friendMsgInfo {
+    margin-bottom: 26px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .friendMsg .avatar {
+    border: 1px solid #000000;
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 3px #1E2126;
+    height: 58px;
+    margin-right: 12px;
+    width: 58px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .friendMsg .name {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 25px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    white-space: nowrap;
+    width: 196px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .friendMsg .location {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: none;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise {
+    background-color: #30353B;
+    border-bottom: 1px solid #2C3138;
+    border-top: 1px solid #2C3138;
+    box-shadow: 0 1px 0 #3F4653;
+    margin: 0 -19px 40px -9px;
+    max-height: 130px;
+    overflow: hidden;
+    padding: 27px 11px 2px 14px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise.showAll {
+    max-height: none;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .title .blueColor {
+    color: #94ABDD;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise .title {
+    border: medium none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    height: auto;
+    margin-bottom: 12px;
+    padding: 0 14px 17px 0;
+    text-shadow: 0 1px 0 #1D2024;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise ul {
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise .title .icon {
+    background: url("../images/friend17ced3.png") no-repeat scroll -48px -244px transparent;
+    height: 17px;
+    margin-right: 5px;
+    width: 19px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise li {
+    float: left;
+    margin: 0 4px 12px 0;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise li a {
+    display: block;
+    height: 39px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise li img {
+    height: 39px;
+    width: 40px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise a.moreIcon {
+    background: url("../images/friend17ced3.png") no-repeat scroll -44px -361px transparent;
+    display: block;
+    height: 25px;
+    margin: 0 auto;
+    position: relative;
+    top: -14px;
+    width: 25px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .praise a.moreIcon:active {
+    background-position: -142px -130px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 0 #000000;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .title {
+    border-bottom: 1px solid #414852;
+    border-radius: 0 0 0 0;
+    border-top: medium none;
+    height: auto;
+    padding: 0;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .titlePanel {
+    border-bottom: 1px solid #262B33;
+    padding: 0 9px 7px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .titlePanel .commentIcon {
+    background: url("../images/friend17ced3.png") no-repeat scroll -129px -244px transparent;
+    display: inline-block;
+    height: 19px;
+    margin: 0 5px -7px 0;
+    width: 20px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .title a {
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 0 #000000;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .title a:hover {
+    text-decoration: none;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentContent span.emoji {
+    vertical-align: text-bottom;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentContent img {
+    vertical-align: middle;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments ul {
+    overflow-y: scroll;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments ul li {
+    border-bottom: 1px solid #414852;
+    margin-top: 11px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments ul li a {
+    border-bottom: 1px solid #262B33;
+    display: block;
+    padding: 0 8px 11px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments ul li a:hover {
+    text-decoration: none;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments ul img.avatar {
+    border: medium none;
+    border-radius: 0 0 0 0;
+    box-shadow: none;
+    height: 40px;
+    width: 40px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentPanel {
+    margin-left: 52px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentPanel p {
+    color: #2F2F2F;
+    font-size: 14px;
+    line-height: 1em;
+    margin-bottom: 8px;
+    max-width: 292px;
+    text-shadow: none;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentPanel .commentContent {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 12px;
+    line-height: 20px;
+    margin: 4px 0 0;
+    text-shadow: 0 1px 0 #000000;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentPanel .commentor {
+    color: rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    font-size: 14px;
+    margin: 0;
+    max-width: 73px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 0 #000000;
+    white-space: nowrap;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentPanel .reply {
+    color: #5E749B;
+    font-size: 12px;
+}
+.popupPhotoAlbumPanel .friendCirRPanel .comments .commentPanel .time {
+    color: #A6A6A6;
+    font-size: 12px;
+}
+.feedbackWin {
+    margin-bottom: 20px;
+    margin-top: -15px;
+    padding: 0;
+    position: relative;
+}
+.feedbackWin .left {
+    bottom: 5px;
+    font-family: Constantia,Georgia;
+    font-size: 22px;
+    font-style: italic;
+    position: absolute;
+    right: 5px;
+}
+.feedbackWin textarea {
+    border: 1px solid #989CA1;
+    font: 14px/1.2em Helvetica,"微软雅黑","黑体",Arial,Tahoma;
+    height: 80px;
+    overflow: auto;
+    padding: 5px;
+    resize: none;
+    width: 97%;
+    word-wrap: break-word;
+}
+.feedbackWin .opArea {
+    float: right;
+    margin-top: 5px;
+    width: 200px;
+}
