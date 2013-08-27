@@ -15,37 +15,84 @@ $(document).ready(function(){
         $(".welcome").find("span").html(name.substr(0,8));
         $(".js_weixinNow").attr("title",name);
     }
-
-    //发送Ajax请求，获取绑定的微信用户
+//发送Ajax请求，获取绑定的微信用户
     $.ajax({
-        type:"GET",
+        type:"POST",
         url:"/api2/weixin/getall?",
         data:{
             "uid":JSON.parse(nowAccount).uid
         },
         success:function(serverData){
 //            alert(serverData["提示信息"]);
-            for(var key in serverData["weixins"]){
-                window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
+            if(serverData["提示信息"] == "获取所有绑定微信公众账号成功"){
+                for(var key in serverData["weixins"]){
+                    window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
 //                alert(serverData["weixins"][key].weixinName);
-                var li = document.createElement("li");
-                var a = document.createElement("a");
-                a.href = "javascript:;";
-                a.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
-                li.appendChild(a);
-                $(".accountSwitching ul")[0].appendChild(li);
-            }
-            $(".accountSwitching ul li").click(function(){
-                $(".accountSwitching").hide();
-                location.href="default.html";
-                if($(this).find("a").html() != "全部"){
-                    window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                    var li = document.createElement("li");
+                    var a = document.createElement("a");
+                    a.href = "javascript:;";
+                    a.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
+                    li.appendChild(a);
+                    $(".accountSwitching ul")[0].appendChild(li);
                 }
-            });
+                $(".accountSwitching ul li").click(function(){
+                    $(".accountSwitching").hide();
+                    location.href="default.html";
+                    if($(this).find("a").html() != "全部"){
+                        window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                    }
+                });
+            }else{
+                var url = window.location.href;
+                url = url.substr(url.lastIndexOf("/")+1);
+                if(url != "bindWeixin.html"){
+                    location.href = "/page/bindWeixin.html";
+                }
+            }
 
         }
     });
-
+    //获取当前微信用户的ID
+    var weixinid = "";
+    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
+    if(nowBindWeixins != null){
+        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+        for(var key in JSON.parse(nowBindWeixins)){
+            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
+                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
+                //发送请求，获取已开启的应用
+                $.ajax({
+                    type:"GET",
+                    url:"/api2/app/getall?",
+                    data:{
+                        weixinOpenID: weixinid,
+                        filter: "BIND"
+                    },
+                    success:function(serverData){
+//                        alert(serverData["提示信息"]);
+                        for(var i=0;i<serverData["apps"].length;i++){
+                            if(serverData["apps"][i].type == "private"){
+                                continue;
+                            }
+                            var li = document.createElement("li");
+                            var a = document.createElement("a");
+                            a.appendChild(document.createTextNode(serverData["apps"][i].name));
+                            a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid;
+                            li.appendChild(a);
+                            $(".js_myopenapp")[0].appendChild(li);
+                        }
+                    }
+                });
+                break;
+            }
+        }
+    }
+    $(".js_exit").click(function(){
+        //清除window.localStorage和window.sessionStorage下存放的键值对
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+        location.href = "default.html";
+    });
 	$(".js_weixinNow").click(function(){
 		$(".accountSwitching").toggle();
 		addEvent(document.body,"mousedown",clickother);
@@ -98,6 +145,7 @@ function showBlackPage(clarity,tipword){
     $(".tipWord").html(tipword);
     var popWidth = parseInt($("#promptedShow").css("width"))+60;
     $("#promptedShow").css("margin-left",-(popWidth/2));
+    $(".buttonblue")[0].focus();
 }
 http://weixintool.com/change_info.html
 // 显示弹出背景

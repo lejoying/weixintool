@@ -65,8 +65,8 @@ weixinManage.bindingtoken = function (data, response) {
         var query = [
             'START account=node({uid})' ,
             'MATCH  app:App' ,
-            'WHERE  app.appid! = 99',
-            'CREATE UNIQUE account-[r:HAS_WEIXIN]->weixin:Weixin{weixin}<-[r:BIND]-app',
+            'WHERE  app.appid! = 125',
+            'CREATE UNIQUE account-[r:HAS_WEIXIN{switch:"false"}]->weixin:Weixin{weixin}<-[r:BIND]-app',
             'RETURN  weixin, account, r'
         ].join('\n');
 
@@ -196,19 +196,19 @@ weixinManage.unbindapp = function (data, response) {
  ***************************************/
 weixinManage.getall = function (data, response) {
     response.asynchronous = 1;
-
+    /*var base = require("./../../bindserver/tools/base64");
+     console.log(base.encode(data.jscode));*/
     var account = {
         "uid": data.uid
     };
-
     getallWeixinNode();
 
     function getallWeixinNode() {
         var query = [
             'START account=node({uid})' ,
-            'MATCH account-[:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
             'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
-            'RETURN weixin, app'
+            'RETURN weixin, app, r'
         ].join('\n');
 
         var params = {
@@ -234,6 +234,7 @@ weixinManage.getall = function (data, response) {
                 for (var index in results) {
                     var weixinNode = results[index].weixin;
                     if (weixins[weixinNode.data.weixinOpenID] == null) {
+                        weixinNode.data.rela = results[index].r.data.switch;
                         weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
                         weixins[weixinNode.data.weixinOpenID].apps = [];
                     }
@@ -296,6 +297,54 @@ weixinManage.modify = function (data, response) {
         });
     }
 }
+
+/***************************************
+ *     URL：/api2/weixin/modifyrelapro
+ ***************************************/
+weixinManage.modifyrelapro = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var uid = data.uid;
+    var onoff = data.switch;
+    modifyRelaProNode();
+
+    function modifyRelaProNode() {
+        var query = [
+            'MATCH account:Account-[r:HAS_WEIXIN]->weixin:Weixin',
+            'WHERE account.uid! ={uid} AND weixin.weixinOpenID! ={weixinid}',
+            'RETURN  r'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(uid),
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改绑定微信开关失败",
+                    "失败原因 ": "数据不正常"
+                }));
+                response.end();
+            } else {
+                var rNode = results.pop().r;
+                rNode.data.switch = onoff;
+                rNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改绑定微信开关成功",
+                    "r": rNode.data
+                }));
+                response.end();
+            }
+        });
+    }
+}
+
 /***************************************
  *     URL：/api2/weixin/getbyid
  ***************************************/

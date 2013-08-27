@@ -16,8 +16,7 @@ var routemap = {
         "/api2/weixin/:operation": requestHandlers.weixinManage,
         "/api2/message/:operation": requestHandlers.messageManage,
         "/api2/user/:operation": requestHandlers.userManage,
-        "/api2/app/:operation": requestHandlers.applicationManage,
-        "/api2/myapp/:operation": requestHandlers.myappManage
+        "/api2/app/:operation": requestHandlers.applicationManage
     },
     "put": {
     },

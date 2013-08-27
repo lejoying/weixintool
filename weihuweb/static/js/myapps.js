@@ -7,6 +7,8 @@
  */
 $(document).ready(function(){
     $($(".myappBottomMessage")[0]).html("共有0条回复，此处显示最前10条回复设置");
+    var nowAccount = window.localStorage.getItem("nowAccount");
+    var obj = {};
     //获取当前微信用户的ID
     var weixinid = "";
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
@@ -15,6 +17,24 @@ $(document).ready(function(){
         for(var key in JSON.parse(nowBindWeixins)){
             if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
                 weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
+                $.ajax({
+                    type:"POST",
+                    url:"/api2/app/getbyid?",
+                    data:{
+                        weixinid : weixinid,
+                        appid: 125
+                    },
+                    success:function(serverData){
+                            obj = serverData["r"];
+                            if(obj.switch != undefined){
+                                if(obj.switch == true){
+                                    $(".myappTitle input")[0].setAttribute("checked","true");
+                                }else{
+                                    $(".myappTitle input")[0].removeAttribute("checked");
+                                }
+                            }
+                    }
+                });
                 break;
             }
         }
@@ -23,15 +43,15 @@ $(document).ready(function(){
         //获取个性化设置的前10条数据
         $.ajax({
             type:"POST",
-            url:"/api2/myapp/getall?",
+            url:"/api2/app/myappgetall?",
             data:{
                 weixinid : weixinid
             },
             success:function(serverData){
                 if(serverData["提示信息"] == "获取个性化设置成功"){
                     var selfdom_myapps = getTemplate("selfdom_myapps");
-                    $(".appExamplesList").html(selfdom_myapps.render(serverData["myapps"]));
-                    $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
+                    $(".appExamplesList").html(selfdom_myapps.render(serverData["r"]));
+                    $($(".myappBottomMessage")[0]).html("共有条回复，此处显示最前10条回复设置");
                     for(var i=0;i<$(".receivetxt").length;i++){
                         var id = $($(".receivetxt")[i]).html();
                         $($(".receivetxt")[i]).html(id.substr(0,20)+"...");
@@ -43,13 +63,37 @@ $(document).ready(function(){
                 }
             }
         });
+
+        $(".myappTitle input").click(function(){
+            obj.switch = this.checked;
+            $.ajax({
+                type:"post",
+                url:"/api2/app/myappmodify?",
+                data:{
+                    weixinid:weixinid,
+                    appid:125,
+                    r:JSON.stringify(obj)
+                },
+                success:function(serverData){
+                    if(serverData["提示信息"] == "修改绑定微信信息成功"){
+                        if(serverData["weixin"].switch==true){
+                            showBlackPage("开启成功","开启成功");
+                        }else{
+                            showBlackPage("关闭成功","关闭成功");
+                        }
+                    }else if(serverData["提示信息"] == "修改绑定微信信息失败"){
+                        showBlackPage("设置失败","设置失败");
+                    }
+                }
+            });
+        });
     }
     //给上传按钮添加点击事件
     $(".myappTXTUploadBtn").click(function(){
 
         var filepath = $(".uploadFace").val().trim();
         if(filepath == ""){
-            alert("请您选择要上传的txt文件");
+            showBlackPage("请您选择要上传的txt文件","请您选择要上传的txt文件");
             return;
         }
         var last = filepath.substr(filepath.lastIndexOf(".")+1);
@@ -99,13 +143,13 @@ $(document).ready(function(){
                 if(weixinid != ""){
                     $.ajax({
                         type:"POST",
-                        url:"/api2/myapp/add?",
+                        url:"/api2/app/myappadd?",
                         data:{
                             weixinid:weixinid,
                             "myapp":objs
                         },
                         success:function(serverData){
-                            alert(serverData["提示信息"]);
+                            showBlackPage(serverData["提示信息"],serverData["提示信息"]);
                         }
                     });
                 }else{

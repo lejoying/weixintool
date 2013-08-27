@@ -13,17 +13,13 @@
             <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;">易佳洁</a>
             <a href="/page/bindWeixin.html">绑定微信公众帐号</a>
             <div class="accountSwitching" id="accountSwitching" style="display:none;">
-                <ul>
-                    <li><a href="javascript:;">易佳洁</a></li>
-                    <li><a href="javascript:;">笑话精选</a></li>
-                    <li><a href="javascript:;">微成都</a></li>
-                    <li><a href="/page/allBindWeixin.html">全部</a></li>
-                </ul>
+                <ul></ul>
             </div>
         </div>
         <div class="userAccount">
             <span>欢迎Vook</span>
             <a href="/page/setting.html">设置</a>
+            <a href="javascript:;" class="js_exit">退出</a>
         </div>
     </div>
 </div>
@@ -36,6 +32,7 @@
             <li><a href="/page/industryApp.html">行业应用</a></li>
             <li><a href="javascript:;">生活服务</a></li>
             <li><a href="javascript:;">定制需求</a></li>
+            <li><a href="javascript:;">后台管理</a></li>
         </ul>
     </div>
 </div>
@@ -46,10 +43,7 @@
         	<ul>
             	<li><a href="javascript:;"><b>我的应用</b></a></li>
                 <li><a href="javascript:;"><b>已开应用</b></a></li>
-                <li><a href="javascript:;">笑话</a></li>
-                <li><a href="javascript:;">点歌</a></li>
-                <li><a href="javascript:;">算命</a></li>
-                <li><a href="javascript:;">订餐</a></li>
+                <div class="js_myopenapp"></div>
                 <li><a href="javascript:;"><b>联系我们</b></a></li>
             </ul>
             <!--<div class="replyRules">
@@ -65,14 +59,14 @@
         </div>
         <div class="mainContern">
         	<div class="publicAppTitle">
-                <div class="allApps"><a class="appsClick" href="javascript:;">全部应用</a></div>
-                <div class="publicApps"><a class="" href="javascript:;">公共应用</a></div>
+                <div class="allApps"><a class="appsClick" href="javascript:;"><!--全部应用--></a></div>
+                <div class="publicApps"><a class="" href="javascript:;"><!--公共应用--></a></div>
                 <div class="publicAppSearch">
                 	<input name="" type="text" /><a href="javascript:;">查询</a>
                 </div>
             </div>
             <div class="allAppsList">
-            	<ul>
+            	<!--<ul>
                 	<li>
                     	<div class="appsImg"><img src="/static/images/app/6.jpg" /></div>
                         <div class="appsSummary">
@@ -82,7 +76,7 @@
                         </div>
                         <div class="publicAppsOperating">
                         	<div class="switch publicAppSwitch demo3">
-                                <input type="checkbox" > 
+                                <input type="checkbox" value="179" >
                                 <label><i></i></label>
                             </div>
                             <a class="publicAppFull" href="publicAppDetail.html">详情</a>
@@ -97,7 +91,7 @@
                         </div>
                         <div class="publicAppsOperating">
                         	<div class="switch publicAppSwitch demo3">
-                                <input type="checkbox" > 
+                                <input type="checkbox" value="165" >
                                 <label><i></i></label>
                             </div>
                             <a class="publicAppFull" href="publicAppDetail1.html">详情</a>
@@ -118,7 +112,7 @@
                             <a class="publicAppFull" href="publicAppDetail2.html">详情</a>
                         </div>
                     </li>
-                </ul>
+                </ul>-->
             </div>
             <div class="pagination">
                 <a href="#" title="上一页">首页</a>
@@ -142,8 +136,48 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_publicapp" serverdata="main_publicapp" evenpool="main_publicapp">
+        <div class="main_publicapp" id="main_publicapp">
+            <ul>
+                <?js for(var index in it){ ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <li>
+                    <div class="appsImg"><img src="/static/images/app/6.jpg" /></div>
+                    <div class="appsSummary">
+                        <div class="publicAppExplanation"><span class="publicAppName">#{post.name}</span><span>
+                            <?js if(post.type=="public"){ ?>
+                                公共应用
+                            <?js }else{ ?>
+                            <?js } ?>
+                            ，适用：#{post.class}</span></div>
+                        <div class="publicAppIntroduction">#{post.intro}</div>
+                        <div class="publicAppRule">回复字母：<span>#{post.replytxt}</span></div>
+                    </div>
+                        <div class="publicAppsOperating">
+                        <div class="switch publicAppSwitch demo3">
+                            <?js if(post.rela==true){ ?>
+                            <input type="checkbox" value="#{post.appid}" checked="checked" >
+                            <?js }else{ ?>
+                            <input type="checkbox" value="#{post.appid}" >
+                            <?js } ?>
+                            <label><i></i></label>
+                        </div>
+                        <a class="publicAppFull" href="publicAppDetail.html?id=#{post.appid}">详情</a>
+                    </div>
+                </li>
+                <?js } ?>
+            </ul>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
+<script type="text/javascript" src="/static/js/publicApp.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
 </body>
 </html>

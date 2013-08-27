@@ -200,16 +200,19 @@ applicationManage.getall = function (data, response) {
     {
         weixinOpenID: data.weixinOpenID
     };
-
     getallAppNode();
-
+    var apps = [];
+    var count = 0;
+    var index = 0;
     function getallAppNode() {
         var query;
         var failReason;
         if (filter == "ALL") {
             query = [
                 'MATCH app:App' ,
-                'RETURN  app'
+                'WHERE app.type! ="public"',
+                'RETURN  app',
+                'ORDER BY app.appid ASC'
             ].join('\n');
             failReason = "应用列表为空";
         } else if (filter == "OWN") {
@@ -245,20 +248,238 @@ applicationManage.getall = function (data, response) {
                 }));
                 response.end();
             } else {
-                var apps = [];
+                count = results.length;
                 for (var index in results) {
-                    var appNode = results[index].app;
-                    apps.push(appNode.data);
+                    var appNode = results[index].app.data;
+                    judgeHaveRela(appNode.appid, next, appNode);
+
                 }
+
+            }
+        });
+        function next(appNode){
+            apps.push(appNode);
+            index++;
+            if(count == index){
                 response.write(JSON.stringify({
                     "提示信息": "获得应用列表成功",
                     "apps": apps
                 }));
                 response.end();
             }
-        });
+        }
+    }
+    function judgeHaveRela(appid, next, appNode){
+        query = [
+            'MATCH app:App-[:BIND]->weixin:Weixin' ,
+            'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.appid! ={appid}',
+            'RETURN  app'
+        ].join('\n');
 
+        var params = {
+            weixinOpenID: weixin.weixinOpenID,
+            appid: appid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获得应用列表失败",
+                    "失败原因 ": "应用列表为空"
+                }));
+                response.end();
+            }
+            if (results.length == 0) {
+                next(appNode);
+            } else {
+                appNode.rela = true;
+                next(appNode);
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/app/myappadd
+ ***************************************/
+applicationManage.myappadd = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var myappStr = data.myapp;
+    var myapps = JSON.parse(myappStr);
+    modifyMyAppNode();
+
+    function modifyMyAppNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! =125',
+            'RETURN  weixin, app, r'
+        ].join('\n');
+
+        var params = {
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "保存个性化设置失败",
+                    "失败原因 ": "保存数据出现异常"
+                }));
+                response.end();
+            } else {
+                var rNode = results.pop().r;
+                rNode.data.mydata = myappStr;
+                rNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "保存个性化设置成功",
+                    "r": rNode.data.mydata
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/app/myappadd
+ ***************************************/
+applicationManage.myappgetall = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    modifyMyAppNode();
+
+    function modifyMyAppNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! =125',
+            'RETURN  r'
+        ].join('\n');
+/*        var query = [
+            'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! =125',
+            'RETURN  r'
+        ].join('\n');*/
+
+        var params = {
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取个性化设置失败",
+                    "失败原因 ": "保存数据出现异常"
+                }));
+                response.end();
+            } else {
+                var rNode = results.pop().r;
+                response.write(JSON.stringify({
+                    "提示信息": "获取个性化设置成功",
+                    "r": JSON.parse(rNode.data.mydata),
+                    "count":JSON.parse(rNode.data.mydata).length
+                }));
+                response.end();
+            }
+        });
     }
 }
 
+/***************************************
+ *     URL：/api2/app/myappmodify
+ ***************************************/
+applicationManage.myappmodify = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var appid = data.appid;
+    var rStr = data.r;
+    var rData = JSON.parse(rStr);
+    getByIdAppNode();
+
+    function getByIdAppNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! ={appid}',
+            'RETURN  weixin, r, app'
+        ].join('\n');
+
+        var params = {
+            weixinid: weixinid,
+            appid: parseInt(appid)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用信息失败",
+                    "失败原因 ": "应用信息不存在"
+                }));
+                response.end();
+            } else {
+                var rNode = results.pop().r;
+                rNode.data = rData;
+                rNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用信息成功",
+                    "r": rNode.data
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/app/getbyid
+ ***************************************/
+applicationManage.getbyid = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var appid = data.appid;
+    getByIdAppNode();
+
+    function getByIdAppNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! ={appid}',
+            'RETURN  weixin, r, app'
+        ].join('\n');
+
+        var params = {
+            weixinid: weixinid,
+            appid: parseInt(appid)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用信息失败",
+                    "失败原因 ": "应用信息不存在"
+                }));
+                response.end();
+            } else {
+                var r = results.pop().r.data;
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用信息成功",
+                    "r": r
+                }));
+                response.end();
+            }
+        });
+    }
+}
 module.exports = applicationManage;

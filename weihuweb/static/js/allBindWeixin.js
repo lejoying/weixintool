@@ -19,6 +19,30 @@ $(document).ready(function(){
             success:function(serverData){
                 var bind_weixin = getTemplate("bind_weixin");
                 $(".allAppsList").html(bind_weixin.render(serverData["weixins"]));
+                $(".publicAppsOperating input").each(function(i){
+                    $($(".publicAppsOperating input")[i]).click(function(){
+                        $.ajax({
+                            type:"post",
+                            url:"/api2/weixin/modifyrelapro?",
+                            data:{
+                                uid: JSON.parse(nowAccount).uid,
+                                weixinid: this.value,
+                                switch: this.checked
+                            },
+                            success:function(serverData){
+                                if(serverData["提示信息"] == "修改绑定微信开关成功"){
+                                    if(serverData["r"].switch=="true"){
+                                        showBlackPage("开启成功","开启成功");
+                                    }else{
+                                        showBlackPage("关闭成功","关闭成功");
+                                    }
+                                }else if(serverData["提示信息"] == "修改绑定微信开关失败"){
+                                    showBlackPage("设置失败","设置失败");
+                                }
+                            }
+                        });
+                    });
+                });
             }
         });
     }
