@@ -24,23 +24,31 @@ $(document).ready(function(){
         },
         success:function(serverData){
 //            alert(serverData["提示信息"]);
-            for(var key in serverData["weixins"]){
-                window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
+            if(serverData["提示信息"] == "获取所有绑定微信公众账号成功"){
+                for(var key in serverData["weixins"]){
+                    window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
 //                alert(serverData["weixins"][key].weixinName);
-                var li = document.createElement("li");
-                var a = document.createElement("a");
-                a.href = "javascript:;";
-                a.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
-                li.appendChild(a);
-                $(".accountSwitching ul")[0].appendChild(li);
-            }
-            $(".accountSwitching ul li").click(function(){
-                $(".accountSwitching").hide();
-                location.href="default.html";
-                if($(this).find("a").html() != "全部"){
-                    window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                    var li = document.createElement("li");
+                    var a = document.createElement("a");
+                    a.href = "javascript:;";
+                    a.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
+                    li.appendChild(a);
+                    $(".accountSwitching ul")[0].appendChild(li);
                 }
-            });
+                $(".accountSwitching ul li").click(function(){
+                    $(".accountSwitching").hide();
+                    location.href="default.html";
+                    if($(this).find("a").html() != "全部"){
+                        window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                    }
+                });
+            }else{
+                var url = window.location.href;
+                url = url.substr(url.lastIndexOf("/")+1);
+                if(url != "bindWeixin.html"){
+                    location.href = "/page/bindWeixin.html";
+                }
+            }
 
         }
     });
