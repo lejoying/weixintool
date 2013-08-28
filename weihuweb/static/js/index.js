@@ -5,6 +5,13 @@ $(document).ready(function(){
     var nowAccount = window.localStorage.getItem("nowAccount");
     if(nowAccount != null){
         $(".userAccount span").html("欢迎"+unescape(JSON.parse(nowAccount).accountname));
+        if(JSON.parse(nowAccount).type == "admin"){
+            var li = document.createElement("li");
+            var a = document.createElement("a");
+            a.appendChild(document.createTextNode("后台管理"));
+            li.appendChild(a);
+            $(".nav ul")[0].appendChild(li);
+        }
     }else{
         location.href="/login.html";
     }

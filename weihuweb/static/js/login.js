@@ -70,7 +70,7 @@ function loginSubmit(){
                 window.localStorage.setItem("nowAccount",JSON.stringify(serverData["account"]));
             }else if(serverData["提示信息"] == "账号登录失败"){
                 $(".js_errorPrompt").addClass("show");
-                $(".js_errorPrompt").html(serverData["失败原因"]);
+                $(".js_errorPrompt").html(unescape(serverData["失败原因"]));
             }
         }
     });

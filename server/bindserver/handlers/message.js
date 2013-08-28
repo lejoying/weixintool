@@ -440,6 +440,51 @@ message.message = function (data, getParam, response) {
             });
         }
 
+        //公共应用：排号自动回复
+        function replyPublicAppPH(){
+            var data = bindApp.data;
+            if(data == "" || data == undefined){
+                var objs = [];
+                var obj = {};
+                obj.id = weixin.weixinOpenID;
+                obj.number = 1;
+                reply.text.content = 1;
+                objs.add(obj);
+                bindApp.data = JSON.stringify(objs);
+                api.saveData();
+                api.sendReply();
+            }else{
+                var ob = JSON.parse(data);
+                for(var i=0;i<ob.length;i++){
+                    if(ob[i].id == weixin.weixinOpenID){
+                        obj[i].number = obj[i].number+1;
+                        reply.text.content = obj[i].number+1;
+                        bindApp.data = JSON.stringify(ob);
+                        api.saveData();
+                        api.sendReply();
+                        break;
+                    }
+                }
+            }
+
+        }
+        //行业应用：订餐服务
+        function replyPublicAppDC(){
+            var data = bindApp.data;
+            if(data == "" || data == undefined){
+                reply.text.content = "应用数据不存在";
+                api.sendReply();
+            }else{
+                var obj = JSON.parse(data);
+                for(var i=0;i<obj.length;i++){
+                    if(obj[i].id == message.text.content){
+                        reply.text.content = obj[i].content;
+                        api.sendReply();
+                        break;
+                    }
+                }
+            }
+        }
         /*************************************** ***************************************
          *    sandbox
          *************************************** ***************************************/
