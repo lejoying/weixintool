@@ -107,7 +107,8 @@ a.appsClick{
 }
 .publicAppName{
 	display:inline-block;
-	width:100px;
+	width:160px;
+    margin-right:8px;
 	color:#000;
 	font-weight:bold;	
 }

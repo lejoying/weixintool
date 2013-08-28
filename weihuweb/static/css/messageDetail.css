@@ -11,6 +11,10 @@
 	right:15px;
 	top:12px;
 }
+a.goPrevious:hover{
+    color:#f2f2f2;
+    background:#D22620;
+}
 .userMessageContent{
 	margin:15px;
 	min-height:500px;	
