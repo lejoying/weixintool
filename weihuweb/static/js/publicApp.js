@@ -37,9 +37,13 @@ $(document).ready(function(){
                 $(".publicAppsOperating input").each(function(i){
                     $($(".publicAppsOperating input")[i]).click(function(){
                         var url = "";
+                        var href = $(".publicAppsOperating a")[i].href;
+                        var aurl = href.substr(0,href.lastIndexOf("=")+1);
                         if(this.checked == true){
+                            $(".publicAppsOperating a")[i].href = aurl+this.checked;
                             url = "/api2/weixin/bindapp?"
                         }else if(this.checked == false){
+                            $(".publicAppsOperating a")[i].href = aurl+"undefined";
                             url = "/api2/weixin/unbindapp?"
                         }
                         $.ajax({

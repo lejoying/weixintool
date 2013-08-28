@@ -7,13 +7,16 @@
  */
 $(document).ready(function(){
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
+    var nowWeixinName = window.localStorage.getItem("nowWeixinName");
     if(nowBindWeixins != null){
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
         for(var key in JSON.parse(nowBindWeixins)){
             if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
                 getAllWeixinUser(JSON.parse(nowBindWeixins)[key].weixinOpenID);
             }
         }
+    }
+    if(nowWeixinName != null){
+        $(".weixinMemberTitle div span").html(nowWeixinName);
     }
     //发送Ajax请求,获取微信会员列表信息并显示
     function getAllWeixinUser(weixinOpenID){
@@ -43,10 +46,6 @@ $(document).ready(function(){
                                 }
                                 $($(".js_substrcity")[i]).html(cy);
                             }
-                        }
-                        var time = $($(".js_substrtime")[i]).html();
-                        if(time != undefined){
-                            $($(".js_substrtime")[i]).html(time.substr(0,time.indexOf("T")));
                         }
                     }
                 }

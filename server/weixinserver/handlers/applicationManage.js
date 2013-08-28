@@ -188,6 +188,48 @@ applicationManage.modify = function (data, response) {
 }
 
 /***************************************
+ *     URL：/api2/app/getbyid
+ ***************************************/
+applicationManage.getbyid= function (data, response) {
+    response.asynchronous = 1;
+    var appid = data.appid;
+    getByIdNode();
+
+    function getByIdNode() {
+        var query = [
+            'MATCH app:App' ,
+            'WHERE app.appid! ={appid}',
+            'RETURN  app'
+        ].join('\n');
+
+        var params = {
+            appid: parseInt(appid)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用信息失败",
+                    "失败原因 ": "应用信息不存在"
+                }));
+                response.end();
+            } else {
+                var app = results.pop().app.data;
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用信息成功",
+                    "app": app
+                }));
+                response.end();
+            }
+        });
+    }
+}
+
+/***************************************
  *     URL：/api2/app/getall
  ***************************************/
 applicationManage.getall = function (data, response) {
@@ -440,15 +482,15 @@ applicationManage.myappmodify = function (data, response) {
     }
 }
 /***************************************
- *     URL：/api2/app/getbyid
+ *     URL：/api2/app/getmyapp
  ***************************************/
-applicationManage.getbyid = function (data, response) {
+applicationManage.getmyapp= function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     var appid = data.appid;
-    getByIdAppNode();
+    getMyAppNode();
 
-    function getByIdAppNode() {
+    function getMyAppNode() {
         var query = [
             'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
             'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! ={appid}',
@@ -476,10 +518,50 @@ applicationManage.getbyid = function (data, response) {
                 response.write(JSON.stringify({
                     "提示信息": "获取应用信息成功",
                     "r": r
+            }));
+            response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/app/getappscount
+ ***************************************/
+applicationManage.getappscount = function (data, response) {
+    response.asynchronous = 1;
+    var type = data.type;
+    getAppsCountNode();
+
+    function getAppsCountNode() {
+        var query = [
+            'MATCH app:App' ,
+            'WHERE app.type! ={type}',
+            'RETURN  count(app)'
+        ].join('\n');
+
+        var params = {
+            type: type
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用数量失败",
+                    "失败原因 ": "数据格式不正常"
+                }));
+                response.end();
+            }else {
+                var count = results.pop()["count(app)"];
+                response.write(JSON.stringify({
+                    "提示信息": "获取应用数量成功",
+                    "count": count
                 }));
                 response.end();
             }
         });
     }
 }
+
+
 module.exports = applicationManage;

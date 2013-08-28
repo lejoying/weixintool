@@ -48,6 +48,9 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "modifyrelapro") {
         weixinManage.modifyrelapro(data, response);
     }
+    else if (operation == "newusercount") {
+        weixinManage.newusercount(data, response);
+    }
 };
 
 
@@ -91,6 +94,12 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     }
     else if (operation == "myappmodify") {
         applicationManage.myappmodify(data, response);
+    }
+    else if (operation == "getappscount") {
+        applicationManage.getappscount(data, response);
+    }
+    else if (operation == "getmyapp") {
+        applicationManage.getmyapp(data, response);
     }
 };
 

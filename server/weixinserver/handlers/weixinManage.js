@@ -386,4 +386,44 @@ weixinManage.getbyid = function (data, response) {
         });
     }
 }
+
+/***************************************
+ *     URL：/api2/weixin/newusercount
+ ***************************************/
+weixinManage.newusercount = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var time = data.time;
+    newUserCountNode();
+
+    function newUserCountNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r]-user:User' ,
+            'WHERE weixin.weixinOpenID! ={weixinid} AND user.time! ={time}',
+            'RETURN  count(user)'
+        ].join('\n');
+
+        var params = {
+            weixinid: weixinid,
+            time: time
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取今日新增会员数量失败",
+                    "失败原因 ": "数据格式不正确"
+                }));
+                response.end();
+            }else{
+                var count = results.pop()["count(user)"];
+                response.write(JSON.stringify({
+                    "提示信息": "获取今日新增会员数量成功",
+                    "count": count
+                }));
+                response.end();
+            }
+        });
+    }
+}
 module.exports = weixinManage;

@@ -10,7 +10,7 @@
     <div class="headContent">
         <div class="logo"><a href="/page/default.html">&nbsp;</a></div>
         <div class="weixinSwitch">
-            <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;">易佳洁</a>
+            <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;"></a>
             <a href="/page/bindWeixin.html">绑定微信公众帐号</a>
             <div class="accountSwitching" id="accountSwitching" style="display:none;">
                 <ul></ul>
@@ -59,7 +59,7 @@
         </div>
         <div class="mainContern">
         	<div class="weixinMemberTitle">
-            	<div><span>易佳洁</span>的微信会员</div>
+            	<div><span></span>的微信会员</div>
                 <a href="javascript:;" class="gotoWeixinList">微信官网用户列表页</a>
 			</div>
             <div class="wixinMemberTable">
@@ -146,9 +146,9 @@
                 <?js continue; ?>
             <?js } ?>
             <tr>
-            <td class="idsubstr">#{post.id}</td>
+            <td class="idsubstr" title="#{post.id}">#{post.id}</td>
             <?js if(post.nickName!=null){ ?>
-                <td>#{post.nickName}</td>
+                <td title="#{post.nickName}">#{post.nickName}</td>
             <?js }else{ ?>
                 <td></td>
             <?js } ?>

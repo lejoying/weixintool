@@ -8,13 +8,6 @@ $(document).ready(function(){
     }else{
         location.href="/login.html";
     }
-    var name = window.localStorage.getItem("nowWeixinName");
-    if(name != null){
-//        alert(name);
-        $(".js_weixinNow").html(name.substr(0,8));
-        $(".welcome").find("span").html(name.substr(0,8));
-        $(".js_weixinNow").attr("title",name);
-    }
 //发送Ajax请求，获取绑定的微信用户
     $.ajax({
         type:"POST",
@@ -25,15 +18,39 @@ $(document).ready(function(){
         success:function(serverData){
 //            alert(serverData["提示信息"]);
             if(serverData["提示信息"] == "获取所有绑定微信公众账号成功"){
+                window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
+                var index = 0;
                 for(var key in serverData["weixins"]){
-                    window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
-//                alert(serverData["weixins"][key].weixinName);
+                    if(index == 0){
+                        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+                        if(nowWeixinName == null){
+                            window.localStorage.setItem("nowWeixinName",serverData["weixins"][key].weixinName);
+                        }
+                    }
+                    index++;
                     var li = document.createElement("li");
                     var a = document.createElement("a");
                     a.href = "javascript:;";
                     a.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
                     li.appendChild(a);
                     $(".accountSwitching ul")[0].appendChild(li);
+                }
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+                a.href = "/page/allBindWeixin.html";
+                a.appendChild(document.createTextNode("全部"));
+                li.appendChild(a);
+                $(".accountSwitching ul")[0].appendChild(li);
+                var name = window.localStorage.getItem("nowWeixinName");
+                if(name != null){
+                    $(".js_weixinNow").html(name.substr(0,8));
+                    $(".welcome").find("span").html(name.substr(0,8));
+                    $(".js_weixinNow").attr("title",name);
+                }
+                var url = window.location.href;
+                url = url.substr(url.lastIndexOf("/")+1);
+                if(url == "default.html"){
+                    $.getScript("./../static/js/default.js");
                 }
                 $(".accountSwitching ul li").click(function(){
                     $(".accountSwitching").hide();
@@ -69,17 +86,19 @@ $(document).ready(function(){
                         filter: "BIND"
                     },
                     success:function(serverData){
-//                        alert(serverData["提示信息"]);
-                        for(var i=0;i<serverData["apps"].length;i++){
-                            if(serverData["apps"][i].type == "private"){
-                                continue;
+                        if(serverData["提示信息"] == "获得应用列表成功"){
+                            window.sessionStorage.setItem("appcount",serverData["apps"].length);
+                            for(var i=0;i<serverData["apps"].length;i++){
+                                if(serverData["apps"][i].type == "private"){
+                                    continue;
+                                }
+                                var li = document.createElement("li");
+                                var a = document.createElement("a");
+                                a.appendChild(document.createTextNode(serverData["apps"][i].name));
+                                a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid;
+                                li.appendChild(a);
+                                $(".js_myopenapp")[0].appendChild(li);
                             }
-                            var li = document.createElement("li");
-                            var a = document.createElement("a");
-                            a.appendChild(document.createTextNode(serverData["apps"][i].name));
-                            a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid;
-                            li.appendChild(a);
-                            $(".js_myopenapp")[0].appendChild(li);
                         }
                     }
                 });

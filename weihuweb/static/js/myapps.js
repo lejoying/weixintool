@@ -6,6 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function(){
+    var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+    if(nowWeixinName != null){
+        $(".myappTitle span").html(nowWeixinName);
+    }
     $($(".myappBottomMessage")[0]).html("共有0条回复，此处显示最前10条回复设置");
     var nowAccount = window.localStorage.getItem("nowAccount");
     var obj = {};
@@ -19,7 +23,7 @@ $(document).ready(function(){
                 weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
                 $.ajax({
                     type:"POST",
-                    url:"/api2/app/getbyid?",
+                    url:"/api2/app/getmyapp?",
                     data:{
                         weixinid : weixinid,
                         appid: 125
