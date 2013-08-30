@@ -1,8 +1,8 @@
 /**
  * Created with JetBrains WebStorm.
  * User: Admin
- * Date: 13-8-21
- * Time: 下午2:43
+ * Date: 13-8-29
+ * Time: 上午10:52
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function(){
@@ -19,8 +19,8 @@ $(document).ready(function(){
     }
 
     function getAllApps(weixinid){
-           //从window.localStorage中获取当前登录用户的信息
-           var nowAccount = window.localStorage.getItem("nowAccount");
+        //从window.localStorage中获取当前登录用户的信息
+        var nowAccount = window.localStorage.getItem("nowAccount");
         //发送Ajax请求，获取绑定的微信用户
         $.ajax({
             type:"GET",
@@ -28,7 +28,7 @@ $(document).ready(function(){
             data:{
                 "uid":JSON.parse(nowAccount).uid,
                 "weixinOpenID":weixinid,
-                "type":"public",
+                "type":"industry",
                 "filter":"ALL"
             },
             success:function(serverData){

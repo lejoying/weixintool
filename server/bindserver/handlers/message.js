@@ -439,52 +439,39 @@ message.message = function (data, getParam, response) {
                 }
             });
         }
-
-        //公共应用：排号自动回复
-        function replyPublicAppPH(){
-            var data = bindApp.data;
-            if(data == "" || data == undefined){
-                var objs = [];
-                var obj = {};
-                obj.id = weixin.weixinOpenID;
-                obj.number = 1;
-                reply.text.content = 1;
-                objs.add(obj);
-                bindApp.data = JSON.stringify(objs);
-                api.saveData();
-                api.sendReply();
-            }else{
-                var ob = JSON.parse(data);
-                for(var i=0;i<ob.length;i++){
-                    if(ob[i].id == weixin.weixinOpenID){
-                        obj[i].number = obj[i].number+1;
-                        reply.text.content = obj[i].number+1;
-                        bindApp.data = JSON.stringify(ob);
-                        api.saveData();
-                        api.sendReply();
-                        break;
-                    }
-                }
-            }
-
-        }
-        //行业应用：订餐服务
-        function replyPublicAppDC(){
-            var data = bindApp.data;
-            if(data == "" || data == undefined){
-                reply.text.content = "应用数据不存在";
-                api.sendReply();
-            }else{
-                var obj = JSON.parse(data);
-                for(var i=0;i<obj.length;i++){
-                    if(obj[i].id == message.text.content){
-                        reply.text.content = obj[i].content;
-                        api.sendReply();
-                        break;
+        /*app = {};
+        app.data = {};
+        app.handler = function (api, message, reply, weixin, user, bindApp){
+            replyPublicAppPH();
+            //公共应用：排号自动回复
+            function replyPublicAppPH(){
+                var prData = bindApp.pr.data;
+                if(prData == "" || prData == undefined){
+                    var objs = [];
+                    var obj = {};
+                    obj.id = weixin.weixinOpenID;
+                    obj.number = 1;
+                    objs.push(obj);
+                    reply.text.content = 1+"\n"+JSON.stringify(objs);
+                    bindApp.pr.data = JSON.stringify(objs);
+                    api.saveData();
+                    api.sendReply();
+                }else{
+                    var ob = JSON.parse(prData);
+                    for(var i=0;i<ob.length;i++){
+                        if(ob[i].id == weixin.weixinOpenID){
+                            ob[i].number = ob[i].number+1;
+                            reply.text.content = ob[i].number+1;
+                            bindApp.pr.data = JSON.stringify(ob);
+                            api.saveData();
+                            api.sendReply();
+                            break;
+                        }
                     }
                 }
             }
         }
+        app.handler(api, message, reply, weixin, user, bindApp);*/
         /*************************************** ***************************************
          *    sandbox
          *************************************** ***************************************/
@@ -578,8 +565,35 @@ message.message = function (data, getParam, response) {
         }
 
         var dataSaved = false;
-        api.saveData = function () {
+        api.saveData = function (app) {
+            if(message.text.content.substr(0,2).toUpperCase() == "PH"){
+                modifyWeixinAndAppRela(app)
+            }
             return true;
+        }
+        function modifyWeixinAndAppRela(app){
+            query = [
+                'MATCH app:App-[r:BIND]->weixin:Weixin' ,
+                'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.appid! ={appid}',
+                'RETURN  r'
+            ].join('\n');
+
+            var params = {
+                weixinOpenID: weixin.weixinOpenID,
+                appid: app.appid
+            };
+
+            db.query(query, params, function (error, results) {
+                if (error) {
+                    console.error(error);
+                    return false;
+                }else {
+                    var rNode = results.pop().r;
+                    rNode.data.data = app.pr.data;
+                    rNode.data.time = app.pr.time;
+                    rNode.save();
+                }
+            });
         }
         startResolve();
     }

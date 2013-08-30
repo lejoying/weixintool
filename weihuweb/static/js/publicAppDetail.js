@@ -29,7 +29,17 @@ $(document).ready(function(){
         },
         success:function(serverData){
             $($(".myappTitle span")[1]).html(serverData["app"].name);
-            $(".appExamples").html(serverData["app"].description);
+//            alert(serverData["app"].description);
+            if(serverData["app"].description.split("\n").length>0){
+                var intro = serverData["app"].description.split("\n");
+                for(var i=0;i<intro.length;i++){
+                    var span = document.createElement("p");
+                    span.appendChild(document.createTextNode(intro[i]))
+                    $(".appExamples")[0].appendChild(span);
+                }
+            }else{
+                $(".appExamples").html(serverData["app"].description);
+            }
         }
     });
     $(".myappswitch input").click(function(){

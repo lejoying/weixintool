@@ -113,16 +113,17 @@ $(document).ready(function(){
             }
         }
     }
+
     $(".js_exit").click(function(){
         //清除window.localStorage和window.sessionStorage下存放的键值对
         window.localStorage.clear();
         window.sessionStorage.clear();
         location.href = "default.html";
     });
-	$(".js_weixinNow").click(function(){
-		$(".accountSwitching").toggle();
-		addEvent(document.body,"mousedown",clickother);
-	});
+    $(".js_weixinNow").click(function(){
+        $(".accountSwitching").toggle();
+        addEvent(document.body,"mousedown",clickother);
+    });
 });
 
 
