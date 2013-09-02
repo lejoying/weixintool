@@ -1,250 +1,199 @@
-/**
- * Created with JetBrains WebStorm.
- * User: CC
- * Date: 13-8-26
- * Time: ����12:09
- * To change this template use File | Settings | File Templates.
- */
+// JavaScript Document
 $(document).ready(function(){
-    $(".js_iconOperater").click(function(){
-        $(".js_operaterBox").toggle(50);
-        addEvent(document.body,"mousedown",clickother);
-    });
-    $(".chatListColumn").click(function(){
-        var name = $(this).find(".name").html();
-        $(".chatListColumn.activeColumn").removeClass("activeColumn");
-        $(this).addClass("activeColumn");
-        $(".activeChatVernier").animate({top:this.offsetTop-this.parentNode.offsetTop},200)
-        $(".chat.lightBorder").css({visibility:"visible"});
-        $("#messagePanelTitle").html(name);
-    });
-    var moused = false;
-    $("#scrollbarLeft").mousedown(function(){
-        //alert(1);
-        var moused = true;
-    });
-//    $(".listContent").mouseover(function(){
-//        $(".scrollbar").animate({opacity:"1"});
-//    });
-//    $(".listContent").mouseout(function(){
-//        $(".scrollbar").animate({opacity:"0"});
-//    });
-});
-$(document).mousemove(function(e){
-    //alert(e.pageY);
-    if(moused==true){
-        alert(e.pageX);
+    var leftHeight=$(".mainContern").height();
+    $(".sildLeft").css("height",leftHeight);
+    var nowAccount = window.localStorage.getItem("nowAccount");
+    if(nowAccount != null){
+        $(".userAccount span").html("欢迎"+unescape(JSON.parse(nowAccount).accountname));
+    }else{
+        location.href="/login.html";
     }
+//发送Ajax请求，获取绑定的微信用户
+    $.ajax({
+        type:"POST",
+        url:"/api2/weixin/getall?",
+        data:{
+            "uid":JSON.parse(nowAccount).uid
+        },
+        success:function(serverData){
+//            alert(serverData["提示信息"]);
+            if(serverData["提示信息"] == "获取所有绑定微信公众账号成功"){
+                window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
+                var index = 0;
+                for(var key in serverData["weixins"]){
+                    if(index == 0){
+                        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+                        if(nowWeixinName == null){
+                            window.localStorage.setItem("nowWeixinName",serverData["weixins"][key].weixinName);
+                        }
+                    }
+                    index++;
+                    var li = document.createElement("li");
+                    var a = document.createElement("a");
+                    a.href = "javascript:;";
+                    a.appendChild(document.createTextNode(serverData["weixins"][key].weixinName));
+                    li.appendChild(a);
+                    $(".accountSwitching ul")[0].appendChild(li);
+                }
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+                a.href = "/page/allBindWeixin.html";
+                a.appendChild(document.createTextNode("全部"));
+                li.appendChild(a);
+                $(".accountSwitching ul")[0].appendChild(li);
+                var name = window.localStorage.getItem("nowWeixinName");
+                if(name != null){
+                    $(".js_weixinNow").html(name.substr(0,8));
+                    $(".welcome").find("span").html(name.substr(0,8));
+                    $(".js_weixinNow").attr("title",name);
+                }
+                var url = window.location.href;
+                url = url.substr(url.lastIndexOf("/")+1);
+                if(url == "default.html"){
+                    $.getScript("./../static/js/default.js");
+                }
+                $(".accountSwitching ul li").click(function(){
+                    $(".accountSwitching").hide();
+                    location.href="default.html";
+                    if($(this).find("a").html() != "全部"){
+                        window.localStorage.setItem("nowWeixinName",$(this).find("a").html());
+                    }
+                });
+            }else{
+                var url = window.location.href;
+                url = url.substr(url.lastIndexOf("/")+1);
+                if(url != "bindWeixin.html"){
+                    location.href = "/page/bindWeixin.html";
+                }
+            }
+
+        }
+    });
+    //获取当前微信用户的ID
+    var weixinid = "";
+    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
+    if(nowBindWeixins != null){
+        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+        for(var key in JSON.parse(nowBindWeixins)){
+            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
+                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
+                //发送请求，获取已开启的应用
+                $.ajax({
+                    type:"GET",
+                    url:"/api2/app/getall?",
+                    data:{
+                        weixinOpenID: weixinid,
+                        filter: "BIND"
+                    },
+                    success:function(serverData){
+                        if(serverData["提示信息"] == "获得应用列表成功"){
+                            window.sessionStorage.setItem("appcount",serverData["apps"].length);
+                            for(var i=0;i<serverData["apps"].length;i++){
+                                if(serverData["apps"][i].type == "private"){
+                                    continue;
+                                }
+                                var li = document.createElement("li");
+                                var a = document.createElement("a");
+                                a.appendChild(document.createTextNode(serverData["apps"][i].name));
+                                a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid;
+                                li.appendChild(a);
+                                $(".js_myopenapp")[0].appendChild(li);
+                            }
+                        }
+                    }
+                });
+                break;
+            }
+        }
+    }
+    $(".js_exit").click(function(){
+        //清除window.localStorage和window.sessionStorage下存放的键值对
+        window.localStorage.clear();
+        window.sessionStorage.clear();
+        location.href = "default.html";
+    });
+	$(".js_weixinNow").click(function(){
+		$(".accountSwitching").toggle();
+		addEvent(document.body,"mousedown",clickother);
+	});
 });
-window.onload = function(){
-    $(".listContentWrap").height(document.body.clientHeight-245);
-    $(".chatContainer").height(document.body.clientHeight-245+120);
-    $(".chatScorll").height(document.body.clientHeight-245-40-60+120);
-}
-window.onresize = function(){
-    $(".listContentWrap").height(document.body.clientHeight-245);
-    $(".chatContainer").height(document.body.clientHeight-245+120);
-    $(".chatScorll").height(document.body.clientHeight-245-40-60+120);
-    $("#vernierContainer").height(document.body.clientHeight-245-40-60+120);
-}
-//��ӵ���հ״��رյ������¼�
+
+
+//添加点击空白处关闭弹出框事件
 function addEvent(obj,eventType,func){
-    if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
-    else{obj.addEventListener(eventType,func,false)}
+	if(obj.attachEvent){obj.attachEvent("on" + eventType,func);}
+	else{obj.addEventListener(eventType,func,false)}
 }
 function clickother(el){
-    thisObj = el.target?el.target:event.srcElement;
+	thisObj = el.target?el.target:event.srcElement;
     if(thisObj.tagName == "BODY"){
-        document.getElementById("operaterBox").style.display = "none";
+        document.getElementById("accountSwitching").style.display = "none";
         return;
     }
-    if(thisObj.id == "operaterBox "||thisObj.id == "iconOperater"||(thisObj.parentNode).parentNode.parentNode.id=="operaterBox "){
+    if(thisObj.id == "accountSwitching"||thisObj.id == "weixinNow"||(thisObj.parentNode).parentNode.parentNode.id=="accountSwitching"){
         return;
     }
     do{
         if(thisObj.tagName == "BODY"){
-            if(document.getElementById("operaterBox")){
-                document.getElementById("operaterBox").style.display = "none";
+            if(document.getElementById("accountSwitching")){
+                document.getElementById("accountSwitching").style.display = "none";
                 return;
             }
         };
         thisObj = thisObj.parentNode;
     }while(thisObj.parentNode);
 }
-$(document).ready(function(){
-    var doc=document;
-    var _wheelData=-1;
-    var mainBox=doc.getElementById('mainBox');
-    function bind(obj,type,handler){
-        var node=typeof obj=="string"?$(obj):obj;
-        if(node.addEventListener){
-            node.addEventListener(type,handler,false);
-        }else if(node.attachEvent){
-            node.attachEvent('on'+type,handler);
-        }else{
-            node['on'+type]=handler;
+//背景变黑弹出窗口
+function showBlackPage(clarity,tipword){
+    var bWidth='100%';
+    var bHeight=$("BODY").height()+87;
+    //var bHeight=$(".content").offset().top+$(".content").height()+19;
+    // var wWidth = 602;
+    //var left = bWidth/2-wWidth/2-19;
+    var back=document.createElement("div");
+    back.id="blackbackcommon";
+    var styleStr="top:0px;left:0;position:absolute;background:#000;z-index:21;width:"+bWidth+";height:"+bHeight+"px;opacity:0.2;";
+    //styleStr+=(isIe)?"filter:alpha(opacity=0);":"opacity:0;";
+    back.style.cssText=styleStr;
+    document.body.appendChild(back);
+    showBackground(back,clarity);
+    var mesW=document.createElement("div");
+    mesW.id="blackbackCommonWindow";
+    mesW.innerHTML="<div class='prompted' id='promptedShow'><div class='tipWord'></div><div><a class='buttonblue changeSaveButton' href='javascript:closeBlackBackground();'>确定</a></div></div>" ;
+    document.body.appendChild(mesW);
+    $(".tipWord").html(tipword);
+    var popWidth = parseInt($("#promptedShow").css("width"))+60;
+    $("#promptedShow").css("margin-left",-(popWidth/2));
+    $(".buttonblue")[0].focus();
+}
+http://weixintool.com/change_info.html
+// 显示弹出背景
+    function showBackground(obj,endInt){
+        var al=parseFloat(obj.style.opacity);al+=0.1;
+        obj.style.opacity=al;
+        if(al<(endInt/100)){setTimeout(function(){showBackground(obj,endInt)},1);}
+    }
+function closeBlackBackground(){
+    $("#blackbackCommonWindow").remove();
+    $("#blackbackcommon").remove();
+}
+function f1()
+{
+    //alert($(".mainContern").height());
+    var leftHeight=$(".mainContern").height();
+    $(".sildLeft").css("height",leftHeight);
+}
+function addLoadEvent(func) {
+    var oldonload = window.onload;
+    if (typeof window.onload != 'function') {
+        window.onload = func;
+    } else {
+        window.onload = function() {
+            if (oldonload) {
+                oldonload();
+            }
+            func();
         }
     }
-    function mouseWheel(obj,handler){
-        var node=typeof obj=="string"?$(obj):obj;
-        bind(node,'mousewheel',function(event){
-            var data=-getWheelData(event);
-            handler(data);
-            if(document.all){
-                window.event.returnValue=false;
-            }else{
-                event.preventDefault();
-            }
-
-        });
-        //火狐
-        bind(node,'DOMMouseScroll',function(event){
-            var data=getWheelData(event);
-            handler(data);
-            event.preventDefault();
-        });
-        function getWheelData(event){
-            var e=event||window.event;
-            return e.wheelDelta?e.wheelDelta:e.detail*40;
-        }
-    }
-
-    function addScroll(){
-        this.init.apply(this,arguments);
-    }
-    addScroll.prototype={
-        init:function(mainBox,contentBox,className){
-            var mainBox=doc.getElementById(mainBox);
-            var contentBox=doc.getElementById(contentBox);
-            var scrollDiv=this._createScroll(mainBox,className);
-            this._resizeScorll(scrollDiv,mainBox,contentBox);
-            this._tragScroll(scrollDiv,mainBox,contentBox);
-            this._wheelChange(scrollDiv,mainBox,contentBox);
-            this._clickScroll(scrollDiv,mainBox,contentBox);
-        },
-        //创建滚动条
-        _createScroll:function(mainBox,className){
-            var _scrollBox=doc.createElement('div')
-            _scrollBox.className="scrollbarBox";
-            var _scroll=doc.createElement('div');
-            var span=doc.createElement('span');
-            _scrollBox.appendChild(_scroll);
-            _scroll.appendChild(span);
-            _scroll.className=className;
-            mainBox.appendChild(_scrollBox);
-            return _scroll;
-        },
-        //调整滚动条
-        _resizeScorll:function(element,mainBox,contentBox){
-            var p=element.parentNode;
-            var conHeight=contentBox.offsetHeight;
-            var _width=mainBox.clientWidth;
-            var _height=mainBox.clientHeight;
-            var _scrollWidth=element.offsetWidth;
-            var _left=_width-_scrollWidth;
-            p.style.width=_scrollWidth+"px";
-            //p.style.height=_height+"px";
-            p.style.height="100%";
-            p.style.left=_left+"px";
-            p.style.position="absolute";
-            p.style.opacity="0.8";
-            //p.style.background="#ccc";
-            //contentBox.style.width=(mainBox.offsetWidth-_scrollWidth)+"px";
-            var _scrollHeight=parseInt(_height*(_height/conHeight));
-            if(_scrollHeight>=mainBox.clientHeight){
-                element.parentNode.style.display="none";
-            }
-            element.style.height=_scrollHeight+"px";
-        },
-        //拖动滚动条
-        _tragScroll:function(element,mainBox,contentBox){
-            var mainHeight=mainBox.clientHeight;
-            element.onmousedown=function(event){
-                var _this=this;
-                var _scrollTop=element.offsetTop;
-                var e=event||window.event;
-                var top=e.clientY;
-                //this.onmousemove=scrollGo;
-                document.onmousemove=scrollGo;
-                document.onmouseup=function(event){
-                    this.onmousemove=null;
-                }
-                function scrollGo(event){
-                    var e=event||window.event;
-                    var _top=e.clientY;
-                    var _t=_top-top+_scrollTop;
-//                    if(_t>(mainHeight-element.offsetHeight)){
-//                        _t=mainHeight-element.offsetHeight;
-//                    }
-                    if(_t>(mainBox.offsetHeight-element.offsetHeight)){
-                        _t=mainBox.offsetHeight-element.offsetHeight;
-                    }
-                    if(_t<=0){
-                        _t=0;
-                    }
-                    element.style.top=_t+"px";
-                    contentBox.style.top=-_t*(contentBox.offsetHeight/mainBox.offsetHeight)+"px";
-                    _wheelData=_t;
-                }
-            }
-            element.onmouseover=function(){
-                this.style.background="#6B747A";
-            }
-            element.onmouseout=function(){
-                this.style.background="#636C72";
-            }
-        },
-        //鼠标滚轮滚动，滚动条滚动
-        _wheelChange:function(element,mainBox,contentBox){
-            var node=typeof mainBox=="string"?$(mainBox):mainBox;
-            var flag=0,rate=0,wheelFlag=0;
-            if(node){
-                mouseWheel(node,function(data){
-                    wheelFlag+=data;
-                    if(_wheelData>=0){
-                        flag=_wheelData;
-                        element.style.top=flag+"px";
-                        wheelFlag=_wheelData*12;
-                        _wheelData=-1;
-                    }else{
-                        flag=wheelFlag/12;
-                    }
-                    if(flag<=0){
-                        flag=0;
-                        wheelFlag=0;
-                    }
-                    if(flag>=(mainBox.offsetHeight-element.offsetHeight)){
-                        flag=(mainBox.clientHeight-element.offsetHeight);
-                        wheelFlag=(mainBox.clientHeight-element.offsetHeight)*12;
-
-                    }
-                    element.style.top=flag+"px";
-                    contentBox.style.top=-flag*(contentBox.offsetHeight/mainBox.offsetHeight)+"px";
-                });
-            }
-        },
-        _clickScroll:function(element,mainBox,contentBox){
-            var p=element.parentNode;
-            p.onclick=function(event){
-                var e=event||window.event;
-                var t=e.target||e.srcElement;
-                var sTop=document.documentElement.scrollTop>0?document.documentElement.scrollTop:document.body.scrollTop;
-                var top=mainBox.offsetTop;
-                var _top=e.clientY+sTop-top-element.offsetHeight/2;
-                if(_top<=0){
-                    _top=0;
-                }
-                if(_top>=(mainBox.clientHeight-element.offsetHeight)){
-                    _top=mainBox.clientHeight-element.offsetHeight;
-                }
-                if(t!=element){
-                    element.style.top=_top+"px";
-                    contentBox.style.top=-_top*(contentBox.offsetHeight/mainBox.offsetHeight)+"px";
-                    _wheelData=_top;
-                }
-            }
-        }
-    }
-    new addScroll('mainBox','conversationListContent','scrollDiv');
-   new addScroll('chatFrame','chat_chatmsglist','scrollDiv');
-});
+}
+addLoadEvent(f1);

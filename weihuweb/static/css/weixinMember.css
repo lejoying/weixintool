@@ -88,6 +88,18 @@
 	font-size:14px;
 	font-weight:bold;
 }
+.pagination a.unclick{
+    padding:8px 14px;
+    border-radius:3px;
+    margin:0 5px;
+    display:inline-block;
+    border:1px solid #ccc;
+    background:#fafafa;
+    color:#b2b2b2;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    font-weight:bold;
+}
 .pagination a:hover{
 	border:1px solid #9f9f9f;	
 	color:#000;

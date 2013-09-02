@@ -117,7 +117,7 @@
 .sildLeft ul li a{
 	
 }
-.sildLeft ul li a:hover, .sildLeftSelect{
+.sildLeft ul li a:hover, .sildLeft ul li a.sildLeftSelect{
 	background:#f0504a;
 	color:#fff;
 }
