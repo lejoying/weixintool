@@ -108,6 +108,7 @@
 	border:1px solid #9f9f9f;	
 	color:#000;
 	background:#fff;
+    cursor: default;
 }
 a.pageSelected{
 	background:#C61A14;
