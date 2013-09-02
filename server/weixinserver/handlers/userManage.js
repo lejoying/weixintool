@@ -17,28 +17,27 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
  ***************************************/
 userManage.getall = function (data, response) {
     response.asynchronous = 1;
+    var count = 0;
     var weixin =
     {
         weixinOpenID: data.weixinopenid
     };
     var start = data.start;   //todo take it effect
     var end = data.end;
-
-    getallUserNode();
-
+    getallUserCountNode();
     function getallUserNode() {
         var query = [
             'MATCH user:User-[:FOCUS]->weixin:Weixin' ,
             'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-            'RETURN  user'
-//            'SKIP {start}',
-//            'LIMIT {count}'
+            'RETURN  user',
+            'SKIP {stat}',
+            'LIMIT {total}'
         ].join('\n');
 
         var params = {
             weixinOpenID: weixin.weixinOpenID,
-            start: start,
-            count: end - start
+            stat: parseInt(start),
+            total: parseInt(end)
         };
         if(weixin.weixinOpenID == null){
             response.write(JSON.stringify({
@@ -67,13 +66,37 @@ userManage.getall = function (data, response) {
                     }
                     response.write(JSON.stringify({
                         "提示信息": "获得所有关注用户成功",
-                        "users": users
+                        "users": users,
+                        "count": count
                     }));
                     response.end();
                 }
             });
         }
 
+    }
+    function getallUserCountNode() {
+        var query = [
+            'MATCH user:User-[:FOCUS]->weixin:Weixin' ,
+            'WHERE weixin.weixinOpenID! ={weixinOpenID}',
+            'RETURN  count(user)'
+        ].join('\n');
+
+        var params = {
+            weixinOpenID: weixin.weixinOpenID
+        };
+            db.query(query, params, function (error, results) {
+                if (error) {
+                    response.write(JSON.stringify({
+                        "提示信息": "获得所有关注用户数量失败",
+                        "失败原因 ": "微信公众账号不存在"
+                    }));
+                    response.end();
+                } else {
+                    count = results.pop()["count(user)"];
+                    getallUserNode();
+                }
+            });
     }
 }
 

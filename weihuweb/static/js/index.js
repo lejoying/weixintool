@@ -12,6 +12,7 @@ $(document).ready(function(){
             li.appendChild(a);
             $(".nav ul")[0].appendChild(li);
         }
+        $($(".nav ul li")[4]).hide();
     }else{
         location.href="/login.html";
     }
@@ -102,7 +103,11 @@ $(document).ready(function(){
                                 var li = document.createElement("li");
                                 var a = document.createElement("a");
                                 a.appendChild(document.createTextNode(serverData["apps"][i].name));
-                                a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid;
+                                if(serverData["apps"][i].type == "public"){
+                                    a.href = "/page/publicAppDetail.html?id="+serverData["apps"][i].appid+"&rela="+serverData["apps"][i].rela;
+                                }else{
+                                    a.href = "/page/industryAppDetail.html?id="+serverData["apps"][i].appid+"&rela="+serverData["apps"][i].rela;
+                                }
                                 li.appendChild(a);
                                 $(".js_myopenapp")[0].appendChild(li);
                             }
