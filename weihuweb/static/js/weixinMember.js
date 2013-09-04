@@ -8,7 +8,7 @@
 $(document).ready(function(){
     var pagesize = 4;
     var index = 1;
-    var count = 3;
+    var count = 0;
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
     var nowWeixinName = window.localStorage.getItem("nowWeixinName");
     var weixinid = "";
@@ -35,7 +35,6 @@ $(document).ready(function(){
             },
             success:function(serverData){
                 if(serverData["提示信息"] == "获得所有关注用户成功"){
-                    count = Math.ceil(serverData["count"]/pagesize);
 //                    alert(count);
                     var weixin_user = getTemplate("weixin_user");
                     $(".wixinMemberTable").html(weixin_user.render(serverData["users"]));
@@ -58,68 +57,87 @@ $(document).ready(function(){
                             }
                         }
                     }
-                    $(".pagination a").each(function(i){
-                        if($($(".pagination a")[i]).attr("value")>count){
-                            $($(".pagination a")[i]).attr("class","unclick");
-                            return true;
-                        }
-                        $($(".pagination a")[i]).click(function(){
-                            if(i != 1 && i != 8){
-                                index = $($(".pagination a")[i]).attr("value");
+                    if(count == 0){
+                        count = Math.ceil(serverData["count"]/pagesize);
+                        $($(".pagination a")[1]).hide();
+                        $($(".pagination a")[9]).attr("value",count);
+                        $(".pagination a").each(function(i){
+                            var now = 0;
+                            if($($(".pagination a")[i]).attr("value")>count){
+                                $($(".pagination a")[i]).attr("class","unclick");
+                                return true;
                             }
-                            $($(".pagination a")[7]).html(Math.ceil(index/10)*10);
-                            $($(".pagination a")[7]).attr("value",(index/10)*10);
-                            if(i == 1){
-                                if(index-1>0){
-                                    index--;
-                                }else{
-                                    index = 1;
+                            $($(".pagination a")[i]).click(function(){
+                                if(i != 1 && i != 8){
+                                    now = index;
+                                    index = $($(".pagination a")[i]).attr("value");
                                 }
-                            }
-                            if(i == 8){
-                                if(index+1<count){
-                                    index++;
-                                }else{
-                                    index = count;
-                                }
-                            }
-                            /*if(index-1<=0){
-                             index = 1;
-                             }
-                             $($(".pagination a")[1]).attr("value",index-1);
-                             $($(".pagination a")[1]).attr("value",index-1);
-                             $($(".pagination a")[8]).attr("value",index+1);*/
-                            if(count>=5){
-                                if(i==5 || i==6){
-                                    for(var x=2;x<7;x++){
-                                        $($(".pagination a")[x]).html(index-4+x);
-                                        $($(".pagination a")[x]).attr("value",index-4+x);
-                                        $($(".pagination a")[x]).attr("title",index-4+x);
+                                $($(".pagination a")[7]).html(Math.ceil(index/10)*10);
+                                $($(".pagination a")[7]).attr("value",(index/10)*10);
+                                if(i == 1){
+                                    now = index;
+                                    if(index-1>0){
+                                        index--;
+                                    }else{
+                                        index = 1;
                                     }
                                 }
-                                if(i==2 || i==3){
-                                    if(index>2){
-                                        for(var x=2;x<7;x++){
-                                            $($(".pagination a")[x]).html(index-4+x);
-                                            $($(".pagination a")[x]).attr("value",index-4+x);
-                                            $($(".pagination a")[x]).attr("title",index-4+x);
+                                if(i == 8){
+                                    now = index;
+                                    if(index+1<count){
+                                        index++;
+                                    }else{
+                                        index = count;
+                                    }
+                                }
+                                if(index > 1){
+                                    $($(".pagination a")[1]).show();
+                                }else{
+                                    $($(".pagination a")[1]).hide();
+                                }
+//                                alert(index);
+                                /*if(index-1<=0){
+                                 index = 1;
+                                 }
+                                 $($(".pagination a")[1]).attr("value",index-1);
+                                 $($(".pagination a")[1]).attr("value",index-1);
+                                 $($(".pagination a")[8]).attr("value",index+1);*/
+                                if(count>=5){
+                                    if(i==5 || i==6 || i == 8){
+                                        if(index<count && index>2){
+                                            for(var x=2;x<7;x++){
+                                                $($(".pagination a")[x]).html(index-4+x);
+                                                $($(".pagination a")[x]).attr("value",index-4+x);
+                                                $($(".pagination a")[x]).attr("title",index-4+x);
+                                            }
+                                        }
+                                    }
+                                    if(i==2 || i==3 || i==1){
+                                        if(index>1 && index>2){
+                                            for(var x=2;x<7;x++){
+                                                $($(".pagination a")[x]).html(index-4+x);
+                                                $($(".pagination a")[x]).attr("value",index-4+x);
+                                                $($(".pagination a")[x]).attr("title",index-4+x);
+                                            }
                                         }
                                     }
                                 }
-                            }
-                            $(".pagination a").each(function(j){
-                                $(".pagination a")[j].removeAttribute("class");
-                                if($($(".pagination a")[j]).html() == index){
-                                    $($(".pagination a")[j]).attr("class","pageSelected");
-                                }
-                                if($($(".pagination a")[j]).attr("value")>count){
-                                    $($(".pagination a")[j]).attr("class","unclick");
-                                    return true;
+                                $(".pagination a").each(function(j){
+                                    $(".pagination a")[j].removeAttribute("class");
+                                    if($($(".pagination a")[j]).html() == index){
+                                        $($(".pagination a")[j]).attr("class","pageSelected");
+                                    }
+                                    if($($(".pagination a")[j]).attr("value")>count){
+                                        $($(".pagination a")[j]).attr("class","unclick");
+                                        return true;
+                                    }
+                                });
+                                if(now != index){
+                                    getAllWeixinUser(weixinid, (index-1)*pagesize, pagesize);
                                 }
                             });
-                            getAllWeixinUser(weixinid, (index-1)*pagesize, pagesize);
                         });
-                    });
+                    }
                 }
             }
         });

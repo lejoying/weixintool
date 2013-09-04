@@ -234,16 +234,19 @@ applicationManage.getbyid= function (data, response) {
  ***************************************/
 applicationManage.getall = function (data, response) {
     response.asynchronous = 1;
+    var total = 0;
     var account = {
         "uid": data.uid
     };
     var filter = data.filter;
     var type = data.type;
+    var stat = data.start;
+    var end = data.end;
     var weixin =
     {
         weixinOpenID: data.weixinOpenID
     };
-    getallAppNode();
+    getallAppCountNode();
     var apps = [];
     var count = 0;
     var index = 0;
@@ -255,7 +258,9 @@ applicationManage.getall = function (data, response) {
                 'MATCH app:App' ,
                 'WHERE app.type! ={type}',
                 'RETURN  app',
-                'ORDER BY app.appid ASC'
+                'ORDER BY app.appid ASC',
+                'SKIP {stat}',
+                'LIMIT {end}'
             ].join('\n');
             failReason = "应用列表为空";
         } else if (filter == "OWN") {
@@ -277,7 +282,9 @@ applicationManage.getall = function (data, response) {
         var params = {
             weixinOpenID: weixin.weixinOpenID,
             uid: parseInt(account.uid),
-            type: type
+            type: type,
+            stat: parseInt(stat),
+            end: parseInt(end)
         };
 
         db.query(query, params, function (error, results) {
@@ -294,7 +301,8 @@ applicationManage.getall = function (data, response) {
             } else {
                 count = results.length;
                 for (var index in results) {
-                    var appNode = results[index].app.data;
+//                    console.log(results[index]["app.appid"]);
+                     var appNode = results[index].app.data;
                     judgeHaveRela(appNode.appid, next, appNode);
 
                 }
@@ -307,11 +315,39 @@ applicationManage.getall = function (data, response) {
             if(count == index){
                 response.write(JSON.stringify({
                     "提示信息": "获得应用列表成功",
-                    "apps": apps
+                    "apps": apps,
+                    "count": total
                 }));
                 response.end();
             }
         }
+    }
+    function getallAppCountNode() {
+        if(weixin.weixinOpenID == "" || weixin.weixinOpenID == undefined || filter == "BIND"){
+            getallAppNode();
+            return;
+        }
+        var query = [
+            'MATCH app:App' ,
+            'WHERE app.type! ={type}',
+            'RETURN  count(app)'
+        ].join('\n');
+
+        var params = {
+            type: type
+        };
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有应用数量失败",
+                    "失败原因 ": "微信公众账号不存在"
+                }));
+                response.end();
+            } else {
+                total = results.pop()["count(app)"];
+                getallAppNode();
+            }
+        });
     }
     function judgeHaveRela(appid, next, appNode){
         query = [

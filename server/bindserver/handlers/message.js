@@ -8,7 +8,7 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 var parser = require('./../tools/sax2json');
 var base64 = require('./../tools/base64');
 var replyTemplate = require('./../tools/replyTemplate');
-
+var ajax = require('./../lib/ajax.js');
 var vm = require('vm');
 var http = require('http');
 var scriptPool = {};
@@ -442,33 +442,37 @@ message.message = function (data, getParam, response) {
         /*app = {};
         app.data = {};
         app.handler = function (api, message, reply, weixin, user, bindApp){
-            replyPublicAppPH();
+            replyPublicAppGJ();
             //公共应用：排号自动回复
-            function replyPublicAppPH(){
-                var prData = bindApp.pr.data;
-                if(prData == "" || prData == undefined){
-                    var objs = [];
-                    var obj = {};
-                    obj.id = weixin.weixinOpenID;
-                    obj.number = 1;
-                    objs.push(obj);
-                    reply.text.content = 1+"\n"+JSON.stringify(objs);
-                    bindApp.pr.data = JSON.stringify(objs);
-                    api.saveData();
-                    api.sendReply();
-                }else{
-                    var ob = JSON.parse(prData);
-                    for(var i=0;i<ob.length;i++){
-                        if(ob[i].id == weixin.weixinOpenID){
-                            ob[i].number = ob[i].number+1;
-                            reply.text.content = ob[i].number+1;
-                            bindApp.pr.data = JSON.stringify(ob);
-                            api.saveData();
-                            api.sendReply();
-                            break;
-                        }
+            function replyPublicAppGJ(){
+                var uCity = "北京";
+                var q = message.text.content.substr(2);
+                var city = user.city;
+                if(city != "" && city != undefined){
+                    var array = city.split(" ");
+                    if(array[1] != ""){
+                        var arr = array[1].split(":");
+                        uCity = arr[0];
                     }
                 }
+                getCityBus(uCity, q);
+            }
+            function getCityBus(city, line){
+                api.ajax.ajax({
+                    "type": "POST",
+                    "url":"http://openapi.aibang.com/bus/lines",
+                    "headers":{"Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"},
+                    data:{
+                        "app_key":"eb035e2931f935237d49d14477ea96ae",
+                        "alt":"json",
+                        "city":city,
+                        "q":line
+                    },
+                    success: function(dataStr){
+                        reply.text.content = JSON.parse(dataStr)+"--------------"+unescape(dataStr.replace(/\\u/gi, '%u'));
+                        api.sendReply();
+                    }
+                });
             }
         }
         app.handler(api, message, reply, weixin, user, bindApp);*/
@@ -541,6 +545,7 @@ message.message = function (data, getParam, response) {
         var api = {};
 //        api.db = db;
         api.http = http;
+        api.ajax = ajax;
         var replySent = false;
         api.sendReply = function () {
             if (replySent == true) {
@@ -556,7 +561,6 @@ message.message = function (data, getParam, response) {
                 reply.weixinOpenID = weixin.weixinOpenID;
                 reply.createTime = now.getTime().toString().substr(0, 10);
                 var replyXML = replyTemplate.render(reply);
-
                 response.write(replyXML);
                 response.end();
                 replySent = true
@@ -571,6 +575,8 @@ message.message = function (data, getParam, response) {
             }
             return true;
         }
+
+        //对公共应用排号data数据的保存
         function modifyWeixinAndAppRela(app){
             query = [
                 'MATCH app:App-[r:BIND]->weixin:Weixin' ,
