@@ -240,7 +240,8 @@ applicationManage.getall = function (data, response) {
     };
     var filter = data.filter;
     var type = data.type;
-    var stats = data.stats;
+    var mold = data.mold;
+    var status = data.status;
     var stat = data.start;
     var end = data.end;
     var weixin =
@@ -254,37 +255,49 @@ applicationManage.getall = function (data, response) {
     function getallAppNode() {
         var query;
         var failReason;
-        if (filter == "ALL") {
+        if(mold == "management"){
             query = [
                 'MATCH app:App' ,
-                'WHERE app.type! ={type} AND app.status! ={stats}',
+                'WHERE app.type! ="public" OR app.type! ="industry"',
                 'RETURN  app',
                 'ORDER BY app.appid ASC',
                 'SKIP {stat}',
                 'LIMIT {end}'
             ].join('\n');
             failReason = "应用列表为空";
-        } else if (filter == "OWN") {
-            query = [
-                'MATCH account:Account-[:OWN_APP]->app:App' ,
-                'WHERE account.uid! ={uid}',
-                'RETURN  app'
-            ].join('\n');
-            failReason = "指定账号不存在";
-        } else if (filter == "BIND") {
-            query = [
-                'MATCH app:App-[:BIND]->weixin:Weixin' ,
-                'WHERE weixin.weixinOpenID! ={weixinOpenID}',
-                'RETURN  app'
-            ].join('\n');
-            failReason = "指定微信公众账号不存在";
+        }else{
+            if (filter == "ALL") {
+                query = [
+                    'MATCH app:App' ,
+                    'WHERE app.type! ={type} AND app.status! ={status}',
+                    'RETURN  app',
+                    'ORDER BY app.appid ASC',
+                    'SKIP {stat}',
+                    'LIMIT {end}'
+                ].join('\n');
+                failReason = "应用列表为空";
+            } else if (filter == "OWN") {
+                query = [
+                    'MATCH account:Account-[:OWN_APP]->app:App' ,
+                    'WHERE account.uid! ={uid}',
+                    'RETURN  app'
+                ].join('\n');
+                failReason = "指定账号不存在";
+            } else if (filter == "BIND") {
+                query = [
+                    'MATCH app:App-[:BIND]->weixin:Weixin' ,
+                    'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.status! ={status}',
+                    'RETURN  app'
+                ].join('\n');
+                failReason = "指定微信公众账号不存在";
+            }
         }
 
         var params = {
             weixinOpenID: weixin.weixinOpenID,
             uid: parseInt(account.uid),
             type: type,
-            stats: stats,
+            status: status,
             stat: parseInt(stat),
             end: parseInt(end)
         };
@@ -302,10 +315,23 @@ applicationManage.getall = function (data, response) {
                 response.end();
             } else {
                 count = results.length;
+                var cindex = 0;
                 for (var index in results) {
-//                    console.log(results[index]["app.appid"]);
                      var appNode = results[index].app.data;
-                    judgeHaveRela(appNode.appid, next, appNode);
+                    if(mold == "management"){
+                        apps.push(appNode);
+                        cindex++;
+                        if(cindex == results.length){
+                            response.write(JSON.stringify({
+                                "提示信息": "获得应用列表成功",
+                                "apps": apps,
+                                "count": total
+                            }));
+                            response.end();
+                        }
+                    }else{
+                        judgeHaveRela(appNode.appid, next, appNode);
+                    }
 
                 }
 
@@ -326,14 +352,25 @@ applicationManage.getall = function (data, response) {
     }
     function getallAppCountNode() {
         if(weixin.weixinOpenID == "" || weixin.weixinOpenID == undefined || filter == "BIND"){
-            getallAppNode();
-            return;
+            if(mold != "management"){
+                getallAppNode();
+                return;
+            }
         }
-        var query = [
+        var query;
+        if(mold == "management"){
+            query = [
             'MATCH app:App' ,
-            'WHERE app.type! ={type}',
+            'WHERE app.type! ="public" OR app.type! ="industry"',
             'RETURN  count(app)'
-        ].join('\n');
+            ].join('\n');
+        }else{
+            query = [
+                'MATCH app:App' ,
+                'WHERE app.type! ={type}',
+                'RETURN  count(app)'
+            ].join('\n');
+        }
 
         var params = {
             type: type
@@ -554,7 +591,9 @@ applicationManage.getmyapp= function (data, response) {
                 }));
                 response.end();
             } else {
-                var r = results.pop().r.data;
+                var pop = results.pop();
+                var r = pop.r.data;
+                r.app = pop.app.data;
                 response.write(JSON.stringify({
                     "提示信息": "获取应用信息成功",
                     "r": r
@@ -602,6 +641,123 @@ applicationManage.getappscount = function (data, response) {
         });
     }
 }
+/***************************************
+ *     URL：/api2/app/modifystatus
+ ***************************************/
+applicationManage.modifystatus= function (data, response) {
+    response.asynchronous = 1;
+    var appid = data.appid;
+    var status = data.status;
+    modifyStatusAppNode();
 
+    function modifyStatusAppNode() {
+        var query = [
+            'MATCH app:App' ,
+            'WHERE app.appid! ={appid}',
+            'RETURN  app'
+        ].join('\n');
 
+        var params = {
+            appid: parseInt(appid)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改应用信息失败",
+                    "失败原因 ": "应用信息不存在"
+                }));
+                response.end();
+            } else {
+                var appNode = results.pop().app;
+                appNode.data.status = status;
+                appNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改应用信息成功",
+                    "app": appNode.data
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/app/getprivateapp
+ ***************************************/
+applicationManage.getprivateapp = function (data, response) {
+    response.asynchronous = 1;
+    var count = 0;
+    var start = data.start;
+    var end = data.end;
+    getPrivateAppCountNode();
+    function getPrivateAppNode() {
+        var query = [
+            'MATCH account:Account-->weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE app.type! ="private" AND r.switch! =true',
+            'RETURN  account, weixin, r, app',
+            'SKIP {stat}',
+            'LIMIT {total}'
+        ].join('\n');
+
+        var params = {
+            stat: parseInt(start),
+            total: parseInt(end)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获得用户个性化设置失败",
+                    "失败原因 ": "个性化设置不存在"
+                }));
+                response.end();
+            } else {
+                var rs = [];
+                for (var index in results) {
+                    var rNode = results[index].r;
+                    rNode.data.weixin = results[index].weixin.data;
+                    rNode.data.app = results[index].app.data;
+                    rNode.data.account = results[index].account.data;
+                    rs.push(rNode.data);
+                }
+                response.write(JSON.stringify({
+                    "提示信息": "获得用户个性化设置成功",
+                    "rs": rs,
+                    "count": count
+                }));
+                response.end();
+            }
+        });
+
+    }
+    function getPrivateAppCountNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
+            'WHERE app.type! ="private" AND r.switch! =true',
+            'RETURN  count(r)'
+        ].join('\n');
+
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获得用户个性化设置数量失败",
+                    "失败原因 ": "个性化应用不存在"
+                }));
+                response.end();
+            } else {
+                count = results.pop()["count(r)"];
+                getPrivateAppNode();
+            }
+        });
+    }
+}
 module.exports = applicationManage;

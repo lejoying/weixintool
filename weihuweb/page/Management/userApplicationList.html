@@ -43,14 +43,14 @@
         	<ul>
                 <li><a href="myapps.html"><b>注册会员管理</b></a></li>
                 <li><a href="javascript:;"><b>微信公众帐号</b></a></li>
-                <li><a class="sildLeftSelect" href="javascript:;"><b>微乎应用</b></a></li>
-                <li><a href="javascript:;"><b>用户应用</b></a></li>
+                <li><a href="javascript:;"><b>微乎应用</b></a></li>
+                <li><a class="sildLeftSelect" href="javascript:;"><b>用户应用</b></a></li>
                 <li><a href="javascript:;"><b>定制应用</b></a></li>
             </ul>
         </div>
         <div class="mainContern">
         	<div class="messageListTitle">
-            	<div>微乎应用</div>
+            	<div>用户应用设置</div>
             </div>
             <div class="allAppsList">
                 <!--<ul>
@@ -129,28 +129,18 @@
                 <?js if(post==null) { ?>
                 <?js continue; ?>
                 <?js } ?>
-                <li>
+                <li class="js_lidata">
                     <div class="appsImg"><img src="/static/images/app/6.jpg" /></div>
                     <div class="appsSummary">
-                        <div class="publicAppExplanation"><span class="publicAppName">#{post.name}</span><span>
-                            <?js if(post.type=="public"){ ?>
-                            公共应用
-                            <?js }else if(post.type=="industry"){ ?>
-                            行业应用
-                            <?js }else{ ?>
-                            <?js } ?>
-                            ，适用：#{post.class}</span></div>
-                        <div class="publicAppIntroduction">#{post.intro}</div>
-                        <div class="publicAppRule">回复字母：<span>#{post.replytxt}</span></div>
+                        <div class="publicAppExplanation"><span class="publicAppName">#{post.app.name}</span><span>
+                            #{post.weixin.weixinName} &nbsp;&nbsp;| &nbsp;&nbsp;#{post.account.accountname}</span></div>
+                        <div class="publicAppIntroduction">#{post.app.description}</div>
+                        <div class="publicAppRule"><span></span></div>
                     </div>
                     <div class="publicAppsOperating">
                         <div class="switch publicAppSwitch demo3">
-                            <?js if(post.status=="true"){ ?>
-                            <input type="checkbox" value="#{post.appid}" checked="checked" >
-                            <?js }else{ ?>
-                            <input type="checkbox" value="#{post.appid}" >
-                            <?js } ?>
-                            <label><i></i></label>
+                            <a href="userApplication.html?weixinid=#{post.weixin.weixinOpenID}&appid=#{post.app.appid}&accountname=#{post.account.accountname}&weixinname=#{post.weixin.weixinName}">查看</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            <a href="javascript:;" class="js_delete" name="#{post.weixin.weixinOpenID},#{post.app.appid}">删除</a>
                         </div>
                     </div>
                 </li>
@@ -161,7 +151,7 @@
 </div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
-<script type="text/javascript" src="/static/js/management/weihuApplication.js"></script>
+<script type="text/javascript" src="/static/js/management/userApplicationList.js"></script>
 <script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/management/index.js"></script>
 </body>

@@ -92,7 +92,8 @@ $(document).ready(function(){
                     url:"/api2/app/getall?",
                     data:{
                         weixinOpenID: weixinid,
-                        filter: "BIND"
+                        filter: "BIND",
+                        status: "true"
                     },
                     success:function(serverData){
                         if(serverData["提示信息"] == "获得应用列表成功"){

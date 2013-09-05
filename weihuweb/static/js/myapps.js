@@ -55,7 +55,7 @@ $(document).ready(function(){
                 if(serverData["提示信息"] == "获取个性化设置成功"){
                     var selfdom_myapps = getTemplate("selfdom_myapps");
                     $(".appExamplesList").html(selfdom_myapps.render(serverData["r"]));
-                    $($(".myappBottomMessage")[0]).html("共有条回复，此处显示最前10条回复设置");
+                    $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
                     for(var i=0;i<$(".receivetxt").length;i++){
                         var id = $($(".receivetxt")[i]).html();
                         $($(".receivetxt")[i]).html(id.substr(0,20)+"...");

@@ -98,6 +98,9 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     else if (operation == "delete") {
         applicationManage.delete(data, response);
     }
+    else if (operation == "modifystatus") {
+        applicationManage.modifystatus(data, response);
+    }
     else if (operation == "myappadd") {
         applicationManage.myappadd(data, response);
     }
@@ -112,6 +115,9 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     }
     else if (operation == "getmyapp") {
         applicationManage.getmyapp(data, response);
+    }
+    else if (operation == "getprivateapp") {
+        applicationManage.getprivateapp(data, response);
     }
 };
 

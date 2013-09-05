@@ -128,8 +128,12 @@
                     <th>会员接收文字</th>
                     <th>接收图片</th>
                 </tr>
+                <?js count=0; ?>
                 <?js for(var index in it) { ?>
-                <?js post=it[index]; ?>
+                <?js post=it[index];count++; ?>
+                <?js if(count==11) { ?>
+                    <?js break; ?>
+                <?js } ?>
                 <?js if(post==null) { ?>
                     <?js continue; ?>
                 <?js } ?>

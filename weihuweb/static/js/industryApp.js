@@ -33,6 +33,7 @@ $(document).ready(function(){
                 "weixinOpenID":weixinid,
                 "type":"industry",
                 "filter":"ALL",
+                "status": "true",
                 "start": start,
                 "end": end
             },
