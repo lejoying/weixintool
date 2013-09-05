@@ -5,15 +5,14 @@ $(document).ready(function(){
     var nowAccount = window.localStorage.getItem("nowAccount");
     if(nowAccount != null){
         $(".userAccount span").html("欢迎"+unescape(JSON.parse(nowAccount).accountname));
-        if(JSON.parse(nowAccount).type == "admin"){
+        /*if(JSON.parse(nowAccount).type == "admin"){
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = "/page/management/default.html"
             a.appendChild(document.createTextNode("后台管理"));
             li.appendChild(a);
             $(".nav ul")[0].appendChild(li);
         }
-        $($(".nav ul li")[4]).hide();
+        $($(".nav ul li")[4]).hide();*/
     }else{
         location.href="/login.html";
     }
@@ -58,9 +57,9 @@ $(document).ready(function(){
                 }
                 var url = window.location.href;
                 url = url.substr(url.lastIndexOf("/")+1);
-                if(url == "default.html"){
+                /*if(url == "default.html"){
                     $.getScript("./../static/js/default.js");
-                }
+                }*/
                 $(".accountSwitching ul li").click(function(){
                     $(".accountSwitching").hide();
                     location.href="default.html";
@@ -78,7 +77,7 @@ $(document).ready(function(){
 
         }
     });
-    //获取当前微信用户的ID
+   /* //获取当前微信用户的ID
     var weixinid = "";
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
     if(nowBindWeixins != null){
@@ -118,7 +117,7 @@ $(document).ready(function(){
                 break;
             }
         }
-    }
+    }*/
 
     $(".js_exit").click(function(){
         //清除window.localStorage和window.sessionStorage下存放的键值对

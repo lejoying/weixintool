@@ -240,6 +240,7 @@ applicationManage.getall = function (data, response) {
     };
     var filter = data.filter;
     var type = data.type;
+    var stats = data.stats;
     var stat = data.start;
     var end = data.end;
     var weixin =
@@ -256,7 +257,7 @@ applicationManage.getall = function (data, response) {
         if (filter == "ALL") {
             query = [
                 'MATCH app:App' ,
-                'WHERE app.type! ={type}',
+                'WHERE app.type! ={type} AND app.status! ={stats}',
                 'RETURN  app',
                 'ORDER BY app.appid ASC',
                 'SKIP {stat}',
@@ -283,6 +284,7 @@ applicationManage.getall = function (data, response) {
             weixinOpenID: weixin.weixinOpenID,
             uid: parseInt(account.uid),
             type: type,
+            stats: stats,
             stat: parseInt(stat),
             end: parseInt(end)
         };

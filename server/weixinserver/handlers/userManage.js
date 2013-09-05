@@ -99,6 +99,76 @@ userManage.getall = function (data, response) {
             });
     }
 }
+/***************************************
+ *     URL：/api2/user/getnowpageuser
+ ***************************************/
+userManage.getnowpageuser = function (data, response) {
+    response.asynchronous = 1;
+    var count = 0;
+    var start = data.start;   //todo take it effect
+    var end = data.end;
+    getNowPageUserCountNode();
+    function getNowPageUserNode() {
+        var query = [
+            'MATCH user:User-[:FOCUS]->weixin:Weixin' ,
+            'RETURN  user, weixin',
+            'SKIP {stat}',
+            'LIMIT {total}'
+        ].join('\n');
+
+        var params = {
+            stat: parseInt(start),
+            total: parseInt(end)
+        };
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获得分页关注用户失败",
+                    "失败原因 ": "微信公众账号不存在"
+                }));
+                response.end();
+            } else {
+                var users = [];
+                for (var index in results) {
+                    var userNode = results[index].user.data;
+                    userNode.weixin = results[index].weixin.data;
+                    users.push(userNode);
+                }
+                response.write(JSON.stringify({
+                    "提示信息": "获得分页关注用户成功",
+                    "users": users,
+                    "count": count
+                }));
+                response.end();
+            }
+        });
+    }
+    function getNowPageUserCountNode() {
+        var query = [
+            'MATCH user:User-[:FOCUS]->weixin:Weixin' ,
+            'RETURN  count(user)'
+        ].join('\n');
+
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.log(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有关注用户数量失败",
+                    "失败原因 ": "数据格式不正确"
+                }));
+                response.end();
+            } else {
+                count = results.pop()["count(user)"];
+                getNowPageUserNode();
+            }
+        });
+    }
+}
 
 
 /***************************************
@@ -182,6 +252,42 @@ userManage.getbyid = function (data, response) {
                 response.write(JSON.stringify({
                     "提示信息": "获取用户信息成功",
                     "user": user
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/user/delete
+ ***************************************/
+userManage.delete = function (data, response) {
+    response.asynchronous = 1;
+    var userid = data.userid;
+    deleteUserNode();
+
+    function deleteUserNode() {
+        var query = [
+            'MATCH other-[r]-user:User' ,
+            'WHERE user.id! ={userid}',
+            'DELETE  r, user'
+        ].join('\n');
+
+        var params = {
+            userid: userid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                response.write(JSON.stringify({
+                    "提示信息": "删除用户信息失败",
+                    "失败原因 ": "用户信息不存在"
+                }));
+                response.end();
+            } else {
+                response.write(JSON.stringify({
+                    "提示信息": "删除用户信息成功"
                 }));
                 response.end();
             }

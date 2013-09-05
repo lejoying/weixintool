@@ -8,7 +8,7 @@
 <body>
 <div class="head">
     <div class="headContent">
-        <div class="logo"><a href="/page/default.html">&nbsp;</a></div>
+        <div class="logo"><a href="/page/management/default.html">&nbsp;</a></div>
         <div class="weixinSwitch">
             <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;"></a>
             <a href="/page/bindWeixin.html">绑定微信公众帐号</a>
@@ -63,7 +63,7 @@
             	<div>微信公众帐号</div>
             </div>
             <div class="wixinMemberTable">
-                <table>
+                <!--<table>
                     <col class="weixinId"/>
                     <col class="nickName"/>
                     <col class="province"/>
@@ -96,7 +96,7 @@
                             <a href="weixinMemberEdit.html">开启</a>
                         </td>
                     </tr>
-                </table>
+                </table>-->
             </div>
             <div class="pagination">
                 <a href="#" title="上一页">首页</a>
@@ -120,8 +120,56 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_weixinlist" serverdata="main_weixinlist" evenpool="main_weixinlist">
+        <div class="weixinlist" id="weixinlist">
+            <table>
+                <col class="weixinId"/>
+                <col class="nickName"/>
+                <col class="province"/>
+                <col class="joinTime"/>
+                <col class="memberOperating"/>
+                <tr>
+                    <th style="width:150px;">微信公众帐号</th>
+                    <th>状态</th>
+                    <th style="width:130px;">用户</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+                <?js for (var index in it) { ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <tr class="js_weixintr">
+                    <td>#{post.weixinName}</td>
+                    <td class="js_switchstatus">
+                        <?js if(post.rela=="true"){ ?>
+                        已开启
+                        <?js }else{ ?>
+                        已关闭
+                        <?js } ?>
+                    </td>
+                    <td>#{post.account.accountname}</td>
+                    <td>#{post.time}</td>
+                    <td>
+                        <a href="javascript:;" class="js_delete" name="#{post.account.uid},#{index}">删除</a> |
+                        <?js if(post.rela=="true"){ ?>
+                        <a href="javascript:;" class="js_switch" name="#{post.account.uid},#{index}">关闭</a>
+                        <?js }else{ ?>
+                        <a href="javascript:;" class="js_switch" name="#{post.account.uid},#{index}">开启</a>
+                        <?js } ?>
+                    </td>
+                </tr>
+                <?js } ?>
+            </table>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
-<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/management/weixinPubAccount.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/management/index.js"></script>
 </body>
 </html>

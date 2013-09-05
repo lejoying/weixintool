@@ -45,11 +45,17 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "modify") {
         weixinManage.modify(data, response);
     }
+    else if (operation == "delete") {
+        weixinManage.delete(data, response);
+    }
     else if (operation == "modifyrelapro") {
         weixinManage.modifyrelapro(data, response);
     }
     else if (operation == "newusercount") {
         weixinManage.newusercount(data, response);
+    }
+    else if (operation == "getnowpageweixin") {
+        weixinManage.getnowpageweixin(data, response);
     }
 };
 
@@ -63,8 +69,14 @@ requestHandlers.userManage = function (request, response, pathObject, data) {
     else if (operation == "modify") {
         userManage.modify(data, response);
     }
+    else if (operation == "delete") {
+        userManage.delete(data, response);
+    }
     else if (operation == "getbyid") {
         userManage.getbyid(data, response);
+    }
+    else if (operation == "getnowpageuser") {
+        userManage.getnowpageuser(data, response);
     }
 };
 

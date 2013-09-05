@@ -52,27 +52,27 @@
         	<div class="messageListTitle">
             	<div>微信会员编辑</div>
             </div>
-            <div style="font-size:16px;padding:15px;"><span><b>会员ID：</b></span><span></span>1408220242</span></div>
-            <div style="font-size:16px;padding:15px;"><span><b>微信公众帐号：</b></span><span></span>生活小助手(QWERTY128763456)</span></div>
+            <div style="font-size:16px;padding:15px;"><span><b>会员ID：</b></span><span class="js_memberId">1408220242</span></div>
+            <div style="font-size:16px;padding:15px;"><span><b>微信公众帐号：</b></span><span class="js_memberWeixin">生活小助手(QWERTY128763456)</span></div>
             <div class="settingFrame" style=" margin: 20px 0 20px 123px;">
                 <div class="accountSettingBody js_accountSettingBody">
                     <p style="margin-left:33px;">
-                        <span class="settingProjectName">昵称</span><span><input name="" type="text" value="woxie@sohu.com" readonly="readonly"/></span>
+                        <span class="settingProjectName">昵称</span><span><input name="nickName" type="text" value="no name"/></span>
                     </p>
                     <p style="margin-left:33px;">
-                        <span class="settingProjectName">省市</span><span><input name="" type="text"/></span>
+                        <span class="settingProjectName">省市</span><span><select class="js_provinces"><option value="不限">不限</option></select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select class="js_city"><option value="不限">不限</option></select><!--<input name="city" type="text"/>--></span>
                     </p>
                     <p>
-                        <span class="settingProjectName">真实姓名</span><span><input name="" type="text"/></span>
+                        <span class="settingProjectName">真实姓名</span><span><input name="realName" type="text"/></span>
                     </p>
                     <p style="margin-left:16px;">
-                        <span class="settingProjectName">手机号</span><span><input name="" type="text"/></span>
+                        <span class="settingProjectName">手机号</span><span><input name="phone" type="text"/></span>
                     </p>
                     <p style="margin-left:33px;">
-                        <span class="settingProjectName">邮箱</span><span><input name="" type="text"/></span>
+                        <span class="settingProjectName">邮箱</span><span><input name="email" type="text"/></span>
                     </p>
                     <p>
-                        <span class="settingProjectName" style="vertical-align: top;">客服备注</span><span><textarea style="width:286px;height:140px;resize: none;" cols="" rows=""></textarea></span>
+                        <span class="settingProjectName" style="vertical-align: top;">客服备注</span><span><textarea style="width:286px;height:140px;resize: none;" cols="" rows="" class="serviceName"></textarea></span>
                     </p>
                     <div><a class="settingSaveBtn" href="javascript:;">保&nbsp;存</a></div>
                 </div>
@@ -88,6 +88,7 @@
 </div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
-<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/management/weixinMemberEdit.js"></script>
+<script type="text/javascript" src="/static/js/management/index.js"></script>
 </body>
 </html>

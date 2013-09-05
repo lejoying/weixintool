@@ -17,13 +17,32 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
  ***************************************/
 weixinManage.bindingtoken = function (data, response) {
     response.asynchronous = 1;
+    Date.prototype.format = function(format)
+    {
+        var o =
+        {
+            "M+" : this.getMonth()+1, //month
+            "d+" : this.getDate(),    //day
+            "h+" : this.getHours(),   //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+            "S" : this.getMilliseconds() //millisecond
+        }
+        if(/(y+)/.test(format))
+            format=format.replace(RegExp.$1,(this.getFullYear()+""));
+        for(var k in o)
+            if(new RegExp("("+ k +")").test(format))
+                format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+        return format;
+    }
     var weixin = {
         weixinOpenID: "",
         weixinName: data.weixinName,
         token: "",
-        status: "binding"
+        status: "binding",
+        time: new Date().format("yy-MM-dd")
     };
-
     var account = {
         "uid": data.uid
     };
@@ -208,7 +227,7 @@ weixinManage.getall = function (data, response) {
             'START account=node({uid})' ,
             'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
             'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
-            'RETURN weixin, app, r'
+            'RETURN account,weixin, app, r'
         ].join('\n');
 
         var params = {
@@ -235,6 +254,7 @@ weixinManage.getall = function (data, response) {
                     var weixinNode = results[index].weixin;
                     if (weixins[weixinNode.data.weixinOpenID] == null) {
                         weixinNode.data.rela = results[index].r.data.switch;
+                        weixinNode.data.account = results[index].account.data;
                         weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
                         weixins[weixinNode.data.weixinOpenID].apps = [];
                     }
@@ -248,6 +268,63 @@ weixinManage.getall = function (data, response) {
                 response.end();
             }
 
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/weixin/getnowpageweixin
+ ***************************************/
+weixinManage.getnowpageweixin = function (data, response) {
+    response.asynchronous = 1;
+    var stat = data.start;
+    var end = data.end;
+
+    getNowPageWeixinNode();
+
+    function getNowPageWeixinNode() {
+        var query = [
+            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin',
+            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+            'RETURN account, weixin, r',
+            'SKIP {stat}',
+            'LIMIT {end}'
+        ].join('\n');
+
+        var params = {
+            status1: "bind_server",
+            status2: "bind_message",
+            stat: parseInt(stat),
+            end: parseInt(end)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取绑定微信公众账号分页数据失败",
+                    "失败原因": "没有已绑定微信公众账号"
+                }));
+                response.end();
+            }
+            else {
+                var weixins = {};
+                for (var index in results) {
+                    var weixinNode = results[index].weixin;
+                    if (weixins[weixinNode.data.weixinOpenID] == null) {
+                        weixinNode.data.rela = results[index].r.data.switch;
+                        weixinNode.data.account = results[index].account.data;
+                        weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
+                    }
+                }
+                response.write(JSON.stringify({
+                    "提示信息": "获取绑定微信公众账号分页数据成功",
+                    "weixins": weixins
+                }));
+                response.end();
+            }
         });
     }
 }
@@ -291,6 +368,45 @@ weixinManage.modify = function (data, response) {
                 response.write(JSON.stringify({
                     "提示信息": "修改绑定微信信息成功",
                     "weixin": weixin
+                }));
+                response.end();
+            }
+        });
+    }
+}
+
+/***************************************
+ *     URL：/api2/weixin/delete
+ ***************************************/
+weixinManage.delete = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var uid = data.uid;
+    deleteNode();
+
+    function deleteNode() {
+        var query = [
+            'MATCH other-[r]-weixin:Weixin',
+            'WHERE weixin.weixinOpenID! ={weixinid}',
+            'DELETE r, weixin'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(uid),
+            weixinid: weixinid
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                response.write(JSON.stringify({
+                    "提示信息": "删除绑定微信失败",
+                    "失败原因 ": "数据不正常"
+                }));
+                response.end();
+            }else {
+                response.write(JSON.stringify({
+                    "提示信息": "删除绑定微信成功"
                 }));
                 response.end();
             }

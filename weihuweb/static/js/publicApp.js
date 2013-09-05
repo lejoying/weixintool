@@ -33,6 +33,7 @@ $(document).ready(function(){
                 "weixinOpenID":weixinid,
                 "type":"public",
                 "filter":"ALL",
+                "stats":true,
                 "start": start,
                 "end": end
             },

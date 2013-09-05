@@ -52,47 +52,7 @@
         	<div class="messageListTitle">
             	<div>微信会员列表</div>
             </div>
-            <div class="userMessageList">
-                <table>
-                    <col class="userId" style="width:120px;"/>
-                    <col class="userNiceName" style="width:120px;"/>
-                    <col class="messageContent" style="width:120px;"/>
-                    <col class="messageReplay" style="width:90px;"/>
-                    <col class="messageTime" style="width:90px;"/>
-                    <col class="messageInformation" style="width:90px;"/>
-                    <tr>
-                        <th>微信ID</th>
-                        <th>微信公众帐号</th>
-                        <th>昵称</th>
-                        <th>省市</th>
-                        <th>加入时间</th>
-                        <th>操作</th>
-                    </tr>
-                    <tr>
-                        <td>1408220242</td>
-                        <td>生活小助手</td>
-                        <td>陈明</td>
-                        <td>四川成都</td>
-                        <td>2013-5-6</td>
-                        <td>
-                            <a href="javascript:;">删除</a> |
-                            <a href="weixinMemberEdit.html">编辑</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1408220242</td>
-                        <td>生活小助手</td>
-                        <td>陈明</td>
-                        <td>四川成都</td>
-                        <td>2013-5-6</td>
-                        <td>
-                            <a href="javascript:;">删除</a> |
-                            <a href="weixinMemberEdit.html">编辑</a>
-                        </td>
-                        </tr>
-                </table>
-
-            </div>
+            <div class="userMessageList"></div>
             <div class="pagination">
                 <a href="#" title="上一页">首页</a>
                 <a href="#" title="上一页">上一页</a>
@@ -115,8 +75,65 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_userlist" serverdata="main_userlist" evenpool="main_userlist">
+        <div class="userlist" id="userlist">
+            <table>
+                <col class="userId" style="width:120px;"/>
+                <col class="userNiceName" style="width:120px;"/>
+                <col class="messageContent" style="width:120px;"/>
+                <col class="messageReplay" style="width:90px;"/>
+                <col class="messageTime" style="width:90px;"/>
+                <col class="messageInformation" style="width:90px;"/>
+                <tr>
+                    <th>微信ID</th>
+                    <th>微信公众帐号</th>
+                    <th>昵称</th>
+                    <th>省市</th>
+                    <th>加入时间</th>
+                    <th>操作</th>
+                </tr>
+                <?js for (var index in it) { ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <tr class="js_truser">
+                    <td class="idsubstr" title="#{post.id}">#{post.id}</td>
+                    <?js if(post.weixin.weixinName!=null){ ?>
+                    <td>#{post.weixin.weixinName}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <?js if(post.nickName!=null){ ?>
+                    <td title="#{post.nickName}">#{post.nickName}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <?js if(post.city!=null){ ?>
+                    <td class="js_substrcity">#{post.city}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <?js if(post.time!=null){ ?>
+                    <td class="js_substrtime">#{post.time}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <td>
+                        <a href="javascript:;"name="#{post.id}" class="js_delete">删除</a> |
+                        <a href="weixinMemberEdit.html?id=#{post.id}&weixinName=#{post.weixin.weixinName}&weixinid=#{post.weixin.weixinOpenID}">编辑</a>
+                    </td>
+                </tr>
+                <?js } ?>
+            </table>
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/setting.js"></script>
-<script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/management/weixinMemberList.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/management/index.js"></script>
 </body>
 </html>
