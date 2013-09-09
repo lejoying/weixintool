@@ -22,6 +22,15 @@ requestHandlers.accountManage = function (request, response, pathObject, data) {
     else if (operation == "modify") {
         accountManage.modify(data, response);
     }
+    else if (operation == "modifyaccount") {
+        accountManage.modifyaccount(data, response);
+    }
+    else if (operation == "getnowpageaccount") {
+        accountManage.getnowpageaccount(data, response);
+    }
+    else if (operation == "getbyid") {
+        accountManage.getbyid(data, response);
+    }
 };
 
 var weixinManage = require('./handlers/weixinManage');

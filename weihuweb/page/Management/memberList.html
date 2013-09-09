@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>微乎后台管理-微信会员列表</title>
+</head>
+<body>
+<div class="head">
+    <div class="headContent">
+        <div class="logo"><a href="/page/default.html">&nbsp;</a></div>
+        <div class="weixinSwitch">
+            <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;"></a>
+            <a href="/page/bindWeixin.html">绑定微信公众帐号</a>
+            <div class="accountSwitching" id="accountSwitching" style="display:none;">
+                <ul></ul>
+            </div>
+        </div>
+        <div class="userAccount">
+            <span>欢迎Vook</span>
+            <a href="/page/setting.html">设置</a>
+            <a href="javascript:;" class="js_exit">退出</a>
+        </div>
+    </div>
+</div>
+<div class="navigation">
+    <div class="nav">
+        <ul>
+            <li><a class="" href="/page/weixinMember.html">微信会员</a></li>
+            <li><a class="navSelected" href="/page/messageList.html">消息列表</a></li>
+            <li><a href="/page/publicApp.html">公共应用</a></li>
+            <li><a href="/page/industryApp.html">行业应用</a></li>
+            <li><a href="javascript:;">生活服务</a></li>
+            <li><a href="javascript:;">定制需求</a></li>
+            <li><a href="javascript:;">后台管理</a></li>
+        </ul>
+    </div>
+</div>
+<div class="clearevery"></div>
+<div>
+    <div class="content">
+        <div class="sildLeft">
+        	<ul>
+                <li><a class="sildLeftSelect" href="myapps.html"><b>注册会员管理</b></a></li>
+                <li><a href="javascript:;"><b>微信公众帐号</b></a></li>
+                <li><a href="javascript:;"><b>微乎应用</b></a></li>
+                <li><a href="javascript:;"><b>用户应用</b></a></li>
+                <li><a href="javascript:;"><b>定制应用</b></a></li>
+            </ul>
+        </div>
+        <div class="mainContern">
+        	<div class="messageListTitle">
+            	<div>微信会员列表</div>
+            </div>
+            <div class="userMessageList"></div>
+            <div class="pagination">
+                <a href="#" title="上一页">首页</a>
+                <a href="#" title="上一页">上一页</a>
+                <a href="#" class="pageSelected">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <span>···</span>
+                <a href="#">10</a>
+                <a href="#" title="下一页">下一页</a>
+                <a href="#" title="上一页">尾页</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearevery"></div>
+<div class="footBar">
+	<div class="foot">
+    	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
+    </div>
+</div>
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_memberlist" serverdata="main_memberlist" evenpool="main_memberlist">
+        <div class="memberlist" id="memberlist">
+            <table>
+                <col class="userId" style="width:120px;"/>
+                <col class="userNiceName" style="width:120px;"/>
+                <col class="messageContent" style="width:120px;"/>
+                <col class="messageReplay" style="width:90px;"/>
+                <col class="messageTime" style="width:90px;"/>
+                <col class="messageInformation" style="width:90px;"/>
+                <tr>
+                    <th>注册ID</th>
+                    <th>邮箱</th>
+                    <th>昵称</th>
+                    <th>注册时间</th>
+                    <th>操作</th>
+                </tr>
+                <?js for (var index in it) { ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <tr class="js_truser">
+                    <td title="#{post.uid}">#{post.uid}</td>
+                    <?js if(post.accountname!=null){ ?>
+                    <td class="js_name">#{post.accountname}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <?js if(post.nickName!=null){ ?>
+                    <td title="#{post.nickName}">#{post.nickName}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <?js if(post.time!=null){ ?>
+                    <td class="js_substrtime">#{post.time}</td>
+                    <?js }else{ ?>
+                    <td></td>
+                    <?js } ?>
+                    <td>
+                        <a href="javascript:;" name="#{post.uid}" class="js_deleteAccount">删除</a> |
+                        <a href="memberEdit.html?id=#{post.uid}" class="js_editAccount">编辑</a>
+                    </td>
+                </tr>
+                <?js } ?>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
+<script type="text/javascript" src="/static/js/setting.js"></script>
+<script type="text/javascript" src="/static/js/management/memberList.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/management/index.js"></script>
+</body>
+</html>

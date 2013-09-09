@@ -356,7 +356,161 @@ accountManage.exist = function (data, response) {
         });
     }
 }
+/***************************************
+ *     URL：/api2/account/getnowpageaccount
+ ***************************************/
+accountManage.getnowpageaccount = function (data, response) {
+    response.asynchronous = 1;
+    var count = 0;
+    var start = data.start;
+    var end = data.end;
+    getNowPageAccountCountNode();
+    function getNowPageAccountNode() {
+        var query = [
+            'MATCH account:Account' ,
+            'RETURN  account',
+            'SKIP {stat}',
+            'LIMIT {total}'
+        ].join('\n');
 
+        var params = {
+            stat: parseInt(start),
+            total: parseInt(end)
+        };
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获得分页注册用户失败",
+                    "失败原因 ": "无注册用户"
+                }));
+                response.end();
+            } else {
+                var accounts = [];
+                for (var index in results) {
+                    var accountNode = results[index].account;
+                    accounts.push(accountNode.data);
+                }
+                response.write(JSON.stringify({
+                    "提示信息": "获得分页注册用户成功",
+                    "accounts": accounts,
+                    "count": count
+                }));
+                response.end();
+            }
+        });
+    }
+    function getNowPageAccountCountNode() {
+        var query = [
+            'MATCH account:Account' ,
+            'RETURN  count(account)'
+        ].join('\n');
+
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.log(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有注册用户数量失败",
+                    "失败原因 ": "数据格式不正确"
+                }));
+                response.end();
+            } else {
+                count = results.pop()["count(account)"];
+                getNowPageAccountNode();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/account/getbyid
+ ***************************************/
+accountManage.getbyid = function (data, response) {
+    response.asynchronous = 1;
+    var uid = data.uid;
+    getByIdAccountNode();
+
+    function getByIdAccountNode() {
+        var query = [
+            'MATCH account:Account' ,
+            'WHERE account.uid! ={uid}',
+            'RETURN  account '
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(uid)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取用户信息失败",
+                    "失败原因 ": "用户信息不存在"
+                }));
+                response.end();
+            } else {
+                var account = results.pop().account.data;
+                response.write(JSON.stringify({
+                    "提示信息": "获取用户信息成功",
+                    "account": account
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/account/modifyaccount
+ ***************************************/
+accountManage.modifyaccount = function (data, response) {
+    response.asynchronous = 1;
+    var uid = data.uid;
+    var accountStr = data.account;
+    var account = JSON.parse(accountStr);
+    modifyAccountNode();
+
+    function modifyAccountNode() {
+        var query = [
+            'MATCH account:Account',
+            'WHERE account.uid! ={uid}',
+            'RETURN  account'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(uid)
+        };
+
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+            if (results.length == 0) {
+                response.write(JSON.stringify({
+                    "提示信息": "修改用户信息失败",
+                    "失败原因 ": "用户信息不存在"
+                }));
+                response.end();
+            } else {
+                var accountNode = results.pop().account;
+                accountNode.data = account;
+                accountNode.save();
+                response.write(JSON.stringify({
+                    "提示信息": "修改用户信息成功",
+                    "account": account
+                }));
+                response.end();
+            }
+        });
+    }
+}
 /***************************************
  *     URL：/api2/account/trash
  ***************************************/
