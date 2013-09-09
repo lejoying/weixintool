@@ -8,14 +8,34 @@ $(document).ready(function(){
         if(JSON.parse(nowAccount).type == "admin"){
             var li = document.createElement("li");
             var a = document.createElement("a");
-            a.href = "/page/management/default.html"
             a.appendChild(document.createTextNode("后台管理"));
             li.appendChild(a);
             $(".nav ul")[0].appendChild(li);
+            $.getScript("./../static/js/sha1.js");
+            $(li).click(function(){
+                authAccount();
+            });
         }
         $($(".nav ul li")[4]).hide();
     }else{
         location.href="/login.html";
+    }
+    function authAccount(){
+//        var pass = prompt("请输入登录密码","******");
+        $.ajax({
+            type: "GET",
+            url: "/api2/account/auth?",
+            data: {
+                "accountname": JSON.parse(nowAccount).accountname, "password": hex_sha1(prompt("请输入登录密码","******"))
+            },
+            success: function (serverData) {
+                if (serverData["提示信息"] == "账号登录成功") {
+                    location.href = "/page/management/default.html"
+                }else if(serverData["提示信息"] == "账号登录失败"){
+                    authAccount();
+                }
+            }
+        });
     }
 //发送Ajax请求，获取绑定的微信用户
     $.ajax({

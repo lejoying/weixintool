@@ -542,4 +542,34 @@ weixinManage.newusercount = function (data, response) {
         });
     }
 }
+/***************************************
+ *     URL：/api2/weixin/getbindcount
+ ***************************************/
+weixinManage.getbindcount = function (data, response) {
+    response.asynchronous = 1;
+    getBindWeixinCountNode();
+    function getBindWeixinCountNode() {
+        var query = [
+            'MATCH account:Account-[r]->weixin:Weixin' ,
+            'RETURN  count(weixin)'
+        ].join('\n');
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取绑定微信数量失败",
+                    "失败原因 ": "数据异常"
+                }));
+                response.end();
+            }else{
+                var count = results.pop()["count(weixin)"];
+                response.write(JSON.stringify({
+                    "提示信息": "获取绑定微信数量成功",
+                    "count": count
+                }));
+                response.end();
+            }
+        });
+    }
+}
 module.exports = weixinManage;

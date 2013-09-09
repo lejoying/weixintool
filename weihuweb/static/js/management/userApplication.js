@@ -21,7 +21,7 @@ $(document).ready(function(){
 
                 $(".publicAppName").html(rData.app.name);
                 $(".publicAppIntroduction").html(rData.app.description);
-                $(".js_title").html(rData.app.name+" | 微信会员:"+Request("weixinname")+"  | 用户:"+Request("accountname"));
+                $(".js_title").html(rData.app.name+" | 微信会员:"+decodeURI(Request("weixinname"))+"  | 用户:"+Request("accountname"));
                 for(var i=0;i<$(".receivetxt").length;i++){
                     var id = $($(".receivetxt")[i]).html();
                     $($(".receivetxt")[i]).html(id.substr(0,20)+"...");

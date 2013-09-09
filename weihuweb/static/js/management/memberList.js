@@ -17,7 +17,22 @@ $(document).ready(function(){
 //            alert(serverData["提示信息"]);
             var memberlist = getTemplate("memberlist");
             $(".userMessageList").html(memberlist.render(serverData["accounts"]));
-
+            $(".js_deleteAccount").each(function(i){
+                $($(".js_deleteAccount")[i]).click(function(){
+                    $.ajax({
+                        type: "GET",
+                        url: "/api2/account/delete?",
+                        data: {
+                            uid: this.name
+                        },
+                        success: function(serverData){
+                            if(serverData["提示信息"] == "删除注册用户成功"){
+                                $(".js_truser")[i].parentNode.removeChild($(".js_truser")[i]);
+                            }
+                        }
+                    });
+                });
+            });
         }
     });
 });

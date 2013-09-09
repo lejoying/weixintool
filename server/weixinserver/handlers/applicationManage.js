@@ -426,9 +426,9 @@ applicationManage.myappadd = function (data, response) {
     var weixinid = data.weixinid;
     var myappStr = data.myapp;
     var myapps = JSON.parse(myappStr);
-    modifyMyAppNode();
+    addMyAppNode();
 
-    function modifyMyAppNode() {
+    function addMyAppNode() {
         var query = [
             'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
             'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! =125',
@@ -469,9 +469,9 @@ applicationManage.myappadd = function (data, response) {
 applicationManage.myappgetall = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
-    modifyMyAppNode();
+    getAllMyAppNode();
 
-    function modifyMyAppNode() {
+    function getAllMyAppNode() {
         var query = [
             'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
             'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! =125',
@@ -500,12 +500,19 @@ applicationManage.myappgetall = function (data, response) {
                 response.end();
             } else {
                 var rNode = results.pop().r;
-                response.write(JSON.stringify({
-                    "提示信息": "获取个性化设置成功",
-                    "r": JSON.parse(rNode.data.mydata),
-                    "count":JSON.parse(rNode.data.mydata).length
-                }));
-                response.end();
+                if(rNode.data.mydata == undefined || rNode.data.mydata.trim() == ""){
+                    response.write(JSON.stringify({
+                        "提示信息": "获取个性化设置成功"
+                    }));
+                    response.end();
+                }else{
+                    response.write(JSON.stringify({
+                        "提示信息": "获取个性化设置成功",
+                        "r": JSON.parse(rNode.data.mydata),
+                        "count":JSON.parse(rNode.data.mydata).length
+                    }));
+                    response.end();
+                }
             }
         });
     }
@@ -520,9 +527,9 @@ applicationManage.myappmodify = function (data, response) {
     var appid = data.appid;
     var rStr = data.r;
     var rData = JSON.parse(rStr);
-    getByIdAppNode();
+    modifyMyAppNode();
 
-    function getByIdAppNode() {
+    function modifyMyAppNode() {
         var query = [
             'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
             'WHERE weixin.weixinOpenID! ={weixinid} AND app.appid! ={appid}',
@@ -554,7 +561,7 @@ applicationManage.myappmodify = function (data, response) {
                     "r": rNode.data
                 }));
                 response.end();
-            }
+        }
         });
     }
 }
@@ -697,7 +704,7 @@ applicationManage.getprivateapp = function (data, response) {
     function getPrivateAppNode() {
         var query = [
             'MATCH account:Account-->weixin:Weixin<-[r:BIND]-app:App' ,
-            'WHERE app.type! ="private" AND r.switch! =true',
+            'WHERE app.type! ="private" AND r.power! =true',
             'RETURN  account, weixin, r, app',
             'SKIP {stat}',
             'LIMIT {total}'
@@ -741,7 +748,7 @@ applicationManage.getprivateapp = function (data, response) {
     function getPrivateAppCountNode() {
         var query = [
             'MATCH weixin:Weixin<-[r:BIND]-app:App' ,
-            'WHERE app.type! ="private" AND r.switch! =true',
+            'WHERE app.type! ="private" AND r.power! =true',
             'RETURN  count(r)'
         ].join('\n');
 
@@ -756,6 +763,89 @@ applicationManage.getprivateapp = function (data, response) {
             } else {
                 count = results.pop()["count(r)"];
                 getPrivateAppNode();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/weixin/getappcount
+ ***************************************/
+applicationManage.getappcount = function (data, response) {
+    response.asynchronous = 1;
+    var total = 0;
+    getAllAppCountNode();
+    function getAppCountNode() {
+        var query = [
+            'MATCH app:App' ,
+            'WHERE app.status! ="true"',
+            'RETURN  count(app)'
+        ].join('\n');
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取微乎应用数量失败",
+                    "失败原因 ": "数据异常"
+                }));
+                response.end();
+            }else{
+                var count = results.pop()["count(app)"];
+                response.write(JSON.stringify({
+                    "提示信息": "获取微乎应用数量成功",
+                    "oncount": count,
+                    "offcount":total-count
+                }));
+                response.end();
+            }
+        });
+    }
+    function getAllAppCountNode() {
+        var query = [
+            'MATCH app:App' ,
+            'RETURN  count(app)'
+        ].join('\n');
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取所有微乎应用数量失败",
+                    "失败原因 ": "数据异常"
+                }));
+                response.end();
+            }else{
+               total = results.pop()["count(app)"];
+                getAppCountNode();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/weixin/getuserappcount
+ ***************************************/
+applicationManage.getuserappcount = function (data, response) {
+    response.asynchronous = 1;
+    getUserAppCountNode();
+    function getUserAppCountNode() {
+        var query = [
+            'MATCH weixin:Weixin<-[r]-app:App' ,
+            'WHERE app.type! ="private" AND r.power! =true',
+            'RETURN  count(r)'
+        ].join('\n');
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                response.write(JSON.stringify({
+                    "提示信息": "获取个性化应用开启数量失败",
+                    "失败原因 ": "数据异常"
+                }));
+                response.end();
+            }else{
+                var count = results.pop()["count(r)"];
+                response.write(JSON.stringify({
+                    "提示信息": "获取个性化应用开启数量成功",
+                    "count": count
+                }));
+                response.end();
             }
         });
     }

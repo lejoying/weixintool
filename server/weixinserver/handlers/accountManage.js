@@ -511,6 +511,74 @@ accountManage.modifyaccount = function (data, response) {
         });
     }
 }
+
+/***************************************
+ *     URL：/api2/account/getallcount
+ ***************************************/
+accountManage.getallcount = function (data, response) {
+    response.asynchronous = 1;
+    getAllAccountCountNode();
+    function getAllAccountCountNode() {
+        var query = [
+            'MATCH account:Account' ,
+            'RETURN  count(account)'
+        ].join('\n');
+
+        var params = {};
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.log(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有注册用户数量失败",
+                    "失败原因 ": "数据异常"
+                }));
+                response.end();
+            } else {
+                var count = results.pop()["count(account)"];
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有注册用户数量成功",
+                    "count": count
+                }));
+                response.end();
+            }
+        });
+    }
+}
+/***************************************
+ *     URL：/api2/account/delete
+ ***************************************/
+accountManage.delete = function (data, response) {
+    response.asynchronous = 1;
+    var uid = data.uid;
+    deleteAccountNode();
+    function deleteAccountNode() {
+        var query = [
+            'MATCH other-[r]-account:Account' ,
+            'WHERE account.uid! ={uid}',
+            'DELETE r, account'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(uid)
+        };
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.log(error);
+                response.write(JSON.stringify({
+                    "提示信息": "删除注册用户失败",
+                    "失败原因 ": "用户不存在"
+                }));
+                response.end();
+
+            }else {
+                response.write(JSON.stringify({
+                    "提示信息": "删除注册用户成功"
+                }));
+                response.end();
+            }
+        });
+    }
+}
 /***************************************
  *     URL：/api2/account/trash
  ***************************************/

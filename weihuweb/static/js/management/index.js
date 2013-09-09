@@ -57,9 +57,9 @@ $(document).ready(function(){
                 }
                 var url = window.location.href;
                 url = url.substr(url.lastIndexOf("/")+1);
-                /*if(url == "default.html"){
-                    $.getScript("./../static/js/default.js");
-                }*/
+                if(url == "default.html"){
+                    $.getScript("./../../static/js/management/default.js");
+                }
                 $(".accountSwitching ul li").click(function(){
                     $(".accountSwitching").hide();
                     location.href="default.html";

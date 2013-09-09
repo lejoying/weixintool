@@ -30,8 +30,8 @@ $(document).ready(function(){
                     },
                     success:function(serverData){
                             obj = serverData["r"];
-                            if(obj.switch != undefined){
-                                if(obj.switch == true){
+                            if(obj.power != undefined){
+                                if(obj.power == true){
                                     $(".myappTitle input")[0].setAttribute("checked","true");
                                 }else{
                                     $(".myappTitle input")[0].removeAttribute("checked");
@@ -55,7 +55,8 @@ $(document).ready(function(){
                 if(serverData["提示信息"] == "获取个性化设置成功"){
                     var selfdom_myapps = getTemplate("selfdom_myapps");
                     $(".appExamplesList").html(selfdom_myapps.render(serverData["r"]));
-                    $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
+                    if(serverData["count"] != undefined)
+                        $($(".myappBottomMessage")[0]).html("共有"+serverData["count"]+"条回复，此处显示最前10条回复设置");
                     for(var i=0;i<$(".receivetxt").length;i++){
                         var id = $($(".receivetxt")[i]).html();
                         $($(".receivetxt")[i]).html(id.substr(0,20)+"...");
@@ -69,23 +70,26 @@ $(document).ready(function(){
         });
 
         $(".myappTitle input").click(function(){
-            obj.switch = this.checked;
+//            alert(obj.switch+"--"+this.checked);
+            var ob = {};
+            ob.mydata = obj.mydata;
+            ob.power = this.checked;
             $.ajax({
                 type:"post",
                 url:"/api2/app/myappmodify?",
                 data:{
                     weixinid:weixinid,
                     appid:125,
-                    r:JSON.stringify(obj)
+                    r:JSON.stringify(ob)
                 },
                 success:function(serverData){
-                    if(serverData["提示信息"] == "修改绑定微信信息成功"){
-                        if(serverData["weixin"].switch==true){
+                    if(serverData["提示信息"] == "获取应用信息成功"){
+                        if(serverData["r"].power==true){
                             showBlackPage("开启成功","开启成功");
                         }else{
                             showBlackPage("关闭成功","关闭成功");
                         }
-                    }else if(serverData["提示信息"] == "修改绑定微信信息失败"){
+                    }else if(serverData["提示信息"] == "获取应用信息失败"){
                         showBlackPage("设置失败","设置失败");
                     }
                 }

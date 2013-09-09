@@ -31,6 +31,12 @@ requestHandlers.accountManage = function (request, response, pathObject, data) {
     else if (operation == "getbyid") {
         accountManage.getbyid(data, response);
     }
+    else if (operation == "getallcount") {
+        accountManage.getallcount(data, response);
+    }
+    else if (operation == "delete") {
+        accountManage.delete(data, response);
+    }
 };
 
 var weixinManage = require('./handlers/weixinManage');
@@ -65,6 +71,9 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     }
     else if (operation == "getnowpageweixin") {
         weixinManage.getnowpageweixin(data, response);
+    }
+    else if (operation == "getbindcount") {
+        weixinManage.getbindcount(data, response);
     }
 };
 
@@ -127,6 +136,12 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     }
     else if (operation == "getprivateapp") {
         applicationManage.getprivateapp(data, response);
+    }
+    else if (operation == "getappcount") {
+        applicationManage.getappcount(data, response);
+    }
+    else if (operation == "getuserappcount") {
+        applicationManage.getuserappcount(data, response);
     }
 };
 
