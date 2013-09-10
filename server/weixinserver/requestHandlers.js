@@ -63,11 +63,8 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "delete") {
         weixinManage.delete(data, response);
     }
-    else if (operation == "modifyrelapro") {
-        weixinManage.modifyrelapro(data, response);
-    }
     else if (operation == "getnewusercount") {
-        weixinManage.newusercount(data, response);
+        weixinManage.getnewusercount(data, response);
     }
     else if (operation == "getnowpageweixin") {
         weixinManage.getnowpageweixin(data, response);
@@ -119,14 +116,14 @@ requestHandlers.applicationManage = function (request, response, pathObject, dat
     else if (operation == "modifystatus") {
         applicationManage.modifystatus(data, response);
     }
-    else if (operation == "myappadd") {
-        applicationManage.myappadd(data, response);
+    else if (operation == "addmyapp") {
+        applicationManage.addmyapp(data, response);
     }
-    else if (operation == "myappgetall") {
-        applicationManage.myappgetall(data, response);
+    else if (operation == "getallmyapp") {
+        applicationManage.getallmyapp(data, response);
     }
-    else if (operation == "myappmodify") {
-        applicationManage.myappmodify(data, response);
+    else if (operation == "modifymyapp") {
+        applicationManage.modifymyapp(data, response);
     }
     else if (operation == "getappscount") {
         applicationManage.getappscount(data, response);

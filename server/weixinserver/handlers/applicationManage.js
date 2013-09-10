@@ -419,9 +419,9 @@ applicationManage.getall = function (data, response) {
     }
 }
 /***************************************
- *     URL：/api2/app/myappadd
+ *     URL：/api2/app/addmyapp
  ***************************************/
-applicationManage.myappadd = function (data, response) {
+applicationManage.addmyapp = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     var myappStr = data.myapp;
@@ -464,9 +464,9 @@ applicationManage.myappadd = function (data, response) {
     }
 }
 /***************************************
- *     URL：/api2/app/myappadd
+ *     URL：/api2/app/getallmyapp
  ***************************************/
-applicationManage.myappgetall = function (data, response) {
+applicationManage.getallmyapp = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     getAllMyAppNode();
@@ -519,9 +519,9 @@ applicationManage.myappgetall = function (data, response) {
 }
 
 /***************************************
- *     URL：/api2/app/myappmodify
+ *     URL：/api2/app/modifymyapp
  ***************************************/
-applicationManage.myappmodify = function (data, response) {
+applicationManage.modifymyapp = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     var appid = data.appid;

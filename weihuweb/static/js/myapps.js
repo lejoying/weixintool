@@ -47,7 +47,7 @@ $(document).ready(function(){
         //获取个性化设置的前10条数据
         $.ajax({
             type:"POST",
-            url:"/api2/app/myappgetall?",
+            url:"/api2/app/getallmyapp?",
             data:{
                 weixinid : weixinid
             },
@@ -76,7 +76,7 @@ $(document).ready(function(){
             ob.power = this.checked;
             $.ajax({
                 type:"post",
-                url:"/api2/app/myappmodify?",
+                url:"/api2/app/modifymyapp?",
                 data:{
                     weixinid:weixinid,
                     appid:125,
@@ -151,7 +151,7 @@ $(document).ready(function(){
                 if(weixinid != ""){
                     $.ajax({
                         type:"POST",
-                        url:"/api2/app/myappadd?",
+                        url:"/api2/app/addmyapp?",
                         data:{
                             weixinid:weixinid,
                             "myapp":objs

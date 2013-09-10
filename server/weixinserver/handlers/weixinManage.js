@@ -278,8 +278,8 @@ weixinManage.getnowpageweixin = function (data, response) {
     response.asynchronous = 1;
     var stat = data.start;
     var end = data.end;
-
-    getNowPageWeixinNode();
+    var count = 0;
+    getNowPageWeixinCountNode();
 
     function getNowPageWeixinNode() {
         var query = [
@@ -321,9 +321,35 @@ weixinManage.getnowpageweixin = function (data, response) {
                 }
                 response.write(JSON.stringify({
                     "提示信息": "获取绑定微信公众账号分页数据成功",
-                    "weixins": weixins
+                    "weixins": weixins,
+                    "count": count
                 }));
                 response.end();
+            }
+        });
+    }
+    function getNowPageWeixinCountNode() {
+        var query = [
+            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin',
+            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+            'RETURN count(r)'
+        ].join('\n');
+
+        var params = {
+            status1: "bind_server",
+            status2: "bind_message"
+        };
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.log(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有绑定微信数量失败",
+                    "失败原因 ": "数据格式不正确"
+                }));
+                response.end();
+            } else {
+                count = results.pop()["count(r)"];
+                getNowPageWeixinNode();
             }
         });
     }
@@ -415,9 +441,11 @@ weixinManage.delete = function (data, response) {
 }
 
 /***************************************
- *     URL：/api2/weixin/modifyrelapro
+ *     URL：/api2/weixin/
+ *
+ *
  ***************************************/
-weixinManage.modifyrelapro = function (data, response) {
+/*weixinManage.modifyrelapro = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     var uid = data.uid;
@@ -459,7 +487,7 @@ weixinManage.modifyrelapro = function (data, response) {
             }
         });
     }
-}
+}*/
 
 /***************************************
  *     URL：/api2/weixin/getbyid
@@ -504,9 +532,9 @@ weixinManage.getbyid = function (data, response) {
 }
 
 /***************************************
- *     URL：/api2/weixin/newusercount
+ *     URL：/api2/weixin/getnewusercount
  ***************************************/
-weixinManage.newusercount = function (data, response) {
+weixinManage.getnewusercount = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     var time = data.time;

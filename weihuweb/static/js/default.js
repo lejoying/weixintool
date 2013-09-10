@@ -54,7 +54,7 @@ function getNewUserCount(weixinid){
     }
     $.ajax({
         type:"GET",
-        url:"/api2/weixin/newusercount?",
+        url:"/api2/weixin/getnewusercount?",
         data:{
             weixinid: weixinid,
             time: new Date().format("yy-MM-dd")
