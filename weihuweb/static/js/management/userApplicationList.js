@@ -24,7 +24,7 @@ $(document).ready(function(){
                         $($(".js_delete")[i]).click(function(){
                             var array = $(".js_delete")[i].name.split(",");
                             var obj = {};
-                            obj.switch = false
+                            obj.power = false
                             $.ajax({
                                 type: "GET",
                                 url: "/api2/app/myappmodify?",

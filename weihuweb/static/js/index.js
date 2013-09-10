@@ -21,12 +21,20 @@ $(document).ready(function(){
         location.href="/login.html";
     }
     function authAccount(){
-//        var pass = prompt("请输入登录密码","******");
         $.ajax({
             type: "GET",
             url: "/api2/account/auth?",
             data: {
-                "accountname": JSON.parse(nowAccount).accountname, "password": hex_sha1(prompt("请输入登录密码","******"))
+                "accountname": JSON.parse(nowAccount).accountname, "password": function(){
+                    var pass = prompt("请输入登录密码","******");
+                    if(pass == null){
+                        $.ajax.responseXML.abort();
+
+                    }else{
+                        pass = hex_sha1(pass);
+                        return pass;
+                    }
+                }
             },
             success: function (serverData) {
                 if (serverData["提示信息"] == "账号登录成功") {

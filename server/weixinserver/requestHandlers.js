@@ -66,7 +66,7 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "modifyrelapro") {
         weixinManage.modifyrelapro(data, response);
     }
-    else if (operation == "newusercount") {
+    else if (operation == "getnewusercount") {
         weixinManage.newusercount(data, response);
     }
     else if (operation == "getnowpageweixin") {
