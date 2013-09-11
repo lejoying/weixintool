@@ -220,20 +220,40 @@ weixinManage.getall = function (data, response) {
     var account = {
         "uid": data.uid
     };
-    getallWeixinNode();
+    var stat = data.start;
+    var end = data.end;
+    var count = 0;
+    if(end == "*"){
+        getallWeixinNode();
+    }
+    getallWeixinNodeCountNode();
 
     function getallWeixinNode() {
-        var query = [
-            'START account=node({uid})' ,
-            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
-            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
-            'RETURN account,weixin, app, r'
-        ].join('\n');
+        var query = {};
+        if(end != "*"){
+            query = [
+                'START account=node({uid})' ,
+                'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+                'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+                'RETURN account,weixin, app, r',
+                'SKIP {stat}',
+                'LIMIT {end}'
+            ].join('\n');
+        }else{
+            query = [
+                'START account=node({uid})' ,
+                'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+                'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+                'RETURN account,weixin, app, r'
+            ].join('\n');
+        }
 
         var params = {
             uid: parseInt(account.uid),
             status1: "bind_server",
-            status2: "bind_message"
+            status2: "bind_message",
+            stat: parseInt(stat),
+            end: parseInt(end)
         };
 
         db.query(query, params, function (error, results) {
@@ -263,11 +283,39 @@ weixinManage.getall = function (data, response) {
                 }
                 response.write(JSON.stringify({
                     "提示信息": "获取所有绑定微信公众账号成功",
-                    "weixins": weixins
+                    "weixins": weixins,
+                    "count": count
                 }));
                 response.end();
             }
 
+        });
+    }
+    function getallWeixinNodeCountNode() {
+        var query = [
+            'START account=node({uid})' ,
+            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
+            'RETURN count(weixin)'
+        ].join('\n');
+
+        var params = {
+            uid: parseInt(account.uid),
+            status1: "bind_server",
+            status2: "bind_message"
+        };
+        db.query(query, params, function (error, results) {
+            if (error) {
+                console.log(error);
+                response.write(JSON.stringify({
+                    "提示信息": "获得所有绑定微信数量失败",
+                    "失败原因 ": "数据格式不正确"
+                }));
+                response.end();
+            } else {
+                count = results.pop()["count(weixin)"];
+                getallWeixinNode();
+            }
         });
     }
 }

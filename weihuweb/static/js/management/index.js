@@ -21,7 +21,9 @@ $(document).ready(function(){
         type:"POST",
         url:"/api2/weixin/getall?",
         data:{
-            "uid":JSON.parse(nowAccount).uid
+            "uid":JSON.parse(nowAccount).uid,
+            "start":0,
+            "end":"*"
         },
         success:function(serverData){
 //            alert(serverData["提示信息"]);

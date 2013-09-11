@@ -50,7 +50,9 @@ $(document).ready(function(){
         type:"POST",
         url:"/api2/weixin/getall?",
         data:{
-            "uid":JSON.parse(nowAccount).uid
+            "uid":JSON.parse(nowAccount).uid,
+            "start":0,
+            "end":"*"
         },
         success:function(serverData){
 //            alert(serverData["提示信息"]);
@@ -160,7 +162,109 @@ $(document).ready(function(){
         addEvent(document.body,"mousedown",clickother);
     });
 });
-
+function getPageData(next, pagesize, count, index, data){
+    count = Math.ceil(data/pagesize);
+    $($(".pagination a")[1]).hide();
+    $($(".pagination a")[9]).attr("value",count);
+    $($(".pagination a")[9]).attr("title",count);
+    $(".pagination a").each(function(i){
+        var now = 0;
+        if($($(".pagination a")[i]).attr("value")>count){
+            $($(".pagination a")[i]).attr("class","unclick");
+            return true;
+        }
+        $($(".pagination a")[i]).click(function(){
+            if(i != 1 && i != 8){
+                now = index;
+                index = $($(".pagination a")[i]).attr("value");
+            }
+            $($(".pagination a")[7]).html(Math.ceil(index/10)*10);
+            $($(".pagination a")[7]).attr("value",Math.ceil(index/10)*10);
+            $($(".pagination a")[7]).attr("title",Math.ceil(index/10)*10);
+            if(i == 1){
+                now = index;
+                if(index-1>0){
+                    index--;
+                }else{
+                    index = 1;
+                }
+            }
+            if(i == 8){
+                now = index;
+                if(index+1<count){
+                    index++;
+                }else{
+                    index = count;
+                }
+            }
+            if(index > 1){
+                $($(".pagination a")[1]).show();
+            }else{
+                $($(".pagination a")[1]).hide();
+            }
+            if(count>=5){
+                if(i==0){
+                    for(var x=2;x<7;x++){
+                        $($(".pagination a")[x]).html(x-index);
+                        $($(".pagination a")[x]).attr("value",x-index);
+                        $($(".pagination a")[x]).attr("title",x-index);
+                    }
+                }
+                if(i==9){
+                    for(var x=2;x<7;x++){
+                        $($(".pagination a")[x]).html(count-6+x);
+                        $($(".pagination a")[x]).attr("value",count-6+x);
+                        $($(".pagination a")[x]).attr("title",count-6+x);
+                    }
+                }
+                if(i==7){
+                    if(index<count){
+                        for(var x=2;x<7;x++){
+                            $($(".pagination a")[x]).html(index-4+x);
+                            $($(".pagination a")[x]).attr("value",index-4+x);
+                            $($(".pagination a")[x]).attr("title",index-4+x);
+                        }
+                        $($(".pagination a")[1]).attr("value",index--);
+                        $($(".pagination a")[1]).attr("title",index--);
+                        $($(".pagination a")[8]).attr("value",index++);
+                        $($(".pagination a")[8]).attr("title",index++);
+                    }
+                }
+                if(i==5 || i==6 || i == 8){
+                    if(index<count && index>2){
+                        for(var x=2;x<7;x++){
+                            $($(".pagination a")[x]).html(index-4+x);
+                            $($(".pagination a")[x]).attr("value",index-4+x);
+                            $($(".pagination a")[x]).attr("title",index-4+x);
+                        }
+                    }
+                }
+                if(i==2 || i==3 || i==1){
+                    if(index>1 && index>2){
+                        for(var x=2;x<7;x++){
+                            $($(".pagination a")[x]).html(index-4+x);
+                            $($(".pagination a")[x]).attr("value",index-4+x);
+                            $($(".pagination a")[x]).attr("title",index-4+x);
+                        }
+                    }
+                }
+            }
+            $(".pagination a").each(function(j){
+                $(".pagination a")[j].removeAttribute("class");
+                if($($(".pagination a")[j]).html() == index){
+                    $($(".pagination a")[j]).attr("class","pageSelected");
+                }
+                if($($(".pagination a")[j]).attr("value")>count){
+                    $($(".pagination a")[j]).attr("class","unclick");
+                    return true;
+                }
+            });
+            if(now != index){
+                next((index-1)*pagesize, pagesize, count, index);
+            }
+        });
+    });
+}
 
 //添加点击空白处关闭弹出框事件
 function addEvent(obj,eventType,func){
