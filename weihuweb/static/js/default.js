@@ -33,6 +33,31 @@ $(document).ready(function(){
             }
         }
     });
+    var nowAccount = window.localStorage.getItem("nowAccount");
+    //发送Ajax请求，获取绑定的微信用户
+    $.ajax({
+        type:"POST",
+        url:"/api2/weixin/getall?",
+        data:{
+            "uid":JSON.parse(nowAccount).uid,
+            "start":0,
+            "end":"*"
+        },
+        success:function(serverData){
+//            alert(serverData["提示信息"]);
+            if(serverData["提示信息"] == "获取所有绑定微信公众账号成功"){
+                window.sessionStorage.setItem("nowBindWeixins",JSON.stringify(serverData["weixins"]));
+                getAllWeixin(serverData["weixins"]);
+            }else{
+                var url = window.location.href;
+                url = url.substr(url.lastIndexOf("/")+1);
+                if(url != "bindWeixin.html"){
+                    location.href = "/page/bindWeixin.html";
+                }
+            }
+
+        }
+    });
 });
 function getNewUserCount(weixinid){
     Date.prototype.format = function(format){

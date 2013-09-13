@@ -134,7 +134,7 @@ message.message = function (data, getParam, response) {
         function resolveWeixinANDBindApps(weixin) {
             var query = [
                 'MATCH app:App-[pr:BIND]->weixin:Weixin<-[cr:HAS_WEIXIN]-account:Account' ,
-                'WHERE weixin.weixinOpenID! ={weixinOpenID}',
+                'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.status! ="true"',
                 'RETURN  weixin, app, pr, cr'  //resolve weixin data in r
             ].join('\n');
 
@@ -163,9 +163,9 @@ message.message = function (data, getParam, response) {
                             appid: appNode.data.appid,
                             type: appNode.data.type,
                             replytxt: appNode.data.replytxt,
-                            cr:results[index].cr.data,
-                            pr:results[index].pr.data,
-                            data:appNode.data.data
+                            cr: results[index].cr.data,
+                            pr: results[index].pr.data,
+                            data: appNode.data.data
                         }
                         bindApps.push(bindApp);
                         reply.log += "【调试信息】绑定应用：" + appNode.data.appid + "/::)\n"
@@ -221,7 +221,7 @@ message.message = function (data, getParam, response) {
                     } else {
                         weixin.token = bindingToken;
                         var bindingWeixin = weixins[bindingToken];
-                        console.log(bindingToken+"---");
+                        console.log(bindingToken + "---");
                         weixin.weixinName = bindingWeixin.weixinNode.data.weixinName;
                         weixin.status = "bind_message";
                         reply.log += "【调试信息】新建微信token与weixinOpenID的对应关系/::)\n";
@@ -312,23 +312,22 @@ message.message = function (data, getParam, response) {
         /*************************************** ***************************************
          *    resolve user
          *************************************** ***************************************/
-        Date.prototype.format = function(format)
-        {
+        Date.prototype.format = function (format) {
             var o =
             {
-                "M+" : this.getMonth()+1, //month
-                "d+" : this.getDate(),    //day
-                "h+" : this.getHours(),   //hour
-                "m+" : this.getMinutes(), //minute
-                "s+" : this.getSeconds(), //second
-                "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
-                "S" : this.getMilliseconds() //millisecond
+                "M+": this.getMonth() + 1, //month
+                "d+": this.getDate(),    //day
+                "h+": this.getHours(),   //hour
+                "m+": this.getMinutes(), //minute
+                "s+": this.getSeconds(), //second
+                "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+                "S": this.getMilliseconds() //millisecond
             }
-            if(/(y+)/.test(format))
-                format=format.replace(RegExp.$1,(this.getFullYear()+""));
-            for(var k in o)
-                if(new RegExp("("+ k +")").test(format))
-                    format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+            if (/(y+)/.test(format))
+                format = format.replace(RegExp.$1, (this.getFullYear() + ""));
+            for (var k in o)
+                if (new RegExp("(" + k + ")").test(format))
+                    format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
             return format;
         }
 
@@ -336,6 +335,7 @@ message.message = function (data, getParam, response) {
             id: messageData.FROMUSERNAME,
             time: new Date().format("yy-MM-dd")
         }
+
         function resolveUser(user, weixin) {
             var query = [
                 'MATCH user:User-[r:FOCUS]->weixin:Weixin' ,
@@ -365,24 +365,25 @@ message.message = function (data, getParam, response) {
                     var userDate = userNode.data;
                     user.city = userDate.city;
                     /*var reg = /^[A-Za-z]{2}\d{0,}$/;
-                    if(reg.test(messageData.CONTENT)){
-                        checkWeixinAndApp(next);
-//                        replyPublicApp(userDate.city);
-                    }else{
-                        sandbox();
-//                        replyMyApp();
-                    }*/
+                     if(reg.test(messageData.CONTENT)){
+                     checkWeixinAndApp(next);
+                     //                        replyPublicApp(userDate.city);
+                     }else{
+                     sandbox();
+                     //                        replyMyApp();
+                     }*/
                     for (var index in userDate) {
                         user[index] = userDate[index];
                     }
                     reply.log += "【调试信息】用户信息：/::)" + JSON.stringify(user) + "\n";
                     sandbox();
                     /*function next(){
-                        replyPublicAppTQ(userDate.city);
-                    }*/
+                     replyPublicAppTQ(userDate.city);
+                     }*/
                 }
             });
         }
+
         function checkUser(user, weixin, next) {
             var query = [
                 'MATCH user:User' ,
@@ -422,6 +423,7 @@ message.message = function (data, getParam, response) {
                 }
             });
         }
+
         function addNewUser(query, user, weixin, next) {
 
             var params = {
@@ -439,43 +441,7 @@ message.message = function (data, getParam, response) {
                 }
             });
         }
-        /*app = {};
-        app.data = {};
-        app.handler = function (api, message, reply, weixin, user, bindApp){
-            replyPublicAppGJ();
-            //公共应用：排号自动回复
-            function replyPublicAppGJ(){
-                var uCity = "北京";
-                var q = message.text.content.substr(2);
-                var city = user.city;
-                if(city != "" && city != undefined){
-                    var array = city.split(" ");
-                    if(array[1] != ""){
-                        var arr = array[1].split(":");
-                        uCity = arr[0];
-                    }
-                }
-                getCityBus(uCity, q);
-            }
-            function getCityBus(city, line){
-                api.ajax.ajax({
-                    "type": "POST",
-                    "url":"http://openapi.aibang.com/bus/lines",
-                    "headers":{"Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"},
-                    data:{
-                        "app_key":"eb035e2931f935237d49d14477ea96ae",
-                        "alt":"json",
-                        "city":city,
-                        "q":line
-                    },
-                    success: function(dataStr){
-                        reply.text.content = JSON.parse(dataStr)+"--------------"+unescape(dataStr.replace(/\\u/gi, '%u'));
-                        api.sendReply();
-                    }
-                });
-            }
-        }
-        app.handler(api, message, reply, weixin, user, bindApp);*/
+
         /*************************************** ***************************************
          *    sandbox
          *************************************** ***************************************/
@@ -491,38 +457,39 @@ message.message = function (data, getParam, response) {
         function test(api, message, reply, weixin, user, bindApps) {
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
 //                var userDate = userNode.data;
-                var reg = /^[A-Za-z]{2}\d{0,}$/;
-                if(reg.test(messageData.CONTENT)){
-                    var flag = false;
-                    for (var index in bindApps) {
-                        var bindApp = bindApps[index];
-                        if(bindApp.replytxt == undefined || bindApp.replytxt == ""){
-                            continue;
-                        }
-                        var a = bindApp.replytxt.substr(0,2).toUpperCase();
-                        var b = message.text.content.substr(0,2).toUpperCase();
-                        if(a == b){
-                            flag = true;
-                            next();
-                            break;
-                        }
+            var reg = /^[A-Za-z]{2}\d{0,}$/;
+            var reg1 = /^[A-Za-z]{2}([\u4e00-\u9fa5]|[A-Z0-9]){0,}$/;
+            if (reg1.test(messageData.CONTENT)) {
+                var flag = false;
+                for (var index in bindApps) {
+                    var bindApp = bindApps[index];
+                    if (bindApp.replytxt == undefined || bindApp.replytxt == "") {
+                        continue;
                     }
-                    if(!flag){
-                        reply.text.content = "没有绑定对应的应用";
-                        api.sendReply();
-                    }
-//                    checkWeixinAndApp(next);
-                }else{
-                    //个性化设置的回复
-                    for (var index in bindApps) {
-                        var bindApp = bindApps[index];
-                        if(bindApp.type == "private"){
-                            next();
-                            break;
-                        }
+                    var a = bindApp.replytxt.substr(0, 2).toUpperCase();
+                    var b = message.text.content.substr(0, 2).toUpperCase();
+                    if (a == b) {
+                        flag = true;
+                        next();
+                        break;
                     }
                 }
-            function next(){
+                if (!flag) {
+                    reply.text.content = "没有绑定对应的应用";
+                    api.sendReply();
+                }
+//                    checkWeixinAndApp(next);
+            } else {
+                //个性化设置的回复
+                for (var index in bindApps) {
+                    var bindApp = bindApps[index];
+                    if (bindApp.type == "private") {
+                        next();
+                        break;
+                    }
+                }
+            }
+            function next() {
                 var script = scriptPool[bindApp.appid];
                 if (script == null) {
                     reply.log += "【调试信息】新建应用脚本" + bindApp.appid + "/::)\n";
@@ -544,7 +511,7 @@ message.message = function (data, getParam, response) {
          *************************************** ***************************************/
         var api = {};
 //        api.db = db;
-        api.http = http;
+//        api.http = http;
         api.ajax = ajax;
         var replySent = false;
         api.sendReply = function () {
@@ -570,14 +537,14 @@ message.message = function (data, getParam, response) {
 
         var dataSaved = false;
         api.saveData = function (app) {
-            if(message.text.content.substr(0,2).toUpperCase() == "PH"){
+            if (message.text.content.substr(0, 2).toUpperCase() == "PH") {
                 modifyWeixinAndAppRela(app)
             }
             return true;
         }
 
         //对公共应用排号data数据的保存
-        function modifyWeixinAndAppRela(app){
+        function modifyWeixinAndAppRela(app) {
             query = [
                 'MATCH app:App-[r:BIND]->weixin:Weixin' ,
                 'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.appid! ={appid}',
@@ -593,7 +560,7 @@ message.message = function (data, getParam, response) {
                 if (error) {
                     console.error(error);
                     return false;
-                }else {
+                } else {
                     var rNode = results.pop().r;
                     rNode.data.data = app.pr.data;
                     rNode.data.time = app.pr.time;
@@ -601,6 +568,7 @@ message.message = function (data, getParam, response) {
                 }
             });
         }
+
         startResolve();
     }
 }

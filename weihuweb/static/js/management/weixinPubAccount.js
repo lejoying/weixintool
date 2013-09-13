@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function(){
-    var pagesize = 6;
+    var pagesize = 1;
     var index = 1;
     var count = 0;
     getAllWeixin(0, pagesize, count, index);

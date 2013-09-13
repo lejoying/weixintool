@@ -16,7 +16,7 @@ $(document).ready(function(){
         for(var key in JSON.parse(nowBindWeixins)){
             if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
                 weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                getAllWeixinUser(JSON.parse(nowBindWeixins)[key].weixinOpenID, 0, pagesize, count, index);
+                getAllWeixinUser(0, pagesize, count, index);
             }
         }
     }
@@ -24,20 +24,19 @@ $(document).ready(function(){
         $(".weixinMemberTitle div span").html(nowWeixinName);
     }
     //发送Ajax请求,获取微信会员列表信息并显示
-    function getAllWeixinUser(weixinOpenID, start, end, count, index){
+    function getAllWeixinUser(start, end, count, index){
         count = count;
         index = index;
         $.ajax({
             type:"GET",
             url:"/api2/user/getall?",
             data:{
-                "weixinopenid":weixinOpenID,
-                start:start,
-                end: end
+                "weixinopenid":weixinid,
+                "start":start,
+                "end": end
             },
             success:function(serverData){
                 if(serverData["提示信息"] == "获得所有关注用户成功"){
-//                    alert(count);
                     var weixin_user = getTemplate("weixin_user");
                     $(".wixinMemberTable").html(weixin_user.render(serverData["users"]));
                     $($(".pagination a")[9]).attr("value",count);

@@ -215,7 +215,7 @@ weixinManage.unbindapp = function (data, response) {
  ***************************************/
 weixinManage.getall = function (data, response) {
     response.asynchronous = 1;
-   /* var base = require("./../../bindserver/tools/base64");
+    /*var base = require("./../../bindserver/tools/base64");
      console.log(base.encode(data.jscode));*/
     var account = {
         "uid": data.uid
@@ -225,17 +225,18 @@ weixinManage.getall = function (data, response) {
     var count = 0;
     if(end == "*"){
         getallWeixinNode();
+    }else{
+        getallWeixinNodeCountNode();
     }
-    getallWeixinNodeCountNode();
 
     function getallWeixinNode() {
         var query = {};
         if(end != "*"){
             query = [
                 'START account=node({uid})' ,
-                'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+                'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin',
                 'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
-                'RETURN account,weixin, app, r',
+                'RETURN account, weixin, r',
                 'SKIP {stat}',
                 'LIMIT {end}'
             ].join('\n');
@@ -278,8 +279,8 @@ weixinManage.getall = function (data, response) {
                         weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
                         weixins[weixinNode.data.weixinOpenID].apps = [];
                     }
-                    var appNode = results[index].app;
-                    weixins[weixinNode.data.weixinOpenID].apps.push(appNode.data);
+                    /*var appNode = results[index].app;
+                    weixins[weixinNode.data.weixinOpenID].apps.push(appNode.data);*/
                 }
                 response.write(JSON.stringify({
                     "提示信息": "获取所有绑定微信公众账号成功",
@@ -294,7 +295,7 @@ weixinManage.getall = function (data, response) {
     function getallWeixinNodeCountNode() {
         var query = [
             'START account=node({uid})' ,
-            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
+            'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin',
             'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
             'RETURN count(weixin)'
         ].join('\n');
@@ -314,6 +315,7 @@ weixinManage.getall = function (data, response) {
                 response.end();
             } else {
                 count = results.pop()["count(weixin)"];
+                console.log(count);
                 getallWeixinNode();
             }
         });
@@ -493,7 +495,7 @@ weixinManage.delete = function (data, response) {
  *
  *
  ***************************************/
-/*weixinManage.modifyrelapro = function (data, response) {
+weixinManage.modifyrelapro = function (data, response) {
     response.asynchronous = 1;
     var weixinid = data.weixinid;
     var uid = data.uid;
@@ -535,7 +537,7 @@ weixinManage.delete = function (data, response) {
             }
         });
     }
-}*/
+}
 
 /***************************************
  *     URL：/api2/weixin/getbyid

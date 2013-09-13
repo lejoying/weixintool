@@ -16,12 +16,12 @@ $(document).ready(function(){
         for(var key in JSON.parse(nowBindWeixins)){
             if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
                 weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                getAllApps(weixinid, 0, pagesize, count, index);
+                getAllApps(0, pagesize, count, index);
             }
         }
     }
 
-    function getAllApps(weixinid, start, end, count, index){
+    function getAllApps(start, end, count, index){
         count = count;
         index = index;
         //从window.localStorage中获取当前登录用户的信息

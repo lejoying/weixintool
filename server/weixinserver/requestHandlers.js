@@ -72,6 +72,9 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "getbindcount") {
         weixinManage.getbindcount(data, response);
     }
+    else if (operation == "modifyrelapro") {
+        weixinManage.modifyrelapro(data, response);
+    }
 };
 
 
