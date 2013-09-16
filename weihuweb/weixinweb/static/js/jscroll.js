@@ -18,23 +18,20 @@ $(document).ready(function(){
         $(".chat.lightBorder").css({visibility:"visible"});
         $("#messagePanelTitle").html(name);
     });
-    var moused = false;
-    $("#scrollbarLeft").mousedown(function(){
-        //alert(1);
-        var moused = true;
+    $(".chatSend").click(function(){
+        var inputWord = $("#textInput").val();
+        var repeatWord = "";
+        $("#chat_chatmsglist").append("<div class='chatItem me'><div class='time'> <span class='timeBg left'><\/span> 13:39 <span class='timeBg right'><\/span> <\/div><div class='chatItemContent'> <img class='avatar' src='..\/static\/images\/face.jpg' onerror='reLoadImg(this)' un='avatar_gh_c639eef72f78' title='云上' click='showProfile' username='gh_c639eef72f78'> <div class='cloud cloudText' un='cloud_2070333132' msgid='2070333132'><div class='cloudPannel' style=''><div class='sendStatus'>   <\/div><div class='cloudBody'><div class='cloudContent'><pre style='white-space:pre-wrap'><img src='\/zh_CN\/htmledition\/images\/qqface\/65.png'>"+inputWord+"<\/pre><\/div><\/div><div class='cloudArrow '><\/div><\/div><\/div><\/div><\/div>");
+        $("#chat_chatmsglist").css("top",- $("#chat_chatmsglist").height()+300);
+        $("#textInput").val("");
     });
+
 //    $(".listContent").mouseover(function(){
 //        $(".scrollbar").animate({opacity:"1"});
 //    });
 //    $(".listContent").mouseout(function(){
 //        $(".scrollbar").animate({opacity:"0"});
 //    });
-});
-$(document).mousemove(function(e){
-    //alert(e.pageY);
-    if(moused==true){
-        alert(e.pageX);
-    }
 });
 window.onload = function(){
     $(".listContentWrap").height(document.body.clientHeight-245);

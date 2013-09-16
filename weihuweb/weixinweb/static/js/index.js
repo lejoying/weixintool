@@ -2,12 +2,7 @@
 $(document).ready(function(){
     var leftHeight=$(".mainContern").height();
     $(".sildLeft").css("height",leftHeight);
-    var nowAccount = window.localStorage.getItem("nowAccount");
-    if(nowAccount != null){
-        $(".userAccount span").html("欢迎"+unescape(JSON.parse(nowAccount).accountname));
-    }else{
-        location.href="/login.html";
-    }
+
 //发送Ajax请求，获取绑定的微信用户
     $.ajax({
         type:"POST",
