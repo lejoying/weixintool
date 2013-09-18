@@ -1,0 +1,53 @@
+@charset "utf-8";
+/* CSS Document */
+.aboutusTitle{
+    text-align:center;
+    font-size:28px;
+    padding:15px;
+    border-bottom:1px solid #d6d6d6;
+}
+.aboutusFrame{
+    padding:0 15px;
+}
+.aboutusFrame p{
+    padding:15px 0;
+    font-size: 14px;
+}
+#map{
+    position:absolute;
+    width:720px;
+    height:500px;
+    margin:15px 0;
+}
+#allmap{
+    width:720px;
+    height:500px;
+    margin:15px 0;
+}
+.iw_poi_title {
+    color:#CC5522;
+    font-size:14px;
+    font-weight:bold;
+    overflow:hidden;
+    padding-right:13px;
+    white-space:nowrap
+}
+.iw_poi_content {
+    font:12px arial,sans-serif;
+    overflow:visible;
+    padding-top:4px;
+    white-space:-moz-pre-wrap;
+    word-wrap:break-word
+}
+#dituContent{
+    width:720px;
+    height:550px;
+    border:#ccc solid 1px;
+    margin-bottom: 20px;
+}
+.contentus span{
+    margin-left:60px;
+}
+.contentus span:first-child{
+    margin-left:0px;
+}

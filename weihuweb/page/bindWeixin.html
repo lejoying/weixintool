@@ -63,7 +63,7 @@
                 <div class="pwdSetting js_pwdSetting"><a class="" id="pwdSetting" href="javascript:;">第三步</a></div>
                 <div class="pwdSetting js_pwdSetting"><a class="" id="pwdSetting" href="javascript:;">第四步</a></div>
             </div>
-        	<div class="bindStepOne js_bindStepOne">
+        	<div class="bindStepOne js_bindStepOne" style="display: none;">
                 <p class="errorPrompt"></p>
             	<div class="bindStepTitle">填加绑定微信帐号</div>
                 <div class="inputWeixinName"><label>填写微信帐号名称</label><input name="" type="text" class="js_inputWeixinNum" /></div>
@@ -74,6 +74,22 @@
                 <div class="inputWeixinName"><label>固定IP地址</label><input class="js_bindurl" name="" type="text"  value="http://Woxie@sohu.com" readonly="readonly"/></div>
                 <div class="inputWeixinName"><label class="tokenLabel">TOKEN值</label><input class="js_token" name="" type="text" value="1234567890" readonly="readonly"/></div>
                 <div class="bindWeixinOpt"><a id="js_bindWeixinNext2" class="bindWeixinNext" href="javascript:;">下一步</a></div>
+            </div>
+            <div class="bindStepThree js_bindStepThree">
+                <p class="errorPrompt"></p>
+                <div class="bindStepTitle">以下操作请在微信公众平台操作</div>
+                <div><span>Step 1</span>请先登录微信公众平台<a href="https://mp.weixin.qq.com/" target="_blank"> https://mp.weixin.qq.com/</a></div>
+                <div><span>Step 2</span>登陆后点击进入“高级功能”如下图所示请确认“编辑模式”已关闭</div>
+                <div class="stepImage"><img src="/static/images/bindweixinstep/step1.png"> </div>
+                <div><span>Step 3</span>点击进入“开发者模式”如图所示：开启"开发模式"</div>
+                <div class="stepImage"><img src="/static/images/bindweixinstep/step2.png"> </div>
+                <div><span>Step 4</span>修改接口配置信息，请将以下信息填写到微信公众平台的相应位置，然后提交。</div>
+                <div class="stepImage tokenForm">
+                    <input type="text" readonly="readonly" class="bindURL" value="http://bindwx.lejoying.com/"/>
+                    <input type="text" readonly="readonly" class="bindToken" value="9406664991"/>
+                    <img src="/static/images/bindweixinstep/step3.png">
+                </div>
+                <div class="bindWeixinOpt"><a id="js_bindWeixinNext3" class="bindWeixinNext" href="javascript:;">下一步</a></div>
             </div>
         </div>
     </div>

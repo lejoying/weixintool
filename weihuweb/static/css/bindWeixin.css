@@ -56,3 +56,50 @@ div.bindStepTwo .bindStepTitle{
 .bindWeixinNext:hover{
 	background:#f2f2f2;	
 }
+.bindStepThree div{
+    margin:30px 15px;
+    font-size: 16px;
+    color: #e71c1c;
+}
+.stepImage img{
+    width:723px;
+}
+.tokenForm{
+    position: relative;
+}
+.bindURL, .bindToken{
+    position:absolute;
+    color:#333;
+    display: block;
+    width:260px;
+    height:24px;
+    padding-left:8px;
+    border:none;
+    background: none;
+    outline: none;
+    color:#ff6600;
+}
+.bindURL{
+    left:265px;
+    top:246px;
+}
+.bindToken{
+    left:265px;
+    top:290px;
+}
+.bindStepThree div.bindStepTitle{
+    border-bottom: 1px dotted #D6D6D6;
+    font-size: 18px;
+    line-height: 25px;
+    padding: 15px 30px;
+    text-align: center;
+    color:#333;
+    margin:15px;
+}
+.bindStepThree span{
+    background:#e71c1c;
+    color:#fff;
+    border-radius:3px;
+    padding:2px 8px;
+    margin-right:10px;
+}
