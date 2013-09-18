@@ -377,6 +377,7 @@ message.message = function (data, getParam, response) {
                     }
                     reply.log += "【调试信息】用户信息：/::)" + JSON.stringify(user) + "\n";
                     sandbox();
+//                    console.log(message.location.location_X+"--"+message.location.location_Y+"\n"+JSON.stringify(message));
                     /*function next(){
                      replyPublicAppTQ(userDate.city);
                      }*/
@@ -442,6 +443,7 @@ message.message = function (data, getParam, response) {
             });
         }
 
+
         /*************************************** ***************************************
          *    sandbox
          *************************************** ***************************************/
@@ -458,9 +460,9 @@ message.message = function (data, getParam, response) {
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
 //                var userDate = userNode.data;
             var reg = /^[A-Za-z]{2}\d{0,}$/;
-            var reg1 = /^[A-Za-z]{2}([\u4e00-\u9fa5]|[A-Z0-9]){0,}$/;
-            if (reg1.test(messageData.CONTENT)) {
-                var flag = false;
+            var reg1 = /^[A-Za-z]{2}([\u4e00-\u9fa5]|[A-Za-z0-9#]){0,}$/;
+                if (reg1.test(messageData.CONTENT)) {
+                    var flag = false;
                 for (var index in bindApps) {
                     var bindApp = bindApps[index];
                     if (bindApp.replytxt == undefined || bindApp.replytxt == "") {

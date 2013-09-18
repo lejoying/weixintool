@@ -38,7 +38,7 @@ $(document).ready(function () {
             },
             success: function (serverData) {
                 if (serverData["提示信息"] == "账号登录成功") {
-                    location.href = "/page/management/default.html"
+                    location.href = "/page/Management/default.html"
                 } else if (serverData["提示信息"] == "账号登录失败") {
                     authAccount();
                 }

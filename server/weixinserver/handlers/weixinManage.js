@@ -216,7 +216,8 @@ weixinManage.unbindapp = function (data, response) {
 weixinManage.getall = function (data, response) {
     response.asynchronous = 1;
     /*var base = require("./../../bindserver/tools/base64");
-     console.log(base.encode(data.jscode));*/
+    console.log(base.encode(data.jscode));
+    response.end();*/
     var account = {
         "uid": data.uid
     };
