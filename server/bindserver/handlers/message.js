@@ -12,6 +12,9 @@ var ajax = require('./../lib/ajax.js');
 var vm = require('vm');
 var http = require('http');
 var scriptPool = {};
+var redis = require("redis");
+var saveClient_from;
+var saveClient_reply;
 
 var debug = serverSetting.debug;
 
@@ -68,9 +71,23 @@ message.message = function (data, getParam, response) {
                 event: {
                     eventType: messageData.EVENT,
                     EventKey: messageData.EVENTKEY
-                }
+                },
+                CreateTime:now.getTime()
             };
         }
+
+        /*************************************** ***************************************
+         *    saveMessages
+         *************************************** ***************************************/
+
+        console.log(message);
+        saveClient_from = redis.createClient();
+        saveClient_from.rpush(messageData.TOUSERNAME,JSON.stringify(message),function(err,reply){
+            if(err!=null){
+                console.log(err);
+            }
+            saveClient_from.end();
+        });
 
         /*************************************** ***************************************
          *    resolve reply
@@ -524,13 +541,22 @@ message.message = function (data, getParam, response) {
             reply.type = "text";
             if (debug == true) {
                 reply.text.content = reply.text.content;
-                reply.text.content = reply.log; //+ reply.text.content;
+                //reply.text.content = reply.log; //+ reply.text.content;
 //                console.log(reply.text.content);
                 reply.userid = user.id;
                 reply.weixinOpenID = weixin.weixinOpenID;
                 reply.createTime = now.getTime().toString().substr(0, 10);
                 var replyXML = replyTemplate.render(reply);
-                response.write(replyXML);
+                response.write(replyXML,function(){
+
+                    saveClient_reply = redis.createClient();
+                    saveClient_reply.rpush(weixin.weixinOpenID,JSON.stringify(reply),function(err,r){
+                         if(err!=null){
+                             console.log(err);
+                         }
+                        saveClient_reply.end();
+                    });
+                });
                 response.end();
                 replySent = true
                 return true;
