@@ -524,7 +524,7 @@ message.message = function (data, getParam, response) {
             reply.type = "text";
             if (debug == true) {
                 reply.text.content = reply.text.content;
-//                reply.text.content = reply.log; //+ reply.text.content;
+                reply.text.content = reply.log; //+ reply.text.content;
 //                console.log(reply.text.content);
                 reply.userid = user.id;
                 reply.weixinOpenID = weixin.weixinOpenID;
