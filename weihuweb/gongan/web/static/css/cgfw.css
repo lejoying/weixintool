@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*按钮*/
+.apps_btna1{display:inline-block;}
+.apps_btna2{display:block;margin:0 auto 10px;}
+.apps_btna3{}
+.apps_btna4{}
+.apps_btna5{}
+.apps_btna6{}
+.button-box{padding:10px 0;}
+.button-box p{text-align:center;}
+.button-box p a{width:60px;margin:0 5px;}
+
+.img{text-align:center;padding:10px;}
+
+/*车管服务*/
+.apps_w75{width:75px;}
+.cgfw{}
+.cgfw input,.cgfw select{margin-right:5px; font-size:14px;padding:3px;}
+.cgfw .iselect{border:1px solid #b1c6d6;}
+.cgfw .gzj_appshow{margin-bottom:10px;}
+.cgfw table th{font-weight:normal;}
+.cgfw .gzj_appshow td{padding-bottom:3px;}
+.cgfw .gzj_appshow td img{margin:0 3px;}
+.cgfw .item{margin:5px 0 10px;}
+.cgfw .apps_btn2{margin:5px 0 0;}
+.cgfw .gzj_list li{ background:none;padding:0 10px;}
+
+/*机动车基本信息弹出窗口*/
+.jdc-jbxx{position:relative;}
+.newWin-wrapper{ position:absolute;top:750px;left:2%;width:96%;background-color:#aebce0; z-index:100;}
+.newWin-inner{margin:3px;background-color:#fff;padding-bottom:10px;}
+.newWin-inner .tit{line-height:30px;width:100%;position:relative;color:#fff; text-indent:10px;background-color:#aebce0;}
+.newWin-inner .tit .close{position:absolute;top:5px;right:10px;width:17px;height:14px;line-height:14px; display:block;}
+.newWin-inner .info{ background-color:#fff;padding:10px;}
+.newWin-inner .info p{line-height:24px;}
+.newWin-inner .apps_btna1{margin:0 auto; display:block;}
+
+/*模拟考试*/
+.main-content{}
+.exam-list{padding-bottom:10px;}
+.exam-list p{border-bottom:1px #e3e3e3 solid;line-height:40px;padding:0 10px;}
+.exam{border:1px solid #7F9DB5;margin:10px;}
+.exam .img{ text-align:center;padding-bottom:10px;}
+.exam-title{height:42px;line-height:42px;padding:0 10px;border-bottom:1px solid #b8c3e1;background:#f3f6f9;background:-webkit-gradient(linear, 0 0, 0 100%, from(#fafafc), to(#edf1f6));background:-moz-linear-gradient(top, #fafafc, #edf1f6 100%); position:relative}
+.exam-title .left{float:left;padding-left:10px;width:150px;}
+.exam-title .right{float:right;padding-right:10px;width:100px; text-align:right;}
+.exam-title .right a{color:#425c9e;}
+
+.shiti{padding:10px;}
+.shiti .info{padding:10px;border:1px solid #7F9DB5; background-color:#f3f6f9;}
+.shiti .info span{margin:0 3px;}
+.shiti .info .nandu img{margin-left:1px;}
+.radio-box{padding:5px;}
+.radio-box input{}
+.radio-box label{display:block;}
+
+.result{margin:10px 0; position:relative}
+.result .info{ position:absolute;left:0;bottom:20px;}

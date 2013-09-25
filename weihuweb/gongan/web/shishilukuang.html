@@ -1,0 +1,30 @@
+<p style="position:absolute;left:-1000px;top:-100px;">源码复制打印关于</p>
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>叠加实时路况图层</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/web_style.css" />
+    <script language="javascript" src="http://webapi.amap.com/maps?v=1.2&key=您申请的key值"></script>
+    <script language="javascript">  
+    var mapObj,trafficLayer;  
+    //初始化地图对象，加载地图  
+    function mapInit(){  
+        mapObj = new AMap.Map("iCenter",{  
+        center:new AMap.LngLat(116.397428,39.90923), //地图中心点  
+        level:13  //地图显示的比例尺级别  
+        });  
+		trafficLayer = new AMap.TileLayer.Traffic({zIndex:10}); //实时路况图层  
+        trafficLayer.setMap(mapObj);  
+		
+		trafficLayer = new AMap.tileLayer_elecEye($(this).closest('div'));
+    }    
+    </script>
+    </head>
+    <body onLoad="mapInit()">
+        <fieldset>
+            <legend align="center">实时路况</legend>
+        </fieldset>
+        <div id="iCenter"></div>
+    </body>
+</html>

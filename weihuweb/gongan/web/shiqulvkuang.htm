@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-Cache">
+<meta name="viewport" content="width=device-width;">
+<meta name="format-detection" content="telephone=no">
+<title>广州公安.警民通</title>
+<link rel="stylesheet" type="text/css" href="/static/css/web_style.css" />
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<style type="text/css" charset="utf-8">
+/* See license.txt for terms of usage */
+/** reset styling **/
+
+.firebugResetStyles {
+	z-index: 2147483646 !important;
+	top: 0 !important;
+	left: 0 !important;
+	display: block !important;
+	border: 0 none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	outline: 0 !important;
+	min-width: 0 !important;
+	max-width: none !important;
+	min-height: 0 !important;
+	max-height: none !important;
+	position: fixed !important;
+	transform: rotate(0deg) !important;
+	transform-origin: 50% 50% !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	background: transparent none !important;
+	pointer-events: none !important;
+	white-space: normal !important;
+}
+.firebugBlockBackgroundColor {
+	background-color: transparent !important;
+}
+.firebugResetStyles:before, .firebugResetStyles:after {
+	content: "" !important;
+}
+/**actual styling to be modified by firebug theme**/
+.firebugCanvas {
+	display: none !important;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.firebugLayoutBox {
+	width: auto !important;
+	position: static !important;
+}
+.firebugLayoutBoxOffset {
+	opacity: 0.8 !important;
+	position: fixed !important;
+}
+.firebugLayoutLine {
+	opacity: 0.4 !important;
+	background-color: #000000 !important;
+}
+.firebugLayoutLineLeft, .firebugLayoutLineRight {
+	width: 1px !important;
+	height: 100% !important;
+}
+.firebugLayoutLineTop, .firebugLayoutLineBottom {
+	width: 100% !important;
+	height: 1px !important;
+}
+.firebugLayoutLineTop {
+	margin-top: -1px !important;
+	border-top: 1px solid #999999 !important;
+}
+.firebugLayoutLineRight {
+	border-right: 1px solid #999999 !important;
+}
+.firebugLayoutLineBottom {
+	border-bottom: 1px solid #999999 !important;
+}
+.firebugLayoutLineLeft {
+	margin-left: -1px !important;
+	border-left: 1px solid #999999 !important;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.firebugLayoutBoxParent {
+	border-top: 0 none !important;
+	border-right: 1px dashed #E00 !important;
+	border-bottom: 1px dashed #E00 !important;
+	border-left: 0 none !important;
+	position: fixed !important;
+	width: auto !important;
+}
+.firebugRuler {
+	position: absolute !important;
+}
+.firebugRulerH {
+	top: -15px !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 14px !important;
+	background: url("data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%13%88%00%00%00%0E%08%02%00%00%00L%25a%0A%00%00%00%04gAMA%00%00%D6%D8%D4OX2%00%00%00%19tEXtSoftware%00Adobe%20ImageReadyq%C9e%3C%00%00%04%F8IDATx%DA%EC%DD%D1n%E2%3A%00E%D1%80%F8%FF%EF%E2%AF2%95%D0D4%0E%C1%14%B0%8Fa-%E9%3E%CC%9C%87n%B9%81%A6W0%1C%A6i%9A%E7y%0As8%1CT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AATE9%FE%FCw%3E%9F%AF%2B%2F%BA%97%FDT%1D~K(%5C%9D%D5%EA%1B%5C%86%B5%A9%BDU%B5y%80%ED%AB*%03%FAV9%AB%E1%CEj%E7%82%EF%FB%18%BC%AEJ8%AB%FA'%D2%BEU9%D7U%ECc0%E1%A2r%5DynwVi%CFW%7F%BB%17%7Dy%EACU%CD%0E%F0%FA%3BX%FEbV%FEM%9B%2B%AD%BE%AA%E5%95v%AB%AA%E3E5%DCu%15rV9%07%B5%7F%B5w%FCm%BA%BE%AA%FBY%3D%14%F0%EE%C7%60%0EU%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5JU%88%D3%F5%1F%AE%DF%3B%1B%F2%3E%DAUCNa%F92%D02%AC%7Dm%F9%3A%D4%F2%8B6%AE*%BF%5C%C2Ym~9g5%D0Y%95%17%7C%C8c%B0%7C%18%26%9CU%CD%13i%F7%AA%90%B3Z%7D%95%B4%C7%60%E6E%B5%BC%05%B4%FBY%95U%9E%DB%FD%1C%FC%E0%9F%83%7F%BE%17%7DkjMU%E3%03%AC%7CWj%DF%83%9An%BCG%AE%F1%95%96yQ%0Dq%5Dy%00%3Et%B5'%FC6%5DS%95pV%95%01%81%FF'%07%00%00%00%00%00%00%00%00%00%F8x%C7%F0%BE%9COp%5D%C9%7C%AD%E7%E6%EBV%FB%1E%E0(%07%E5%AC%C6%3A%ABi%9C%8F%C6%0E9%AB%C0'%D2%8E%9F%F99%D0E%B5%99%14%F5%0D%CD%7F%24%C6%DEH%B8%E9rV%DFs%DB%D0%F7%00k%FE%1D%84%84%83J%B8%E3%BA%FB%EF%20%84%1C%D7%AD%B0%8E%D7U%C8Y%05%1E%D4t%EF%AD%95Q%BF8w%BF%E9%0A%BF%EB%03%00%00%00%00%00%00%00%00%00%B8vJ%8E%BB%F5%B1u%8Cx%80%E1o%5E%CA9%AB%CB%CB%8E%03%DF%1D%B7T%25%9C%D5(%EFJM8%AB%CC'%D2%B2*%A4s%E7c6%FB%3E%FA%A2%1E%80~%0E%3E%DA%10x%5D%95Uig%15u%15%ED%7C%14%B6%87%A1%3B%FCo8%A8%D8o%D3%ADO%01%EDx%83%1A~%1B%9FpP%A3%DC%C6'%9C%95gK%00%00%00%00%00%00%00%00%00%20%D9%C9%11%D0%C0%40%AF%3F%EE%EE%92%94%D6%16X%B5%BCMH%15%2F%BF%D4%A7%C87%F1%8E%F2%81%AE%AAvzr%DA2%ABV%17%7C%E63%83%E7I%DC%C6%0Bs%1B%EF6%1E%00%00%00%00%00%00%00%00%00%80cr%9CW%FF%7F%C6%01%0E%F1%CE%A5%84%B3%CA%BC%E0%CB%AA%84%CE%F9%BF)%EC%13%08WU%AE%AB%B1%AE%2BO%EC%8E%CBYe%FE%8CN%ABr%5Dy%60~%CFA%0D%F4%AE%D4%BE%C75%CA%EDVB%EA(%B7%F1%09g%E5%D9%12%00%00%00%00%00%00%00%00%00H%F6%EB%13S%E7y%5E%5E%FB%98%F0%22%D1%B2'%A7%F0%92%B1%BC%24z3%AC%7Dm%60%D5%92%B4%7CEUO%5E%F0%AA*%3BU%B9%AE%3E%A0j%94%07%A0%C7%A0%AB%FD%B5%3F%A0%F7%03T%3Dy%D7%F7%D6%D4%C0%AAU%D2%E6%DFt%3F%A8%CC%AA%F2%86%B9%D7%F5%1F%18%E6%01%F8%CC%D5%9E%F0%F3z%88%AA%90%EF%20%00%00%00%00%00%00%00%00%00%C0%A6%D3%EA%CFi%AFb%2C%7BB%0A%2B%C3%1A%D7%06V%D5%07%A8r%5D%3D%D9%A6%CAu%F5%25%CF%A2%99%97zNX%60%95%AB%5DUZ%D5%FBR%03%AB%1C%D4k%9F%3F%BB%5C%FF%81a%AE%AB'%7F%F3%EA%FE%F3z%94%AA%D8%DF%5B%01%00%00%00%00%00%00%00%00%00%8E%FB%F3%F2%B1%1B%8DWU%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*UiU%C7%BBe%E7%F3%B9%CB%AAJ%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5J%95*U%AAT%A9R%A5*%AAj%FD%C6%D4%5Eo%90%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5%86%AF%1B%9F%98%DA%EBm%BBV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%ADV%AB%D5j%B5Z%AD%D6%E4%F58%01%00%00%00%00%00%00%00%00%00%00%00%00%00%40%85%7F%02%0C%008%C2%D0H%16j%8FX%00%00%00%00IEND%AEB%60%82") repeat-x !important;
+	border-top: 1px solid #BBBBBB !important;
+	border-right: 1px dashed #BBBBBB !important;
+	border-bottom: 1px solid #000000 !important;
+}
+.firebugRulerV {
+	top: 0 !important;
+	left: -15px !important;
+	width: 14px !important;
+	height: 100% !important;
+	background: url("data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%0E%00%00%13%88%08%02%00%00%00%0E%F5%CB%10%00%00%00%04gAMA%00%00%D6%D8%D4OX2%00%00%00%19tEXtSoftware%00Adobe%20ImageReadyq%C9e%3C%00%00%06~IDATx%DA%EC%DD%D1v%A20%14%40Qt%F1%FF%FF%E4%97%D9%07%3BT%19%92%DC%40(%90%EEy%9A5%CB%B6%E8%F6%9Ac%A4%CC0%84%FF%DC%9E%CF%E7%E3%F1%88%DE4%F8%5D%C7%9F%2F%BA%DD%5E%7FI%7D%F18%DDn%BA%C5%FB%DF%97%BFk%F2%10%FF%FD%B4%F2M%A7%FB%FD%FD%B3%22%07p%8F%3F%AE%E3%F4S%8A%8F%40%EEq%9D%BE8D%F0%0EY%A1Uq%B7%EA%1F%81%88V%E8X%3F%B4%CEy%B7h%D1%A2E%EBohU%FC%D9%AF2fO%8BBeD%BE%F7X%0C%97%A4%D6b7%2Ck%A5%12%E3%9B%60v%B7r%C7%1AI%8C%BD%2B%23r%00c0%B2v%9B%AD%CA%26%0C%1Ek%05A%FD%93%D0%2B%A1u%8B%16-%95q%5Ce%DCSO%8E%E4M%23%8B%F7%C2%FE%40%BB%BD%8C%FC%8A%B5V%EBu%40%F9%3B%A72%FA%AE%8C%D4%01%CC%B5%DA%13%9CB%AB%E2I%18%24%B0n%A9%0CZ*Ce%9C%A22%8E%D8NJ%1E%EB%FF%8F%AE%CAP%19*%C3%BAEKe%AC%D1%AAX%8C*%DEH%8F%C5W%A1e%AD%D4%B7%5C%5B%19%C5%DB%0D%EF%9F%19%1D%7B%5E%86%BD%0C%95%A12%AC%5B*%83%96%CAP%19%F62T%86%CAP%19*%83%96%CA%B8Xe%BC%FE)T%19%A1%17xg%7F%DA%CBP%19*%C3%BA%A52T%86%CAP%19%F62T%86%CA%B0n%A9%0CZ%1DV%C6%3D%F3%FCH%DE%B4%B8~%7F%5CZc%F1%D6%1F%AF%84%F9%0F6%E6%EBVt9%0E~%BEr%AF%23%B0%97%A12T%86%CAP%19%B4T%86%CA%B8Re%D8%CBP%19*%C3%BA%A52huX%19%AE%CA%E5%BC%0C%7B%19*CeX%B7h%A9%0C%95%E1%BC%0C%7B%19*CeX%B7T%06%AD%CB%5E%95%2B%BF.%8F%C5%97%D5%E4%7B%EE%82%D6%FB%CF-%9C%FD%B9%CF%3By%7B%19%F62T%86%CA%B0n%D1R%19*%A3%D3%CA%B0%97%A12T%86uKe%D0%EA%B02*%3F1%99%5DB%2B%A4%B5%F8%3A%7C%BA%2B%8Co%7D%5C%EDe%A8%0C%95a%DDR%19%B4T%C66%82fA%B2%ED%DA%9FC%FC%17GZ%06%C9%E1%B3%E5%2C%1A%9FoiB%EB%96%CA%A0%D5qe4%7B%7D%FD%85%F7%5B%ED_%E0s%07%F0k%951%ECr%0D%B5C%D7-g%D1%A8%0C%EB%96%CA%A0%A52T%C6)*%C3%5E%86%CAP%19%D6-%95A%EB*%95q%F8%BB%E3%F9%AB%F6%E21%ACZ%B7%22%B7%9B%3F%02%85%CB%A2%5B%B7%BA%5E%B7%9C%97%E1%BC%0C%EB%16-%95%A12z%AC%0C%BFc%A22T%86uKe%D0%EA%B02V%DD%AD%8A%2B%8CWhe%5E%AF%CF%F5%3B%26%CE%CBh%5C%19%CE%CB%B0%F3%A4%095%A1%CAP%19*Ce%A8%0C%3BO*Ce%A8%0C%95%A12%3A%AD%8C%0A%82%7B%F0v%1F%2FD%A9%5B%9F%EE%EA%26%AF%03%CA%DF9%7B%19*Ce%A8%0C%95%A12T%86%CA%B8Ze%D8%CBP%19*Ce%A8%0C%95%D1ae%EC%F7%89I%E1%B4%D7M%D7P%8BjU%5C%BB%3E%F2%20%D8%CBP%19*Ce%A8%0C%95%A12T%C6%D5*%C3%5E%86%CAP%19*Ce%B4O%07%7B%F0W%7Bw%1C%7C%1A%8C%B3%3B%D1%EE%AA%5C%D6-%EBV%83%80%5E%D0%CA%10%5CU%2BD%E07YU%86%CAP%19*%E3%9A%95%91%D9%A0%C8%AD%5B%EDv%9E%82%FFKOee%E4%8FUe%A8%0C%95%A12T%C6%1F%A9%8C%C8%3D%5B%A5%15%FD%14%22r%E7B%9F%17l%F8%BF%ED%EAf%2B%7F%CF%ECe%D8%CBP%19*Ce%A8%0C%95%E1%93~%7B%19%F62T%86%CAP%19*Ce%A8%0C%E7%13%DA%CBP%19*Ce%A8%0CZf%8B%16-Z%B4h%D1R%19f%8B%16-Z%B4h%D1R%19%B4%CC%16-Z%B4h%D1R%19%B4%CC%16-Z%B4h%D1%A2%A52%CC%16-Z%B4h%D1%A2%A52h%99-Z%B4h%D1%A2%A52h%99-Z%B4h%D1%A2EKe%98-Z%B4h%D1%A2EKe%D02%5B%B4h%D1%A2EKe%D02%5B%B4h%D1%A2E%8B%96%CA0%5B%B4h%D1%A2E%8B%96%CA%A0e%B6h%D1%A2E%8B%96%CA%A0e%B6h%D1%A2E%8B%16-%95a%B6h%D1%A2E%8B%16-%95A%CBl%D1%A2E%8B%16-%95A%CBl%D1%A2E%8B%16-Z*%C3l%D1%A2E%8B%16-Z*%83%96%D9%A2E%8B%16-Z*%83%96%D9%A2E%8B%16-Z%B4T%86%D9%A2E%8B%16-Z%B4T%06-%B3E%8B%16-Z%B4T%06-%B3E%8B%16-Z%B4h%A9%0C%B3E%8B%16-Z%B4h%A9%0CZf%8B%16-Z%B4h%A9%0CZf%8B%16-Z%B4h%D1R%19f%8B%16-Z%B4h%D1R%19%B4%CC%16-Z%B4h%D1R%19%B4%CC%16-Z%B4h%D1%A2%A52%CC%16-Z%B4h%D1%A2%A52h%99-Z%B4h%D1%A2%A52h%99-Z%B4h%D1%A2EKe%98-Z%B4h%D1%A2EKe%D02%5B%B4h%D1%A2EKe%D02%5B%B4h%D1%A2E%8B%96%CA0%5B%B4h%D1%A2E%8B%96%CA%A0e%B6h%D1%A2E%8B%96%CA%A0e%B6h%D1%A2E%8B%16-%95a%B6h%D1%A2E%8B%16-%95A%CBl%D1%A2E%8B%16-%95A%CBl%D1%A2E%8B%16-Z*%C3l%D1%A2E%8B%16-Z*%83%96%D9%A2E%8B%16-Z*%83%96%D9%A2E%8B%16-Z%B4T%86%D9%A2E%8B%16-Z%B4T%06-%B3E%8B%16-Z%B4T%06-%B3E%8B%16-Z%B4h%A9%0C%B3E%8B%16-Z%B4h%A9%0CZf%8B%16-Z%B4h%A9%0CZf%8B%16-Z%B4h%D1R%19f%8B%16-Z%B4h%D1R%19%B4%CC%16-Z%B4h%D1R%19%B4%CC%16-Z%B4h%D1%A2%A52%CC%16-Z%B4h%D1%A2%A52h%99-Z%B4h%D1%A2%A52h%99-Z%B4h%D1%A2EKe%98-Z%B4h%D1%A2EKe%D02%5B%B4h%D1%A2EKe%D02%5B%B4h%D1%A2E%8B%96%CA0%5B%B4h%D1%A2E%8B%96%CA%A0e%B6h%D1%A2E%8B%96%CA%A0e%B6h%D1%A2E%8B%16-%95a%B6h%D1%A2E%8B%16-%95A%CBl%D1%A2E%8B%16-%95A%CBl%D1%A2E%8B%16-Z*%C3l%D1%A2E%8B%16-Z*%83%96%D9%A2E%8B%16-Z*%83%96%D9%A2E%8B%16-Z%B4T%86%D9%A2E%8B%16-Z%B4T%06-%B3E%8B%16-Z%B4%AE%A4%F5%25%C0%00%DE%BF%5C'%0F%DA%B8q%00%00%00%00IEND%AEB%60%82") repeat-y !important;
+	border-left: 1px solid #BBBBBB !important;
+	border-right: 1px solid #000000 !important;
+	border-bottom: 1px dashed #BBBBBB !important;
+}
+.overflowRulerX > .firebugRulerV {
+	left: 0 !important;
+}
+.overflowRulerY > .firebugRulerH {
+	top: 0 !important;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+.fbProxyElement {
+	position: fixed !important;
+	pointer-events: auto !important;
+}
+</style>
+</head>
+
+<body>
+<div class="gzj_main">
+  <div class="mask disnone" id="mask"></div>
+  <!--登录弹出-->
+  <div class="apps_popup disnone gzj_index999" id="jp-login">
+    <dl>
+      <dt> <strong class="white">&nbsp;警民通登录</strong></dt>
+      <dd>
+        <div class="gzj_myPage">
+          <input id="login_type2" name="ltype" value="1" type="hidden">
+          <!--                    	<input type="hidden" id="login_type2" name="ltype" value="3"/>-->
+          <div class="gzj_myPageTb">
+            <table>
+              <tbody>
+                <tr>
+                  <td colspan="2"><table width="100%">
+                      <tbody>
+                        <tr>
+                          <td width="170px"><label onclick="javascript:$('#login_type2').val('1');$('#radio_a21').attr('checked',true);$('#phone_login_body31').hide();$('#phone_login_body41').show();">
+                              <input name="a11" value="4" checked="checked" id="radio_a21" type="radio">
+                              非实名用户</label></td>
+                          <td width="170px"><label onclick="javascript:$('#login_type2').val('3');$('#radio_a11').attr('checked',true);$('#phone_login_body41').hide();$('#phone_login_body31').show();">
+                              <input name="a11" value="3" id="radio_a11" type="radio">
+                              实名用户</label></td>
+                        </tr>
+                      </tbody>
+                    </table></td>
+                </tr>
+              </tbody>
+              <tbody id="phone_login_body31" style="display: none;">
+                <tr>
+                  <th>实名账号：</th>
+                  <td><input id="login_phoneNum1" name="account" class="apps_w140" style="color:blue;" type="text"></td>
+                </tr>
+                <tr>
+                  <th>密码：</th>
+                  <td><input id="login_password1" name="password1" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="apps_main" id="phone_login_body41">
+              <div class="apps_mainSlider gzj_slideNm2 slide15">
+                <div class="apps_tab1 apps_topslide"> <a href="#" class="on">手机用户</a><a href="#">金盾网用户</a> </div>
+                <div class="apps_slidebox">
+                  <ul class="ot">
+                    <li class="otli">
+                      <div class="gzj_sfq">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <th>手机号：</th>
+                              <!-- value="13922200414" -->
+                              <td><input id="login_phoneNum2" name="phoneNum" class="apps_w120" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                              <th>验证码：</th>
+                              <td><input id="login_captcha2" name="captcha" class="apps_w60" style="color:blue;" type="text">
+                                <span class="apps_btn1 yzmcsjc" style="margin-top:3px; padding:3px;" onclick="javascript:getLoginValid('/ca/sendsms.do',$(this).closest('div'));">获取验证码</span></td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" class="f12 dblue"> 温馨提示：如果短信长时间接收不到，请检查是否设置了短信防火墙等拦截软件 </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </li>
+                    <li class="otli">
+                      <div class="gzj_sfq">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <th>账号：</th>
+                              <td><input id="login_username2" name="username" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                              <th>密码：</th>
+                              <td><input id="login_password2" name="password" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="mgt5 tc">
+            <input class="apps_btn1" value="登录" onclick="return login1('/ac/login.do',$(this).closest('div'));" type="button">
+          </p>
+        </div>
+      </dd>
+    </dl>
+  </div>
+  <!--登录弹出/--> 
+  
+  <script type="text/javascript">
+var base='';
+
+function jump(){
+	$('#jp-login').jumpBox(false);
+		
+		var mainactListSlide15 = new Slide();
+		mainactListSlide15.init({touchId:$(".slide15"),state:'big'});
+		mainactListSlide15.toptabs.unbind().bind('click',function(){
+			var _this = this,
+			index = mainactListSlide15.toptabs.index(_this);
+			mainactListSlide15.slide(index);
+			$('#login_type2').val(index+1);
+			return false;
+		});
+}
+$().ready(function(){
+	
+	$('#login_form').click(function(){
+		jump();
+	
+		return false;
+	});
+	
+	$('#login_captcha1').click(function(){
+			var _this_value = $(this).val();
+			if(!_this_value || _this_value == '短信验证码'){	
+				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+			}
+		});
+		
+//	$('#login_captcha2').click(function(){
+//			var _this_value = $(this).val();
+//			if(!_this_value || _this_value == '短信验证码'){	
+//				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+//			}
+//		});
+	
+});
+
+
+	
+</script>
+  <div class="apps_container apps_navtouch">
+    <table width="100%">
+      <tbody>
+        <tr>
+          <th><a href="#" class="left" onclick="javascript:history.back();return false;"></a></th>
+          <td>市区路况</td>
+          <th class="right"></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!--头部/-->
+  <fieldset>
+    <legend align="center">路况快照</legend>
+  </fieldset>
+  <div class="apps_container">
+		<ul class="apps_list1_3">
+			<li id="ny_" class="on"><input type="hidden" value="内环路">内环路</li>
+	        <li id="yc_"><input type="hidden" value="越秀">越秀区</li>
+	        <li id="lw_"><input type="hidden" value="荔湾">荔湾区</li>
+	        <li id="th_"><input type="hidden" value="天河">天河区</li>
+	        <li id="by_"><input type="hidden" value="白云">白云区</li>
+	        <li id="hz_"><input type="hidden" value="海珠">海珠区</li>
+	    </ul>
+	    <div class="gzj_sfq">
+	        <dl id="fetchCamera_dl"><dt>沙河立交(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//01011/01011_20130923171911.jpg"></dd><dt>人民桥上桥位(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//04011/04011_20130923171840.jpg"></dd><dt>小北路(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10031/10031_20130923171911.jpg"></dd><dt>恒安入口(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10041/10041_20130923171942.jpg"></dd><dt>恒福路(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10071/10071_20130923171942.jpg"></dd><dt>先烈路入口(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10091/10091_20130923171940.jpg"></dd><dt>动物园(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10101/10101_20130923171940.jpg"></dd><dt>环市东路出口(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10111/10111_20130923171940.jpg"></dd><dt>黄埔放射线(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10131/10131_20130923171941.jpg"></dd><dt>中山一路(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10141/10141_20130923171941.jpg"></dd><dt>东华南(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10161/10161_20130923171941.jpg"></dd><dt>江湾桥北(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10171/10171_20130923171941.jpg"></dd><dt>江湾桥南(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10181/10181_20130923171941.jpg"></dd><dt>江南大道出口(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10191/10191_20130923171942.jpg"></dd><dt>南田路(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10201/10201_20130923171941.jpg"></dd><dt>人民桥(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10221/10221_20130923171942.jpg"></dd><dt>镇安立交(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10231/10231_20130923171942.jpg"></dd><dt>珠江隧道(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10261/10261_20130923171942.jpg"></dd><dt>中山八路立交(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10281/10281_20130923171942.jpg"></dd><dt>南岸(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10301/10301_20130923172010.jpg"></dd><dt>广园西立交(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10311/10311_20130923172010.jpg"></dd><dt>前进路(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10321/10321_20130923172011.jpg"></dd><dt>东风西立交(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10361/10361_20130923172011.jpg"></dd><dt>广园西高架(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10371/10371_20130923172011.jpg"></dd><dt>环市西(内环路)</dt><dd style="display:none" id="_point_id_内环路____" class="disnone"><img width="100%" src="http://61.144.19.120:6001//10391/10391_20130923172011.jpg"></dd></dl>
+	    </div>
+    </div>
+  
+  <!--尾部--> 
+  <!--尾部/--> 
+  
+</div>
+<script type="text/javascript" src="/static/js/slide_002.js"></script> 
+<script type="text/javascript" src="/static/js/slide.js"></script> 
+<script type="text/javascript" src="/static/js/Cmenu.js"></script> 
+<script type="text/javascript" src="/static/js/Jfunction.js"></script> 
+<script type="text/javascript">
+
+//_point_id_越秀_23.1311_113.283_ 
+//_point_id_越秀_23.1319_113.261_
+	var region_d = '';
+	var latitude = '';
+	var longitude = '';
+	var favorites_string='';
+	var favoritesType='';
+	
+	var ch = new Array();
+	if(favorites_string){
+		 var chs = favorites_string.split('|');
+		 for(var i = 0; i<chs.length;i++){
+			 if(chs[i]){
+			 	ch[i] = chs[i];
+		 	}
+		 }
+	}
+	
+	/*function loadMoreCamera(region){
+		$.ajax({
+			type : 'get',
+			dataType : 'json',
+			url : '/sq/fetchCameraList.do?region='+encodeURIComponent(region),
+			beforeSend : function(){
+				$('#load_more_camera_button').parent().remove();
+				$('#fetchCamera_dl').empty();
+				$('<p class="tc" id="camera_loading"><img src='+base+'"/images/loading.gif"/></p>').appendTo($('#fetchCamera_dl').parent())
+			},
+			success : function(data) {
+				$('#camera_loading').remove();
+				if(data.returnCode == '1'){
+					var body = data.body;
+					var appendStr = '';
+					
+					var point_id = '_point_id_'+region_d+'_'+latitude+'_'+longitude+'_';
+					
+					var img1 = '';//'&nbsp;&nbsp;&nbsp;&nbsp;<img imgclick="0" src="'+base+'/images/menu/fa_nor.png" width="18px;"';
+					var img2 = '';//'&nbsp;&nbsp;&nbsp;&nbsp;<img imgclick="0"  src="'+base+'/images/menu/collection_add_btn_delete.png" width="18px;"  ';
+					//region=越秀&latitude=23.1319&longitude=113.261
+					for(var i = 0 ; i< body.length ; i++){
+						var exist_string = "region="+body[i].region+"&latitude="+body[i].latitude+"&longitude="+body[i].longitude;
+						var point_id1 = '_point_id_'+body[i].region+'_'+body[i].latitude+'_'+body[i].longitude+'_';
+						var p_id = 'pid_'+body[i].id;
+						var class_s = '';
+						var style_s = 'style="display:none"';
+						if(point_id == point_id1){
+							class_s = 'class="on"';
+							style_s = 'style="display: block;"';
+						}
+						var img_string = '';//img1 +" onclick='return addFav(\""+exist_string+"\",\""+p_id+"\",\""+body[i].roadname+"\",\""+body[i].imagepathsimple+"\");'  id='"+p_id+"'/>";
+						if($.inArray(exist_string, ch)>=0){
+							img_string = '';//img2 +' id="'+p_id+'" onclick="removeFav(\''+exist_string+'\',\''+p_id+'\',\''+body[i].roadname+'\',\''+body[i].imagepathsimple+'\')" />';
+						}
+						appendStr += '<dt  '+class_s+' >'+body[i].poiname+'('+body[i].roadname+')'+img_string+'</dt>';
+						appendStr += '<dd class="disnone" id="'+point_id+'_" '+style_s+'><img width="100%" src="'+body[i].imagepathfull+'"/></dd>';
+					}
+					$(appendStr).appendTo('#fetchCamera_dl');
+					$('.gzj_sfq dl dt').unbind('click').bind('click',function(){
+						var imgclick = $('.gzj_sfq dl dt > img').attr('imgclick');
+//						if(imgclick==0){
+							if('on'==$(this).attr('class')){
+								$(this).removeClass('on');
+								$(this).parent().find('dd').slideUp();
+							}else{
+								$(this).parent().find('dt').removeClass('on');
+								$(this).parent().find('dd').slideUp();
+								$(this).addClass('on').next('dd').slideDown();
+							}
+//						}
+//						$('.gzj_sfq dl dt > img').attr('imgclick',0);
+					});
+				}
+			}
+		});
+	}*/
+
+	var addFlag = false;
+	
+	
+	function addFav(addString,point_id1,title,imagepath){
+//		$('#'+point_id1).attr('imgclick',1);
+//		if(addFlag){
+//			var imgsrc = base+'/images/menu/collection_add_btn_delete.png';
+//			$('#'+point_id1).attr('src',imgsrc);
+//			$('#'+point_id1).attr('onclick','removeFav("'+addString+'","'+point_id1+'","'+title+'","'+imagepath+'")');
+//			$.post("/fa/add.do",{content:addString,title:title,favoritesType:favoritesType,img_url:imagepath});
+//			alert('收藏成功');
+//		}else{
+//			alert('请先登录');
+//		}
+//		return false;
+	}
+	
+	function removeFav (addString,point_id1,title,imagepath){
+//		$('#'+point_id1).attr('imgclick',1);
+//		if(addFlag){
+//			var imgsrc = base+'/images/menu/fa_nor.png';
+//			$('#'+point_id1).attr('src',imgsrc);
+//			$('#'+point_id1).attr('onclick','addFav("'+addString+'","'+point_id1+'","'+title+'","'+imagepath+'")');
+//			var arr = point_id1.split('_');
+//			$.post("/fa/remove.do",{id:arr[1],content:addString,favoritesType:favoritesType});
+//			alert('取消收藏成功');
+//		}else{
+//			alert('请先登录');
+//		}
+	}
+	
+	$('.apps_container ul li').click(function(){
+		$(this).parent().find('li').removeClass('on');
+		$(this).addClass('on');
+		loadMoreCamera($(this).find('input[type="hidden"]').val());
+	});
+	
+	if(!region_d){
+		region_d='内环路';
+	}
+	if(region_d=='内环路'){
+		$('#ny_').addClass('on');
+	}else if(region_d=='越秀'){
+		$('#yc_').addClass('on');
+	}else if(region_d=='荔湾'){
+		$('#lw_').addClass('on');
+	}else if(region_d=='天河'){
+		$('#th_').addClass('on');
+	}else if(region_d=='白云'){
+		$('#by_').addClass('on');
+	}else  if(region_d=='海珠'){
+		$('#hz_').addClass('on');
+	}
+	
+	loadMoreCamera(region_d);
+	
+</script>
+</body>
+</html>

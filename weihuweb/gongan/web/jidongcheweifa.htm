@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-Cache">
+<meta name="viewport" content="width=device-width;">
+<meta name="format-detection" content="telephone=no">
+<title>广州公安.警民通</title>
+<link rel="stylesheet" type="text/css" href="/static/css/web_style.css" />
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script type="text/javascript" src="/static/js/tools.js"></script>
+</head>
+
+<body>
+<div class="gzj_main">
+<div style="display: block; height: 930px;" class="mask disnone" id="mask"></div>
+    <!--登录弹出-->
+    <div style="display: block; position: absolute; left: 820px; top: 359px;" class="apps_popup disnone gzj_index999" id="jp-login">
+        <dl>
+            <dt> <strong class="white">&nbsp;警民通登录</strong></dt>
+            <dd>
+            	<div class="gzj_myPage">
+                    	<input id="login_type2" name="ltype" value="1" type="hidden">
+<!--                    	<input type="hidden" id="login_type2" name="ltype" value="3"/>-->
+                        <div class="gzj_myPageTb">
+                        
+                        
+                          <table>
+                        	<tbody><tr>
+	                        	<td colspan="2">
+		                        	<table width="100%">
+		                        	<tbody>
+			                        	<tr>
+			                        	<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('1');$('#radio_a21').attr('checked',true);$('#phone_login_body31').hide();$('#phone_login_body41').show();">
+			                        		<input name="a11" value="4" checked="checked" id="radio_a21" type="radio">非实名用户</label></td>
+			                        		
+			                        		<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('3');$('#radio_a11').attr('checked',true);$('#phone_login_body41').hide();$('#phone_login_body31').show();">
+			                        		<input name="a11" value="3" id="radio_a11" type="radio">实名用户</label></td>
+			                        		
+			                        	</tr>
+			                        	</tbody>
+		                        	</table>
+	                        	</td>
+                        	</tr>
+                        
+                        </tbody><tbody id="phone_login_body31" style="display: none;">
+                        	<tr>
+                            	<th>实名账号：</th>
+                                <td><input id="login_phoneNum1" name="account" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                              <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password1" name="password1" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                            </tbody>
+                            
+                        </table>
+                        
+       <div class="apps_main" id="phone_login_body41">
+        <div class="apps_mainSlider gzj_slideNm2 slide15">
+        <div class="apps_tab1 apps_topslide">
+            <a href="#" class="on">手机用户</a><a href="#">金盾网用户</a>
+        </div>
+        <div style="height: 139px;" class="apps_slidebox">
+            <ul style="width: 508px;" class="ot">
+                <li style="width: 254px;" class="otli">
+                    <div class="gzj_sfq">
+                        <table>
+                       <tbody><tr>
+                            	<th>手机号：</th><!-- value="13922200414" -->
+                                <td><input id="login_phoneNum2" name="phoneNum" class="apps_w120" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>验证码：</th>
+                                <td>
+                                <input id="login_captcha2" name="captcha" class="apps_w60" style="color:blue;" type="text"> 
+                                <span class="apps_btn1 yzmcsjc" style="margin-top:3px; padding:3px;" onclick="javascript:getLoginValid('/ca/sendsms.do',$(this).closest('div'));">获取验证码</span>
+                                </td>
+                                
+                             </tr>
+                             <tr>
+                             	<td colspan="2" class="f12 dblue">
+                               		 温馨提示：如果短信长时间接收不到，请检查是否设置了短信防火墙等拦截软件
+                                </td>
+                             </tr>
+                        </tbody></table>
+                    </div>
+                </li>
+                <li style="width: 254px;" class="otli">
+                    <div class="gzj_sfq">
+                    <table>
+                    	<tbody><tr>
+                            	<th>账号：</th>
+                                <td><input id="login_username2" name="username" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password2" name="password" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                    </tbody></table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+                        
+                        
+                        </div>
+                        <p class="mgt5 tc"><input class="apps_btn1" value="登录" onclick="return login1('/ac/login.do',$(this).closest('div'));" type="button"></p>
+                    </div>
+            </dd>
+    	</dl>
+    </div>
+    <!--登录弹出/-->
+    
+<script type="text/javascript">
+var base='';
+
+function jump(){
+	$('#jp-login').jumpBox(false);
+		
+		var mainactListSlide15 = new Slide();
+		mainactListSlide15.init({touchId:$(".slide15"),state:'big'});
+		mainactListSlide15.toptabs.unbind().bind('click',function(){
+			var _this = this,
+			index = mainactListSlide15.toptabs.index(_this);
+			mainactListSlide15.slide(index);
+			$('#login_type2').val(index+1);
+			return false;
+		});
+}
+$().ready(function(){
+	
+	$('#login_form').click(function(){
+		jump();
+	
+		return false;
+	});
+	
+	$('#login_captcha1').click(function(){
+			var _this_value = $(this).val();
+			if(!_this_value || _this_value == '短信验证码'){	
+				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+			}
+		});
+		
+//	$('#login_captcha2').click(function(){
+//			var _this_value = $(this).val();
+//			if(!_this_value || _this_value == '短信验证码'){	
+//				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+//			}
+//		});
+	
+});
+
+
+	
+</script>    <div class="apps_container apps_navtouch">
+    	<table width="100%">
+        	<tbody><tr>
+            	<th><a href="#" class="left" onclick="javascript:history.back();return false;"></a></th>
+                <td>机动车违法查询</td>
+                <th class="right"></th>
+            </tr>
+        </tbody></table>
+    </div>
+    <!--头部/-->
+    
+    <div class="apps_main">
+    <div class="apps_mainSlider  slide1 gzj_slideNm2">
+		        <form action="/vm/vehicleViolation.do" method="post" onsubmit="return jdc_checkData(this.hphm2.value,this.clsbdh.value,this.fdjh.value,this.captcha.value);">
+		        <div class="gzj_appshow">
+		           <table>
+                      <tbody><tr>
+                          <th>车牌号:</th>
+                          <td><select style="visibility: hidden;" class="iselect apps_w60 apps_fsize14" name="hphm1"><option selected="selected" value="粤">粤</option></select>
+                          <!-- value="A648H9" -->
+                          <input class="gzj_inp1 apps_w100 apps_fsize14" name="hphm2" type="text"></td>
+                      </tr>
+                      <tr>
+                          <th>车牌类型:</th>
+                          <td>
+                          <select style="visibility: hidden;" class="iselect gzj_inp1 apps_w160 apps_fsize14" name="hpzl">
+				              <option value="01">大型汽车</option>
+                        	<option value="02" selected="selected">小型汽车</option>
+                        	<option value="04">领馆汽车</option>
+                        	<option value="06">外籍汽车</option>
+                        	<option value="07">普通摩托车</option>
+                        	<option value="08">轻便摩托车</option>
+                        	<option value="10">领馆摩托车</option>
+                        	<option value="11">境外摩托车</option>
+                        	<option value="12">外籍摩托车</option>
+                        	<option value="13">低速车</option>
+                        	<option value="14">拖拉机</option>
+                        	<option value="15">挂车</option>
+							<option value="16">教练汽车</option>
+							<option value="17">教练摩托车</option>
+							<option value="18">试验汽车</option>
+							<option value="19">试验摩托车</option>
+							<option value="25">原农机号牌</option>
+				          </select>
+                          </td>
+                      </tr>
+                      
+                      <tr>
+                          <th>识别号:</th><!-- value="133579" -->
+                          <td><input name="clsbdh" class="gzj_inp1 apps_w160 apps_fsize14" value="后六位" onclick="if(value==defaultValue){value='';this.style.color='#000'}" onblur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999" type="text"></td>
+                      </tr>
+                      <tr>
+                          <th>发动机号:</th><!-- value="0107" -->
+                          <td><input name="fdjh" class="gzj_inp1 apps_w160 apps_fsize14" value="后四位" onclick="if(value==defaultValue){value='';this.style.color='#000'}" onblur="if(!value){value=defaultValue;this.style.color='#999'}" style="color:#999" type="text"></td>
+                      </tr>
+                      
+                      <tr>
+                        <th>验证码：</th>
+                        <td><input class="gzj_inp1 apps_w80 apps_fsize14" name="captcha" id="vehicle_violation_captcha" type="text"> 
+                        <img id="vehicle_violation_captcha_loading" src="jidongcheweifa_files/loading.gif" class="disnone">
+                        <img id="vehicle_violation_captcha_img" src="" class="disnone" height="24" width="50px"> 
+                        <a id="vehicle_violation_captcha_img_bt" href="javascript:getImgValidCode($('#vehicle_violation_captcha_img_bt'),$('#vehicle_violation_captcha_img'),$('#vehicle_violation_captcha_loading'));">获取验证码</a></td>
+                      </tr>
+	                  <tr><td colspan="2"><p class="tc"><input value="查询" class="apps_btn8" type="submit"></p></td></tr>
+                   </tbody></table>
+		        </div>
+		        </form>
+    </div>
+
+    
+    
+    
+</div>
+	</div>
+	<!--尾部-->
+    <!--尾部/-->
+<script type="text/javascript" src="/static/js/slide_002.js"></script>
+<script type="text/javascript" src="/static/js/slide.js"></script>
+<script type="text/javascript" src="/static/js/Cmenu.js"></script>
+<script type="text/javascript" src="/static/js/Jfunction.js"></script>
+
+<script type="text/javascript">
+	var isRealLogin = false;
+	if(!isRealLogin){
+		jump();
+	}
+	
+	$().ready(function(){
+		$('.gzj_gg').txtAdvRoll();
+		$('#fxc_clsbdh').showWord('后六位');
+		$('#fxc_fdjh').showWord('后四位');
+		
+		$('#jp-cg-bl-submit').unbind('click').click(function(){
+			$('#jp-cg-bl-result').jumpBox(true);
+		});
+		
+		$('#apply_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#apply_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#apply_captcha_img_bt'),$('#apply_captcha_img'),$('#apply_captcha_loading'));
+				}
+			}			
+		});
+		
+		$('#vehicle_violation_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#vehicle_violation_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#vehicle_violation_captcha_img_bt'),$('#vehicle_violation_captcha_img'),$('#vehicle_violation_captcha_loading'));
+				}
+			}			
+		});
+		
+		$('#vehicle_info_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#vehicle_info_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#vehicle_info_captcha_img_bt'),$('#vehicle_info_captcha_img'),$('#vehicle_info_captcha_loading'));
+				}
+			}			
+		});
+		
+		$('#driver_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#driver_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#driver_captcha_img_bt'),$('#driver_captcha_img'),$('#driver_captcha_loading'));
+				}
+			}			
+		});
+		
+		$('#driver_info_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#driver_info_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#driver_info_captcha_img_bt'),$('#driver_info_captcha_img'),$('#driver_info_captcha_loading'));
+				}
+			}			
+		});
+		
+		
+		$('#apply_captcha2').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#apply_captcha_img2').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#apply_captcha_img_bt2'),$('#apply_captcha_img2'),$('#apply_captcha_loading2'));
+				}
+			}			
+		});
+	});
+	
+	//办理进度查询
+	function bljd_checkData(applyno,captcha){
+		saveUserAction('98012010');
+		if(!applyno){
+			alert('受理编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	function bljd1_checkData(applyno,captcha){
+		saveUserAction('98012013');
+		if(!applyno){
+			alert('受理编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	//机动车非现场违法查询
+	function jdc_checkData(hphm2,clsbdh,fdjh,captcha){
+		saveUserAction('98012011');
+		if(!hphm2){
+			alert('车牌号不能为空');
+			return false;
+		}
+		if(!clsbdh){
+			alert('识别号不能为空');
+			return false;
+		}
+		if(!fdjh){
+			alert('发动机号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	function jdc_3_checkData(hphm2,captcha){
+		saveUserAction('98012011');
+		if(!hphm2){
+			alert('车牌号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	//机动车状态查询
+	function jdc1_checkData(hphm2,clsbdh,fdjh,captcha){
+		saveUserAction('98012012');
+		if(!hphm2){
+			alert('车牌号不能为空');
+			return false;
+		}
+		if(!clsbdh){
+			alert('识别号不能为空');
+			return false;
+		}
+		if(!fdjh){
+			alert('发动机号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	//机动车状态查询
+	function jdc1_3_checkData(hphm2,captcha){
+		saveUserAction('98012012');
+		if(!hphm2){
+			alert('车牌号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	//驾驶员违法信息查询 
+	function jc_checkData(jszh,dabh,captcha){
+		saveUserAction('9801305');
+		if(!jszh){
+			alert('驾驶证号不能为空');
+			return false;
+		}
+		if(!dabh){
+			alert('档案编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	function jc2_checkData(jszh,dabh,captcha){
+		saveUserAction('98012015');
+		if(!jszh){
+			alert('驾驶证号不能为空');
+			return false;
+		}
+		if(!dabh){
+			alert('档案编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	function jc2_3_checkData(jszh,captcha){
+		saveUserAction('98012015');
+		if(!jszh){
+			alert('驾驶证号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	function jc1_checkData(jszh,dabh,captcha){
+		saveUserAction('98012014');
+		if(!jszh){
+			alert('驾驶证号不能为空');
+			return false;
+		}
+		if(!dabh){
+			alert('档案编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	function jc1_3_checkData(jszh,captcha){
+		saveUserAction('98012014');
+		if(!jszh){
+			alert('驾驶证号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+</script>
+
+
+</body></html>

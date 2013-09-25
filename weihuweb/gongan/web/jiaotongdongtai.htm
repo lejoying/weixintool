@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-Cache">
+<meta name="viewport" content="width=device-width;">
+<meta name="format-detection" content="telephone=no">
+<title>广州公安.警民通</title>
+<link rel="stylesheet" type="text/css" href="/static/css/web_style.css" />
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+
+</head><body>
+<div class="gzj_main">
+<div class="mask disnone" id="mask"></div>
+    <!--登录弹出-->
+    <div class="apps_popup disnone gzj_index999" id="jp-login">
+        <dl>
+            <dt> <strong class="white">&nbsp;警民通登录</strong></dt>
+            <dd>
+            	<div class="gzj_myPage">
+                    	<input id="login_type2" name="ltype" value="1" type="hidden">
+<!--                    	<input type="hidden" id="login_type2" name="ltype" value="3"/>-->
+                        <div class="gzj_myPageTb">
+                        
+                        
+                          <table>
+                        	<tbody><tr>
+	                        	<td colspan="2">
+		                        	<table width="100%">
+		                        	<tbody>
+			                        	<tr>
+			                        	<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('1');$('#radio_a21').attr('checked',true);$('#phone_login_body31').hide();$('#phone_login_body41').show();">
+			                        		<input name="a11" value="4" checked="checked" id="radio_a21" type="radio">非实名用户</label></td>
+			                        		
+			                        		<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('3');$('#radio_a11').attr('checked',true);$('#phone_login_body41').hide();$('#phone_login_body31').show();">
+			                        		<input name="a11" value="3" id="radio_a11" type="radio">实名用户</label></td>
+			                        		
+			                        	</tr>
+			                        	</tbody>
+		                        	</table>
+	                        	</td>
+                        	</tr>
+                        
+                        </tbody><tbody id="phone_login_body31" style="display: none;">
+                        	<tr>
+                            	<th>实名账号：</th>
+                                <td><input id="login_phoneNum1" name="account" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                              <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password1" name="password1" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                            </tbody>
+                            
+                        </table>
+                        
+       <div class="apps_main" id="phone_login_body41">
+        <div class="apps_mainSlider gzj_slideNm2 slide15">
+        <div class="apps_tab1 apps_topslide">
+            <a href="#" class="on">手机用户</a><a href="#">金盾网用户</a>
+        </div>
+        <div class="apps_slidebox">
+            <ul class="ot">
+                <li class="otli">
+                    <div class="gzj_sfq">
+                        <table>
+                       <tbody><tr>
+                            	<th>手机号：</th><!-- value="13922200414" -->
+                                <td><input id="login_phoneNum2" name="phoneNum" class="apps_w120" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>验证码：</th>
+                                <td>
+                                <input id="login_captcha2" name="captcha" class="apps_w60" style="color:blue;" type="text"> 
+                                <span class="apps_btn1 yzmcsjc" style="margin-top:3px; padding:3px;" onclick="javascript:getLoginValid('/ca/sendsms.do',$(this).closest('div'));">获取验证码</span>
+                                </td>
+                                
+                             </tr>
+                             <tr>
+                             	<td colspan="2" class="f12 dblue">
+                               		 温馨提示：如果短信长时间接收不到，请检查是否设置了短信防火墙等拦截软件
+                                </td>
+                             </tr>
+                        </tbody></table>
+                    </div>
+                </li>
+                <li class="otli">
+                    <div class="gzj_sfq">
+                    <table>
+                    	<tbody><tr>
+                            	<th>账号：</th>
+                                <td><input id="login_username2" name="username" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password2" name="password" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                    </tbody></table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+                        
+                        
+                        </div>
+                        <p class="mgt5 tc"><input class="apps_btn1" value="登录" onclick="return login1('/ac/login.do',$(this).closest('div'));" type="button"></p>
+                    </div>
+            </dd>
+    	</dl>
+    </div>
+    <!--登录弹出/-->
+    
+<script type="text/javascript">
+var base='';
+
+function jump(){
+	$('#jp-login').jumpBox(false);
+		
+		var mainactListSlide15 = new Slide();
+		mainactListSlide15.init({touchId:$(".slide15"),state:'big'});
+		mainactListSlide15.toptabs.unbind().bind('click',function(){
+			var _this = this,
+			index = mainactListSlide15.toptabs.index(_this);
+			mainactListSlide15.slide(index);
+			$('#login_type2').val(index+1);
+			return false;
+		});
+}
+$().ready(function(){
+	
+	$('#login_form').click(function(){
+		jump();
+	
+		return false;
+	});
+	
+	$('#login_captcha1').click(function(){
+			var _this_value = $(this).val();
+			if(!_this_value || _this_value == '短信验证码'){	
+				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+			}
+		});
+		
+//	$('#login_captcha2').click(function(){
+//			var _this_value = $(this).val();
+//			if(!_this_value || _this_value == '短信验证码'){	
+//				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+//			}
+//		});
+	
+});
+
+
+	
+</script>	<fieldset>
+		<legend align="center">交通动态</legend>
+	</fieldset>
+	<div class="gzj_sfq">
+        <dl id="fetchEvents_dl">
+        	
+        <dt>2013-12-30 17:32:42[计划事件]</dt><dd class="disnone">东濠涌中北段综合整治工程：2013年3月23日至2013年12月30日进行麓景路（麓湖水闸至恒安路段）道路改造及揭盖复涌工程。
+第一阶段围蔽麓景路东侧两条车行道（2013年3月23日至2013年6月30日），期间北往南维持两车道通行，南往北调整为一车道通行。
+第二阶段计划未定。</dd><dt>2013-12-30 10:10:30[计划事件]</dt><dd class="disnone">东濠涌中北段综合整治工程：2013年3月23日至2013年12月30日进行麓景路（麓湖水闸至恒安路段）道路改造及揭盖复涌工程。
+第一阶段围蔽麓景路东侧两条车行道（2013年3月23日至2013年6月30日），期间北往南维持两车道通行，南往北调整为一车道通行。
+第二阶段计划未定。</dd><dt>2013-09-24 09:24:22[突发事件]</dt><dd class="disnone">【新光大桥】南往北下桥位置有两车事故，请途经车辆注意避让。</dd></dl>
+    <p class="tc"><input id="load_more_event_button" class="apps_btn2" value="点击加载更多" onclick="loadMoreEvents()" type="button"></p></div>
+    <!--尾部-->
+    <!--尾部/-->
+    
+</div>
+	
+<script type="text/javascript" src="/static/js/Cmenu.js"></script>
+<script type="text/javascript" src="/static/js/Jfunction.js"></script>
+<script type="text/javascript">
+	
+	$('.gzj_sfq dl dt').click(function(){
+		if('on'==$(this).attr('class')){
+			$(this).removeClass('on');
+			$(this).parent().find('dd').slideUp();
+		}else{
+			$(this).parent().find('dt').removeClass('on');
+			$(this).parent().find('dd').slideUp();
+			$(this).addClass('on').next('dd').slideDown();
+		}
+	})
+	
+	var events_page = 1;
+	function loadMoreEvents(){
+		$.ajax({
+			type : 'post',
+			dataType : 'json',
+			url : '/sq/fetchEvents.do',
+			data : {
+				page : events_page
+			},
+			beforeSend : function(){
+				$('#load_more_event_button').parent().remove();
+				$('<p class="tc" id="events_loading"><img src='+base+'"/images/loading.gif"/></p>').appendTo($('#fetchEvents_dl').parent())
+			},
+			success : function(data) {
+				$('#events_loading').remove();
+				if(data.returnCode == '1'){
+					var body = data.body;
+					var appendStr = '';
+					for(var i = 0 ; i< body.length ; i++){
+//						appendStr += '<dt>'+body[i].messagebody+'</dt>';
+//						appendStr += '<dd class="disnone">'+body[i].messagebody+'</dd>';
+						appendStr += '<dt>'+body[i].title+'</dt>';
+						appendStr += '<dd class="disnone">'+body[i].content+'</dd>';
+						
+						if(body[i].longitude>0){
+							var info = [];
+							info.push("<b>"+body[i].title+"</b>");
+							info.push(body[i].content);
+						}
+							
+					}
+					$(appendStr).appendTo('#fetchEvents_dl');
+					$('.gzj_sfq dl dt').unbind('click').bind('click',function(){
+						if('on'==$(this).attr('class')){
+							$(this).removeClass('on');
+							$(this).parent().find('dd').slideUp();
+						}else{
+							$(this).parent().find('dt').removeClass('on');
+							$(this).parent().find('dd').slideUp();
+							$(this).addClass('on').next('dd').slideDown();
+						}
+					})
+					if(data.pagesize == body.length){
+						$('<p class="tc"><input id="load_more_event_button" type="button" class="apps_btn2" value="点击加载更多" onclick="loadMoreEvents()"/></p>').appendTo($('#fetchEvents_dl').parent());
+					}
+					events_page++;
+				}
+			}
+		});
+	}
+	loadMoreEvents();
+</script>
+
+
+</body></html>
