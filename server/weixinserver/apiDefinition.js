@@ -110,7 +110,7 @@ api = {
             typical: {weixinid: "nnnn"}
         },
         response: {
-            success: {"提示信息": "获取微信信息成功", weixin:{}},
+            success: {"提示信息": "获取微信信息成功", weixin: {}},
             failed: {"提示信息": "获取微信信息失败", "失败原因": "微信信息不存在"}
         }
     },
@@ -155,11 +155,37 @@ api = {
      ***************************************/
     "weixin_modifyrelapro": {
         request: {
-            typical: {weixinid: "XXXX", uid: "XXXX", switch: true|false}
+            typical: {weixinid: "XXXX", uid: "XXXX", switch: true | false}
         },
         response: {
             success: {"提示信息": "修改绑定微信开关成功", weixin: {}},
             failed: {"提示信息": "改绑定微信开关失败", "失败原因": "数据不正常"}
+        }
+    },
+
+    /***************************************
+     * URL：/api2/weixin/getmessageulist
+     ***************************************/
+    "weixin_getmessageulist": {
+        request: {
+            typical: {weixinid: "XXXX", nowpage: "XXX", pagesize: "XXX"}
+        },
+        response: {
+            success: {"提示信息": "获取用户列表成功", users: {}, count: "XXX"},
+            failed: {"提示信息": "获取用户列表失败", "失败原因": "数据异常"}
+        }
+    },
+
+    /***************************************
+     * URL：/api2/weixin/getmessages
+     ***************************************/
+    "weixin_getmessages": {
+        request: {
+            typical: {weixinid: "XXXX", userid: "XXXX", nowpage: "XXX", pagesize: "XXX"}
+        },
+        response: {
+            success: {"提示信息": "获取消息成功", messages: {}, count:"XXX"},
+            failed: {"提示信息": "获取消息失败", "失败原因": "数据异常"}
         }
     }
 }

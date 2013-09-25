@@ -13,8 +13,7 @@ var vm = require('vm');
 var http = require('http');
 var scriptPool = {};
 var redis = require("redis");
-var saveClient_from;
-var saveClient_reply;
+var saveClient = redis.createClient();
 
 var debug = serverSetting.debug;
 
@@ -72,22 +71,10 @@ message.message = function (data, getParam, response) {
                     eventType: messageData.EVENT,
                     EventKey: messageData.EVENTKEY
                 },
-                CreateTime:now.getTime()
+                CreateTime: now.getTime(),
+                MsgType:"from"
             };
         }
-
-        /*************************************** ***************************************
-         *    saveMessages
-         *************************************** ***************************************/
-
-        console.log(message);
-        saveClient_from = redis.createClient();
-        saveClient_from.rpush(messageData.TOUSERNAME,JSON.stringify(message),function(err,reply){
-            if(err!=null){
-                console.log(err);
-            }
-            saveClient_from.end();
-        });
 
         /*************************************** ***************************************
          *    resolve reply
@@ -127,7 +114,8 @@ message.message = function (data, getParam, response) {
                         }
                     ]
                 },
-                log: "【公众账号管理工具.】\n"
+                log: "【公众账号管理工具.】\n",
+                MsgType:"reply"
             };
         }
 
@@ -477,9 +465,9 @@ message.message = function (data, getParam, response) {
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
 //                var userDate = userNode.data;
             var reg = /^[A-Za-z]{2}\d{0,}$/;
-            var reg1 = /^[A-Za-z]{2}([\u4e00-\u9fa5]|[A-Za-z0-9#]){0,}$/;
-                if (reg1.test(messageData.CONTENT)) {
-                    var flag = false;
+            var reg1 = /^[A-Za-z]{2}([\u4e00-\u9fa5]|[A-Za-z0-9#.]){0,}$/;
+            if (reg1.test(messageData.CONTENT)) {
+                var flag = false;
                 for (var index in bindApps) {
                     var bindApp = bindApps[index];
                     if (bindApp.replytxt == undefined || bindApp.replytxt == "") {
@@ -547,15 +535,27 @@ message.message = function (data, getParam, response) {
                 reply.weixinOpenID = weixin.weixinOpenID;
                 reply.createTime = now.getTime().toString().substr(0, 10);
                 var replyXML = replyTemplate.render(reply);
-                response.write(replyXML,function(){
+                response.write(replyXML, function () {
 
-                    saveClient_reply = redis.createClient();
-                    saveClient_reply.rpush(weixin.weixinOpenID,JSON.stringify(reply),function(err,r){
-                         if(err!=null){
-                             console.log(err);
-                         }
-                        saveClient_reply.end();
+                    /*************************************** ***************************************
+                     *    saveMessages
+                     *************************************** ***************************************/                             ;
+                    saveClient.zadd(weixin.weixinOpenID, now.getTime(), messageData.FROMUSERNAME, function (err, zaddreply) {
+                        if (err!=null) {
+                            console.log(err);
+                        }
+                        saveClient.multi([
+                                ["lpush", weixin.weixinOpenID + messageData.FROMUSERNAME, JSON.stringify(message)],
+                                ["lpush", weixin.weixinOpenID + messageData.FROMUSERNAME, JSON.stringify(reply)]
+                            ]).exec(function (err, replys) {
+                            if (err != null) {
+                                console.log(err);
+                            }
+
+                        });
                     });
+
+
                 });
                 response.end();
                 replySent = true

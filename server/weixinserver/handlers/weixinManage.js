@@ -11,29 +11,31 @@ var neo4j = require('neo4j');
 
 var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
+var redis = require("redis");
+var getClient = redis.createClient();
+
 
 /***************************************
  *     URL：/api2/weixin/bindingtoken
  ***************************************/
 weixinManage.bindingtoken = function (data, response) {
     response.asynchronous = 1;
-    Date.prototype.format = function(format)
-    {
+    Date.prototype.format = function (format) {
         var o =
         {
-            "M+" : this.getMonth()+1, //month
-            "d+" : this.getDate(),    //day
-            "h+" : this.getHours(),   //hour
-            "m+" : this.getMinutes(), //minute
-            "s+" : this.getSeconds(), //second
-            "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
-            "S" : this.getMilliseconds() //millisecond
+            "M+": this.getMonth() + 1, //month
+            "d+": this.getDate(),    //day
+            "h+": this.getHours(),   //hour
+            "m+": this.getMinutes(), //minute
+            "s+": this.getSeconds(), //second
+            "q+": Math.floor((this.getMonth() + 3) / 3),  //quarter
+            "S": this.getMilliseconds() //millisecond
         }
-        if(/(y+)/.test(format))
-            format=format.replace(RegExp.$1,(this.getFullYear()+""));
-        for(var k in o)
-            if(new RegExp("("+ k +")").test(format))
-                format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+        if (/(y+)/.test(format))
+            format = format.replace(RegExp.$1, (this.getFullYear() + ""));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(format))
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
         return format;
     }
     var weixin = {
@@ -216,23 +218,23 @@ weixinManage.unbindapp = function (data, response) {
 weixinManage.getall = function (data, response) {
     response.asynchronous = 1;
     /*var base = require("./../../bindserver/tools/base64");
-    console.log(base.encode(data.jscode));
-    response.end();*/
+     console.log(base.encode(data.jscode));
+     response.end();*/
     var account = {
         "uid": data.uid
     };
     var stat = data.start;
     var end = data.end;
     var count = 0;
-    if(end == "*"){
+    if (end == "*") {
         getallWeixinNode();
-    }else{
+    } else {
         getallWeixinNodeCountNode();
     }
 
     function getallWeixinNode() {
         var query = {};
-        if(end != "*"){
+        if (end != "*") {
             query = [
                 'START account=node({uid})' ,
                 'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin',
@@ -241,7 +243,7 @@ weixinManage.getall = function (data, response) {
                 'SKIP {stat}',
                 'LIMIT {end}'
             ].join('\n');
-        }else{
+        } else {
             query = [
                 'START account=node({uid})' ,
                 'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
@@ -281,7 +283,7 @@ weixinManage.getall = function (data, response) {
                         weixins[weixinNode.data.weixinOpenID].apps = [];
                     }
                     /*var appNode = results[index].app;
-                    weixins[weixinNode.data.weixinOpenID].apps.push(appNode.data);*/
+                     weixins[weixinNode.data.weixinOpenID].apps.push(appNode.data);*/
                 }
                 response.write(JSON.stringify({
                     "提示信息": "获取所有绑定微信公众账号成功",
@@ -293,6 +295,7 @@ weixinManage.getall = function (data, response) {
 
         });
     }
+
     function getallWeixinNodeCountNode() {
         var query = [
             'START account=node({uid})' ,
@@ -379,6 +382,7 @@ weixinManage.getnowpageweixin = function (data, response) {
             }
         });
     }
+
     function getNowPageWeixinCountNode() {
         var query = [
             'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin',
@@ -481,7 +485,7 @@ weixinManage.delete = function (data, response) {
                     "失败原因 ": "数据不正常"
                 }));
                 response.end();
-            }else {
+            } else {
                 response.write(JSON.stringify({
                     "提示信息": "删除绑定微信成功"
                 }));
@@ -610,7 +614,7 @@ weixinManage.getnewusercount = function (data, response) {
                     "失败原因 ": "数据格式不正确"
                 }));
                 response.end();
-            }else{
+            } else {
                 var count = results.pop()["count(user)"];
                 response.write(JSON.stringify({
                     "提示信息": "获取今日新增会员数量成功",
@@ -640,7 +644,7 @@ weixinManage.getbindcount = function (data, response) {
                     "失败原因 ": "数据异常"
                 }));
                 response.end();
-            }else{
+            } else {
                 var count = results.pop()["count(weixin)"];
                 response.write(JSON.stringify({
                     "提示信息": "获取绑定微信数量成功",
@@ -651,4 +655,185 @@ weixinManage.getbindcount = function (data, response) {
         });
     }
 }
+/***************************************
+ * URL：/api2/weixin/getmessageulist
+ ***************************************/
+
+weixinManage.getmessageulist = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var nowpage = data.nowpage;
+    var pagesize = data.pagesize;
+    var start = pagesize * (nowpage - 1);
+    var end = pagesize * nowpage - 1;
+
+    getmessageuserlist();
+
+    function getmessageuserlist() {
+        getClient.multi([
+                ["zcard", weixinid],
+                ["zrevrange", weixinid, start, end]
+            ]).exec(function (err, replys) {
+                if (err != null) {
+                    error(response);
+                    return;
+                }
+                var count = replys[0];
+                var userlist = replys[1];
+                var multiarray = [];
+                for (var index in userlist) {
+                    multiarray[index] = ["lrange", weixinid + userlist[index], 0, 1]
+                }
+                getClient.multi(multiarray).exec(function (err, replys) {
+                    if (err != null) {
+                        error(response);
+                        return;
+                    }
+                    var users = [];
+                    if (userlist.length == replys.length) {
+                        for (var index in replys) {
+                            var lastmessage = replys[index];
+                            var from = JSON.parse(lastmessage[1]);
+                            var reply = JSON.parse(lastmessage[0]);
+                            var thisdate = new Date(reply.CreateTime);
+                            var time = thisdate.getFullYear() + "-" + (thisdate.getMonth() + 1) + "-" + thisdate.getDate();
+                            users[index] = {
+                                userid: userlist[index],
+                                nickname: "",
+                                lastfrom: from.text.content,
+                                lastreply: reply.text.content,
+                                time: time
+                            }
+                        }
+                        response.write(JSON.stringify({
+                            "提示信息": "获取用户列表成功",
+                            users: users,
+                            count: count
+                        }));
+                        response.end();
+                    } else {
+                        error(response);
+                    }
+                });
+            });
+
+//        getClient.zcard(weixinid, function (err, reply) {
+//            if (err != null) {
+//                error(response);
+//                return;
+//            }
+//            count = reply;
+//            getClient.zrevrange(weixinid, start, end, function (err, reply) {
+//                if (err != null) {
+//                    error(response);
+//                    return;
+//                }
+//                var multiarray = [];
+//                for (var index in reply) {
+//                    multiarray[index] = ["lrange", weixinid + reply[index], 0, 1]
+//                }
+//
+//                userlist = reply;
+//                getClient.multi(multiarray).exec(function (err, replys) {
+//                    if (err != null) {
+//                        error(response);
+//                        return;
+//                    }
+//                    var users = [];
+//                    if (userlist.length == replys.length) {
+//                        for (var index in replys) {
+//                            var lastmessage = replys[index];
+//                            var from = JSON.parse(lastmessage[1]);
+//                            var reply = JSON.parse(lastmessage[0]);
+//                            var thisdate = new Date(reply.CreateTime);
+//                            var time = thisdate.getFullYear() + "-" + (thisdate.getMonth() + 1) + "-" + thisdate.getDate();
+//                            users[index] = {
+//                                userid: userlist[index],
+//                                nickname: "",
+//                                lastfrom: from.text.content,
+//                                lastreply: reply.text.content,
+//                                time: time
+//                            }
+//                        }
+//                        var ajson = JSON.stringify({
+//                            "提示信息": "获取用户列表成功",
+//                            users: users,
+//                            count: count
+//                        });
+//                        console.log(ajson);
+//
+//                        response.write(JSON.stringify({
+//                            "提示信息": "获取用户列表成功",
+//                            users: users,
+//                            count: count
+//                        }));
+//                        response.end();
+//                    } else {
+//                        error(response);
+//                    }
+//                });
+//
+//
+//            });
+//
+//        });
+    }
+
+    function error(response) {
+        response.write(JSON.stringify({
+            "提示信息": "获取用户列表失败",
+            "失败原因": "数据异常"
+        }));
+        response.end();
+    }
+
+
+}
+
+/***************************************
+ * URL：/api2/weixin/getmessages
+ ***************************************/
+
+weixinManage.getmessages = function (data, response) {
+    response.asynchronous = 1;
+    var weixinid = data.weixinid;
+    var userid = data.userid;
+    var nowpage = data.nowpage;
+    var pagesize = data.pagesize;
+    var start = pagesize * (nowpage - 1);
+    var end = pagesize * nowpage - 1;
+    getmessagesdetail();
+    function getmessagesdetail() {
+        getClient.multi([
+                ["llen", weixinid + userid],
+                ["lrange", weixinid + userid, start, end]
+            ]).exec(function (err, replys) {
+            if (err != null) {
+                error(response);
+                return;
+            }
+            var count = replys[0];
+            var messages = replys[1];
+            console.log(JSON.stringify({
+                "提示信息": "获取消息成功",
+                messages: messages,
+                count: count
+            }));
+            response.write(JSON.stringify({
+                "提示信息": "获取消息成功",
+                messages: messages,
+                count: count
+            }));
+        });
+    }
+
+    function error(response) {
+        response.write(JSON.stringify({
+            "提示信息": "获取消息失败",
+            "失败原因": "数据异常"
+        }));
+        response.end();
+    }
+}
+
 module.exports = weixinManage;

@@ -75,6 +75,12 @@ requestHandlers.weixinManage = function (request, response, pathObject, data) {
     else if (operation == "modifyrelapro") {
         weixinManage.modifyrelapro(data, response);
     }
+    else if (operation == "getmessageulist") {
+        weixinManage.getmessageulist(data, response);
+    }
+    else if (operation == "getmessages") {
+        weixinManage.getmessages(data, response);
+    }
 };
 
 
