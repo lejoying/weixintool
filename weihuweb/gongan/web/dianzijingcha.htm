@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-Cache">
+<meta name="viewport" content="width=device-width;">
+<meta name="format-detection" content="telephone=no">
+<title>广州公安.警民通</title>
+<link rel="stylesheet" type="text/css" href="/static/css/web_style.css" />
+<script type="text/javascript" src="/static/js/jquery.js"></script>
+<script language="javascript" src="dianzijingcha_files/init.htm"></script>
+		<script language="javascript">
+		var mapObj, toolbar, overview, scale;
+        var startTime;
+        function mapInit() {
+            var opt = {
+                level: 13, //设置地图缩放级别  
+                center: new AMap.LngLat(113.280637,23.125178), //设置地图中心点   
+                doubleClickZoom: true, //双击放大地图  
+                scrollWheel: true//鼠标滚轮缩放地图  
+            }
+            mapObj = new AMap.Map("iCenter", opt);
+            AMap.Conf.network = 1;
+            mapObj.plugin(["AMap.ToolBar", "AMap.OverView", "AMap.Scale"], function () {
+                toolbar = new AMap.ToolBar();
+                toolbar.autoPosition = false; //加载工具条   
+                mapObj.addControl(toolbar);
+//                overview = new AMap.OverView(); //加载鹰眼  
+//                mapObj.addControl(overview);
+                scale = new AMap.Scale(); //加载比例尺  
+                mapObj.addControl(scale);
+            });
+
+           /*  if (navigator.userAgent.indexOf("MSIE") > 0) {
+                document.getElementById("keyword").onpropertychange = keywordSearch;
+            }
+            else {
+                document.getElementById("keyword").oninput = keywordSearch;
+            } */
+        }
+
+
+        function keywordSearch() {
+            var keywords = document.getElementById("keyword").value;
+            var city = document.getElementById("cityname").value;
+            var GeocoderOption = {  
+	            range:300,//范围  
+	            crossnum:2,//道路交叉口数  
+	            roadnum :3,//路线记录数  
+	            poinum:2//POI点数  
+            }; 
+            var geo = new AMap.Geocoder(GeocoderOption);
+
+            if (keywords != "" && keywords.length >= 1) {
+                geo.geocode(keywords, keywordSearch_CallBack);
+                var date = new Date();
+                startTime = date.getTime();
+            }
+            else {
+                document.getElementById("result").style.display = "none";
+                document.getElementById("textSearchTime").value = "";
+            }
+        }
+        var resultCount = 10;
+        function keywordSearch_CallBack(data) {
+            var resultStr = "";
+            var date = new Date();
+            document.getElementById("textSearchTime").value = date.getTime() - startTime + "毫秒";
+            document.getElementById("textUniqId").value = data.uniqid;
+            if (data.status == "E0") {          
+                resultCount = data.list.length;
+                for (var i = 0; i < data.list.length; i++) {
+                    resultStr += "<div id='divid" + (i + 1) + "' onmouseover='openMarkerTipById1(" + (i + 1)
+                                + ",this)' onclick='javascript:selectResult(" + i + ");var s=mapObj.setCenter(new AMap.LngLat("+ data.list[i].x +","+ data.list[i].y +"));' onmouseout='onmouseout_MarkerStyle(" + (i + 1)
+                                + ",this)' style=\"font-size: 13px;cursor:pointer;padding:5px 5px 5px 5px;\">" + data.list[i].name + "</div>";
+                }
+                document.getElementById("result").innerHTML = resultStr;
+            	document.getElementById("result").style.display = "block";
+            }
+        }
+        function TipContents(type, address, tel) {
+            if (type == "" || type == "undefined" || type == null || type == " undefined" || typeof type == "undefined") {
+                type = "暂无";
+            }
+            if (address == "" || address == "undefined" || address == null || address == " undefined" || typeof address == "undefined") {
+                address = "暂无";
+            }
+            if (tel == "" || tel == "undefined" || tel == null || tel == " undefined" || typeof address == "tel") {
+                tel = "暂无";
+            }
+            var str = "地址：" + address + "<br />电话：" + tel + " <br />类型：" + type;
+            return str;
+        }
+        function openMarkerTipById1(pointid, thiss) {  //根据id打开搜索结果点tip  
+            thiss.style.background = '#CAE1FF';
+        }
+        function onmouseout_MarkerStyle(pointid, thiss) {  //鼠标移开后点样式恢复  
+            thiss.style.background = "";
+        }
+
+        function selectResult(index) {
+            var text = document.getElementById("divid" + (index + 1)).innerHTML;
+            document.getElementById("keyword").value = text;
+            document.getElementById("result").style.display = "none";
+        }
+
+        function hideResult() {
+            document.getElementById("result").style.display = "none";
+        }
+		
+		function removeTileLayer_TRAFFIC() {
+			mapObj.removeLayer("t");
+		}
+		
+		//路况信息
+		var Trafficlay;
+		function tileLayer_TRAFFIC(obj) {
+			var tp = obj.find('input[type="hidden"]');
+			if(tp.val() == 1){
+				tp.val(0);
+				obj.find('img').attr('src','/images/menu/light_normal.png');
+				mapObj.removeLayer("t");
+			}else{
+				tp.val(1);
+				obj.find('img').attr('src','/images/menu/light_pressed.jpg');
+//				mapObj.clearOverlays();
+				Trafficlay = new AMap.TileLayer(
+						{
+							tileSize : 256, //图像大小
+							zIndex : 5,
+							id : "t",
+							getTileUrl : function(x, y, z) {
+								return "http://tm.mapabc.com/trafficengine/mapabc/traffictile?v=1.0&t=1&zoom="
+										+ (17 - z) + "&x=" + x + "&y=" + y;
+							}
+						});
+				mapObj.addLayer(Trafficlay);
+			}
+		}
+		
+		function tileLayer_elecEye(obj) {
+			var tp = obj.find('input[type="hidden"]');
+			if(tp.val() == 1){
+				tp.val(0);
+				obj.find('img').attr('src','/images/menu/eye_normal.png');
+					mapObj.removeOverlays('eye_1');
+					mapObj.removeOverlays('eye_2');
+					mapObj.removeOverlays('eye_3');
+					mapObj.removeOverlays('eye_4');
+					mapObj.removeOverlays('eye_5');
+					mapObj.removeOverlays('eye_6');
+					mapObj.removeOverlays('eye_7');
+					mapObj.removeOverlays('eye_8');
+					mapObj.removeOverlays('eye_9');
+					mapObj.removeOverlays('eye_10');
+					mapObj.removeOverlays('eye_11');
+					mapObj.removeOverlays('eye_12');
+					mapObj.removeOverlays('eye_13');
+					mapObj.removeOverlays('eye_14');
+					mapObj.removeOverlays('eye_15');
+					mapObj.removeOverlays('eye_16');
+					mapObj.removeOverlays('eye_17');
+					mapObj.removeOverlays('eye_18');
+					mapObj.removeOverlays('eye_19');
+					mapObj.removeOverlays('eye_20');
+					mapObj.removeOverlays('eye_21');
+					mapObj.removeOverlays('eye_22');
+					mapObj.removeOverlays('eye_23');
+					mapObj.removeOverlays('eye_24');
+					mapObj.removeOverlays('eye_25');
+					mapObj.removeOverlays('eye_26');
+					mapObj.removeOverlays('eye_27');
+					mapObj.removeOverlays('eye_28');
+					mapObj.removeOverlays('eye_29');
+					mapObj.removeOverlays('eye_30');
+					mapObj.removeOverlays('eye_31');
+					mapObj.removeOverlays('eye_32');
+					mapObj.removeOverlays('eye_33');
+					mapObj.removeOverlays('eye_34');
+					mapObj.removeOverlays('eye_35');
+					mapObj.removeOverlays('eye_36');
+					mapObj.removeOverlays('eye_37');
+					mapObj.removeOverlays('eye_38');
+					mapObj.removeOverlays('eye_39');
+					mapObj.removeOverlays('eye_40');
+					mapObj.removeOverlays('eye_41');
+					mapObj.removeOverlays('eye_42');
+					mapObj.removeOverlays('eye_43');
+					mapObj.removeOverlays('eye_44');
+					mapObj.removeOverlays('eye_45');
+					mapObj.removeOverlays('eye_46');
+					mapObj.removeOverlays('eye_47');
+					mapObj.removeOverlays('eye_48');
+					mapObj.removeOverlays('eye_49');
+					mapObj.removeOverlays('eye_50');
+					mapObj.removeOverlays('eye_51');
+					mapObj.removeOverlays('eye_52');
+					mapObj.removeOverlays('eye_53');
+					mapObj.removeOverlays('eye_54');
+					mapObj.removeOverlays('eye_55');
+					mapObj.removeOverlays('eye_56');
+					mapObj.removeOverlays('eye_57');
+					mapObj.removeOverlays('eye_58');
+					mapObj.removeOverlays('eye_59');
+					mapObj.removeOverlays('eye_60');
+					mapObj.removeOverlays('eye_61');
+					mapObj.removeOverlays('eye_62');
+					mapObj.removeOverlays('eye_63');
+					mapObj.removeOverlays('eye_64');
+					mapObj.removeOverlays('eye_65');
+					mapObj.removeOverlays('eye_66');
+					mapObj.removeOverlays('eye_67');
+					mapObj.removeOverlays('eye_68');
+					mapObj.removeOverlays('eye_69');
+					mapObj.removeOverlays('eye_70');
+					mapObj.removeOverlays('eye_71');
+					mapObj.removeOverlays('eye_72');
+				
+			}else{
+				tp.val(1);
+				obj.find('img').attr('src','/images/menu/eye_pressed.png');
+				
+				var longitude = '113.25891';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东风西路盘福立交段双向'+"</b>");
+					//info.push('东风路');
+					
+					addElecEye('1',longitude,'23.13199',info,'60');
+				}
+				var longitude = '113.30803';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东风东路梅东路段双向'+"</b>");
+					//info.push('东风路');
+					
+					addElecEye('2',longitude,'23.13146',info,'60');
+				}
+				var longitude = '113.37526';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'科韵路中山大道路段双向'+"</b>");
+					//info.push('科韵路');
+					
+					addElecEye('3',longitude,'23.12717',info,'60');
+				}
+				var longitude = '113.3575';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'新滘东路赤沙村路段双向'+"</b>");
+					//info.push('新滘路');
+					
+					addElecEye('4',longitude,'23.0828',info,'60');
+				}
+				var longitude = '113.29217';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'新滘西路东晓南隧道路段双向'+"</b>");
+					//info.push('新滘路');
+					
+					addElecEye('5',longitude,'23.07663',info,'60');
+				}
+				var longitude = '113.26241';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'解放路中山路立交桥南面北往南'+"</b>");
+					//info.push('解放路');
+					
+					addElecEye('6',longitude,'23.12366',info,'60');
+				}
+				var longitude = '113.32736';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'黄埔大道隧道路段双向'+"</b>");
+					//info.push('黄埔大道');
+					
+					addElecEye('7',longitude,'23.12686',info,'60');
+				}
+				var longitude = '113.40645';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'大观路奥体中心路段双向'+"</b>");
+					//info.push('大观路');
+					
+					addElecEye('8',longitude,'23.13899',info,'60');
+				}
+				var longitude = '113.3456';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'临江大道平江路段双向'+"</b>");
+					//info.push('临江大道');
+					
+					addElecEye('9',longitude,'23.1112',info,'60');
+				}
+				var longitude = '113.3511';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'新港路展场路段双向'+"</b>");
+					//info.push('新港路');
+					
+					addElecEye('10',longitude,'23.0984',info,'60');
+				}
+				var longitude = '113.31532';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广州大道天雄布市路段双向'+"</b>");
+					//info.push('广州大道');
+					
+					addElecEye('11',longitude,'23.08054',info,'60');
+				}
+				var longitude = '113.1854';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'龙溪大道蟠龙村路段双向'+"</b>");
+					//info.push('龙溪大道');
+					
+					addElecEye('12',longitude,'23.0652',info,'60');
+				}
+				var longitude = '113.3379';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'同大路南湖游乐园路段北往南'+"</b>");
+					//info.push('同大路');
+					
+					addElecEye('13',longitude,'23.2194',info,'60');
+				}
+				var longitude = '113.363';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'天源路华南植物园路段双向'+"</b>");
+					//info.push('天源路');
+					
+					addElecEye('14',longitude,'23.186',info,'60');
+				}
+				var longitude = '113.4486';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广从路黎家塘路段双向'+"</b>");
+					//info.push('105广从');
+					
+					addElecEye('15',longitude,'23.3912',info,'70');
+				}
+				var longitude = '113.3125';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北太路北二环路段东往西'+"</b>");
+					//info.push('北太路');
+					
+					addElecEye('16',longitude,'23.2945',info,'60');
+				}
+				var longitude = '113.2938';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广园中路云台花园路段东往西'+"</b>");
+					//info.push('广园路');
+					
+					addElecEye('17',longitude,'23.1541',info,'50');
+				}
+				var longitude = '113.2801';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'白云大道体育馆路段双向'+"</b>");
+					//info.push('白云大道');
+					
+					addElecEye('18',longitude,'23.1845',info,'70');
+				}
+				var longitude = '113.2446';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'夏花路王老吉厂路段双向'+"</b>");
+					//info.push('夏花路');
+					
+					addElecEye('19',longitude,'23.273',info,'60');
+				}
+				var longitude = '113.3429';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广园快速路五山路段双向'+"</b>");
+					//info.push('广园快速路');
+					
+					addElecEye('20',longitude,'23.1453',info,'80');
+				}
+				var longitude = '113.4066';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广园快速路大观路路段双向'+"</b>");
+					//info.push('广园快速路');
+					
+					addElecEye('21',longitude,'23.1303',info,'80');
+				}
+				var longitude = '113.3271';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'新光大桥北双向'+"</b>");
+					//info.push('新光快速路');
+					
+					addElecEye('22',longitude,'23.0534',info,'80');
+				}
+				var longitude = '113.3631';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'华快一期北环段双向'+"</b>");
+					//info.push('华南快速一期');
+					
+					addElecEye('23',longitude,'23.1546',info,'80');
+				}
+				var longitude = '113.3697';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'华快二期龙洞路段北往南'+"</b>");
+					//info.push('华南快速二期');
+					
+					addElecEye('24',longitude,'23.1989',info,'80');
+				}
+				var longitude = '113.2735';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'华快三期K6+100段东往西'+"</b>");
+					//info.push('华南快速三期');
+					
+					addElecEye('25',longitude,'23.229',info,'80');
+				}
+				var longitude = '113.3543';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东南西环土华路段双向'+"</b>");
+					//info.push('东南西环');
+					
+					addElecEye('26',longitude,'23.0704',info,'80');
+				}
+				var longitude = '113.2003';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东南西环黄岐路段双向'+"</b>");
+					//info.push('东南西环');
+					
+					addElecEye('27',longitude,'23.1007',info,'80');
+				}
+				var longitude = '113.3775';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北环高速K19+600(东往西)'+"</b>");
+					//info.push('北环高速');
+					
+					addElecEye('28',longitude,'23.1533',info,'100');
+				}
+				var longitude = '113.2963';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北环高速K12+200(西往东)'+"</b>");
+					//info.push('北环高速');
+					
+					addElecEye('29',longitude,'23.1591',info,'100');
+				}
+				var longitude = '113.2762';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北环白云山隧道路段东往西'+"</b>");
+					//info.push('北环高速');
+					
+					addElecEye('30',longitude,'23.159',info,'80');
+				}
+				var longitude = '113.2175';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北环广北桥路段双向'+"</b>");
+					//info.push('北环高速');
+					
+					addElecEye('31',longitude,'23.1636',info,'80');
+				}
+				var longitude = '113.47';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广深高速K2+150段双向'+"</b>");
+					//info.push('广深高速');
+					
+					addElecEye('32',longitude,'23.155',info,'120');
+				}
+				var longitude = '113.4695';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东二环K56+780段南往北'+"</b>");
+					//info.push('东二环');
+					
+					addElecEye('33',longitude,'23.0438',info,'100');
+				}
+				var longitude = '113.5033';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东二环K46+400段北往南'+"</b>");
+					//info.push('东二环');
+					
+					addElecEye('34',longitude,'23.1044',info,'100');
+				}
+				var longitude = '113.4811';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广澳高速K51+050段南往北'+"</b>");
+					//info.push('广澳高速');
+					
+					addElecEye('35',longitude,'22.741',info,'80');
+				}
+				var longitude = '113.4767';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广澳高速K51+051段北往南'+"</b>");
+					//info.push('广澳高速');
+					
+					addElecEye('36',longitude,'222.7345',info,'110');
+				}
+				var longitude = '113.3016';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'东新高速沙湾路段双向'+"</b>");
+					//info.push('东新高速');
+					
+					addElecEye('37',longitude,'22.9083',info,'100');
+				}
+				var longitude = '113.5214';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广深沿江高速官田路段双向'+"</b>");
+					//info.push('广深沿江高速');
+					
+					addElecEye('38',longitude,'23.0961',info,'120');
+				}
+				var longitude = '113.5984';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'虎门大桥路段双向'+"</b>");
+					//info.push('莞佛高速');
+					
+					addElecEye('39',longitude,'22.7782',info,'80');
+				}
+				var longitude = '113.3877';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北二环K22段西往东'+"</b>");
+					//info.push('北二环高速');
+					
+					addElecEye('40',longitude,'23.2725',info,'80');
+				}
+				var longitude = '113.4204';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北二环K33段东往西'+"</b>");
+					//info.push('北二环高速');
+					
+					addElecEye('41',longitude,'23.2575',info,'80');
+				}
+				var longitude = '113.3489';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北二环京港澳路段东往西'+"</b>");
+					//info.push('北二环高速');
+					
+					addElecEye('42',longitude,'23.2897',info,'80');
+				}
+				var longitude = '113.4765';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北二环长平出口路段西往东'+"</b>");
+					//info.push('北二环高速');
+					
+					addElecEye('43',longitude,'23.2188',info,'100');
+				}
+				var longitude = '113.2633';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'北二环机场高速路段东往西'+"</b>");
+					//info.push('北二环高速');
+					
+					addElecEye('44',longitude,'23.3074',info,'100');
+				}
+				var longitude = '113.3698';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'大广高速K3413段双向'+"</b>");
+					//info.push('机场北延线高速');
+					
+					addElecEye('45',longitude,'23.4547',info,'100');
+				}
+				var longitude = '113.4374';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'京港澳高速K2129机场北站段北往南'+"</b>");
+					//info.push('京港澳高速');
+					
+					addElecEye('46',longitude,'23.4628',info,'80');
+				}
+				var longitude = '113.4397';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'京港澳高速K2130机场北站段南往北'+"</b>");
+					//info.push('京港澳高速');
+					
+					addElecEye('47',longitude,'23.4643',info,'120');
+				}
+				var longitude = '113.3975';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广河高速凤凰山隧道段双向'+"</b>");
+					//info.push('广河高速');
+					
+					addElecEye('48',longitude,'23.2164',info,'100');
+				}
+				var longitude = '113.2659';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'机场高速K9平沙路段双向'+"</b>");
+					//info.push('机场高速');
+					
+					addElecEye('49',longitude,'23.2515',info,'120');
+				}
+				var longitude = '113.8214';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广惠高速三江出口路段双向'+"</b>");
+					//info.push('广惠高速');
+					
+					addElecEye('50',longitude,'23.2115',info,'120');
+				}
+				var longitude = '113.57';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广惠高速K1954+100段西往东'+"</b>");
+					//info.push('广惠高速');
+					
+					addElecEye('51',longitude,'23.1785',info,'120');
+				}
+				var longitude = '113.519';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广惠高速K1943+800段东往西'+"</b>");
+					//info.push('广惠高速');
+					
+					addElecEye('52',longitude,'23.1847',info,'120');
+				}
+				var longitude = '113.7626';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'荔新公路肉联厂路段双向'+"</b>");
+					//info.push('荔新公路');
+					
+					addElecEye('53',longitude,'23.2471',info,'100');
+				}
+				var longitude = '113.3852';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'番禺大道龙美高架桥路双向'+"</b>");
+					//info.push('番禺大道');
+					
+					addElecEye('54',longitude,'22.9531',info,'80');
+				}
+				var longitude = '113.4625';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'亚运大道海涌路段西往东'+"</b>");
+					//info.push('亚运大道');
+					
+					addElecEye('55',longitude,'22.9433',info,'60');
+				}
+				var longitude = '113.4436';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'亚运大道前锋村路段东往西'+"</b>");
+					//info.push('亚运大道');
+					
+					addElecEye('56',longitude,'22.9386',info,'60');
+				}
+				var longitude = '113.5192';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'市南大道K1+140路段双向'+"</b>");
+					//info.push('市南大道');
+					
+					addElecEye('57',longitude,'22.825',info,'60');
+				}
+				var longitude = '113.5527';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'环市大道北K10+500路段双向'+"</b>");
+					//info.push('环市大道');
+					
+					addElecEye('58',longitude,'22.821',info,'60');
+				}
+				var longitude = '113.53906';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'环市大道北K14+650路段双向'+"</b>");
+					//info.push('环市大道');
+					
+					addElecEye('59',longitude,'22.80296',info,'60');
+				}
+				var longitude = '113.5219';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'万环西路K4+750路段双向'+"</b>");
+					//info.push('万环西路');
+					
+					addElecEye('60',longitude,'22.6931',info,'60');
+				}
+				var longitude = '113.5857';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'万环西路K11+300路段双向'+"</b>");
+					//info.push('万环西路');
+					
+					addElecEye('61',longitude,'22.6382',info,'60');
+				}
+				var longitude = '113.5093';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'广珠东线威达高纸厂路段双向'+"</b>");
+					//info.push('广珠东线');
+					
+					addElecEye('62',longitude,'22.7341',info,'60');
+				}
+				var longitude = '113.5016';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'黄阁大道K2+50路段双向'+"</b>");
+					//info.push('黄阁大道');
+					
+					addElecEye('63',longitude,'22.8111',info,'60');
+				}
+				var longitude = '113.5954';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'港前大道K1+750路段双向'+"</b>");
+					//info.push('港前大道');
+					
+					addElecEye('64',longitude,'22.7822',info,'60');
+				}
+				var longitude = '113.5709';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'进港大道K8+360路段双向'+"</b>");
+					//info.push('进港大道');
+					
+					addElecEye('65',longitude,'22.7975',info,'60');
+				}
+				var longitude = '113.4749';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'开创大道110指挥中心路段双向'+"</b>");
+					//info.push('开创大道');
+					
+					addElecEye('66',longitude,'23.1731',info,'60');
+				}
+				var longitude = '113.5253';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'开发大道南洋会桥西往东'+"</b>");
+					//info.push('开发大道');
+					
+					addElecEye('67',longitude,'23.061',info,'60');
+				}
+				var longitude = '113.5122';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'九佛旺村路段双向'+"</b>");
+					//info.push('九龙大道');
+					
+					addElecEye('68',longitude,'23.3596',info,'60');
+				}
+				var longitude = '113.5389';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'九佛棠下村路段双向'+"</b>");
+					//info.push('九龙大道');
+					
+					addElecEye('69',longitude,'23.3389',info,'60');
+				}
+				var longitude = '113.5609';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'九佛枫下村路段双向'+"</b>");
+					//info.push('九龙大道');
+					
+					addElecEye('70',longitude,'23.3106',info,'60');
+				}
+				var longitude = '113.4996';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'永顺大道茅坦村口路段西往东'+"</b>");
+					//info.push('永顺大道');
+					
+					addElecEye('71',longitude,'23.213',info,'60');
+				}
+				var longitude = '113.5278';
+				if(longitude>0){
+					var info = [];
+					info.push("<b>"+'永顺大道长岭幼儿圆路段东往西'+"</b>");
+					//info.push('永顺大道');
+					
+					addElecEye('72',longitude,'23.2116',info,'60');
+				}
+			}
+			//mapObj.setCenter(new AMap.LngLat(113.280637,23.125178));
+		}
+		
+		
+		function addElecEye(id,lng,lat,info,speed){
+			 var m = document.createElement("div");   
+			    m.className = "marker";   
+			    var n = document.createElement("div");   
+			    n.innerHTML = speed;   
+			    m.appendChild(n);   
+			//构建点对象
+			var marker = new AMap.Marker({
+				id:"eye_"+id,//唯一ID
+				position:new AMap.LngLat(lng,lat), //基点位置
+				//icon:"/images/menu/elec_eye.png", //marker图标，直接传递地址url
+				content:m,
+				offset:{x:-8,y:-34} //相对于基点的位置
+			});
+			mapObj.addOverlays(marker);//将点添加到地图
+			
+			var inforWindow = new AMap.InfoWindow({
+				offset:new AMap.Pixel(-100,-96),
+				content:info.join("<br />")
+			});
+			mapObj.bind(marker,"click",function(e){
+				inforWindow.open(mapObj,marker.getPosition());
+			});
+			
+			//mapObj.setCenter(marker.getPosition());
+		}
+		
+		function addMarker(x,y){  //画点
+		   mapObj.clearMap();
+		   var marker = new AMap.Marker({ 					 
+			   id:"m", //marker id 					 
+			   position:new AMap.LngLat(x,y), //位置 
+			   icon:"http://api.amap.com/webapi/static/Images/0.png",//复杂图标
+			   offset:new AMap.Pixel(0,-36), //相对于基点的偏移量
+			   draggable:true, //可拖动 
+			   cursor:"default",//鼠标悬停时显示的光标
+			   visible:true//可见
+		   }); 
+		   mapObj.addOverlays(marker);
+		}
+		
+		//快拍信息
+		function fetchCamera(obj){
+			var tp = obj.find('input[type="hidden"]');
+			if(tp.val() == 1){
+				tp.val(0);
+				obj.find('img').attr('src','/images/menu/camera_normal.png');
+				
+			}else{
+				tp.val(1);
+				obj.find('img').attr('src','/images/menu/camera_pressed.png');
+			}
+		}
+		
+		$().ready(function(){
+			mapInit();
+			var flag = '2';
+			if(flag=='1'){
+				tileLayer_TRAFFIC($('#city_road_div'));
+			}
+			if(flag=='2'){
+				tileLayer_elecEye($('#elec_eye_div'));
+			}
+		})
+		
+	/* window.onload = function(){
+		alert('gggg');
+		var flag = '2';
+		alert(flag);
+		if(flag=='1'){
+			tileLayer_TRAFFIC($('#city_road_div'));
+		}
+		if(flag=='2'){
+			tileLayer_elecEye($('#elec_eye_div'));
+		}
+	} */
+		</script>
+<script src="dianzijingcha_files/plugin.htm" type="text/javascript" id="abc_36982"></script></head>
+
+<body>
+<div class="gzj_main">
+<div class="mask disnone" id="mask"></div>
+    <!--登录弹出-->
+    <div class="apps_popup disnone gzj_index999" id="jp-login">
+        <dl>
+            <dt> <strong class="white">&nbsp;警民通登录</strong></dt>
+            <dd>
+            	<div class="gzj_myPage">
+                    	<input id="login_type2" name="ltype" value="1" type="hidden">
+<!--                    	<input type="hidden" id="login_type2" name="ltype" value="3"/>-->
+                        <div class="gzj_myPageTb">
+                        
+                        
+                          <table>
+                        	<tbody><tr>
+	                        	<td colspan="2">
+		                        	<table width="100%">
+		                        	<tbody>
+			                        	<tr>
+			                        	<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('1');$('#radio_a21').attr('checked',true);$('#phone_login_body31').hide();$('#phone_login_body41').show();">
+			                        		<input name="a11" value="4" checked="checked" id="radio_a21" type="radio">非实名用户</label></td>
+			                        		
+			                        		<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('3');$('#radio_a11').attr('checked',true);$('#phone_login_body41').hide();$('#phone_login_body31').show();">
+			                        		<input name="a11" value="3" id="radio_a11" type="radio">实名用户</label></td>
+			                        		
+			                        	</tr>
+			                        	</tbody>
+		                        	</table>
+	                        	</td>
+                        	</tr>
+                        
+                        </tbody><tbody id="phone_login_body31" style="display: none;">
+                        	<tr>
+                            	<th>实名账号：</th>
+                                <td><input id="login_phoneNum1" name="account" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                              <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password1" name="password1" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                            </tbody>
+                            
+                        </table>
+                        
+       <div class="apps_main" id="phone_login_body41">
+        <div class="apps_mainSlider gzj_slideNm2 slide15">
+        <div class="apps_tab1 apps_topslide">
+            <a href="#" class="on">手机用户</a><a href="#">金盾网用户</a>
+        </div>
+        <div class="apps_slidebox">
+            <ul class="ot">
+                <li class="otli">
+                    <div class="gzj_sfq">
+                        <table>
+                       <tbody><tr>
+                            	<th>手机号：</th><!-- value="13922200414" -->
+                                <td><input id="login_phoneNum2" name="phoneNum" class="apps_w120" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>验证码：</th>
+                                <td>
+                                <input id="login_captcha2" name="captcha" class="apps_w60" style="color:blue;" type="text"> 
+                                <span class="apps_btn1 yzmcsjc" style="margin-top:3px; padding:3px;" onclick="javascript:getLoginValid('/ca/sendsms.do',$(this).closest('div'));">获取验证码</span>
+                                </td>
+                                
+                             </tr>
+                             <tr>
+                             	<td colspan="2" class="f12 dblue">
+                               		 温馨提示：如果短信长时间接收不到，请检查是否设置了短信防火墙等拦截软件
+                                </td>
+                             </tr>
+                        </tbody></table>
+                    </div>
+                </li>
+                <li class="otli">
+                    <div class="gzj_sfq">
+                    <table>
+                    	<tbody><tr>
+                            	<th>账号：</th>
+                                <td><input id="login_username2" name="username" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password2" name="password" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                    </tbody></table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+                        
+                        
+                        </div>
+                        <p class="mgt5 tc"><input class="apps_btn1" value="登录" onclick="return login1('/ac/login.do',$(this).closest('div'));" type="button"></p>
+                    </div>
+            </dd>
+    	</dl>
+    </div>
+    <!--登录弹出/-->
+    
+<script type="text/javascript">
+var base='';
+
+function jump(){
+	$('#jp-login').jumpBox(false);
+		
+		var mainactListSlide15 = new Slide();
+		mainactListSlide15.init({touchId:$(".slide15"),state:'big'});
+		mainactListSlide15.toptabs.unbind().bind('click',function(){
+			var _this = this,
+			index = mainactListSlide15.toptabs.index(_this);
+			mainactListSlide15.slide(index);
+			$('#login_type2').val(index+1);
+			return false;
+		});
+}
+$().ready(function(){
+	
+	$('#login_form').click(function(){
+		jump();
+	
+		return false;
+	});
+	
+	$('#login_captcha1').click(function(){
+			var _this_value = $(this).val();
+			if(!_this_value || _this_value == '短信验证码'){	
+				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+			}
+		});
+		
+//	$('#login_captcha2').click(function(){
+//			var _this_value = $(this).val();
+//			if(!_this_value || _this_value == '短信验证码'){	
+//				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+//			}
+//		});
+	
+});
+
+
+	
+</script>    <!--头部/-->
+    
+   
+    <fieldset>
+		<legend align="center">
+		电子警察</legend>
+	</fieldset>
+ <!--    <div class="apps_container apps_searchtouch" style="z-index:10000;">
+        <p class="left">
+           <input type="button" name="button" id="button" value=""  class="btn"/>
+           <input type="text" name="keyword" id="keyword"  value="请输入关键字" onFocus="if('请输入关键字'==this.value)this.value=''" onBlur="if(''==this.value) this.value='请输入关键字'" class="apps_searchtouch_inp"/>
+        </p>
+        <div id="result" style="background:#FFFFFF;overflow: auto; width: 95%; border: 1px solid gray;position:absolute;display: none;"></div>
+    </div> -->
+	<div id="iCenter" style="width: 100%; height: 300px; position: relative;">
+		<div style="position:absolute;right:0px;width:30px;height:100%;z-index:9999;">
+			<div style="position:absolute;right:10px;top:20px;z-index:9999;">
+				<div id="city_road_div">
+					<input value="0" type="hidden"><img title="实时路况" style="cursor:pointer;" src="dianzijingcha_files/light_normal.png" onclick="tileLayer_TRAFFIC($(this).closest('div'))" alt="路况" height="30" width="30">
+				</div>
+			</div>
+			
+			<div style="position:absolute;right:10px;top:60px;z-index:9999;">
+				<div id="elec_eye_div">
+					<input value="1" type="hidden"><img title="电子眼" style="cursor:pointer;" src="dianzijingcha_files/eye_pressed.png" onclick="tileLayer_elecEye($(this).closest('div'))" alt="电子眼" height="30" width="30">
+				</div>
+			</div>
+			
+		</div>
+	<div style="position: relative; width: 100%; height: 100%; overflow: hidden; z-index: 100;" class="mcjt"><div style="width: 100%; position: absolute; left: 0px; top: 0px;"><div style="position: absolute; left: 0px; top: 0px;"><div style="position: absolute; left: 0px; top: 0px; z-index: -1; visibility: hidden;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 100;"><div style="position: absolute; left: 0px; top: 0px; z-index: 1;" id="base"><img src="dianzijingcha_files/appmaptile_005.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: 204px; top: -74px;"><img src="dianzijingcha_files/appmaptile_002.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: 460px; top: -74px;"><img src="dianzijingcha_files/appmaptile_007.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: 204px; top: 182px;"><img src="dianzijingcha_files/appmaptile_004.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: 460px; top: 182px;"><img src="dianzijingcha_files/appmaptile.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: -52px; top: -74px;"><img src="dianzijingcha_files/appmaptile_008.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: 716px; top: -74px;"><img src="dianzijingcha_files/appmaptile_006.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: -52px; top: 182px;"><img src="dianzijingcha_files/appmaptile_003.png" style="position: absolute; opacity: 1; transition: opacity 0.25s ease-out 0s; height: 256px; width: 256px; -moz-user-select: none; left: 716px; top: 182px;"></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 110;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 120;"><div id="eye_1" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 265px; top: 73px;"><div class="marker"><div>60</div></div></div><div id="eye_2" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 551px; top: 76px;"><div class="marker"><div>60</div></div></div><div id="eye_3" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 943px; top: 104px;"><div class="marker"><div>60</div></div></div><div id="eye_4" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 839px; top: 385px;"><div class="marker"><div>60</div></div></div><div id="eye_5" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 459px; top: 424px;"><div class="marker"><div>60</div></div></div><div id="eye_6" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 285px; top: 126px;"><div class="marker"><div>60</div></div></div><div id="eye_7" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 664px; top: 106px;"><div class="marker"><div>60</div></div></div><div id="eye_8" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1124px; top: 29px;"><div class="marker"><div>60</div></div></div><div id="eye_9" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 770px; top: 205px;"><div class="marker"><div>60</div></div></div><div id="eye_10" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 802px; top: 286px;"><div class="marker"><div>60</div></div></div><div id="eye_11" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 594px; top: 399px;"><div class="marker"><div>60</div></div></div><div id="eye_12" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: -163px; top: 496px;"><div class="marker"><div>60</div></div></div><div id="eye_13" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 725px; top: -481px;"><div class="marker"><div>60</div></div></div><div id="eye_14" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 871px; top: -269px;"><div class="marker"><div>60</div></div></div><div id="eye_15" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1370px; top: -1571px;"><div class="marker"><div>70</div></div></div><div id="eye_16" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 577px; top: -957px;"><div class="marker"><div>60</div></div></div><div id="eye_17" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 468px; top: -67px;"><div class="marker"><div>50</div></div></div><div id="eye_18" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 388px; top: -260px;"><div class="marker"><div>70</div></div></div><div id="eye_19" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 182px; top: -821px;"><div class="marker"><div>60</div></div></div><div id="eye_20" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 754px; top: -11px;"><div class="marker"><div>80</div></div></div><div id="eye_21" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1125px; top: 84px;"><div class="marker"><div>80</div></div></div><div id="eye_22" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 662px; top: 571px;"><div class="marker"><div>80</div></div></div><div id="eye_23" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 872px; top: -70px;"><div class="marker"><div>80</div></div></div><div id="eye_24" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 910px; top: -351px;"><div class="marker"><div>80</div></div></div><div id="eye_25" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 350px; top: -542px;"><div class="marker"><div>80</div></div></div><div id="eye_26" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 821px; top: 463px;"><div class="marker"><div>80</div></div></div><div id="eye_27" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: -76px; top: 271px;"><div class="marker"><div>80</div></div></div><div id="eye_28" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 956px; top: -62px;"><div class="marker"><div>100</div></div></div><div id="eye_29" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 483px; top: -99px;"><div class="marker"><div>100</div></div></div><div id="eye_30" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 366px; top: -98px;"><div class="marker"><div>80</div></div></div><div id="eye_31" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 24px; top: -127px;"><div class="marker"><div>80</div></div></div><div id="eye_32" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1495px; top: -73px;"><div class="marker"><div>120</div></div></div><div id="eye_33" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1492px; top: 631px;"><div class="marker"><div>100</div></div></div><div id="eye_34" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1689px; top: 248px;"><div class="marker"><div>100</div></div></div><div id="eye_35" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1559px; top: 2546px;"><div class="marker"><div>80</div></div></div><div id="eye_36" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1534px; top: -909932px;"><div class="marker"><div>110</div></div></div><div id="eye_37" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 514px; top: 1489px;"><div class="marker"><div>100</div></div></div><div id="eye_38" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1794px; top: 300px;"><div class="marker"><div>120</div></div></div><div id="eye_39" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 2243px; top: 2311px;"><div class="marker"><div>80</div></div></div><div id="eye_40" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1015px; top: -818px;"><div class="marker"><div>80</div></div></div><div id="eye_41" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1206px; top: -722px;"><div class="marker"><div>80</div></div></div><div id="eye_42" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 789px; top: -927px;"><div class="marker"><div>80</div></div></div><div id="eye_43" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1533px; top: -477px;"><div class="marker"><div>100</div></div></div><div id="eye_44" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 291px; top: -1039px;"><div class="marker"><div>100</div></div></div><div id="eye_45" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 911px; top: -1974px;"><div class="marker"><div>100</div></div></div><div id="eye_46" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1305px; top: -2025px;"><div class="marker"><div>80</div></div></div><div id="eye_47" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1318px; top: -2035px;"><div class="marker"><div>120</div></div></div><div id="eye_48" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1072px; top: -462px;"><div class="marker"><div>100</div></div></div><div id="eye_49" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 306px; top: -684px;"><div class="marker"><div>120</div></div></div><div id="eye_50" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 3542px; top: -431px;"><div class="marker"><div>120</div></div></div><div id="eye_51" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 2077px; top: -222px;"><div class="marker"><div>120</div></div></div><div id="eye_52" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1780px; top: -261px;"><div class="marker"><div>120</div></div></div><div id="eye_53" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 3199px; top: -656px;"><div class="marker"><div>100</div></div></div><div id="eye_54" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1001px; top: 1205px;"><div class="marker"><div>80</div></div></div><div id="eye_55" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1451px; top: 1267px;"><div class="marker"><div>60</div></div></div><div id="eye_56" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1341px; top: 1297px;"><div class="marker"><div>60</div></div></div><div id="eye_57" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1781px; top: 2016px;"><div class="marker"><div>60</div></div></div><div id="eye_58" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1976px; top: 2041px;"><div class="marker"><div>60</div></div></div><div id="eye_59" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1897px; top: 2155px;"><div class="marker"><div>60</div></div></div><div id="eye_60" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1797px; top: 2849px;"><div class="marker"><div>60</div></div></div><div id="eye_61" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 2169px; top: 3195px;"><div class="marker"><div>60</div></div></div><div id="eye_62" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1724px; top: 2590px;"><div class="marker"><div>60</div></div></div><div id="eye_63" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1679px; top: 2103px;"><div class="marker"><div>60</div></div></div><div id="eye_64" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 2225px; top: 2286px;"><div class="marker"><div>60</div></div></div><div id="eye_65" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 2082px; top: 2189px;"><div class="marker"><div>60</div></div></div><div id="eye_66" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1523px; top: -187px;"><div class="marker"><div>60</div></div></div><div id="eye_67" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1817px; top: 523px;"><div class="marker"><div>60</div></div></div><div id="eye_68" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1740px; top: -1370px;"><div class="marker"><div>60</div></div></div><div id="eye_69" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1896px; top: -1239px;"><div class="marker"><div>60</div></div></div><div id="eye_70" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 2024px; top: -1059px;"><div class="marker"><div>60</div></div></div><div id="eye_71" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1667px; top: -440px;"><div class="marker"><div>60</div></div></div><div id="eye_72" style="position: absolute; z-index: 2; cursor: default; visibility: inherit; left: 1831px; top: -431px;"><div class="marker"><div>60</div></div></div></div><div style="position: absolute; left: 0px; top: 0px; z-index: 130;"></div></div><div style="position: absolute; left: 0px; top: 0px;"><div style="position: absolute; left: 0px; top: 0px; z-index: 140;"></div><div style="position: absolute; left: 0px; top: 0px; z-index: 150; visibility: hidden;"></div></div></div><div style="width: 100%; position: absolute; left: 0px; top: 0px;"><div style="width: 108px; height: 73px; overflow: hidden; position: absolute; visibility: hidden; z-index: 200; display: none;"><div style="width:6px;height:4px;overflow:hidden;border-right:#F00 solid 2px;border-bottom:#F00 solid 2px;position:absolute;left:0;top:0;"></div><div style="width:6px;height:4px;overflow:hidden;border-left:#F00 solid 2px;border-bottom:#F00 solid 2px;position:absolute;left:100px;top:0;"></div><div style="width:6px;height:4px;overflow:hidden;border-top:#F00 solid 2px;border-left:#F00 solid 2px;position:absolute;left:100px;top:67px;"></div><div style="width:6px;height:4px;overflow:hidden;border-top:#F00 solid 2px;border-right:#F00 solid 2px;position:absolute;left:0;top:67px;"></div></div></div><div style="visibility: hidden;"><script src="dianzijingcha_files/count.htm"></script></div></div><div style="width: auto; height: 14px; line-height: 14px; font-size: 11px; font-family: Arial,sans-serif; white-space: nowrap; position: absolute; right: 5px; bottom: 0px; z-index: 200; -moz-user-select: none;" id="_copyright_18576"><a href="http://api.amap.com/" target="_blank">Amap API</a>&nbsp;©&nbsp;<a href="http://www.autonavi.com/" target="_blank">高德地图</a></div><div style="position: absolute; left: 10px; top: 10px; z-index: 200;"><div class="tool_mapabc" style="position: relative; width: 54px; height: 54px; left: 0px; top: 0px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll 1px -1px transparent;"><div style="position: absolute; width: 18px; height: 12px; top: 3px; left: 18px; cursor: pointer;"></div><div style="position: absolute; width: 12px; height: 18px; top: 18px; left: 37px; cursor: pointer;"></div><div style="position: absolute; width: 18px; height: 12px; top: 38px; left: 18px; cursor: pointer;"></div><div style="position: absolute; width: 12px; height: 18px; top: 18px; left: 4px; cursor: pointer;"></div><div style="position: absolute; width: 16px; height: 16px; top: 19px; left: 19px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -172px -6px transparent; cursor: pointer;"><img style="position: absolute; width: 7px; height: 7px; top: 4px; left: 4px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -177px -30px transparent; display: none; -moz-user-select: none;" src="dianzijingcha_files/blank.gif"><img style="position: absolute; width: 10px; height: 10px; top: 3px; left: 2px; display: none;" src="dianzijingcha_files/loading.gif"></div><div style="background: none repeat scroll 0% 0% rgb(255, 251, 229); border: 1px solid rgb(210, 152, 45); color: rgb(156, 99, 54); padding: 2px; font-size: 12px; position: absolute; left: 36px; top: 17px; width: 94px; border-radius: 10px 10px 10px 10px; text-align: center; display: none;">定位失败！</div></div><div style="position: absolute; width: 0px; height: 0px; left: 13px;"><div class="tool_mapabc" style="position: relative; width: 25px; height: 23px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -144px -2px transparent; cursor: pointer;"></div><div class="tool_mapabc" style="position: relative; width: 25px; height: 116px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) repeat-y scroll -206px -1px transparent;"><div style="position: absolute; width: 8px; height: 36px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) repeat-y scroll -246px -1px transparent; left: 10px;"></div><img style="position: absolute; width: 17px; height: 9px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -189px -10px transparent; left: 5px; cursor: pointer; top: 36px;" src="dianzijingcha_files/blank.gif"><div style="display: none;"><div class="tool_mapabc" style="position: absolute; width: 41px; height: 19px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -56px -8px transparent; top: 3px; left: 21px; cursor: pointer; display: block;"></div><div class="tool_mapabc" style="position: absolute; width: 41px; height: 19px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -56px -28px transparent; top: 52px; left: 21px; cursor: pointer; display: block;"></div><div class="tool_mapabc" style="position: absolute; width: 41px; height: 19px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -101px -8px transparent; top: 73px; left: 21px; cursor: pointer; display: block;"></div><div class="tool_mapabc" style="position: absolute; width: 41px; height: 19px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -101px -28px transparent; top: 101px; left: 21px; cursor: pointer; display: block;"></div></div></div><div class="tool_mapabc" style="position: relative; width: 25px; height: 23px; background: url(&quot;http://api.amap.com/webapi/static/Images/stdmap_ctrl.png&quot;) no-repeat scroll -144px -28px transparent; cursor: pointer;"></div></div></div><div style="width: 150px; height: 15px; position: absolute; left: 5px; bottom: 0px; z-index: 303; -moz-user-select: none;"><div style="height: 10px; line-height: 10px; position: absolute; left: 3px; top: 0px; font-family: Verdana,Geneva,sans-serif; font-size: 10px; -moz-user-select: none; text-align: center; white-space: nowrap; width: 59px;">1公里</div><img style="width: 2px; height: 12px; position: absolute; background: url(&quot;http://api.amap.com/webapi/static/Images/bg.png&quot;) no-repeat scroll -169px 0px transparent; left: 0px; top: 2px;" src="dianzijingcha_files/blank.gif"><img style="width: 2px; height: 12px; position: absolute; background: url(&quot;http://api.amap.com/webapi/static/Images/bg.png&quot;) no-repeat scroll -176px 0px transparent; left: 59px; top: 2px;" src="dianzijingcha_files/blank.gif"><img style="width: 59px; height: 2px; position: absolute; background: url(&quot;http://api.amap.com/webapi/static/Images/bg.png&quot;) repeat-x scroll -50px -44px transparent; left: 2px; top: 12px;" src="dianzijingcha_files/blank.gif"></div></div>
+	
+	
+	
+    <!--尾部-->
+    <!--尾部/-->
+    
+</div>
+	
+<script type="text/javascript" src="/static/js/Cmenu.js"></script>
+<script type="text/javascript" src="/static/js/Jfunction.js"></script>
+<script type="text/javascript">
+	
+	
+	$('.gzj_sfq dl dt').click(function(){
+		if('on'==$(this).attr('class')){
+			$(this).removeClass('on');
+			$(this).parent().find('dd').slideUp();
+		}else{
+			$(this).parent().find('dt').removeClass('on');
+			$(this).parent().find('dd').slideUp();
+			$(this).addClass('on').next('dd').slideDown();
+		}
+	})
+	
+	
+	
+
+	
+	function addMarker(id,lng,lat,info){
+	//构建点对象
+	var marker = new AMap.Marker({
+		id:"m_"+id,//唯一ID
+		position:new AMap.LngLat(lng,lat), //基点位置
+		icon:"http://api.amap.com/webapi/static/Images/marker_sprite.png", //marker图标，直接传递地址url
+		offset:{x:-8,y:-34} //相对于基点的位置
+	});
+	mapObj.addOverlays(marker);//将点添加到地图
+	
+	var inforWindow = new AMap.InfoWindow({
+		offset:new AMap.Pixel(-100,-96),
+		content:info.join("<br />")
+	});
+	mapObj.bind(marker,"click",function(e){
+		inforWindow.open(mapObj,marker.getPosition());
+	});
+	
+	//mapObj.setCenter(marker.getPosition());
+}
+	
+	//loadCamera();
+	//loadMoreEvents();
+</script>
+
+</body></html>

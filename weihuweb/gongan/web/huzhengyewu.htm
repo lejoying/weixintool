@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<meta http-equiv="Cache-Control" content="no-Cache">
+		<meta name="viewport" content="width=device-width;">
+		<meta name="format-detection" content="telephone=no">
+		<title>广州公安.警民通</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/web_style.css" />
+		<script type="text/javascript" src="/static/js/jquery.js">
+</script>
+		<script type="text/javascript" src="/static/js/tools.js">
+</script>
+	</head>
+
+	<body>
+		
+		<div class="gzj_main">
+<div class="mask disnone" id="mask"></div>
+    <!--登录弹出-->
+    <div class="apps_popup disnone gzj_index999" id="jp-login">
+        <dl>
+            <dt> <strong class="white">&nbsp;警民通登录</strong></dt>
+            <dd>
+            	<div class="gzj_myPage">
+                    	<input id="login_type2" name="ltype" value="1" type="hidden">
+<!--                    	<input type="hidden" id="login_type2" name="ltype" value="3"/>-->
+                        <div class="gzj_myPageTb">
+                        
+                        
+                          <table>
+                        	<tbody><tr>
+	                        	<td colspan="2">
+		                        	<table width="100%">
+		                        	<tbody>
+			                        	<tr>
+			                        	<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('1');$('#radio_a21').attr('checked',true);$('#phone_login_body31').hide();$('#phone_login_body41').show();">
+			                        		<input name="a11" value="4" checked="checked" id="radio_a21" type="radio">非实名用户</label></td>
+			                        		
+			                        		<td width="170px">
+			                        		<label onclick="javascript:$('#login_type2').val('3');$('#radio_a11').attr('checked',true);$('#phone_login_body41').hide();$('#phone_login_body31').show();">
+			                        		<input name="a11" value="3" id="radio_a11" type="radio">实名用户</label></td>
+			                        		
+			                        	</tr>
+			                        	</tbody>
+		                        	</table>
+	                        	</td>
+                        	</tr>
+                        
+                        </tbody><tbody id="phone_login_body31" style="display: none;">
+                        	<tr>
+                            	<th>实名账号：</th>
+                                <td><input id="login_phoneNum1" name="account" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                              <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password1" name="password1" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                            </tbody>
+                            
+                        </table>
+                        
+       <div class="apps_main" id="phone_login_body41">
+        <div class="apps_mainSlider gzj_slideNm2 slide15">
+        <div class="apps_tab1 apps_topslide">
+            <a href="#" class="on">手机用户</a><a href="#">金盾网用户</a>
+        </div>
+        <div class="apps_slidebox">
+            <ul class="ot">
+                <li class="otli">
+                    <div class="gzj_sfq">
+                        <table>
+                       <tbody><tr>
+                            	<th>手机号：</th><!-- value="13922200414" -->
+                                <td><input id="login_phoneNum2" name="phoneNum" class="apps_w120" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>验证码：</th>
+                                <td>
+                                <input id="login_captcha2" name="captcha" class="apps_w60" style="color:blue;" type="text"> 
+                                <span class="apps_btn1 yzmcsjc" style="margin-top:3px; padding:3px;" onclick="javascript:getLoginValid('/ca/sendsms.do',$(this).closest('div'));">获取验证码</span>
+                                </td>
+                                
+                             </tr>
+                             <tr>
+                             	<td colspan="2" class="f12 dblue">
+                               		 温馨提示：如果短信长时间接收不到，请检查是否设置了短信防火墙等拦截软件
+                                </td>
+                             </tr>
+                        </tbody></table>
+                    </div>
+                </li>
+                <li class="otli">
+                    <div class="gzj_sfq">
+                    <table>
+                    	<tbody><tr>
+                            	<th>账号：</th>
+                                <td><input id="login_username2" name="username" class="apps_w140" style="color:blue;" type="text"></td>
+                            </tr>
+                            <tr>
+                            	<th>密码：</th>
+                                <td><input id="login_password2" name="password" class="apps_w140" style="color:blue;" value="" type="password"></td>
+                            </tr>
+                    </tbody></table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        </div>
+    </div>
+                        
+                        
+                        </div>
+                        <p class="mgt5 tc"><input class="apps_btn1" value="登录" onclick="return login1('/ac/login.do',$(this).closest('div'));" type="button"></p>
+                    </div>
+            </dd>
+    	</dl>
+    </div>
+    <!--登录弹出/-->
+    
+<script type="text/javascript">
+var base='';
+
+function jump(){
+	$('#jp-login').jumpBox(false);
+		
+		var mainactListSlide15 = new Slide();
+		mainactListSlide15.init({touchId:$(".slide15"),state:'big'});
+		mainactListSlide15.toptabs.unbind().bind('click',function(){
+			var _this = this,
+			index = mainactListSlide15.toptabs.index(_this);
+			mainactListSlide15.slide(index);
+			$('#login_type2').val(index+1);
+			return false;
+		});
+}
+$().ready(function(){
+	
+	$('#login_form').click(function(){
+		jump();
+	
+		return false;
+	});
+	
+	$('#login_captcha1').click(function(){
+			var _this_value = $(this).val();
+			if(!_this_value || _this_value == '短信验证码'){	
+				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+			}
+		});
+		
+//	$('#login_captcha2').click(function(){
+//			var _this_value = $(this).val();
+//			if(!_this_value || _this_value == '短信验证码'){	
+//				getLoginValid(base+'/ca/sendsms.do',$(this).closest('div'));
+//			}
+//		});
+	
+});
+
+
+	
+</script>			<div class="apps_container apps_navtouch">
+				<table width="100%">
+					<tbody><tr>
+						<th>
+							<a href="#" class="left" onclick="javascript:history.back();return false;"></a>
+						</th>
+						<td>
+							户政业务
+						</td>
+						<th class="right"></th>
+					</tr>
+				</tbody></table>
+			</div>
+			<!--头部/-->
+
+
+			<div class="apps_main">
+				<div class="apps_mainSlider gzj_slideNm2 slide1">
+					<div class="apps_tab1 apps_topslide">
+						<a href="#" class="on">业务查询</a><a href="#">业务预约</a>
+					</div>
+					<div style="height: 571px;" class="apps_slidebox">
+						<ul style="width: 1600px;" class="ot">
+							<li style="width: 800px;" class="otli">
+								<div class="gzj_sfq">
+									<div class="pd10 blue">
+										<div class="gzj_pageTit">
+											广州市新生儿重名查询 &gt;
+										</div>
+										<form action="/hz/queryxset.do" method="post" onsubmit="return hz_checkData11(this.name.value);">
+											<input name="tp" value="0" type="hidden">
+											<div class="gzj_appshow">
+												<table class="gzj_tb">
+													<tbody><tr>
+														<td>
+															姓名:
+														</td>
+														<td>
+															<input name="name" class="gzj_inp1 apps_w160 apps_fsize14" type="text">
+														</td>
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+														<td>
+																<input value="查询" class="apps_btn8" onclick="javascript:$(this).closest('form').submit();" type="button">
+														</td>
+													</tr>
+												</tbody></table>
+											</div>
+										</form>
+										<div style="margin-top: 12px;"></div>
+										<div class="gzj_pageTit">
+											居民身份证办理进度查询 &gt;
+										</div>
+										<form action="/hz/bl_result.do" method="post" onsubmit="return hz_checkData(this.slh.value,this.captcha.value);">
+											<input name="tp" value="0" type="hidden">
+											<div class="gzj_appshow">
+												<table class="gzj_tb">
+													<tbody><tr>
+														<td>
+															受理编号:
+														</td>
+														<!-- value="4401035992012110200069" -->
+														<td>
+															<input name="slh" class="gzj_inp1 apps_w160 apps_fsize14" type="text">
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															验证码：
+														</td>
+														<td>
+															<input class="gzj_inp1 apps_w60 apps_fsize14" id="hz_apply_captcha" name="captcha" type="text">
+															<img id="hz_apply_captcha_loading" src="huzhengyewu_files/loading.gif" class="disnone">
+															<img id="hz_apply_captcha_img" src="" class="disnone" height="24px" width="50px">
+															<a id="hz_apply_captcha_img_bt" href="javascript:getImgValidCode($('#hz_apply_captcha_img_bt'),$('#hz_apply_captcha_img'),$('#hz_apply_captcha_loading'));">获取验证码</a>
+														</td>
+													</tr>
+
+													<tr>
+														<td>&nbsp;</td>
+														<td>
+																<input value="查询" class="apps_btn8" onclick="javascript:$(this).closest('form').submit();" type="button">
+														</td>
+													</tr>
+												</tbody></table>
+											</div>
+										</form>
+										<div style="margin-top: 12px;"></div>
+										<div class="gzj_pageTit">
+											户口审批进度查询 &gt;
+										</div>
+										<form action="/hz/bl_result.do" method="post" onsubmit="return hz2_checkData(this.sfz.value,this.clbh.value,this.captcha.value);">
+											<input name="tp" value="1" type="hidden">
+											<div class="gzj_appshow">
+												<table class="gzj_tb">
+													<tbody><tr>
+														<td>
+															身份证或<br>姓名:
+														</td>
+														<!-- value="362203197502172423" -->
+														<td>
+															<input name="sfz" class="gzj_inp1 apps_w160 apps_fsize14" type="text">
+														</td>
+													</tr>
+													<tr>
+														<td>
+															材料编号:
+														</td>
+														<!-- value="00748980" -->
+														<td>
+															<input name="clbh" class="gzj_inp1 apps_w160 apps_fsize14" type="text">
+														</td>
+													</tr>
+
+													<tr>
+														<td>
+															验证码：
+														</td>
+														<td>
+															<input class="gzj_inp1 apps_w60 apps_fsize14" id="hz1_apply_captcha" name="captcha" type="text">
+															<img id="hz1_apply_captcha_loading" src="huzhengyewu_files/loading.gif" class="disnone">
+															<img id="hz1_apply_captcha_img" src="" class="disnone" height="24px" width="50px">
+															<a id="hz1_apply_captcha_img_bt" href="javascript:getImgValidCode($('#hz1_apply_captcha_img_bt'),$('#hz1_apply_captcha_img'),$('#hz1_apply_captcha_loading'));">获取验证码</a>
+														</td>
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+														<td>
+																<input value="查询" class="apps_btn8" onclick="javascript:$(this).closest('form').submit();" type="button">
+														</td>
+													</tr>
+												</tbody></table>
+											</div>
+										</form>
+									</div>
+								</div>
+							</li>
+							
+							<li style="width: 800px;" class="otli">
+								<div class="gzj_sfq">
+									身份证业务预约申请
+									<ul class="apps_list1_1 gzj_list2">
+										<li>
+											<a href="javascript:hz_sfzyy();">
+												<div style="width: 100%;">身份证业务预约</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="gzj_sfq">
+									身份证业务预约查询
+									<form action="/hz/ywry1.do" id="sfzyyForm" name="sfzyyForm" onsubmit="return cheackSfzyy();" method="post">
+											<input name="tp" value="0" type="hidden">
+											<div class="gzj_appshow">
+												<table class="gzj_tb">
+													<tbody><tr>
+														<td>身份证号:</td>
+														<td><input name="idCard" id="idCard" class="gzj_inp1 apps_w160 apps_fsize14" type="text"></td>
+													</tr>
+													<tr>
+														<td>验证码:</td>
+														<td>
+															<input class="gzj_inp1 apps_w60 apps_fsize14" id="hz_ywry1_captcha" name="captcha" type="text">
+															<img id="hz_ywry1_captcha_loading" src="huzhengyewu_files/loading.gif" class="disnone">
+															<img id="hz_ywry1_captcha_img" src="" class="disnone" height="24px" width="50px">
+															<a id="hz_ywry1_captcha_img_bt" href="javascript:getImgValidCode($('#hz_ywry1_captcha_img_bt'),$('#hz_ywry1_captcha_img'),$('#hz_ywry1_captcha_loading'));">获取验证码</a>
+														</td>
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+															<td>
+																<input value="查询" class="apps_btn8" onclick="javascript:$(this).closest('form').submit();" type="button">
+															</td>
+														
+													</tr>
+												</tbody></table>
+											</div>
+										</form>
+								</div>
+								<div class="gzj_sfq">
+									办证中心户政业务排队情况查询
+									<ul class="apps_list1_1 gzj_list2">
+										<li>
+											<a href="javascript:hz_ywryccqk('TH1','TH','%E5%A4%A9%E6%B2%B3%E5%8C%BA%E5%8A%9E%E8%AF%81%E4%B8%AD%E5%BF%83');">
+												<div style="width: 100%;">天河区办证中心</div>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:hz_ywryccqk('HZ1','HZ','%E6%B5%B7%E7%8F%A0%E5%8C%BA%E5%8A%9E%E8%AF%81%E4%B8%AD%E5%BF%83');">
+												<div style="width: 100%;">海珠区办证中心</div>
+											</a>
+										</li>
+									</ul>
+								</div>
+								<div class="gzj_sfq">
+									身份证业务预约取消
+									<form action="/hz/bookingCancel.do" onsubmit="return sfzyy_cancel_checkData();" method="post">
+											<input name="tp" value="0" type="hidden">
+											<div class="gzj_appshow">
+												<table class="gzj_tb">
+													<tbody><tr>
+														<td>姓名:</td>
+														<td><input name="name" class="gzj_inp1 apps_w160 apps_fsize14" type="text"></td>
+													</tr>
+													<tr>
+														<td>身份证号:</td>
+														<td><input name="idCard" class="gzj_inp1 apps_w160 apps_fsize14" type="text"></td>
+													</tr>
+													<tr>
+														<td>手机号码:</td>
+														<td><input name="mobile" class="gzj_inp1 apps_w160 apps_fsize14" type="text"></td>
+													</tr>
+													<tr>
+														<td>验证码:</td>
+														<td>
+															<input class="gzj_inp1 apps_w60 apps_fsize14" id="hz_bookingCancel_captcha" name="captcha" type="text">
+															<img id="hz_bookingCancel_captcha_loading" src="huzhengyewu_files/loading.gif" class="disnone">
+															<img id="hz_bookingCancel_captcha_img" src="" class="disnone" height="24px" width="50px">
+															<a id="hz_bookingCancel_captcha_img_bt" href="javascript:getImgValidCode($('#hz_bookingCancel_captcha_img_bt'),$('#hz_bookingCancel_captcha_img'),$('#hz_bookingCancel_captcha_loading'));">获取验证码</a>
+														</td>
+													</tr>
+													<tr>
+														<td>&nbsp;</td>
+															<td>
+																<input value="确定" class="apps_btn8" onclick="javascript:$(this).closest('form').submit();" type="button">
+															</td>
+														
+													</tr>
+												</tbody></table>
+											</div>
+										</form>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="mask disnone" id="mask"></div>
+			<!-- 显示正在查询窗口 -->
+			<div class="apps_popup disnone gzj_index999" id="queryBoxShow">
+				<dl>
+					<dd>
+						<div class="gzj_myPage">
+							正在查询，请稍后！
+						</div>
+					</dd>
+				</dl>
+			</div>
+			<!--显示正在查询窗口/-->
+		<div style="text-align: center;"><img src="huzhengyewu_files/gayd2.jpg" width="100%"></div>
+		</div> 
+
+<!--尾部-->
+<!--尾部/-->
+		<script type="text/javascript" src="/static/js/slide.js">
+</script>
+		<script type="text/javascript" src="/static/js/slide_002.js">
+</script>
+		<script type="text/javascript" src="/static/js/Cmenu.js">
+</script>
+		<script type="text/javascript" src="/static/js/Jfunction.js">
+</script>
+		<script type="text/javascript">
+		
+		function cheackSfzyy(){
+			saveUserAction('980120601');
+			var idCard = $("#idCard").val();
+			if(!idCard || idCard==''){
+				alert('身份证不能为空');
+				$("#idCard").focus();
+				return false;
+			}
+			var captcha = $("#hz_ywry1_captcha").val();
+			if(!captcha || captcha==''){
+				alert('验证码不能为空');
+				$("#hz_ywry1_captcha").focus();
+				return false;
+			}
+			return true;
+		}
+		
+		function sfzyy_cancel_checkData(){
+			saveUserAction('980120608');
+			var captcha = $("#hz_bookingCancel_captcha").val();
+			if(!captcha || captcha==''){
+				alert('验证码不能为空');
+				$("#hz_bookingCancel_captcha").focus();
+				return false;
+			}
+			return true;
+		}
+
+var isRealLogin = false;
+
+var mainSlide = new SlideAuto();
+	
+	
+	var mainactListSlide = new Slide();
+	mainactListSlide.init({touchId:$(".slide1"),state:'big'});
+	mainactListSlide.touchMove=function(){}
+	
+	mainactListSlide.toptabs.unbind().bind('click',function(){
+		var _this = this,
+			index = mainactListSlide.toptabs.index(_this);
+		if(index == 1){
+			if(!isRealLogin){
+				jump();
+			}else{
+				mainactListSlide.slide(index);
+			}
+		}else{
+			mainactListSlide.slide(index);
+		}
+//		mainactListSlide.slide(index);
+		
+		$(document).find('.notneedshowbyself').each(function(){
+			if(index == 1){
+				$(this).hide();
+			}else{
+				$(this).show();
+			}	
+		});
+		return false;
+	});
+	
+	$().ready(function(){
+		$('.gzj_gg').txtAdvRoll();
+		
+		$('#hz_ywry1_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#hz_ywry1_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#hz_ywry1_captcha_img_bt'),$('#hz_ywry1_captcha_img'),$('#hz_ywry1_captcha_loading'));
+				}
+			}
+		});
+		
+		$('#hz_bookingCancel_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#hz_bookingCancel_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#hz_bookingCancel_captcha_img_bt'),$('#hz_bookingCancel_captcha_img'),$('#hz_bookingCancel_captcha_loading'));
+				}
+			}
+		});
+		
+		$('#hz_apply_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#hz_apply_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#hz_apply_captcha_img_bt'),$('#hz_apply_captcha_img'),$('#hz_apply_captcha_loading'));
+				}
+			}
+		});
+		
+		$('#hz1_apply_captcha').click(function(){
+			var _this_value = $(this).val();
+			var attr = $('#hz1_apply_captcha_img').attr('src');
+			if(!_this_value || _this_value == '短信验证码'){
+				if(!attr){
+					getImgValidCode($('#hz1_apply_captcha_img_bt'),$('#hz1_apply_captcha_img'),$('#hz1_apply_captcha_loading'));
+				}
+			}			
+		});
+		if(0 == 1){
+			if(!isRealLogin){
+				jump();
+			}else{
+				mainactListSlide.slide(0);
+			}
+		}
+	});
+	
+	//户政业务办理进度
+	function hz_checkData(slh,captcha){
+		saveUserAction('98012060');
+		if(!slh){
+			alert('受理编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	//新生儿重名查询按钮点击
+	function hz_checkData11(name){
+		saveUserAction('980120604');
+		if(!name){
+			alert('姓名不能为空');
+			return false;
+		}
+		return true;
+	}
+	
+	function hz2_checkData(sfz,clbh,captcha){
+		saveUserAction('98012061');
+		if(!sfz){
+			alert('身份证或姓名不能为空');
+			return false;
+		}
+		if(!clbh){
+			alert('材料编号不能为空');
+			return false;
+		}
+		if(!captcha){
+			alert('验证码不能为空');
+			return false;
+		}
+		if(captcha.length!=4){
+			alert('验证码长度不正确');
+			return false;
+		}
+		return true;
+	}
+	
+	//身份证预约申请
+	function hz_sfzyy(){
+		saveUserAction('980120607');
+		window.location.href='/hz/sfzyy.do';
+	}
+	
+	//海珠区、天河区公安分局综合办证中心按钮点击
+	function hz_ywryccqk(hallCode,areaCode,hallName){
+		if(hallCode =='TH1'){
+			saveUserAction('980120603');
+		}else if(hallCode == 'HZ1'){
+			saveUserAction('980120602');
+		}
+		window.location.href='/hz/ywryccqk.do?hallCode='+hallCode+'&areaCode='+areaCode+'&hallName='+hallName;
+	}
+</script>
+	
+
+</body></html>
