@@ -1,24 +1,12 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Admin
- * Date: 13-8-21
- * Time: 下午2:43
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
     var pagesize = 3;
     var index = 1;
     var count = 0;
     var weixinid = "";
-    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
-    if(nowBindWeixins != null){
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-        for(var key in JSON.parse(nowBindWeixins)){
-            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
-                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                getAllApps(0, pagesize, count, index);
-            }
-        }
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if(nowWeixin != null){
+        weixinid = JSON.parse(nowWeixin).weixinOpenID;
+        getAllApps(0, pagesize, count, index);
     }
 
     function getAllApps(start, end, count, index){

@@ -1,24 +1,8 @@
-/**
- * Created with JetBrains WebStorm.
- * User: xiao
- * Date: 13-8-27
- * Time: 上午10:31
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
-
-    //获取当前微信用户的ID
-    var weixinid = "";
-    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
-    if(nowBindWeixins != null){
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-        for(var key in JSON.parse(nowBindWeixins)){
-            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
-                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                getNewUserCount(weixinid);
-                break;
-            }
-        }
+//    window.sessionStorage.clear();
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if(nowWeixin != null){
+        getNewUserCount(JSON.parse(nowWeixin).weixinOpenID);
     }
     $.ajax({
         type:"GET",
@@ -87,10 +71,6 @@ function getNewUserCount(weixinid){
         success:function(serverData){
             if(serverData["提示信息"] == "获取今日新增会员数量成功"){
                 $($(".sysNotice a")[0]).html(serverData["count"]+"位朋友");
-            }
-            var appcount = window.sessionStorage.getItem("appcount");
-            if(appcount != null){
-                $($(".sysNotice span")[1]).html(appcount-1);
             }
         }
     });

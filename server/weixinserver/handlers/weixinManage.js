@@ -248,7 +248,7 @@ weixinManage.getall = function (data, response) {
                 'START account=node({uid})' ,
                 'MATCH account-[r:HAS_WEIXIN]->weixin:Weixin<-[:BIND]-app:App',
                 'WHERE weixin.status! ={status1} OR weixin.status! ={status2}',
-                'RETURN account,weixin, app, r'
+                'RETURN weixin.weixinOpenID,weixin.weixinName'
             ].join('\n');
         }
 
@@ -274,16 +274,27 @@ weixinManage.getall = function (data, response) {
             }
             else {
                 var weixins = {};
-                for (var index in results) {
-                    var weixinNode = results[index].weixin;
-                    if (weixins[weixinNode.data.weixinOpenID] == null) {
-                        weixinNode.data.rela = results[index].r.data.switch;
-                        weixinNode.data.account = results[index].account.data;
-                        weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
-                        weixins[weixinNode.data.weixinOpenID].apps = [];
+                if(end == "*"){
+                    for (var index in results) {
+                        var weixin = {};
+                        weixin.weixinOpenID = results[index]["weixin.weixinOpenID"];
+                        weixin.weixinName = results[index]["weixin.weixinName"];
+                        if (weixins[weixin.weixinOpenID] == null) {
+                            weixins[weixin.weixinOpenID] = weixin;
+                        }
                     }
-                    /*var appNode = results[index].app;
-                     weixins[weixinNode.data.weixinOpenID].apps.push(appNode.data);*/
+                }else{
+                    for (var index in results) {
+                        var weixinNode = results[index].weixin;
+                        if (weixins[weixinNode.data.weixinOpenID] == null) {
+                            weixinNode.data.rela = results[index].r.data.switch;
+                            weixinNode.data.account = results[index].account.data;
+                            weixins[weixinNode.data.weixinOpenID] = weixinNode.data;
+                            weixins[weixinNode.data.weixinOpenID].apps = [];
+                        }
+                        /*var appNode = results[index].app;
+                         weixins[weixinNode.data.weixinOpenID].apps.push(appNode.data);*/
+                    }
                 }
                 response.write(JSON.stringify({
                     "提示信息": "获取所有绑定微信公众账号成功",

@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Admin
- * Date: 13-8-12
- * Time: 上午11:24
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
     var provinces = ["直辖市","特别行政区","黑龙江","吉林","辽宁","内蒙古","河北","河南","山东","山西","江苏","安徽","陕西",
         "宁夏","甘肃","青海","湖北","湖南","浙江","江西","福建","贵州","四川","广东","广西","云南","海南","新疆","西藏","台湾"];

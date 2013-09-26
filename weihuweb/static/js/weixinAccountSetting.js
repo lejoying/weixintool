@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Admin
- * Date: 13-8-12
- * Time: 下午4:39
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
     var obj = {};
    $($(".weixinMemberTitle span")[1]).html(":"+Request("id"));

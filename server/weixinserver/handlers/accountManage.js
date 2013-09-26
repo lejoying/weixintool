@@ -265,7 +265,6 @@ accountManage.modify = function (data, response) {
 
         var uid =  data.uid;
         var params = {
-           
             uid: parseInt(uid),
             password: account.oldpassword,
             newpassword: account.newpassword
@@ -278,7 +277,6 @@ accountManage.modify = function (data, response) {
          
             } else if (results.length != 0) {
                 response.write(JSON.stringify({
-                    "失败原因": "原密码不正确",
                     "提示信息": "修改密码成功"
                 }));
                 response.end();

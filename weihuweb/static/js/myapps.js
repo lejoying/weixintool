@@ -1,10 +1,3 @@
-/**
- * Created with JetBrains WebStorm.
- * User: xiao
- * Date: 13-8-14
- * Time: 下午10:34
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
     var nowWeixinName = window.localStorage.getItem("nowWeixinName");
     if(nowWeixinName != null){
@@ -15,33 +8,27 @@ $(document).ready(function(){
     var obj = {};
     //获取当前微信用户的ID
     var weixinid = "";
-    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
-    if(nowBindWeixins != null){
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-        for(var key in JSON.parse(nowBindWeixins)){
-            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
-                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                $.ajax({
-                    type:"POST",
-                    url:"/api2/app/getmyapp?",
-                    data:{
-                        weixinid : weixinid,
-                        appid: 125
-                    },
-                    success:function(serverData){
-                            obj = serverData["r"];
-                            if(obj.power != undefined){
-                                if(obj.power == true){
-                                    $(".myappTitle input")[0].setAttribute("checked","true");
-                                }else{
-                                    $(".myappTitle input")[0].removeAttribute("checked");
-                                }
-                            }
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if(nowWeixin != null){
+        weixinid = JSON.parse(nowWeixin).weixinOpenID;
+        $.ajax({
+            type:"POST",
+            url:"/api2/app/getmyapp?",
+            data:{
+                weixinid : JSON.parse(nowWeixin).weixinOpenID,
+                appid: 125
+            },
+            success:function(serverData){
+                obj = serverData["r"];
+                if(obj.power != undefined){
+                    if(obj.power == true){
+                        $(".myappTitle input")[0].setAttribute("checked","true");
+                    }else{
+                        $(".myappTitle input")[0].removeAttribute("checked");
                     }
-                });
-                break;
+                }
             }
-        }
+        });
     }
     if(weixinid != ""){
         //获取个性化设置的前10条数据

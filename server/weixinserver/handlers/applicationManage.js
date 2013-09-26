@@ -287,7 +287,7 @@ applicationManage.getall = function (data, response) {
                 query = [
                     'MATCH app:App-[:BIND]->weixin:Weixin' ,
                     'WHERE weixin.weixinOpenID! ={weixinOpenID} AND app.status! ={status}',
-                    'RETURN  app'
+                    'RETURN  app.appid,app.name,app.type'
                 ].join('\n');
                 failReason = "指定微信公众账号不存在";
             }
@@ -317,24 +317,30 @@ applicationManage.getall = function (data, response) {
                 count = results.length;
                 var cindex = 0;
                 for (var index in results) {
-                     var appNode = results[index].app.data;
-                    if(mold == "management"){
-                        apps.push(appNode);
-                        cindex++;
-                        if(cindex == results.length){
-                            response.write(JSON.stringify({
-                                "提示信息": "获得应用列表成功",
-                                "apps": apps,
-                                "count": total
-                            }));
-                            response.end();
-                        }
-                    }else{
-                        judgeHaveRela(appNode.appid, next, appNode);
-                    }
-
+                     if(filter == "BIND"){
+                         var app = {};
+                         app.appid = results[index]["app.appid"];
+                         app.name = results[index]["app.name"];
+                         app.type = results[index]["app.type"];
+                         next(app);
+                     }else{
+                         var appNode = results[index].app.data;
+                         if(mold == "management"){
+                             apps.push(appNode);
+                             cindex++;
+                             if(cindex == results.length){
+                                 response.write(JSON.stringify({
+                                     "提示信息": "获得应用列表成功",
+                                     "apps": apps,
+                                     "count": total
+                                 }));
+                                 response.end();
+                             }
+                         }else{
+                             judgeHaveRela(appNode.appid, next, appNode);
+                         }
+                     }
                 }
-
             }
         });
         function next(appNode){

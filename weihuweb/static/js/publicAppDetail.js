@@ -1,25 +1,12 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Admin
- * Date: 13-8-27
- * Time: 下午1:47
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
     if((Request("rela") == "true")){
         $(".myappswitch input")[0].checked = "true";
     }
     //获取当前微信用户的ID
     var weixinid = "";
-    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
-    if(nowBindWeixins != null){
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-        for(var key in JSON.parse(nowBindWeixins)){
-            if(JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName){
-                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                break;
-            }
-        }
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if(nowWeixin != null){
+        weixinid = JSON.parse(nowWeixin).weixinOpenID;
     }
     $.ajax({
         type:"GET",

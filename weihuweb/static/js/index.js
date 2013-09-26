@@ -1,5 +1,4 @@
-// JavaScript Document
-$(document).ready(function () {
+$(document).ready(function() {
     var leftHeight = $(".mainContern").height();
     $(".sildLeft").css("height", leftHeight);
     var nowAccount = window.localStorage.getItem("nowAccount");
@@ -20,6 +19,7 @@ $(document).ready(function () {
     } else {
         location.href = "/login.html";
     }
+
     function authAccount() {
         $.ajax({
             type: "GET",
@@ -53,30 +53,12 @@ $(document).ready(function () {
         url = url.substr(url.lastIndexOf("/") + 1);
         if (url != "default.html") {
             getAllWeixin(weixins);
+            var apps = window.sessionStorage.getItem("apps");
+            if(apps != null)
+                setApp(JSON.parse(apps));
         }
     }
-    //获取当前微信用户的ID
-    var weixinid = "";
-    var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
-    if (nowBindWeixins != null) {
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-        for (var key in JSON.parse(nowBindWeixins)) {
-            if (JSON.parse(nowBindWeixins)[key].weixinName == nowWeixinName) {
-                weixinid = JSON.parse(nowBindWeixins)[key].weixinOpenID;
-                //发送请求，获取已开启的应用
-                var url = window.location.href;
-                url = url.substr(url.lastIndexOf("/") + 1);
-                if (url == "default.html") {
-                    getAllApps(weixinid);
-                }else{
-                    var apps = window.sessionStorage.getItem("apps");
-                    setApp(JSON.parse(apps));
-                }
-
-                break;
-            }
-        }
-    }
+    startMethod();
     /*$("#jsbtn").click(function(){
      //发送Ajax请求，获取绑定的微信用户
      $.ajax({
@@ -102,6 +84,19 @@ $(document).ready(function () {
         addEvent(document.body, "mousedown", clickother);
     });
 });
+function startMethod(){
+    //获取当前微信用户的ID
+    var weixinid = "";
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if(nowWeixin != null){
+        weixinid = JSON.parse(nowWeixin).weixinOpenID;
+        var url = window.location.href;
+        url = url.substr(url.lastIndexOf("/") + 1);
+        if (url == "default.html") {
+            getAllApps(JSON.parse(nowWeixin).weixinOpenID);
+        }
+    }
+}
 function getAllApps(weixinid) {
     $.ajax({
         type: "GET",
@@ -113,7 +108,7 @@ function getAllApps(weixinid) {
         },
         success: function (serverData) {
             if (serverData["提示信息"] == "获得应用列表成功") {
-                window.sessionStorage.setItem("appcount", serverData["apps"].length);
+                $($(".sysNotice span")[1]).html(serverData["apps"].length-1);
                 window.sessionStorage.setItem("apps", JSON.stringify(serverData["apps"]));
                 setApp(serverData["apps"]);
             }
@@ -121,6 +116,7 @@ function getAllApps(weixinid) {
     });
 }
 function setApp(apps) {
+    $(".js_myopenapp")[0].length = 1;
     for (var i = 0; i < apps.length; i++) {
         if (apps[i].type == "private") {
             continue;
@@ -129,9 +125,9 @@ function setApp(apps) {
         var a = document.createElement("a");
         a.appendChild(document.createTextNode(apps[i].name));
         if (apps[i].type == "public") {
-            a.href = "/page/publicAppDetail.html?id=" + apps[i].appid + "&rela=" + apps[i].rela;
+            a.href = "/page/publicAppDetail.html?id=" + apps[i].appid + "&rela=true";
         } else {
-            a.href = "/page/industryAppDetail.html?id=" + apps[i].appid + "&rela=" + apps[i].rela;
+            a.href = "/page/industryAppDetail.html?id=" + apps[i].appid + "&rela=true";
         }
         li.appendChild(a);
         $(".js_myopenapp")[0].appendChild(li);
@@ -141,9 +137,11 @@ function getAllWeixin(weixins) {
     var index = 0;
     for (var key in weixins) {
         if (index == 0) {
-            var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-            if (nowWeixinName == null) {
-                window.localStorage.setItem("nowWeixinName", weixins[key].weixinName);
+            var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+            if (nowWeixin == null) {
+                window.sessionStorage.setItem("nowWeixin", JSON.stringify(weixins[key]));
+                startMethod();
+                getNewUserCount(weixins[key].weixinOpenID);
             }
         }
         index++;
@@ -160,24 +158,30 @@ function getAllWeixin(weixins) {
     a.appendChild(document.createTextNode("全部"));
     li.appendChild(a);
     $(".accountSwitching ul")[0].appendChild(li);
-    var name = window.localStorage.getItem("nowWeixinName");
-    if (name != null) {
-        $(".js_weixinNow").html(name.substr(0, 8));
-        $(".welcome").find("span").html(name.substr(0, 8));
-        $(".js_weixinNow").attr("title", name);
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if (nowWeixin != null) {
+        var str = JSON.parse(nowWeixin).weixinName;
+        $(".js_weixinNow").html(str.substr(0, 8));
+        $(".welcome").find("span").html(str.substr(0, 8));
+        $(".js_weixinNow").attr("title", str);
     }
-    var url = window.location.href;
-    url = url.substr(url.lastIndexOf("/") + 1);
+//    var url = window.location.href;
+//    url = url.substr(url.lastIndexOf("/") + 1);
     /*if(url == "default.html"){
      $.getScript("./../static/js/default.js");
      }*/
     $(".accountSwitching ul li").click(function () {
         $(".accountSwitching").hide();
-        var nowWeixinName = window.localStorage.getItem("nowWeixinName");
+        var nowWeixin = window.sessionStorage.getItem("nowWeixin");
         if ($(this).find("a").html() != "全部") {
-            if ($(this).find("a").html() != nowWeixinName) {
+            if ($(this).find("a").html() != JSON.parse(nowWeixin).weixinName) {
                 location.href = "default.html";
-                window.localStorage.setItem("nowWeixinName", $(this).find("a").html());
+                var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
+                for(var key in JSON.parse(nowBindWeixins)){
+                    if(JSON.parse(nowBindWeixins)[key].weixinName == $(this).find("a").html()){
+                        window.sessionStorage.setItem("nowWeixin", JSON.stringify(JSON.parse(nowBindWeixins)[key]));
+                    }
+                }
             }
         }
     });

@@ -1,12 +1,5 @@
-/**
- * Created with JetBrains WebStorm.
- * User: Admin
- * Date: 13-8-13
- * Time: 上午10:57
- * To change this template use File | Settings | File Templates.
- */
 $(document).ready(function(){
-    var pagesize = 1;
+    var pagesize = 5;
     var index = 1;
     var count = 0;
     getAllBindWeixin(0, pagesize, count, index);

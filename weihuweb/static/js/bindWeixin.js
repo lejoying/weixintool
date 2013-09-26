@@ -1,4 +1,3 @@
-// JavaScript Document
 $(document).ready(function(){
 	/*$("#accountSetting").click(function(){
 		$(".js_bindStepTwo").hide();
@@ -12,7 +11,21 @@ $(document).ready(function(){
 		$("#pwdSetting").addClass("settingClick");
 		$("#accountSetting").removeClass("settingClick");
 	});*/
-
+    $($(".bindWeixinOpt")[2]).click(function(){
+        $(".js_bindStepTwo").hide();
+        $(".js_bindStepThree").hide();
+        $(".js_bindStepOne").show();
+        $($(".js_pwdSetting")[0]).find("a").addClass("settingClick");
+        $("#accountSetting").removeClass("settingClick");
+        window.scrollTo(20,20);
+    });
+    $($(".bindWeixinOpt")[1]).click(function(){
+        $(".js_bindStepTwo").hide();
+        $(".js_bindStepThree").hide();
+        $(".js_bindStepOne").hide();
+        $($(".js_pwdSetting")[1]).find("a").removeClass("settingClick");
+        $($(".js_pwdSetting")[2]).find("a").addClass("settingClick");
+    });
 
     var obj = JSON.parse(window.localStorage.getItem("nowAccount"));
     $("#js_bindWeixinNext1").click(function(){
@@ -31,9 +44,10 @@ $(document).ready(function(){
             success: function (serverData) {
                 if (serverData["提示信息"] == "微信公众账号正在绑定") {
                     $(".js_bindStepOne").hide();
+                    $(".js_bindStepThree").hide();
                     $(".js_bindStepTwo").show();
-                    $("#pwdSetting").addClass("settingClick");
-                    $("#accountSetting").removeClass("settingClick");
+                    $($(".js_pwdSetting")[0]).find("a").removeClass("settingClick");
+                    $($(".js_pwdSetting")[1]).find("a").addClass("settingClick");
                     $(".js_token").val(serverData.token);
                     $(".js_bindurl").val("http://bindwx.lejoying.com/");
                     connection();
@@ -47,13 +61,14 @@ $(document).ready(function(){
             url:"/api2/session/event?",
             data:{
                 "uid":obj.uid,
-                "sessionID":"cool"
+                "sessionID": obj.uid
             },
             success:function(serverData){
-                    setInterval(connection(),1000);
+                    connection();
+                    alert(serverData);
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){
-                    setInterval(connection(),1000);
+                connection();
             }
         });
     }
