@@ -825,16 +825,12 @@ weixinManage.getmessages = function (data, response) {
             }
             var count = replys[0];
             var messages = replys[1];
-            console.log(JSON.stringify({
-                "提示信息": "获取消息成功",
-                messages: messages,
-                count: count
-            }));
             response.write(JSON.stringify({
                 "提示信息": "获取消息成功",
                 messages: messages,
                 count: count
             }));
+            response.end();
         });
     }
 
