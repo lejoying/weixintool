@@ -64,38 +64,6 @@
                 </div>
             </div>
             <div class="userMessageList">
-            	<table>
-                	<col class="userId" />
-                    <col class="userNiceName" />
-                    <col class="messageContent" />
-                    <col class="messageReplay" />
-                    <col class="messageTime" />
-                    <col class="messageInformation" />
-                    <tr>
-                        <th>ID</th>
-                        <th>昵称</th>
-                        <th>消息内容</th>
-                        <th>回复</th>
-                        <th>时间</th>
-                        <th>详细</th>
-                    </tr>
-                    <tr>
-                        <td>22</td>
-                        <td><a href="javascript:;">陈明(1408220242)</a></td>
-                        <td>时代的审美。。</td>
-                        <td>时代的审美。。</td>
-                        <td>2013-5-6</td>
-                        <td><a href="messageDetail.html">详细</a></td>
-                    </tr>
-                    <tr>
-                        <td>21</td>
-                        <td><a href="javascript:;">1408220242</a></td>
-                        <td>从时代的审。</td>
-                        <td>从时代的审。</td>
-                        <td>2013-5-6</td>
-                        <td><a href="messageDetail.html">详细</a></td>
-                    </tr>
-                </table>
 
             </div>
             <div class="pagination">
@@ -120,8 +88,50 @@
     	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_weixin_user" serverdata="main_weixin_user" evenpool="main_weixin_user">
+        <div class="weixin_user" id="weixin_user">
+            <table>
+                <col class="userId" />
+                <col class="userNiceName" />
+                <col class="messageContent" />
+                <col class="messageReplay" />
+                <col class="messageTime" />
+                <col class="messageInformation" />
+                <tr>
+                    <th>ID</th>
+                    <th>昵称</th>
+                    <th>最新消息</th>
+                    <th>最新回复</th>
+                    <th>时间</th>
+                    <th>详细</th>
+                </tr>
+                <?js for (var index in it) { ?>
+                <?js post=it[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <tr>
+                    <td>#{post.userid}</td>
+                    <td><a href="javascript:;">${post.nickname}</a></td>
+                    <td>#{post.lastfrom}</td>
+                    <td>#{post.lastreply}</td>
+                    <td>#{post.time}</td>
+                    <?js var param = new Base64().encode(post.userid); ?>
+                    <td><a href="messageDetail.html?param=#{param}">详细</a></td>
+                </tr>
+
+                <?js } ?>
+            </table>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
-<script type="text/javascript" src="/static/js/setting.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
+<script type="text/javascript" src="/static/js/base64.js"></script>
+<script type="text/javascript" src="/static/js/messageList.js"></script>
 </body>
 </html>
