@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var leftHeight = $(".mainContern").height();
     $(".sildLeft").css("height", leftHeight);
     var nowAccount = window.localStorage.getItem("nowAccount");
@@ -54,7 +54,7 @@ $(document).ready(function() {
         if (url != "default.html") {
             getAllWeixin(weixins);
             var apps = window.sessionStorage.getItem("apps");
-            if(apps != null)
+            if (apps != null)
                 setApp(JSON.parse(apps));
         }
     }
@@ -84,11 +84,11 @@ $(document).ready(function() {
         addEvent(document.body, "mousedown", clickother);
     });
 });
-function startMethod(){
+function startMethod() {
     //获取当前微信用户的ID
     var weixinid = "";
     var nowWeixin = window.sessionStorage.getItem("nowWeixin");
-    if(nowWeixin != null){
+    if (nowWeixin != null) {
         weixinid = JSON.parse(nowWeixin).weixinOpenID;
         var url = window.location.href;
         url = url.substr(url.lastIndexOf("/") + 1);
@@ -108,7 +108,7 @@ function getAllApps(weixinid) {
         },
         success: function (serverData) {
             if (serverData["提示信息"] == "获得应用列表成功") {
-                $($(".sysNotice span")[1]).html(serverData["apps"].length-1);
+                $($(".sysNotice span")[1]).html(serverData["apps"].length - 1);
                 window.sessionStorage.setItem("apps", JSON.stringify(serverData["apps"]));
                 setApp(serverData["apps"]);
             }
@@ -177,8 +177,8 @@ function getAllWeixin(weixins) {
             if ($(this).find("a").html() != JSON.parse(nowWeixin).weixinName) {
                 location.href = "default.html";
                 var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
-                for(var key in JSON.parse(nowBindWeixins)){
-                    if(JSON.parse(nowBindWeixins)[key].weixinName == $(this).find("a").html()){
+                for (var key in JSON.parse(nowBindWeixins)) {
+                    if (JSON.parse(nowBindWeixins)[key].weixinName == $(this).find("a").html()) {
                         window.sessionStorage.setItem("nowWeixin", JSON.stringify(JSON.parse(nowBindWeixins)[key]));
                     }
                 }
@@ -188,7 +188,9 @@ function getAllWeixin(weixins) {
 }
 function getPageData(next, pagesize, count, index, data) {
     count = Math.ceil(data / pagesize);
-    $($(".pagination a")[1]).hide();
+    if (index == 1) {
+        $($(".pagination a")[1]).hide();
+    }
     $($(".pagination a")[9]).attr("value", count);
     $($(".pagination a")[9]).attr("title", count);
     $(".pagination a").each(function (i) {
