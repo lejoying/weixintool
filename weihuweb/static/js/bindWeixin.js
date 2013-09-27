@@ -11,6 +11,8 @@ $(document).ready(function(){
 		$("#pwdSetting").addClass("settingClick");
 		$("#accountSetting").removeClass("settingClick");
 	});*/
+    var token = "";
+    var flag = false;
     $($(".bindWeixinOpt")[2]).click(function(){
         $(".js_bindStepTwo").hide();
         $(".js_bindStepThree").hide();
@@ -20,13 +22,17 @@ $(document).ready(function(){
         window.scrollTo(20,20);
     });
     $($(".bindWeixinOpt")[1]).click(function(){
-        $(".js_bindStepTwo").hide();
-        $(".js_bindStepThree").hide();
-        $(".js_bindStepOne").hide();
-        $($(".js_pwdSetting")[1]).find("a").removeClass("settingClick");
-        $($(".js_pwdSetting")[2]).find("a").addClass("settingClick");
+        if(flag == true){
+            $(".js_bindStepTwo").hide();
+            $(".js_bindStepThree").hide();
+            $(".js_bindStepOne").hide();
+            $($(".js_pwdSetting")[1]).find("a").removeClass("settingClick");
+            $($(".js_pwdSetting")[2]).find("a").addClass("settingClick");
+            showBlackPage("绑定微信成功","绑定微信成功");
+        }else{
+            showBlackPage("您还未在微信上绑定,按指示操作","您还未在微信上绑定,请按指示操作");
+        }
     });
-
     var obj = JSON.parse(window.localStorage.getItem("nowAccount"));
     $("#js_bindWeixinNext1").click(function(){
         var weixinName = $(".js_inputWeixinNum").val().trim();
@@ -49,6 +55,7 @@ $(document).ready(function(){
                     $($(".js_pwdSetting")[0]).find("a").removeClass("settingClick");
                     $($(".js_pwdSetting")[1]).find("a").addClass("settingClick");
                     $(".js_token").val(serverData.token);
+                    token = serverData.token;
                     $(".js_bindurl").val("http://bindwx.lejoying.com/");
                     connection();
                 }
@@ -61,11 +68,15 @@ $(document).ready(function(){
             url:"/api2/session/event?",
             data:{
                 "uid":obj.uid,
-                "sessionID": obj.uid
+                "sessionID": obj.uid+""+new Date().getTime()
             },
             success:function(serverData){
+                var obj = serverData;
+                if(obj.data.bindingToken == token){
+                     flag = true;
+                }else{
                     connection();
-                    alert(serverData);
+                }
             },
             error:function(XMLHttpRequest, textStatus, errorThrown){
                 connection();

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var pagesize = 3;
+    var pagesize = 5;
     var index = 1;
     var count = 0;
     var weixinid = "";
