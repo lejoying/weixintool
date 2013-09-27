@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 $(document).ready(function(){
-    var pagesize = 4;
+    var pagesize = 5;
     var index = 1;
     var count = 0;
     getAppData(0, pagesize, count, index);
