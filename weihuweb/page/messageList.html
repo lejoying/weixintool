@@ -67,17 +67,17 @@
 
             </div>
             <div class="pagination">
-                <a href="#" title="上一页">首页</a>
-                <a href="#" title="上一页">上一页</a>
-                <a href="#" class="pageSelected">1</a>
+                <a href="javascript:void(0);" title="上一页" onclick="firstpage()">首页</a>
+                <a href="javascript:void(0);" title="上一页" onclick="pageup()">上一页</a>
+                <a href="" class="pageSelected">1</a>
                 <a href="#">2</a>
                 <a href="#">3</a>
                 <a href="#">4</a>
                 <a href="#">5</a>
                 <span>···</span>
                 <a href="#">10</a>
-                <a href="#" title="下一页">下一页</a>
-                <a href="#" title="上一页">尾页</a>
+                <a href="javascript:void(0);" title="下一页" onclick="pagedown()">下一页</a>
+                <a href="javascript:void(0);" title="上一页" onclick="lastpage()">尾页</a>
             </div>
         </div>
     </div>
@@ -91,7 +91,7 @@
 
 <div class="templates hide">
     <div class="template" templete="main_panel" status="main_weixin_user" serverdata="main_weixin_user" evenpool="main_weixin_user">
-        <div class="weixin_user" id="weixin_user">
+        <div class="userList" id="userList">
             <table>
                 <col class="userId" />
                 <col class="userNiceName" />
@@ -113,7 +113,7 @@
                 <?js continue; ?>
                 <?js } ?>
                 <tr>
-                    <td>#{post.userid}</td>
+                    <td title="#{post.userid}">#{(post.userid).substr(0,5)+"..."}</td>
                     <td><a href="javascript:;">${post.nickname}</a></td>
                     <td>#{post.lastfrom}</td>
                     <td>#{post.lastreply}</td>

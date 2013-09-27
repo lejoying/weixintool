@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微乎-微信会员</title>
+    <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>微乎-微信会员</title>
 </head>
 <body>
 <div class="head">
@@ -12,6 +13,7 @@
         <div class="weixinSwitch">
             <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;"></a>
             <a href="/page/bindWeixin.html">绑定微信公众帐号</a>
+
             <div class="accountSwitching" id="accountSwitching" style="display:none;">
                 <ul></ul>
             </div>
@@ -39,8 +41,8 @@
 <div>
     <div class="content">
         <div class="sildLeft">
-        	<ul>
-            	<li><a href="/page/myapps.html"><b>我的应用</b></a></li>
+            <ul>
+                <li><a href="/page/myapps.html"><b>我的应用</b></a></li>
                 <li><a href="javascript:;"><b>已开应用</b></a></li>
                 <div class="js_myopenapp"></div>
                 <li><a href="javascript:;"><b>联系我们</b></a></li>
@@ -57,48 +59,71 @@
             </div>-->
         </div>
         <div class="mainContern">
-        	<div class="messageListTitle">
-            	<div><span>易洁佳</span><span>22</span>条消息详情</div>
-                <a class="goPrevious" href="javascript:;">返回上一页</a>
-            </div>
-            <div class="userMessageContent">
-            	<div class="receiveMessages">
-                	<div class="receiveMessagesTiele">接收</div>
-                    <div class="receiveMessagesUser">陈明(1408220242) </div>
-                    <div class="receiveMessagesDetail">时代的审美。。</div>
-                    <div class="receiveMessagesDate">2013-5-6</div>
-                </div>
-                
-                <div class="sendMessages">
-                	<div class="sendMessagesTitle">发送</div>
-                    <div class="sendMessagesDetail">时代的审美。。</div>
-                    <div class="sendMessagesDate">2013-5-6</div>
-                </div>
-            </div>
-            <div class="pagination">
-                <a href="#" title="上一页">首页</a>
-                <a href="#" title="上一页">上一页</a>
-                <a href="#" class="pageSelected">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <span>···</span>
-                <a href="#">10</a>
-                <a href="#" title="下一页">下一页</a>
-                <a href="#" title="上一页">尾页</a>
-            </div>
+
         </div>
     </div>
 </div>
 <div class="clearevery"></div>
 <div class="footBar">
-	<div class="foot">
-    	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
+    <div class="foot">
+        <p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
+
+<div class="templates hide">
+    <div class="template" templete="main_panel" status="main_weixin_user" serverdata="main_weixin_user"
+         evenpool="main_weixin_user">
+        <div class="messagesDetail" id="messagesDetail">
+            <?js var messages = it.messages;?>
+            <div class="messageListTitle">
+                <div><span style="color:blue;">#{weixinname}</span><span>#{it.count}</span>条消息详情</div>
+                <a class="goPrevious" href="javascript:;">返回上一页</a>
+            </div>
+            <div class="userMessageContent">
+                <?js for (var index in messages) { ?>
+                <?js post=messages[index]; ?>
+                <?js if(post==null) { ?>
+                <?js continue; ?>
+                <?js } ?>
+                <?js post = JSON.parse(post); ?>
+                <?js if(post.MsgType == "from") {?>
+                <div class="receiveMessages">
+                    <div class="receiveMessagesTiele">接收</div>
+                    <div class="receiveMessagesUser">#{userid}</div>
+                    <div class="receiveMessagesDetail">#{post.text.content}</div>
+                    <div class="receiveMessagesDate">#{formattertime(post.CreateTime)}</div>
+                </div>
+                <?js }?>
+                <?js if(post.MsgType == "reply") {?>
+                <div class="sendMessages">
+                    <div class="sendMessagesTitle">发送</div>
+                    <div class="sendMessagesDetail">#{post.text.content}</div>
+                    <div class="sendMessagesDate">#{formattertime(post.CreateTime)}</div>
+                </div>
+                <?js }?>
+                <?js } ?>
+            </div>
+
+            <div class="pagination">
+                <a href="javascript:;" title="首页" value="1">首页</a>
+                <a href="javascript:;" title="上一页"  value="1">上一页</a>
+                <a href="javascript:;" class="pageSelected" value="1">1</a>
+                <a href="javascript:;"  value="2">2</a>
+                <a href="javascript:;"  value="3">3</a>
+                <a href="javascript:;"  value="4">4</a>
+                <a href="javascript:;"  value="5">5</a>
+                <span>···</span>
+                <a href="javascript:;"  value="10">10</a>
+                <a href="javascript:;" title="下一页"  value="2">下一页</a>
+                <a href="javascript:;" title="尾页"  value="2">尾页</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="/static/js/jQuery v2.0.0.js"></script>
 <script type="text/javascript" src="/static/js/index.js"></script>
+<script type="text/javascript" src="/static/js/nTenjin.js"></script>
 <script type="text/javascript" src="/static/js/Base64.js"></script>
 <script type="text/javascript" src="/static/js/messageDetail.js"></script>
 </body>
