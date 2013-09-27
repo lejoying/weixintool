@@ -31,10 +31,10 @@ $(document).ready(function () {
                 if (data["提示信息"] == "获取消息成功") {
                     var messagesDetail = getTemplate("messagesDetail");
                     $(".mainContern").html(messagesDetail.render(data));
+                    getPageData(function next(from, pagesize, totalpage, nowpage) {
+                        getmessageulist(nowpage, totalpage);
+                    }, pagesize, totalpage, nowpage, count);
                 }
-                getPageData(function next(from, pagesize, totalpage, nowpage) {
-                    getmessageulist(nowpage, totalpage);
-                }, pagesize, totalpage, nowpage, count);
 
             }
         });

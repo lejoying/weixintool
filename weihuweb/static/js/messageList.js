@@ -1,13 +1,38 @@
-var weixinid = "";
-var nowpage = 1;
-var pagesize = 10;
-var count;
 $(document).ready(function(){
+    var weixinid = "";
+    var nowpage = 1;
+    var pagesize = 10;
+    var count;
+    var totalpage = 0;
     var nowWeixin = window.sessionStorage.getItem("nowWeixin");
     if(nowWeixin != null){
         weixinid = JSON.parse(nowWeixin).weixinOpenID;
     }
-    getmessageulist(weixinid,nowpage,pagesize);
+    getmessageulist(nowpage,totalpage);
+
+    function getmessageulist(nowpage,totalpage){
+        nowpage = nowpage;
+        totalpage = totalpage;
+        $.ajax({
+            type:"GET",
+            url:"/api2/weixin/getmessageulist",
+            data:{
+                weixinid :weixinid,
+                nowpage:nowpage,
+                pagesize:pagesize
+            },
+            success:function(data){
+                count = data.count;
+                if(data["提示信息"]=="获取用户列表成功"){
+                    var userList = getTemplate("userList");
+                    $(".mainContern").html(userList.render(data["users"]));
+                    getPageData(function next(from, pagesize, totalpage, nowpage) {
+                        getmessageulist(nowpage, totalpage);
+                    }, pagesize, totalpage, nowpage, count);
+                }
+            }
+        });
+    }
 });
 
 //根据id获取模版
@@ -24,47 +49,4 @@ function getTemplate(id) {
     return template;
 }
 
-function firstpage(){
-    nowpage = 1;
-    getmessageulist(weixinid,nowpage,pagesize);
-}
 
-function pageup(){
-    if(nowpage!=1){
-        nowpage-=1;
-    }
-    getmessageulist(weixinid,nowpage,pagesize);
-}
-
-function pagedown(){
-    var totalpage = count%pagesize==0?count/pagesize:Math.floor(count/pagesize)+1;
-    if(nowpage<totalpage){
-        nowpage+=1;
-    }
-    getmessageulist(weixinid,nowpage,pagesize);
-}
-
-function lastpage(){
-    var totalpage = count%pagesize==0?count/pagesize:Math.floor(count/pagesize)+1;
-    nowpage = totalpage;
-    getmessageulist(weixinid,nowpage,pagesize);
-}
-
-function getmessageulist(weixinid,nowpage,pagesize){
-    $.ajax({
-        type:"GET",
-        url:"/api2/weixin/getmessageulist",
-        data:{
-            weixinid :weixinid,
-            nowpage:nowpage,
-            pagesize:pagesize
-        },
-        success:function(data){
-            count = data.count;
-            if(data["提示信息"]=="获取用户列表成功"){
-                var userList = getTemplate("userList");
-                $(".userMessageList").html(userList.render(data["users"]));
-            }
-        }
-    });
-}

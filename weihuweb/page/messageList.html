@@ -1,9 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>微乎-微信会员</title>
+    <link href="/static/css/web_style.css" type="text/css" rel="stylesheet"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>微乎-微信会员</title>
 </head>
 <body>
 <div class="head">
@@ -12,6 +13,7 @@
         <div class="weixinSwitch">
             <a class="weixinNow js_weixinNow" id="weixinNow" href="javascript:;"></a>
             <a href="/page/bindWeixin.html">绑定微信公众帐号</a>
+
             <div class="accountSwitching" id="accountSwitching" style="display:none;">
                 <ul></ul>
             </div>
@@ -39,8 +41,8 @@
 <div>
     <div class="content">
         <div class="sildLeft">
-        	<ul>
-            	<li><a href="/page/myapps.html"><b>我的应用</b></a></li>
+            <ul>
+                <li><a href="/page/myapps.html"><b>我的应用</b></a></li>
                 <li><a href="javascript:;"><b>已开应用</b></a></li>
                 <div class="js_myopenapp"></div>
                 <li><a href="javascript:;"><b>联系我们</b></a></li>
@@ -57,73 +59,76 @@
             </div>-->
         </div>
         <div class="mainContern">
-        	<div class="messageListTitle">
-            	<div><!--易佳洁-->会员全部消息</div>
-                <div class="messageSearch">
-                	<input name="" type="text" /><a href="javascript:;">查询</a>
-                </div>
-            </div>
-            <div class="userMessageList">
 
-            </div>
-            <div class="pagination">
-                <a href="javascript:void(0);" title="上一页" onclick="firstpage()">首页</a>
-                <a href="javascript:void(0);" title="上一页" onclick="pageup()">上一页</a>
-                <a href="" class="pageSelected">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <span>···</span>
-                <a href="#">10</a>
-                <a href="javascript:void(0);" title="下一页" onclick="pagedown()">下一页</a>
-                <a href="javascript:void(0);" title="上一页" onclick="lastpage()">尾页</a>
-            </div>
+
         </div>
     </div>
 </div>
 <div class="clearevery"></div>
 <div class="footBar">
-	<div class="foot">
-    	<p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
+    <div class="foot">
+        <p>Copyright 2012-2022 weihu.me All rights reserved. 微乎京ICP备12003398号-1</p>
     </div>
 </div>
 
 <div class="templates hide">
-    <div class="template" templete="main_panel" status="main_weixin_user" serverdata="main_weixin_user" evenpool="main_weixin_user">
+    <div class="template" templete="main_panel" status="main_weixin_user" serverdata="main_weixin_user"
+         evenpool="main_weixin_user">
         <div class="userList" id="userList">
-            <table>
-                <col class="userId" />
-                <col class="userNiceName" />
-                <col class="messageContent" />
-                <col class="messageReplay" />
-                <col class="messageTime" />
-                <col class="messageInformation" />
-                <tr>
-                    <th>ID</th>
-                    <th>昵称</th>
-                    <th>最新消息</th>
-                    <th>最新回复</th>
-                    <th>时间</th>
-                    <th>详细</th>
-                </tr>
-                <?js for (var index in it) { ?>
-                <?js post=it[index]; ?>
-                <?js if(post==null) { ?>
-                <?js continue; ?>
-                <?js } ?>
-                <tr>
-                    <td title="#{post.userid}">#{(post.userid).substr(0,5)+"..."}</td>
-                    <td><a href="javascript:;">${post.nickname}</a></td>
-                    <td>#{post.lastfrom}</td>
-                    <td>#{post.lastreply}</td>
-                    <td>#{post.time}</td>
-                    <?js var param = new Base64().encode(post.userid); ?>
-                    <td><a href="messageDetail.html?param=#{param}">详细</a></td>
-                </tr>
+            <div class="messageListTitle">
+                <div><!--易佳洁-->会员全部消息</div>
+                <div class="messageSearch">
+                    <input name="" type="text"/><a href="javascript:;">查询</a>
+                </div>
+            </div>
 
-                <?js } ?>
-            </table>
+            <div class="userMessageList">
+                <table>
+                    <col class="userId"/>
+                    <col class="userNiceName"/>
+                    <col class="messageContent"/>
+                    <col class="messageReplay"/>
+                    <col class="messageTime"/>
+                    <col class="messageInformation"/>
+                    <tr>
+                        <th>ID</th>
+                        <th>昵称</th>
+                        <th>最新消息</th>
+                        <th>最新回复</th>
+                        <th>时间</th>
+                        <th>详细</th>
+                    </tr>
+                    <?js for (var index in it) { ?>
+                    <?js post=it[index]; ?>
+                    <?js if(post==null) { ?>
+                    <?js continue; ?>
+                    <?js } ?>
+                    <tr>
+                        <td title="#{post.userid}">#{(post.userid).substr(0,5)+"..."}</td>
+                        <td><a href="javascript:;">${post.nickname}</a></td>
+                        <td>#{post.lastfrom}</td>
+                        <td>#{post.lastreply}</td>
+                        <td>#{post.time}</td>
+                        <?js var param = new Base64().encode(post.userid); ?>
+                        <td><a href="messageDetail.html?param=#{param}">详细</a></td>
+                    </tr>
+
+                    <?js } ?>
+                </table>
+            </div>
+            <div class="pagination">
+                <a href="javascript:;" title="首页" value="1">首页</a>
+                <a href="javascript:;" title="上一页" value="1">上一页</a>
+                <a href="javascript:;" class="pageSelected" value="1">1</a>
+                <a href="javascript:;" value="2">2</a>
+                <a href="javascript:;" value="3">3</a>
+                <a href="javascript:;" value="4">4</a>
+                <a href="javascript:;" value="5">5</a>
+                <span>···</span>
+                <a href="javascript:;" value="10">10</a>
+                <a href="javascript:;" title="下一页" value="2">下一页</a>
+                <a href="javascript:;" title="尾页" value="2">尾页</a>
+            </div>
         </div>
     </div>
 </div>
