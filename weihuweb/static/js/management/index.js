@@ -17,7 +17,7 @@ $(document).ready(function(){
         location.href="/login.html";
     }
 //发送Ajax请求，获取绑定的微信用户
-    $.ajax({
+ /*   $.ajax({
         type:"POST",
         url:"/api2/weixin/getall?",
         data:{
@@ -78,7 +78,7 @@ $(document).ready(function(){
             }
 
         }
-    });
+    });*/
    /* //获取当前微信用户的ID
     var weixinid = "";
     var nowBindWeixins = window.sessionStorage.getItem("nowBindWeixins");
