@@ -16,6 +16,11 @@ $(document).ready(function(){
     }else{
         location.href="/login.html";
     }
+    var url = window.location.href;
+    url = url.substr(url.lastIndexOf("/")+1);
+    if(url == "default.html"){
+        $.getScript("./../../static/js/management/default.js");
+    }
 //发送Ajax请求，获取绑定的微信用户
  /*   $.ajax({
         type:"POST",

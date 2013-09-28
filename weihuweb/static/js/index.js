@@ -200,9 +200,14 @@ function getPageData(next, pagesize, count, index, data) {
             return true;
         }
         $($(".pagination a")[i]).click(function () {
+            if(i == 0){
+                now = 0;
+                index = 1;
+            }
             if (i != 1 && i != 8) {
                 now = index;
-                index = $($(".pagination a")[i]).attr("value");
+                if(i != 0)
+                    index = $($(".pagination a")[i]).attr("value");
             }
             $($(".pagination a")[7]).html(Math.ceil(index / 10) * 10);
             $($(".pagination a")[7]).attr("value", Math.ceil(index / 10) * 10);
