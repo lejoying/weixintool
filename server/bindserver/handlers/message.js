@@ -382,6 +382,7 @@ message.message = function (data, getParam, response) {
                     }
                     reply.log += "【调试信息】用户信息：/::)" + JSON.stringify(user) + "\n";
                     sandbox();
+//                    console.error(JSON.stringify(message)+message.event.eventType);
 //                    console.log(message.location.location_X+"--"+message.location.location_Y+"\n"+JSON.stringify(message));
                     /*function next(){
                      replyPublicAppTQ(userDate.city);
@@ -447,7 +448,59 @@ message.message = function (data, getParam, response) {
                 }
             });
         }
-
+/*//个性化设置
+        app = {};
+        app.data = {};
+        app.handler = function (api, message, reply, weixin, user, bindApp){
+            var r1 = bindApp.pr;
+            var r = bindApp.cr;
+            if(r.switch=="true"){
+                if(r1.power != undefined){
+                    if(r1.power == true){
+                        if(r1.mydata != undefined && r1.mydata != null){
+                            var mydata = JSON.parse(r1.mydata);
+                            reply.text.content = "";
+                            for(var i=0;i<mydata.length;i++){
+                                if(mydata[i].replytxt == message.text.content){
+                                    try{
+                                        var str = mydata[i].receivetxt;
+                                        var obj = JSON.parse(str);
+                                        reply.type = "news";
+                                        reply.news.ArticleCount = obj.length;
+                                        reply.news.Articles = obj;
+                                        api.sendReply();
+                                        break;
+                                    }catch (error){
+                                        if(mydata[i].receivetxt != undefined){
+                                            reply.text.content += "【消息】\n描述:"+mydata[i].receivetxt;
+                                        }
+                                        if(mydata[i].receiveimg != undefined){
+                                            reply.text.content += "\n图片:"+mydata[i].receiveimg
+                                        }
+                                        api.sendReply();
+                                        break;
+                                    }
+                                }
+                            }
+                            if(reply.text.content == ""){
+                                reply.text.content = "没有此个性化设置";
+                                api.sendReply();
+                            }
+                        }
+                    }else{
+                        reply.text.content += "应用开关处于关闭状态";
+                        api.sendReply();
+                    }
+                }else{
+                    reply.text.content += "应用开关没有初始化";
+                    api.sendReply();
+                }
+            }else{
+                reply.text.content += "微信开关处于关闭状态";
+                api.sendReply();
+            }
+        }
+        app.handler(api, message, reply, weixin, user, bindApp);*/
 
         /*************************************** ***************************************
          *    sandbox
@@ -462,8 +515,14 @@ message.message = function (data, getParam, response) {
         }
 
         function test(api, message, reply, weixin, user, bindApps) {
+            reply.type = "text";
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
 //                var userDate = userNode.data;
+            if(message.event.eventType == "subscribe"){
+                reply.text.content = "你好,欢迎关注昌平工安!";
+                api.sendReply();
+                return;
+            }
             var reg = /^[A-Za-z]{2}\d{0,}$/;
             var reg1 = /^[A-Za-z]{2}([\u4e00-\u9fa5]|[A-Za-z0-9#.]){0,}$/;
             if (reg1.test(messageData.CONTENT)) {
@@ -526,7 +585,6 @@ message.message = function (data, getParam, response) {
                 return false;
             }
 
-            reply.type = "text";
             if (debug == true) {
                 reply.text.content = reply.text.content;
                 //reply.text.content = reply.log; //+ reply.text.content;
