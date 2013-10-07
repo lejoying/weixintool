@@ -1,7 +1,7 @@
 $(document).ready(function(){
-    var nowWeixinName = window.localStorage.getItem("nowWeixinName");
-    if(nowWeixinName != null){
-        $(".myappTitle span").html(nowWeixinName);
+    var nowWeixin = window.sessionStorage.getItem("nowWeixin");
+    if(nowWeixin != null){
+        $(".myappTitle span").html(JSON.parse(nowWeixin).weixinName);
     }
     $($(".myappBottomMessage")[0]).html("共有0条回复，此处显示最前10条回复设置");
     var nowAccount = window.localStorage.getItem("nowAccount");

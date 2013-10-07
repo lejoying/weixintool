@@ -483,7 +483,11 @@ message.message = function (data, getParam, response) {
                                 }
                             }
                             if(reply.text.content == ""){
-                                reply.text.content = "没有此个性化设置";
+                                if(weixin.weixinOpenID == "gh_fb78adb0c65d"){
+                                    reply.text.content = "感谢您的留言。我们会有专人跟进处理，尽快给您回复。希望大家多提宝贵意见，谢谢您对公安工作的支持！。/::)/:rose/:heart";
+                                }else{
+                                    reply.text.content = "没有此个性化设置";
+                                }
                                 api.sendReply();
                             }
                         }
