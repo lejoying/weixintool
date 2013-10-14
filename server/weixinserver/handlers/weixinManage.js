@@ -274,7 +274,7 @@ weixinManage.getall = function (data, response) {
             }
             else {
                 var weixins = {};
-                if(end == "*"){
+                if (end == "*") {
                     for (var index in results) {
                         var weixin = {};
                         weixin.weixinOpenID = results[index]["weixin.weixinOpenID"];
@@ -283,7 +283,7 @@ weixinManage.getall = function (data, response) {
                             weixins[weixin.weixinOpenID] = weixin;
                         }
                     }
-                }else{
+                } else {
                     for (var index in results) {
                         var weixinNode = results[index].weixin;
                         if (weixins[weixinNode.data.weixinOpenID] == null) {
@@ -704,7 +704,10 @@ weixinManage.getmessageulist = function (data, response) {
                     if (userlist.length == replys.length) {
                         for (var index in replys) {
                             var lastmessage = replys[index];
-                            var from = JSON.parse(lastmessage[1]);
+                            var from = {};
+                            if (lastmessage.length > 0) {
+                                from = JSON.parse(lastmessage[1]);
+                            }
                             var reply = JSON.parse(lastmessage[0]);
                             var thisdate = new Date(reply.CreateTime);
                             var time = thisdate.getFullYear() + "-" + (thisdate.getMonth() + 1) + "-" + thisdate.getDate();
@@ -819,19 +822,19 @@ weixinManage.getmessages = function (data, response) {
                 ["llen", weixinid + userid],
                 ["lrange", weixinid + userid, start, end]
             ]).exec(function (err, replys) {
-            if (err != null) {
-                error(response);
-                return;
-            }
-            var count = replys[0];
-            var messages = replys[1];
-            response.write(JSON.stringify({
-                "提示信息": "获取消息成功",
-                messages: messages,
-                count: count
-            }));
-            response.end();
-        });
+                if (err != null) {
+                    error(response);
+                    return;
+                }
+                var count = replys[0];
+                var messages = replys[1];
+                response.write(JSON.stringify({
+                    "提示信息": "获取消息成功",
+                    messages: messages,
+                    count: count
+                }));
+                response.end();
+            });
     }
 
     function error(response) {
