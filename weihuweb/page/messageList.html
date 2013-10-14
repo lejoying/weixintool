@@ -106,11 +106,7 @@
                     <tr>
                         <td title="#{post.userid}">#{(post.userid).substr(0,5)+"..."}</td>
                         <td><a href="javascript:;">${post.nickname}</a></td>
-                        <?js if(post.lastfrom==undefined){?>
-
-                        <?js }else{?>
-                            <td title="#{post.lastfrom}">#{(post.lastfrom+"").substring(0,10)}</td>
-                        <?js }?>
+                        <td title="#{post.lastfrom}">#{(post.lastfrom+"").substring(0,10)}</td>
                         <td title="#{post.lastreply}">#{(post.lastreply+"").substring(0,10)}</td>
                         <td>#{post.time}</td>
                         <?js var param = new Base64().encode(post.userid); ?>
