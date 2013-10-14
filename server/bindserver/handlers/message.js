@@ -524,7 +524,7 @@ message.message = function (data, getParam, response) {
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
 //                var userDate = userNode.data;
             if(message.event.eventType == "subscribe"){
-                reply.text.content = "你好,欢迎关注昌平工安!";
+                reply.text.content = "你好,欢迎关注"+weixin.weixinName+"!";
                 api.sendReply();
                 return;
             }
