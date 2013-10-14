@@ -2,7 +2,7 @@ root.globaldata = {};
 
 var serverSetting = {};
 globaldata.serverSetting = serverSetting;
-serverSetting.environment = "local";//local or server
+serverSetting.environment = "server";//local or server
 serverSetting.debug = true;
 
 if (serverSetting.environment == "local") {
