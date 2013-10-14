@@ -87,13 +87,13 @@
                 <?js } ?>
                 <?js post = JSON.parse(post); ?>
                 <?js if(post.MsgType == "from") {?>
-                <?js if(post.text.content==undefined){ ?>
-                    <div class="receiveMessages">
-                        <div class="receiveMessagesTiele">接收</div>
-                        <div class="receiveMessagesUser">#{userid}</div>
-                        <div class="receiveMessagesDetail">#{post.text.content}</div>
-                        <div class="receiveMessagesDate">#{formattertime(post.CreateTime)}</div>
-                    </div>
+                <?js if(post.text.content!=undefined){ ?>
+                <div class="receiveMessages">
+                    <div class="receiveMessagesTiele">接收</div>
+                    <div class="receiveMessagesUser">#{userid}</div>
+                    <div class="receiveMessagesDetail">#{post.text.content}</div>
+                    <div class="receiveMessagesDate">#{formattertime(post.CreateTime)}</div>
+                </div>
                 <?js } ?>
                 <?js }?>
                 <?js if(post.MsgType == "reply") {?>
@@ -108,16 +108,16 @@
 
             <div class="pagination">
                 <a href="javascript:;" title="首页" value="1">首页</a>
-                <a href="javascript:;" title="上一页"  value="1">上一页</a>
+                <a href="javascript:;" title="上一页" value="1">上一页</a>
                 <a href="javascript:;" class="pageSelected" value="1">1</a>
-                <a href="javascript:;"  value="2">2</a>
-                <a href="javascript:;"  value="3">3</a>
-                <a href="javascript:;"  value="4">4</a>
-                <a href="javascript:;"  value="5">5</a>
+                <a href="javascript:;" value="2">2</a>
+                <a href="javascript:;" value="3">3</a>
+                <a href="javascript:;" value="4">4</a>
+                <a href="javascript:;" value="5">5</a>
                 <span>···</span>
-                <a href="javascript:;"  value="10">10</a>
-                <a href="javascript:;" title="下一页"  value="2">下一页</a>
-                <a href="javascript:;" title="尾页"  value="2">尾页</a>
+                <a href="javascript:;" value="10">10</a>
+                <a href="javascript:;" title="下一页" value="2">下一页</a>
+                <a href="javascript:;" title="尾页" value="2">尾页</a>
             </div>
         </div>
     </div>
