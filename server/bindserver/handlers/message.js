@@ -520,6 +520,7 @@ message.message = function (data, getParam, response) {
 
         function test(api, message, reply, weixin, user, bindApps) {
             reply.type = "text";
+            reply.MsgType = "reply";
             var sandbox = { api: api, message: message, reply: reply, weixin: weixin, user: user, bindApp: null};
 //                var userDate = userNode.data;
             if(message.event.eventType == "subscribe"){
