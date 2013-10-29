@@ -18,6 +18,7 @@ accountManage.add = function (data, response) {
     response.asynchronous = 1;
     var accountName = data.accountname;
     var password = data.password;
+    var phone = data.phone;
     if("" == accountName || "" == password){
         response.write(JSON.stringify({
             "提示信息": "注册账号失败",
@@ -29,15 +30,15 @@ accountManage.add = function (data, response) {
         response.end();
     }
     var account = {
-        accountname: data.accountname,
-        phone: data.phone,
+        accountname: accountName,
+        phone: phone,
 //        email: data.email,
-        password: data.password
+        password: password
     };
 
-    checkAccountNodeExist();
+    checkAccountNodeExist(account);
 
-    function checkAccountNodeExist() {
+    function checkAccountNodeExist(account) {
 
         var query = [
             'MATCH account:Account',
@@ -55,7 +56,7 @@ accountManage.add = function (data, response) {
             if (error) {
                 console.error(error);
             } else if (results.length == 0) {
-                createAccountNode();
+                createAccountNode(account);
             } else {
                 response.write(JSON.stringify({
                     "提示信息": "注册账号失败",
