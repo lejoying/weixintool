@@ -83,8 +83,6 @@ function regeditSubmit(){
     var oncepassword = $(".js_oncepassword").val();
     var emailRegexp = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
     if(accountname.trim()==""||password.trim()==""){
-        alert(accountname);
-        alert(password);
         $(".js_errorPrompt").addClass("show");
         $(".js_errorPrompt").html("您输入的用户名或密码不能为空");
         return;

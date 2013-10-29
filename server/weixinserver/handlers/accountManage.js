@@ -16,7 +16,9 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
  ***************************************/
 accountManage.add = function (data, response) {
     response.asynchronous = 1;
-    if("" == (data.accountname.trim()) || "" == (data.password.trim())){
+    var accountName = data.accountname;
+    var password = data.password;
+    if("" == accountName || "" == password){
         response.write(JSON.stringify({
             "提示信息": "注册账号失败",
             "reason": "账号信息不能为空"
