@@ -7,7 +7,7 @@ var db = new neo4j.GraphDatabase(serverSetting.neo4jUrl);
 
 var parser = require('./../tools/sax2json');
 var base64 = require('./../tools/base64');
-var replyTemplate = require('./../tools/replyTemplate');
+var replyTemplate = require('./../tools/replyTemplate.xml');
 var ajax = require('./../lib/ajax.js');
 var vm = require('vm');
 var http = require('http');
