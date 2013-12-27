@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9eea834b19a826b5f4563eb48b392399' type='text/javascript'%3E%3C/script%3E"));
+
     var leftHeight = $(".mainContern").height();
     $(".sildLeft").css("height", leftHeight);
     var nowAccount = window.localStorage.getItem("nowAccount");
